@@ -60,4 +60,4 @@ Below is an image of some maps created by random walk and I personally think the
 
 **<span style="font-size: larger;">Current Thoughts</span>**
 
-I think approaches 2 and 3 are our best bet at this point, they are both able to create well defined rooms that suit the dungeon theme. Approach 2 is a lot more complicated that approach 3 but approach 2 is able to produce better looking maps in terms of detail and variation. Approach 3 would be the simpler approach to implement but I can see the maps that are produced using this approach possibly becoming repetitive due to the nature of the algorithm.
+I think approaches 2 and 3 are our best bet at this point, they are both able to create well defined rooms that suit the dungeon theme. Approach 2 is a lot more complicated than approach 3 but approach 2 is able to produce better looking maps in terms of detail and variation. Approach 3 would be the simpler approach to implement but I belive the maps that are produced using this approach could possibly become repetitive due to the simple nature of the algorithm.
