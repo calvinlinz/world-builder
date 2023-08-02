@@ -7,25 +7,46 @@ The D&D map, which serves as a formal representation of the game world, is an in
 
 ## Document Contents
 ### 1.0 Project Description
+- 1.1 Minimum Viable Product
+- 1.2 Stretch Goals
 ### 2.0 Back End
+- 2.1 Tools and Language Choice
+- 2.2 Algorithm
+- 2.3 Data Storage
 ### 3.0 Front End
+- 3.1 Tools and Language Choice
+- 3.2 Web Features
+- 3.3 Graphics
 ### 4.0 Project Management Methodology
 ### 5.0 Project Tools
 ### 6.0 Relevant Risks
 ### 7.0 Group Roles
-
+- 7.1 Group Contact
+- 7.2 Group Responsibilities
 
 
 
 ## 1.0 Project Description
-### Minimum Viable Product (MVP)
+### 1.1 Minimum Viable Product (MVP)
+
+### 1.2 Stretch Goals
 
 Blank
 
 ## 2.0 Back End
-### Algorithm
+### 2.1 Tools and Language Choice
+
+### 2.2 Algorithm
+
+### 2.3 Data Storage
 
 ## 3.0 Front End
+
+###3.1 Tools and Language Choice
+
+###3.2 Web Features
+
+###3.3 Graphics
 blank
 
 ## 4.0 Project Management Methodology
@@ -38,3 +59,5 @@ Blank.
 Blank.
 
 ## 7.0 Group Roles
+###7.1 Group Contact
+###7.2 Group Responsibilities
