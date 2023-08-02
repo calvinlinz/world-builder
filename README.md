@@ -42,11 +42,11 @@ Blank
 
 ## 3.0 Front End
 
-###3.1 Tools and Language Choice
+### 3.1 Tools and Language Choice
 
-###3.2 Web Features
+### 3.2 Web Features
 
-###3.3 Graphics
+### 3.3 Graphics
 blank
 
 ## 4.0 Project Management Methodology
@@ -59,5 +59,5 @@ Blank.
 Blank.
 
 ## 7.0 Group Roles
-###7.1 Group Contact
-###7.2 Group Responsibilities
+### 7.1 Group Contact
+### 7.2 Group Responsibilities
