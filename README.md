@@ -50,10 +50,21 @@ Blank
 blank
 
 ## 4.0 Project Management Methodology
-Blank.
+Our group will work under an Agile project management methodology. This will involve two-week long sprints whereby each team member will work independently on an Issue. We will structure our meetings around Sprints, with each Sprint involving a Sprint Planning, Sprint Retro, and Stand-Ups.
+
+Work items will be structured as Issues in GitLab, with code to be merged into the main branch of the repository through merge requests built off of the Issue. Each Sprint will have a To-Do of Issues to be completed, with Issues to be completed further down the line stored in a Backlog. This will all be structured on a KanBan board in GitLab.
+
+Meetings:
+- Sprint Planning (2-weekly).
+- Sprint Retrospective (2-weekly).
+- Stand-Ups (During Sprints as needed).
+- Attend weekly meetings with client
 
 ## 5.0 Project Tools
-Blank.
+Our group intends to employ a combination of programming languages to complete this map generator project. Java will be utilised for implementing the general algorithm and other backend requirements, while React will serve as the platform for displaying and hosting the website. Depending on the complexity of the interactions between the two languages, we may opt to code purely in React or Java. Ideally, we would host this website once the project is successfully completed. 
+
+Our group will utilise GitLab for version control and task assignment as we have a strong proficiency with GitLab from past experiences and projects. GitLab’s scope and time management tools will help facilitate communication and collaboration within the team, and establish clear milestones that can be easily communicated with stakeholders. 
+
 
 ## 6.0 Relevant Risk
 Blank.
