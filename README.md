@@ -41,10 +41,31 @@ Blank
 ### 2.3 Data Storage
 
 ## 3.0 Front End
+The front end of this project will be expressed as a website using React. 
 
 ### 3.1 Tools and Language Choice
 
 ### 3.2 Web Features
+Our Dungeons and Dragons random map generator website will incorporate an array of essential features that seamlessly interact with the generated maps. The user interface should prioritize user-friendliness, allowing both novice and seasoned players to effortlessly navigate and manipulate the maps.
+
+This section is split into the following topics:
+- 3.2.1 Encourperated Features
+- 3.2.2 User Interface and Usability
+
+#### 3.2.1 Encourperated Features
+Our website must encourperate the features requested by the stakeholder that our outlined in our MVP. 
+
+**How will the user be able to download the map?**
+
+**How will the user be able to share the map?**
+
+**How will the user be able to select the map size?**
+
+**How will the dungeon master be able to view the monsters?**
+
+**How will the user be able to control the fog parameters?**
+
+#### 3.2.2 User Interface and Usability
 
 ### 3.3 Graphics
 For the graphical elements in the map, a mixture of texture packs and elements created on photoshop will be used. The majority of the texture packs will be sourced from 2MinuteTableTop.com, which provides a range of relevant materials. We will need to ensure that we have licensed these resources accordingly.
@@ -204,7 +225,7 @@ Our group will work under an Agile project management methodology. This will inv
 
 Work items will be structured as Issues in GitLab, with code to be merged into the main branch of the repository through merge requests built off of the Issue. Each Sprint will have a To-Do of Issues to be completed, with Issues to be completed further down the line stored in a Backlog. This will all be structured on a KanBan board in GitLab.
 
-Meetings:
+**Meetings:**
 - Sprint Planning (2-weekly).
 - Sprint Retrospective (2-weekly).
 - Stand-Ups (During Sprints as needed).
@@ -224,7 +245,7 @@ Blank.
 |-----------------|--------------------------|-----------|
 | Calvin Li       | licalv@myvuw.ac.nz       | Full Stack|
 | Milan Kriletich | kriletmila@myvuw.ac.nz   | Back End  |
-| Ella Wipatene   | wipateella@myvuw.ac.nz   | Front End |
+| Ella Wipatene   | wipateella@myvuw.ac.nz   | Front End / Design |
 | Amir Mandalawi  | mandalamir@mywuw.ac.nz   | Back End  |
 | Hayden Riches   | richeshayd@myvuw.ac.nz   | Back End  |
 | Annie Cho       | choanni@myvuw.ac.nz      | Full Stack|
