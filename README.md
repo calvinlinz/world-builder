@@ -70,5 +70,11 @@ Our group will utilise GitLab for version control and task assignment as we have
 Blank.
 
 ## 7.0 Group Roles
-### 7.1 Group Contact
-### 7.2 Group Responsibilities
+| Name            | Contact                  | Role      |
+|-----------------|--------------------------|-----------|
+| Calvin Li       | licalv@myvuw.ac.nz       | Full Stack|
+| Milan Kriletich | kriletmila@myvuw.ac.nz   | Back End  |
+| Ella Wipatene   | wipateella@myvuw.ac.nz   | Front End |
+| Amir Mandalawi  | mandalamir@mywuw.ac.nz   | Back End  |
+| Hayden Riches   | richeshayd@myvuw.ac.nz   | Back End  |
+| Annie Cho       | choanni@myvuw.ac.nz      | Full Stack|
