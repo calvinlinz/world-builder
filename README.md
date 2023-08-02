@@ -231,6 +231,12 @@ Work items will be structured as Issues in GitLab, with code to be merged into t
 - Stand-Ups (During Sprints as needed).
 - Attend weekly meetings with client
 
+**Will the meeting notes be recorded?**
+
+Yes.... 
+
+These can be found here... 
+
 ## 5.0 Project Tools
 Our group intends to employ a combination of programming languages to complete this map generator project. Java will be utilised for implementing the general algorithm and other backend requirements, while React will serve as the platform for displaying and hosting the website. Depending on the complexity of the interactions between the two languages, we may opt to code purely in React or Java. Ideally, we would host this website once the project is successfully completed. 
 
@@ -238,7 +244,59 @@ Our group will utilise GitLab for version control and task assignment as we have
 
 
 ## 6.0 Relevant Risk
-Blank.
+
+### 6.1 Tools and Techniques Risks
+Throughout the project, we will assess the performance of each of the tools chossen. If we are having problems with any of them, we will need to evaluate as a group if the benefits of changing outweigh the cost and risk. There may also be extensions and practices we can incorporate to minimise these limitations. 
+
+Some examples of questions we should reflect on include:
+- What are the main limitations we have found with ‘current tool’? How have these limitations affected our goals?
+- Do the benefits of changing from ‘current tool’  to ‘new tool’ outweigh the cost of changing?
+- If no to the above, how can we change our workflow in the ‘current tool’ to improve our efficiency?
+- How can we change how we are using ‘current tool’ to minimise its limitations?
+
+
+### 6.2 Group Memeber Risks
+
+#### 6.2.1 Group Role Assignment Risks
+
+We may need to re-assign roles according to the progress made in each area. For example, if the majority of the website is completed and the algorithm is behind, we may change a front end developer to back end. 
+
+Some examples of questions we could reflect on include:
+- Is ‘current section’ on track and meeting its goals in an expected time frame?
+- If no to the above, are there human resources from other sections that we can reassign to help?
+- Are there any new sections or challenges that have arisen and would require more human resources than expected?
+- Are each of the team members happy with their current role?
+
+#### 6.2.2 Group Involvement Risks
+
+There is a risk of some group members may not be pulling their weight or missing out on important meetings. This could lead to an overall decline in progress on our project goals. 
+
+To mitigate this risk, we should the consider the following:
+- Keep detailed meeting notes, so that members who missed it can catch up.
+- Have detailed comments and javadocs in our code so that members who missed coding sessions will be able to easily interpret it. 
+- If group members repeatably miss sessions, reach out to them and ask if there is anything we can do to help them attend meetings.
+
+### 6.3 Time Management Risks
+As a group, we will reflect on our current time management strategy to assess its effectiveness. This involves our experiences with the time sprints, frequency of meeting with the stakeholder, and the agile manifesto as a whole. 
+
+Some examples of questions we could reflect on include:
+- Is the current length of the sprints effective? Would we benefit from them being longer/shorter?
+- Are the current number of meetings effective? Would we benefit from more/less?
+- Are the current number of stakeholder meetings effective? Would we benefit from more/less?
+- Overall, does the agile project management methodology work for us as a group? Are there other management methodologies that could be more effective?
+- Is GitLab an adequate tool for us to manage our time and tasks? 
+
+### 6.4 Functionality Risk
+
+We will also need to review the overall functionality and progress with the algorithm and website. If we are behind schedule, we will need to prioritise requirements based on stakeholder feedback. Whereas if we are ahead, additional features mentioned above can be chosen to incorporate. 
+
+Some examples of questions we could reflect on include:
+- Is ‘current section’ on track and meeting its goals in an expected time frame?
+- If yes, what are some new features associated with the ‘current section’ that we can work on once it is completed?
+- If no, then as a group, what is preventing us from timely completing our goals and what do we need to prioritise moving forward?
+
+
+
 
 ## 7.0 Group Roles
 | Name            | Contact                  | Role      |
