@@ -315,8 +315,6 @@ Some examples of questions we could reflect on include:
 - If no, then as a group, what is preventing us from timely completing our goals and what do we need to prioritise moving forward?
 
 
-
-
 ## 7.0 Group Roles
 | Name            | Contact                  | Role      |
 |-----------------|--------------------------|-----------|
