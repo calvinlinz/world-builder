@@ -1,5 +1,7 @@
 # Back-end Meeting on 3/8/23
 
+Wednesday 3rd August. 1pm till 2pm.
+
 ## High-Level Plan for Map Generation
 
 - Create pre-generated rooms and features (i.e. a mountain or a lake) of specific sizes (6 by 4, 3 by 3, et cetera).
@@ -9,3 +11,4 @@
 - Ensure the map makes sense. As in don't mix features that don't look right next to each other (deserts, lakes, ice). Instead these could be different map options entirely.
 - Potentially have an option to add mobs overtop of the generated map in places such as rooms.
 - This will all be formed into a composite tree structure.
+- Structure our sprint items around forming the skelton code to implement this. 
