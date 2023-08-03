@@ -1,7 +1,6 @@
 # Risk Register
 
-| Risk ID | Risk Title | Description | Mitigation Strategy |
-| --- | --- | --- | --- |
-| 01 |  |  |  |
-| 02 |  |  |  |
-| 03 |  |  |  |
+| Risk ID | Risk Title | Description | Likelihood | Impact | Risk Rating | Mitigation Strategy | Residual Risk |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 01 | Key Person Risk | Absense of a key person due to illnesses, or other circumstances beyond a person's control. This would affect our workflow as somebody else would need to fill in for this. | Likely | High | High | We will work in an Agile manner using Sprints so this is limited to 2-week periods. | Low |
+| 02 | Changing Client Expectations | The client shifts the goalposts on our scope, requiring a large amount of re-work to meet their new expectations. | Unlikely | Very High | High | We will meet reguarly with the client to ensure we are up to date with their expecations and are actively meeting them. This will be on a weekly or near-weekly basis. | Low |
