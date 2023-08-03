@@ -7,8 +7,9 @@ The D&D map, which serves as a formal representation of the game world, is an in
 
 ## Document Contents
 ### 1.0 Project Description
-- 1.1 Minimum Viable Product
+- 1.1 Scope
 - 1.2 Stretch Goals
+- 1.3 Out of Scope
 ### 2.0 Back End
 - 2.1 Tools and Language Choice
 - 2.2 Algorithm
@@ -27,11 +28,25 @@ The D&D map, which serves as a formal representation of the game world, is an in
 
 
 ## 1.0 Project Description
-### 1.1 Minimum Viable Product (MVP)
+### 1.1 Scope
+
+- An algorithm to randomly generate maps.
+- A web interface to use the algorithm.
+- The ability to download a map to an image format.
+- The ability to share a map in an image format from within the web interface.
+- The ability to select the map size.
+- The ability to show monsters on a separate Dungeon Master view (which can also be saved and printed off).
+- A “Dungeons and Dragons” theme / narrative.
+
 
 ### 1.2 Stretch Goals
 
-Blank
+- Ability to overlay a fog-of-war over a map.
+- Set parameters e.g. the number of rooms.
+
+### 1.3 Out of Scope
+
+- A multiplayer web-based game.
 
 ## 2.0 Back End
 ### 2.1 Tools and Language Choice
