@@ -52,6 +52,10 @@ The D&D map, which serves as a formal representation of the game world, is an in
 ### 2.1 Tools and Language Choice
 
 ### 2.2 Algorithm
+Our Map will consist of 8 diffrent quadrants. In each of the qaudruants we will randomly generate pre defined rooms, natrual features and backgrounds. Once we have randomly generated these elements we will ensure they are spaced out and not overlapping. Once this has been achived we will ensure all elemnts are accesible by linking them with paths. Every element on the map will have a unique id and this is to ensure the graphics team can determine how to render each tile on the map. 
+
+The map will be stored in a 2D array with each cell containing an element id. The pre defined elements must be limited in size based on the size of the qaudruants. By using pre defined elemetns we can ensure that all rooms, natrual features and backgrounds fit the theme of dungeons and dragons and look realistc.
+
 
 ### 2.3 Data Storage
 
