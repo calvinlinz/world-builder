@@ -2,7 +2,7 @@
 
 # Task 1: Go to the "world-builder" directory and run "npm start"
 cd world-builder
-npm start
+(npm run start&)
 cd ..
 
 # Task 2: Go to the "API" directory, run "mvn package", and execute the jar file
