@@ -108,7 +108,106 @@ The relevant licence.....
 #### 3.3.2 Texture Element Coding System
 Due to the nature of the project, there will be a large number of image assets to properly display the map. A image naming convention/system is essential for file organisation and communication between the team. 
 
-FIGURE OUT ALGORITHM AND WRITE IT HERE!
+**Camp Images:**
+
+| **Image** | **Image Type** | **Image Name** | **Image Dims** | **Source Link**                                  |
+|-----------|----------------|----------------|----------------|--------------------------------------------------|
+|<img src="world-builder/src/assets/camp/1x2_tent.png" alt="Alt Text" height="60"/> | Tent           | 1x2_tent.png   | 1x2            | https://2minutetabletop.com/product/camp-tokens/ |
+|<img src="world-builder/src/assets/camp/2x2_tent_1.png" alt="Alt Text" height="60"/> | Tent           | 2x2_tent_1.png | 2x2            | https://2minutetabletop.com/product/camp-tokens/ |
+|<img src="world-builder/src/assets/camp/2x2_tent_2.png" alt="Alt Text" height="60"/> | Tent           | 2x2_tent_2.png | 2x2            | https://2minutetabletop.com/product/camp-tokens/ |
+|<img src="world-builder/src/assets/camp/bedroll.png" alt="Alt Text" height="60"/> | Bed            | bedroll.png    | 1x2            | https://2minutetabletop.com/product/camp-tokens/ |
+|<img src="world-builder/src/assets/camp/campfire.png" alt="Alt Text" height="60"/> | Campfire       | campfire.png   | 1x1            | https://2minutetabletop.com/product/camp-tokens/ |
+|<img src="world-builder/src/assets/camp/fire.png" alt="Alt Text" height="60"/> | Fire           | fire.png       | 1x1            | https://2minutetabletop.com/product/camp-tokens/ |
+|<img src="world-builder/src/assets/camp/firewood.png" alt="Alt Text" height="60"/> | Firewood       | firewood.png   | 2x1            | https://2minutetabletop.com/product/camp-tokens/ |
+
+
+**Forest Images:**
+| **Image** | **Image Type**   | **Image Name**          | **Image Dims** | **Source Link**                                              |
+|-----------|------------------|-------------------------|----------------|--------------------------------------------------------------|
+|<img src="world-builder/src/assets/forest/bush1.png" alt="Alt Text" height="60"/> | Bush             | bush1.png               | 1x1            | https://2minutetabletop.com/product/forest-floor-map-assets/ |
+|<img src="world-builder/src/assets/forest/bush2.png" alt="Alt Text" height="60"/> | Bush             | bush2.png               | 1x1            | https://2minutetabletop.com/product/forest-floor-map-assets/ |
+|<img src="world-builder/src/assets/forest/bush3.png" alt="Alt Text" height="60"/> | Bush             | bush3.png               | 1x1            | https://2minutetabletop.com/product/forest-floor-map-assets/ |
+|<img src="world-builder/src/assets/forest/duff_lrg.png" alt="Alt Text" height="60"/> | Duff             | duff_lrg.png            | 1x1            | https://2minutetabletop.com/product/roadside-forest-tokens/  |
+|<img src="world-builder/src/assets/forest/duff_med.png" alt="Alt Text" height="60"/> | Duff             | duff_med.png            | 1x1            | https://2minutetabletop.com/product/roadside-forest-tokens/  |
+|<img src="world-builder/src/assets/forest/duff_small.png" alt="Alt Text" height="60"/> | Duff             | duff_small.png            | 0.5x0.5        | https://2minutetabletop.com/product/roadside-forest-tokens/  |
+|<img src="world-builder/src/assets/forest/fallen_tree.png" alt="Alt Text" height="60"/> | Fallen Tree      | fallen_tree.png         | 2x4            | https://2minutetabletop.com/product/roadside-forest-tokens/  |
+|<img src="world-builder/src/assets/forest/grass_texture_long.png" alt="Alt Text" height="60"/> | Grass Texture    | grass_texture_long.png  | 2x1            | https://2minutetabletop.com/product/roadside-forest-tokens/  |
+|<img src="world-builder/src/assets/forest/grass_texture_rock.png" alt="Alt Text" height="60"/> | Grass Texture    | grass_texture_rock.png  | 2x1            | https://2minutetabletop.com/product/roadside-forest-tokens/  |
+|<img src="world-builder/src/assets/forest/grass_texture_short.png" alt="Alt Text" height="60"/> | Grass Texture    | grass_texture_short.png | 1x1            | https://2minutetabletop.com/product/roadside-forest-tokens/  |
+|<img src="world-builder/src/assets/forest/grass_texture.png" alt="Alt Text" height="60"/> | Grass Texture    | grass_texture.png       | 2x1            | https://2minutetabletop.com/product/roadside-forest-tokens/  |
+|<img src="world-builder/src/assets/forest/grass1.jpg" alt="Alt Text" height="60"/> | Grass Background | grass1.jpg              | 1x1            | https://2minutetabletop.com/product/forest-floor-map-assets/ |
+|<img src="world-builder/src/assets/forest/grass2.jpg" alt="Alt Text" height="60"/> | Grass Background | grass2.jpg              | 1x1            | https://2minutetabletop.com/product/forest-floor-map-assets/ |
+|<img src="world-builder/src/assets/forest/grass3.jpg" alt="Alt Text" height="60"/> | Grass Background | grass3.jpg              | 1x1            | https://2minutetabletop.com/product/forest-floor-map-assets/ |
+|<img src="world-builder/src/assets/forest/leaf_green.png" alt="Alt Text" height="60"/> | Leaf             | leaf_green.png              | 1x1            | https://2minutetabletop.com/product/roadside-forest-tokens/  |
+|<img src="world-builder/src/assets/forest/leaf_red1.png" alt="Alt Text" height="60"/> | Leaf             | leaf_red1.png           | 2x2            | https://2minutetabletop.com/product/roadside-forest-tokens/  |
+|<img src="world-builder/src/assets/forest/leaf_red2.png" alt="Alt Text" height="60"/> | Leaf             | leaf_red2.png           | 1x1            | https://2minutetabletop.com/product/roadside-forest-tokens/  |
+|<img src="world-builder/src/assets/forest/orange_bush1.png" alt="Alt Text" height="60"/> | Orange Bush      | orange_bush1.png        | 1x1            | https://2minutetabletop.com/product/roadside-forest-tokens/  |
+|<img src="world-builder/src/assets/forest/orange_bush2.png" alt="Alt Text" height="60"/> | Orange Bush      | orange_bush2.png        | 1x1            | https://2minutetabletop.com/product/roadside-forest-tokens/  |
+|<img src="world-builder/src/assets/forest/orange_bush3.png" alt="Alt Text" height="60"/> | Orange Bush      | orange_bush3.png        | 1x2            | https://2minutetabletop.com/product/roadside-forest-tokens/  |
+|<img src="world-builder/src/assets/forest/orange_bush4.png" alt="Alt Text" height="60"/> | Orange Bush      | orange_bush4.png        | 1x2            | https://2minutetabletop.com/product/roadside-forest-tokens/  |
+|<img src="world-builder/src/assets/forest/tree1.png" alt="Alt Text" height="60"/> | Tree             | tree1.png               | 1x1            | https://2minutetabletop.com/product/forest-floor-map-assets/ |
+|<img src="world-builder/src/assets/forest/tree2.png" alt="Alt Text" height="60"/> | Tree             | tree2.png               | 1x1            | https://2minutetabletop.com/product/forest-floor-map-assets/ |
+|<img src="world-builder/src/assets/forest/tree3.png" alt="Alt Text" height="60"/> | Tree             | tree3.png               | 1x1            | https://2minutetabletop.com/product/forest-floor-map-assets/ |
+|<img src="world-builder/src/assets/forest/tree4.png" alt="Alt Text" height="60"/> | Tree             | tree4.png               | 1x1            | https://2minutetabletop.com/product/forest-floor-map-assets/ |
+|<img src="world-builder/src/assets/forest/tree5.png" alt="Alt Text" height="60"/> | Tree             | tree5.png               | 2x2            | https://2minutetabletop.com/product/camp-tokens/             |
+|<img src="world-builder/src/assets/forest/tree6.png" alt="Alt Text" height="60"/> | Tree             | tree6.png               | 2x2            | https://2minutetabletop.com/product/camp-tokens/             |
+
+**Path Images:**
+| **Image** | **Image Type** | **Image Name** | **Image Dims** | **Source Link**                                              |
+|-----------|----------------|----------------|----------------|--------------------------------------------------------------|
+|<img src="world-builder/src/assets/paths/path_dark.jpg" alt="Alt Text" height="60"/> | Path           | path_dark.jpg  | 1x1            | https://2minutetabletop.com/product/forest-floor-map-assets/ |
+|<img src="world-builder/src/assets/paths/path_light.jpg" alt="Alt Text" height="60"/>           | Path           | path_light.jpg | 1x1            | https://2minutetabletop.com/product/forest-floor-map-assets/ |
+
+**Rock Images:**
+| **Image** | **Image Type** | **Image Name**  | **Image Dims** | **Source Link**                                             |
+|-----------|----------------|-----------------|----------------|-------------------------------------------------------------|
+|<img src="world-builder/src/assets/rocks/clstr_rock1.png" alt="Alt Text" height="60"/> | Rock Cluster   | clstr_rock1.png | 2x1            | https://2minutetabletop.com/product/river-and-water-assets/ |
+|<img src="world-builder/src/assets/rocks/clstr_rock2.png" alt="Alt Text" height="60"/> | Rock Cluster   | clstr_rock2.png | 2x1            | https://2minutetabletop.com/product/river-and-water-assets/ |
+|<img src="world-builder/src/assets/rocks/clstr_rock3.png" alt="Alt Text" height="60"/> | Rock Cluster   | clstr_rock3.png | 2x1            | https://2minutetabletop.com/product/river-and-water-assets/ |
+|<img src="world-builder/src/assets/rocks/lrg_rock1.png" alt="Alt Text" height="60"/> | Large Rock     | lrg_rock1.png   | 1x1            | https://2minutetabletop.com/product/roadside-forest-tokens/ |
+|<img src="world-builder/src/assets/rocks/lrg_rock2.png" alt="Alt Text" height="60"/> | Large Rock     | lrg_rock2.png   | 1x1            | https://2minutetabletop.com/product/roadside-forest-tokens/ |
+|<img src="world-builder/src/assets/rocks/lrg_rock3.png" alt="Alt Text" height="60"/> | Large Rock     | lrg_rock3.png   | 1x1            | https://2minutetabletop.com/product/roadside-forest-tokens/ |
+|<img src="world-builder/src/assets/rocks/lrg_rock4.png" alt="Alt Text" height="60"/> | Large Rock     | lrg_rock4.png   | 2x2            | https://2minutetabletop.com/product/roadside-forest-tokens/ |
+|<img src="world-builder/src/assets/rocks/sml_rock1.png" alt="Alt Text" height="60"/> | Small Rock     | sml_rock1.png   | 0.5x0.5        | https://2minutetabletop.com/product/roadside-forest-tokens/ |
+
+**Building Images:**
+| **Image** | **Image Type** | **Image Name**    | **Image Dims** | **Source Link**                                     |
+|-----------|----------------|-------------------|----------------|-----------------------------------------------------|
+|<img src="world-builder/src/assets/village/2x2_building.png" alt="Alt Text" height="60"/> | Building       | 2x2_building.png  | 2x2            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/2x2_roof_blue.png" alt="Alt Text" height="60"/> | Roof Blue      | 2x2_roof_blue.png | 2x2            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/2x2_roof_red.png" alt="Alt Text" height="60"/> | Roof Red       | 2x2_roof_red.png  | 2x2            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/2x3_building.png" alt="Alt Text" height="60"/> | Building       | 2x3_building.png  | 2x3            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/2x3_roof_blue.png" alt="Alt Text" height="60"/> | Roof Blue      | 2x3_roof_blue.png | 2x3            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/2x3_roof_red.png" alt="Alt Text" height="60"/> | Roof Red       | 2x3_roof_red.png  | 2x3            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/3x3_building.png" alt="Alt Text" height="60"/> | Building       | 3x3_building.png  | 3x3            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/3x3_roof_blue.png" alt="Alt Text" height="60"/> | Roof Blue      | 3x3_roof_blue.png | 3x3            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/3x3_roof_red.png" alt="Alt Text" height="60"/> | Roof Red       | 3x3_roof_red.png  | 3x3            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/4x4_building.png" alt="Alt Text" height="60"/> | Building       | 4x4_building.png  | 4x4            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/4x4_roof_blue.png" alt="Alt Text" height="60"/> | Roof Blue      | 4x4_roof_blue.png | 4x4            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/4x4_roof_red.png" alt="Alt Text" height="60"/> | Roof Red       | 4x4_roof_red.png  | 4x4            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/4x6_building.png" alt="Alt Text" height="60"/> | Building       | 4x6_building.png  | 4x6            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/4x6_roof_blue.png" alt="Alt Text" height="60"/> | Roof Blue      | 4x6_roof_blue.png | 4x6            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/4x6_roof_red.png" alt="Alt Text" height="60"/> | Roof Red       | 4x6_roof_red.png  | 4x6            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/5x5_building.png" alt="Alt Text" height="60"/> | Building       | 5x5_building.png  | 5x5            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/5x5_roof_blue.png" alt="Alt Text" height="60"/> | Roof Blue      | 5x5_roof_blue.png | 5x5            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/5x5_roof_red.png" alt="Alt Text" height="60"/> | Roof Red       | 5x5_roof_red.png  | 5x5            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/6x3_building.png" alt="Alt Text" height="60"/> | Building       | 6x3_building.png  | 6x3            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/6x3_roof_blue.png" alt="Alt Text" height="60"/> | Roof Blue      | 6x3_roof_blue.png | 6x3            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/6x3_roof_red.png" alt="Alt Text" height="60"/> | Roof Red       | 6x3_roof_red.png  | 6x3            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/6x8_building.png" alt="Alt Text" height="60"/> | Building       | 6x8_building.png  | 6x8            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/6x8_roof_blue.png" alt="Alt Text" height="60"/> | Roof Blue      | 6x8_roof_blue.png | 6x8            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/6x8_roof_red.png" alt="Alt Text" height="60"/> | Roof Red       | 6x8_roof_red.png  | 6x8            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/7x8_building.png" alt="Alt Text" height="60"/> | Building       | 7x8_building.png  | 7x8            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/7x8_roof_blue.png" alt="Alt Text" height="60"/> | Roof Blue      | 7x8_roof_blue.png | 7x8            | https://2minutetabletop.com/product/buildings-pack/ |
+|<img src="world-builder/src/assets/village/7x8_roof_red.png" alt="Alt Text" height="60"/> | Roof Red       | 7x8_roof_red.png  | 7x8            | https://2minutetabletop.com/product/buildings-pack/ |
+
+**Water Images:**
+| **Image** | **Image Type** | **Image Name** | **Image Dims** | **Source Link**                                             |
+|-----------|----------------|----------------|----------------|-------------------------------------------------------------|
+|<img src="world-builder/src/assets/water/bridge.png" alt="Alt Text" height="60"/> | Bridge         | bridge.png     | 2x1            | https://2minutetabletop.com/product/river-and-water-assets/ |
+|<img src="world-builder/src/assets/water/water_rock.png" alt="Alt Text" height="60"/> | Water Rock     | water_rock.png | 2x1            | https://2minutetabletop.com/product/river-and-water-assets/ |
+|<img src="world-builder/src/assets/water/water.jpg" alt="Alt Text" height="60"/> | Water          | water.jpg      | 1x1            | https://2minutetabletop.com/product/river-and-water-assets/ |
+|<img src="world-builder/src/assets/water/waterfall.png" alt="Alt Text" height="60"/> | Waterfall      | waterfall.jpg  | 2x1            | https://2minutetabletop.com/product/river-and-water-assets/ |
 
 #### 3.3.3 Graphics Algorithm
 
