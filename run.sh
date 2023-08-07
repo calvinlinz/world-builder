@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Task 0: Assuming you already have PostgreSQL installed and configured with appropriate credentials.
-
 # Task 1: Go to the "world-builder" directory and run "npm start"
 cd world-builder
 npm run start &  # The '&' will run the npm command in the background, allowing the script to continue
