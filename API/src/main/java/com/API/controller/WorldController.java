@@ -29,9 +29,7 @@ public class WorldController {
     @GetMapping("/users")
     public ResponseEntity<List<Person>> getAllUsers() {
         Optional<List<Person>> optionalPeople = peopleService.getPeople();
-        
         if (optionalPeople.isPresent()) {
-            
             List<Person> people = optionalPeople.get();
             return ResponseEntity.ok(people);
         } else {

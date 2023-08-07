@@ -38,11 +38,13 @@ public class PeopleService {
             for (Object personObj : peopleJSON) {
                 if (personObj instanceof JSONObject) {
                     JSONObject personJSON = (JSONObject) personObj;
-                    long id = (long) personJSON.get("id");
+                    Long id = (Long) personJSON.get("id");
                     String name = (String) personJSON.get("name");
                     String email = (String) personJSON.get("email");
                     // Create a Person object and add it to the personList
+                    System.out.println(id);
                     personList.add(new Person(id, name, email));
+                    System.out.println(personList.get(0).getId());
                 }
             }
 
