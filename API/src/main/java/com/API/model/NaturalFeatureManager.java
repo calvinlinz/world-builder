@@ -7,6 +7,8 @@ import java.util.Random;
 public class NaturalFeatureManager {
     private Map<String, NaturalFeature> naturalFeatures;
 
+    private int lowerBound = 20;
+
     public NaturalFeatureManager() {
         naturalFeatures = new HashMap<>();
         initializeNaturalFeatures();
@@ -23,11 +25,11 @@ public class NaturalFeatureManager {
         return naturalFeatures.get(id);
     }
 
-    public NaturalFeature getRandomRoom(){
+    public NaturalFeature getRandomFeature(){
         Random random = new Random();
         
         //Generate a random number to pick a random room
-        int randomNumber = random.nextInt(21) + 20;
+        int randomNumber = random.nextInt(naturalFeatures.size()) + lowerBound;
         
         // Turn random number into a string
         String randomKey = String.valueOf(randomNumber);

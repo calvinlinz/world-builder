@@ -35,7 +35,7 @@ public class RoomManager {
         Random random = new Random();
         
         //Generate a random number to pick a random room
-        int randomNumber = random.nextInt(10) + 1;
+        int randomNumber = random.nextInt(rooms.size()) + 1;
         
         // Turn random number into a string
         String randomKey = String.valueOf(randomNumber);
