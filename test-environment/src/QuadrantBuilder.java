@@ -1,8 +1,8 @@
 import java.util.Random;
 
-import com.API.model.Element;
-import com.API.model.NaturalFeatureManager;
-import com.API.model.RoomManager;
+import model.Element;
+import model.NaturalFeatureManager;
+import model.RoomManager;
 
 public class QuadrantBuilder {
 
