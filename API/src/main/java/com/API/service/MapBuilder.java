@@ -1,7 +1,8 @@
+import QuadrantBuilder;
+
 public class MapBuilder {
 
     int[][] map;
-    SectionBuilder sectionBuilder;
 
     /**
      * Generates a full-sized array map.
@@ -13,7 +14,7 @@ public class MapBuilder {
         // 81 and 54 represents a 3 x 2 formation of 27 by 27 blocks.
         this.map = new int[81][54];
 
-        this.sectionBuilder = new SectionBuilder();
+        createMap();
     }
 
     /**
@@ -32,7 +33,7 @@ public class MapBuilder {
             // Create three columns
             for (int j=0; j<3; j++) {
 
-                int[][] newSection = sectionBuilder.getSection();
+                int[][] newSection = getQuadrant(27, 5);
 
                 for (int row=currentRow; row<27; row++) {
                     for (int col=currentColumn; col<27; col++) {
