@@ -1,13 +1,67 @@
 package com.API.service;
 
+import java.util.Random;
+
+import com.API.model.Element;
+import com.API.model.NaturalFeatureManager;
+import com.API.model.RoomManager;
+
 public class QaudrantBuilder {
 
 
-    public static int [][] getQaundrant(){
+    public static int [][] getQaudrant(int arrayS, int rooms){
 
-        return new int[2][2];
+         // Assuming you have a 20x20 array filled with 0s and a 1 at one position
+        
+        RoomManager roomM = new RoomManager();
+        NaturalFeatureManager natM = new NaturalFeatureManager();
+        Random random = new Random();
+        int roomCount = rooms;
+        int arraySize = arrayS;
+        int count =0;
+        int[][] array = new int[arraySize][arraySize];
 
+        while(count < roomCount){
+        int randomRow = random.nextInt(arraySize);
+        int randomCol = random.nextInt(arraySize);
 
+        int duel = random.nextInt(11);
+        int id =0;
+        Element currentElement = null;
+
+        if(duel < 7 ){
+            id =  roomM.getRandomRoom().getId();
+            currentElement = roomM.getRoom(String.valueOf(id));
+
+        }
+        else {
+            id =  natM.getRandomFeature().getId();
+            currentElement = natM.getNaturalFeature(String.valueOf(id));
+
+        }
+
+       
+        int num = id;
+        int topLeftRow = Math.max(randomRow, 0);
+        int topLeftCol = Math.max(randomCol, 0);
+        int bottomRightRow = randomRow + currentElement.getHeight();
+        int bottomRightCol = randomCol + currentElement.getWidth();
+
+        if(checkAval(array,topLeftRow,bottomRightRow,topLeftCol,bottomRightCol)){
+
+        for (int i = topLeftRow; i < bottomRightRow; i++) {
+            for (int j = topLeftCol; j < bottomRightCol; j++) {
+                array[i][j] = num;
+            }
+        }
+
+        count++;
+      
+        }    
+        }
+        printMap(array);
+
+        return array;
     }
 
     public static boolean checkAval(int[][] array, int tlr, int brr,int tlc, int brc){
