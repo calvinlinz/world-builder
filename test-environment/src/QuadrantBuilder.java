@@ -1,14 +1,12 @@
-package com.API.service;
-
 import java.util.Random;
 
 import com.API.model.Element;
 import com.API.model.NaturalFeatureManager;
 import com.API.model.RoomManager;
 
-public class QaudrantBuilder {
+public class QuadrantBuilder {
 
-    public static int[][] getQaudrant(int arrayS, int rooms) {
+    public static int[][] getQuadrant(int arrayS, int rooms) {
 
         // Assuming you have a 20x20 array filled with 0s and a 1 at one position
 
