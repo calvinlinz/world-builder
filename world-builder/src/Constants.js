@@ -91,3 +91,203 @@ import bridge from './assets/water/bridge.jpg';
 import water_rock from './assets/water/water_rock.png';
 import water from './assets/water/water.jpg';
 import waterfall from './assets/water/waterfall.png';
+
+const campImages = {
+    tent_1x2, 
+    tent_2x2_1,
+    tent_2x2_2,
+    bedroll,
+    campfire,
+    fire,
+    firewood,
+}
+
+const campImages2x2 = {
+    tent_2x2_1,
+    tent_2x2_2,
+}
+
+const campImages1x2 = {
+    tent_1x2, 
+    bedroll,
+    firewood,
+}
+
+const campImages1x1 = {
+    campfire,
+    fire,
+}
+
+const caveImages = {
+    corner_long,
+    corner,
+    floor_light,
+    floor_dark,
+    straight,
+}
+
+const forestImages = {
+    bush1,
+    bush2,
+    bush3,
+    duff_lrg,
+    duff_med,
+    duff_small,
+    fallen_tree,
+    grass_texture_long,
+    grass_texture_rock,
+    grass_texture_short,
+    grass_texture,
+    grass1,
+    grass2,
+    grass3,
+    leaf_green,
+    leaf_red1,
+    leaf_red2,
+    orange_bush1,
+    orange_bush2,
+    orange_bush3,
+    orange_bush4,
+    tree1,
+    tree2,
+    tree3,
+    tree4,
+    tree5,
+    tree6,
+}
+
+const forestBushes = {
+    bush1,
+    bush2,
+    bush3,
+    orange_bush1,
+    orange_bush2,
+    orange_bush3,
+    orange_bush4,
+}
+
+const forestBushGreen = {
+    bush1,
+    bush2,
+    bush3,
+}
+
+const forestBushOrange1x1 = {
+    orange_bush1,
+    orange_bush2,
+}
+
+const forestBushOrange1x2 = {
+    orange_bush3,
+    orange_bush4,
+}
+
+const forestDuff = {
+    duff_lrg,
+    duff_med,
+    duff_small,
+}
+
+const forestGrassTexture = {
+    grass_texture_long,
+    grass_texture_rock,
+    grass_texture_short,
+    grass_texture,
+}
+
+const forestGrass = {
+    grass1,
+    grass2,
+    grass3,
+}
+
+const forestLeaf = {
+    leaf_green,
+    leaf_red1,
+    leaf_red2,
+}
+
+const forestTree = {
+    tree1,
+    tree2,
+    tree3,
+    tree4,
+    tree5,
+    tree6,
+}
+
+const pathImages = {
+    path_light,
+    path_dark,
+}
+
+const rockImages = {
+    clstr_rock1, 
+    clstr_rock2,
+    clstr_rock3,
+    lrg_rock1,
+    lrg_rock2,
+    lrg_rock3,
+    lrg_rock4,
+    sml_rock,
+}
+
+const buildingImages = {
+    building_2x2,
+    roof_blue_2x2,
+    roof_red_2x2,
+    building_2x3,
+    roof_blue_2x3,
+    roof_red_2x3,
+    building_3x3,
+    roof_blue_3x3,
+    roof_red_3x3,
+    building_4x4,
+    roof_blue_4x4,
+    roof_red_4x4,
+    building_4x6,
+    roof_blue_4x6,
+    roof_red_4x6,
+    building_5x5,
+    roof_blue_5x5,
+    roof_red_5x5,
+    building_6x3,
+    roof_blue_6x3,
+    roof_red_6x3,
+    building_6x8,
+    roof_blue_6x8,
+    roof_red_6x8,
+    building_7x8,
+    roof_blue_7x8,
+    roof_red_7x8,
+}
+
+const waterImages = {
+    bridge,
+    water_rock,
+    water,
+    waterfall,
+}
+
+export{
+    campImages,
+    campImages1x1,
+    campImages1x2,
+    campImages2x2,
+    caveImages,
+    forestImages,
+    forestTree,
+    forestBushGreen,
+    forestBushOrange1x1,
+    forestBushOrange1x2,
+    forestBushes,
+    forestDuff,
+    forestGrass,
+    forestGrassTexture,
+    forestLeaf,
+    pathImages,
+    rockImages,
+    buildingImages,
+    waterImages,
+};
+
