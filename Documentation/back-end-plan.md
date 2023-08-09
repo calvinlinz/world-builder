@@ -2,6 +2,8 @@
 
 Wednesday 3rd August. 1pm till 2pm.
 
+Updated on 9th August.
+
 ## High-Level Plan for Map Generation
 
 - Create pre-generated rooms and features (i.e. a mountain or a lake) of specific sizes (6 by 4, 3 by 3, et cetera).
@@ -12,3 +14,11 @@ Wednesday 3rd August. 1pm till 2pm.
 - Potentially have an option to add mobs overtop of the generated map in places such as rooms.
 - This will all be formed into a composite tree structure.
 - Structure our sprint items around forming the skelton code to implement this. 
+
+## Resolution and Array Sizing
+
+- The map resolution will be 1620 x 1080
+- We will divide this into six individual sections, sized as (540 x 540).
+- An individual tile will be 20 by 20 pixels
+- This gives us 27 by 27 tiles per section
+
