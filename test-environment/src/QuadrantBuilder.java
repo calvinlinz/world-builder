@@ -1,14 +1,14 @@
-package com.API.service;
-
 import java.util.Random;
 
-import com.API.model.Element;
-import com.API.model.NaturalFeatureManager;
-import com.API.model.RoomManager;
+import model.Element;
+import model.NaturalFeatureManager;
+import model.RoomManager;
 
-public class QaudrantBuilder {
+public class QuadrantBuilder {
 
-    public static int[][] getQaudrant(int arrayS, int rooms) {
+    public static int[][] getQuadrant(int arrayS, int rooms) {
+
+        // Assuming you have a 20x20 array filled with 0s and a 1 at one position
 
         RoomManager roomM = new RoomManager();
         NaturalFeatureManager natM = new NaturalFeatureManager();
@@ -54,7 +54,7 @@ public class QaudrantBuilder {
 
             }
         }
-        printMap(array);
+        //printMap(array);
 
         return array;
     }
@@ -81,6 +81,7 @@ public class QaudrantBuilder {
     }
 
     public static void printMap(int[][] array) {
+        // Print the resulting array to see the 4x4 square
         String red = "\u001B[31m";
         String green = "\u001B[32m";
         String resetColor = "\u001B[0m";
