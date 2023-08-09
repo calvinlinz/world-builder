@@ -56,7 +56,7 @@ public class QuadrantBuilder {
 
             }
         }
-        printMap(array);
+        //printMap(array);
 
         return array;
     }
