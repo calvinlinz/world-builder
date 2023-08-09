@@ -11,8 +11,24 @@ public class QaudrantBuilder {
     }
 
     public static boolean checkAval(int[][] array, int tlr, int brr,int tlc, int brc){
+        if(brc>array.length || brr>array.length){
+            return false;
+        }
+        brr = (brr != array.length) ? brr + 1 : brr;
+        brc = (brc != array.length) ? brc + 1 : brc;
+        tlr = (tlr != 0) ? tlr - 1 : tlr;
+        tlc = (tlc != 0) ? tlc - 1 : tlc;   
+       
+        for (int i = tlr; i < brr; i++) {
+            for (int j = tlc; j < brc; j++) {
 
-        return false;
+                if(array[i][j] != 0){
+                    
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public static void printMap(int [][] array){
