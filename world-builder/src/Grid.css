@@ -1,0 +1,26 @@
+/* Grid.css - Used for Grid.js and displaying the map on the website */
+
+.grid-container {
+    /* Add any styles for the container div here */
+    width: 100vw;
+    height: 100vw;
+}
+  
+.grid-row {
+    /* Add any styles for the row div here */
+    width: 100vw;
+    height: 4vw;
+}
+  
+.grid-cell {
+    display: inline-block; 
+    width: 4vw;
+    height: 4vw;
+    overflow: hidden;
+}
+
+.grid-cell img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
