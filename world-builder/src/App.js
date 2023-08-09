@@ -7,12 +7,6 @@ import ConfigDropdown from './components/configuration/Configuration.js'
 
 function App() {
   const [worldData, setWorldData] = useState([]);
-  const handleSelect = (selectedOption) => {
-    console.log('Selected Option:', selectedOption);
-  };
-
-  const configOptions = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
-
 
   useEffect(() => {
     // Fetch data from the API
