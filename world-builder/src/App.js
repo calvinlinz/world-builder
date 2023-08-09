@@ -1,6 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { useEffect, useState } from "react";
+import Grid from './Grid';
 
 function App() {
   const [worldData, setWorldData] = useState([]);
@@ -22,6 +23,8 @@ function App() {
           <li key={worldData.id}>{worldData.name}</li>
         )}
       </ul>
+
+      <Grid />
     </div>
   );
 }
