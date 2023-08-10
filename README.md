@@ -314,6 +314,7 @@ The link for this relevant issue can be seen [here](https://gitlab.ecs.vuw.ac.nz
 | 11       | 6x3 Building   | 6x3            |
 | 12       | 6x8 Building   | 6x8            |
 | 13       | 7x8 Building   | 7x8            |
+| 14       | Path           | 1x1            |
 
 
 #### 3.3.4 Hero Animation
