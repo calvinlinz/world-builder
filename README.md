@@ -43,6 +43,7 @@ The D&D map, which serves as a formal representation of the game world, is an in
 
 - Ability to overlay a fog-of-war over a map.
 - Set parameters e.g. the number of rooms.
+- User accounts to store their own saved worlds.
 
 ### 1.3 Out of Scope
 
@@ -50,6 +51,7 @@ The D&D map, which serves as a formal representation of the game world, is an in
 
 ## 2.0 Back End
 ### 2.1 Tools and Language Choice
+This backend application is a Maven project that was generated through Springboot with several web/API specific dependencys. These dependencies such as 'spring-boot-starter-web' gives the application the ability to act as an API to our front end React application. Code is written in Java.
 
 ### 2.2 Algorithm
 Our Map will consist of 8 diffrent quadrants. In each of the qaudruants we will randomly generate pre defined rooms, natrual features and backgrounds. Once we have randomly generated these elements we will ensure they are spaced out and not overlapping. Once this has been achived we will ensure all elemnts are accesible by linking them with paths. Every element on the map will have a unique id and this is to ensure the graphics team can determine how to render each tile on the map. 
@@ -58,9 +60,10 @@ The map will be stored in a 2D array with each cell containing an element id. Th
 
 
 ### 2.3 Data Storage
+We have decided to use local files such as csv and json files to store our data. This is because we are not requring the complexity and features a full fledged database offers and local files allows us to consistently share the latest version of the database within the repository when commiting and pushing.
 
 ## 3.0 Front End
-The front end of this project will be expressed as a website using React. 
+The front end of this project will be expressed as a website using React and JavaScript.
 
 ### 3.1 Tools and Language Choice
 
@@ -74,15 +77,12 @@ This section is split into the following topics:
 #### 3.2.1 Encourperated Features
 Our website must encourperate the features requested by the stakeholder that our outlined in our MVP. 
 
-**How will the user be able to download the map?**
+#### 3.2.2 Configuration
+We have decided to create a configuration dropdown menu that is persistent in the top left corner of the web application. This will allow users to toggle the visibility of the configuration settings as they require. These settings include the fog parameters, map size and download button. This feature also includes a 'generate' button that allows users to generate a new world.
 
 **How will the user be able to share the map?**
 
-**How will the user be able to select the map size?**
-
 **How will the dungeon master be able to view the monsters?**
-
-**How will the user be able to control the fog parameters?**
 
 #### 3.2.2 User Interface and Usability
 
