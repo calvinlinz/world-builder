@@ -1,11 +1,10 @@
-import logo from "./logo.svg";
-import "./App.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
+import Display from './Display'; // Import the Display component
 import Grid from './Grid';
 
 function App() {
   const [worldData, setWorldData] = useState([]);
-  const [gameStarted, setGameStarted] = useState(false); // Step 2
+  const [gameStarted, setGameStarted] = useState(false);
 
   useEffect(() => {
     // Fetch data from the API
@@ -16,33 +15,28 @@ function App() {
   }, []);
 
   const startGame = () => {
-    setGameStarted(true); // Step 3
+    setGameStarted(true);
   };
 
   return (
     <div className="App">
-      {gameStarted ? ( // Step 4
+      {gameStarted ? ( 
         <>
-          <ul>
-            {Array.isArray(worldData) ? (
-              worldData.map((item) => <li key={item.id}>{item.name}</li>)
-            ) : (
-              <li key={worldData.id}>{worldData.name}</li>
-            )}
-          </ul>
+          <Display worldData={worldData} />
           <Grid />
         </>
       ) : (
         <div className="homepage">
-          <header className="hero">
-              <h1>Dungeons & Dragons Map Generator</h1>
-              <p><b>Embark on an exciting journey as a Dungeon Master.</b></p>
-              <button onClick={startGame}>Generate Map</button>
-          </header>
-        </div>
+        <header className="hero">
+            <h1>Dungeons & Dragons Map Generator</h1>
+            <p><b>Embark on an exciting journey as a Dungeon Master.</b></p>
+            <button onClick={startGame}>Generate Map</button>
+        </header>
+      </div>
       )}
     </div>
   );
 }
 
 export default App;
+
