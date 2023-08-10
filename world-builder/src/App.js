@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import './App.css';
+import HomePage from './HomePage';
 import Display from './Display'; // Import the Display component
 import Grid from './Grid';
 
@@ -21,22 +23,12 @@ function App() {
   return (
     <div className="App">
       {gameStarted ? ( 
-        <>
-          <Display worldData={worldData} />
-          <Grid />
-        </>
+        <Display worldData={worldData} /> // Use the Display component
       ) : (
-        <div className="homepage">
-        <header className="hero">
-            <h1>Dungeons & Dragons Map Generator</h1>
-            <p><b>Embark on an exciting journey as a Dungeon Master.</b></p>
-            <button onClick={startGame}>Generate Map</button>
-        </header>
-      </div>
+        <HomePage startGame={startGame} /> // Use the HomePage component
       )}
     </div>
   );
 }
 
 export default App;
-
