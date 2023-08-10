@@ -61,7 +61,7 @@ public class MapBuilder {
      * Returns the current map.
      */
     public int[][] getMap() {
-        return this.currentMap;
+        return this.map;
     }
 }
 
