@@ -1,7 +1,6 @@
 import React from 'react';
 import './Grid.css';
 
-import grass from './assets/forest/grass1.jpg';
 import path from './assets/paths/path_light.jpg';
 import floor from './assets/paths/path_dark.jpg';
 import stone_floor from './assets/caves/floor_light.jpg';
@@ -15,7 +14,7 @@ import campfire from './assets/camp/campfire.png';
 import { allImages } from './Constants';
 import { grid2 } from './TestGrids';
 
-const Grid = () => {
+const NaturalFeaturesGrid = () => {
     const grid = grid2;
 
     const renderRows = () => {
@@ -59,4 +58,4 @@ const Grid = () => {
     );
 };
 
-export default Grid;
+export default NaturalFeaturesGrid;

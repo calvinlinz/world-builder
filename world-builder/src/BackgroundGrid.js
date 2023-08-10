@@ -1,17 +1,5 @@
 import React from 'react';
 import './Grid.css';
-
-import grass from './assets/forest/grass1.jpg';
-import path from './assets/paths/path_light.jpg';
-import floor from './assets/paths/path_dark.jpg';
-import stone_floor from './assets/caves/floor_light.jpg';
-import cave_floor from './assets/caves/floor_dark.jpg';
-import bush from './assets/forest/bush1.png';
-import rock from './assets/rocks/sml_rock1.png';
-import water from './assets/water/water.jpg';
-import tent from './assets/camp/2x2_tent_1.png';
-import campfire from './assets/camp/campfire.png';
-
 import { allImages } from './Constants';
 import { grid2 } from './TestGrids';
 

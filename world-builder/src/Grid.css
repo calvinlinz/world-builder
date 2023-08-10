@@ -18,6 +18,24 @@
     z-index: 1;
 }
 
+.grid-container-path {
+    position: absolute;
+    top: 5vw;
+    left: 5vw;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+}
+
+.grid-container-building {
+    position: absolute;
+    top: 5vw;
+    left: 5vw;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+}
+
 .grid-container-test {
     position: absolute;
     top: 5vw;
