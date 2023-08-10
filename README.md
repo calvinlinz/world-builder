@@ -54,9 +54,13 @@ The D&D map, which serves as a formal representation of the game world, is an in
 This backend application is a Maven project that was generated through Springboot with several web/API specific dependencys. These dependencies such as 'spring-boot-starter-web' gives the application the ability to act as an API to our front end React application. Code is written in Java.
 
 ### 2.2 Algorithm
-Our Map will consist of 8 diffrent quadrants. In each of the qaudruants we will randomly generate pre defined rooms, natrual features and backgrounds. Once we have randomly generated these elements we will ensure they are spaced out and not overlapping. Once this has been achived we will ensure all elemnts are accesible by linking them with paths. Every element on the map will have a unique id and this is to ensure the graphics team can determine how to render each tile on the map. 
+Our Map will consist of 6 different quadrants. In each of the quadrants we will randomly generate predefined rooms, natural features and backgrounds. Once we have randomly generated these elements we will ensure they are spaced out and not overlapping. Once this has been achieved we will ensure all elements are accessible by linking them with paths. Every element on the map will have a unique id and this is to ensure the graphics team can determine how to render each tile on the map.
 
-The map will be stored in a 2D array with each cell containing an element id. The pre defined elements must be limited in size based on the size of the qaudruants. By using pre defined elemetns we can ensure that all rooms, natrual features and backgrounds fit the theme of dungeons and dragons and look realistc.
+The map will be stored in a 2D array made up of 6 different cells with each cell containing an element id. The pre-defined elements must be limited in size based on the size of the quadrants. By using predefined elements we can ensure that all rooms, natural features and backgrounds fit the theme of dungeons and dragons and look realistic.
+
+The algorithm works by selecting a random building or natural feature, there is a 70 percent chance that element will be a building and a 30 percent chance it will be a natural feature. This is because we want the quadrant to be based around the buildings and not just be filled with natural features. Once it has selected a building or natural feature it will generate a random position for the element to be placed. The random position will be where the top left corner of the element will be placed. Once the position in the array is selected the algorithm then checks whether or not there is space for the element in the current position. If there is space the element will be added to the map and if not we start the process of randomly generating an element at a random position until we find one that fits. This results in diverse quadrants with a good mix of buildings and natural features.
+
+We then generate 6 random quadrants and stitch them together into one array which represents the whole map.
 
 
 ### 2.3 Data Storage
