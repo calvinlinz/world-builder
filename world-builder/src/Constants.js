@@ -1,3 +1,6 @@
+// Other assets:
+import transparent from './assets/transparent.png';
+
 // Camp images:
 import tent_1x2 from './assets/camp/1x2_tent.png';
 import tent_2x2_1 from './assets/camp/2x2_tent_1.png';
@@ -87,7 +90,7 @@ import roof_blue_7x8 from './assets/village/7x8_roof_blue.png';
 import roof_red_7x8 from './assets/village/7x8_roof_red.png';
 
 // Water images:
-import bridge from './assets/water/bridge.jpg';
+import bridge from './assets/water/bridge.png';
 import water_rock from './assets/water/water_rock.png';
 import water from './assets/water/water.jpg';
 import waterfall from './assets/water/waterfall.png';
@@ -269,7 +272,8 @@ const waterImages = {
     waterfall,
 }
 
-export{
+const allImages = {
+    transparent,
     campImages,
     campImages1x1,
     campImages1x2,
@@ -289,5 +293,9 @@ export{
     rockImages,
     buildingImages,
     waterImages,
+}
+
+export{
+    allImages
 };
 

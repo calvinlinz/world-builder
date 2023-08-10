@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { useEffect, useState } from "react";
 import Grid from './Grid';
+import BackgroundGrid from './BackgroundGrid';
 
 function App() {
   const [worldData, setWorldData] = useState([]);
@@ -24,7 +25,8 @@ function App() {
         )}
       </ul>
 
-      <Grid />
+      <BackgroundGrid/>
+      <Grid/>
     </div>
   );
 }

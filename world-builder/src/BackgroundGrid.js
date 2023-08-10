@@ -15,43 +15,23 @@ import campfire from './assets/camp/campfire.png';
 import { allImages } from './Constants';
 import { grid2 } from './TestGrids';
 
-const Grid = () => {
+const BackgroundGrid = () => {
     const grid = grid2;
 
-
-    const renderRows = () => {
-
-        for (let i = 0; i < grid.length; i++){
-            for (let j = 0; i < grid[i].length; i++){
-
-            }
-        }
-
-    };
-
     const imageMapping = {
-        0: allImages.transparent,
-        1: allImages.transparent,
-        2: path,
-        3: floor,
-        4: stone_floor,
-        5: cave_floor,
-        6: bush,
-        7: rock,
-        8: water,
-        9: tent,
-        10: campfire,
+        0: allImages.forestGrass.grass1,
+        1: allImages.forestGrass.grass3,
     };
 
 
     return (
-        <div className="grid-container-test">
+        <div className="grid-container-background">
             {/* Render the grid */}
             {grid.map((row, rowIndex) => (
             <div key={rowIndex} className="grid-row">
                 {row.map((cell, columnIndex) => (
                 <span key={columnIndex} className="grid-cell">
-                    <img key={columnIndex} className="grid-cell" src={imageMapping[cell]} alt={`Image ${cell}`} />
+                    <img key={columnIndex} className="grid-cell" src={imageMapping[Math.floor(Math.random() * (2))]} alt={`Image ${cell}`} />
                 </span>
                 ))}
             </div>
@@ -60,4 +40,4 @@ const Grid = () => {
     );
 };
 
-export default Grid;
+export default BackgroundGrid;
