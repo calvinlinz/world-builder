@@ -22,11 +22,7 @@ function App() {
 
   return (
     <div className="App">
-      {gameStarted ? ( 
-        <Display worldData={worldData} /> // Use the Display component
-      ) : (
-        <HomePage startGame={startGame} /> // Use the HomePage component
-      )}
+      {gameStarted ? ( <Display worldData={worldData} /> ) : ( <HomePage startGame={startGame} /> )}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import './HomePage.css';
 
 const HomePage = ({ startGame }) => {
   return (
@@ -6,12 +7,12 @@ const HomePage = ({ startGame }) => {
     <div className="homepage">
       <header className="hero">
         <h1>Dungeons & Dragons Map Generator</h1>
-        <p><b>Embark on an exciting journey as a Dungeon Master.</b></p>
-        <button onClick={startGame}>Generate Map</button>
+        <p><b>Your adventure awaits...</b></p>
+        <button onClick={startGame}>Play as Adventurer</button>
+        <button onClick={startGame}>Play as Dungeon Master</button>
       </header>
     </div>
     </>
   );
 };
-
 export default HomePage;
