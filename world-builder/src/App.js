@@ -8,6 +8,7 @@ function App() {
   const [gameStarted, setGameStarted] = useState(false);
 
   useEffect(() => {
+    document.title = "D&D Map Generator";
     // Fetch data from the API
     fetch("http://localhost:8080/world")
       .then((response) => response.json())
@@ -21,7 +22,7 @@ function App() {
 
   return (
     <div className="App">
-      {gameStarted ? ( <Display worldData={worldData} /> ) : ( <HomePage startGame={startGame} /> )}
+      {gameStarted ? (<Display worldData={worldData} />) : (<HomePage startGame={startGame} />)}
     </div>
   );
 }
