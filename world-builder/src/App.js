@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import HomePage from './HomePage';
-import Display from './Display'; // Import the Display component
-import Grid from './Grid';
+import Display from './Display';
 
 function App() {
   const [worldData, setWorldData] = useState([]);
