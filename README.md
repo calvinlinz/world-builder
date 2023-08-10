@@ -297,6 +297,24 @@ To do this, there should be a range of different tree images that can be selecte
 
 The link for this relevant issue can be seen [here](https://gitlab.ecs.vuw.ac.nz/richeshayd/world-builder/-/issues/9).
 
+**Image Codes and Ids**
+| **Code** | **Image Desc** | **Image Dims** |
+|----------|----------------|----------------|
+| 0        | Background     | 1x1            |
+| 1        | Bush           | 1x1            |
+| 2        | Tree           | 2x2            |
+| 3        | Rock Small     | 1x1            |
+| 4        | Rock Cluster   | 2x1            |
+| 5        | 2x2 Building   | 2x2            |
+| 6        | 2x3 Building   | 2x3            |
+| 7        | 3x3 Building   | 3x3            |
+| 8        | 4x4 Building   | 4x4            |
+| 9        | 4x6 Building   | 4x6            |
+| 10       | 5x5 Building   | 5x5            |
+| 11       | 6x3 Building   | 6x3            |
+| 12       | 6x8 Building   | 6x8            |
+| 13       | 7x8 Building   | 7x8            |
+
 
 #### 3.3.4 Hero Animation
 For the Home/Welcome page of the website, a simple animation will play as the background. We will need to design a simple animation of a map for this section that helps capture the users attention. This will simply be done by iterating through an array of images in the background. Title text and relevant buttons should be incorporated into this design. 
