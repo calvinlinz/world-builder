@@ -1,0 +1,66 @@
+/* HomePage.css */
+
+/*
+// To import the font for styling use. 
+@font-face {
+    font-family: 'FontName';
+    src: url('assets/fonts/FontName.otf') format('opentype');
+} */
+  
+
+.homepage {
+    background-color: #e1e0dc;
+    background-image: url('assets/homeBackground.jpg');
+    background-size: cover; 
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+    font-family: 'Helvetica', sans-serif;
+  }
+  
+  .hero {
+    text-align: center;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .hero h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.5rem;
+    color: #e1e0dc;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); 
+  }
+  
+  .hero p {
+    font-size: 1.1rem;
+    color: #e1e0dc;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+  }
+  
+  .hero button {
+    background-color: #000000;
+    color: #e1e0dc;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+    font-family: 'Helvetica', sans-serif;
+    text-shadow: 1px 1px 2px rgba(215, 212, 212, 0); /* Add a drop shadow */
+  }
+  
+  .hero button:hover {
+    color: #000000;
+    background-color: #e1e0dc;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  }
+  

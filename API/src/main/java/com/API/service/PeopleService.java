@@ -42,7 +42,6 @@ public class PeopleService {
                     String name = (String) personJSON.get("name");
                     String email = (String) personJSON.get("email");
                     // Create a Person object and add it to the personList
-                    System.out.println(id);
                     personList.add(new Person(id, name, email));
                     System.out.println(personList.get(0).getId());
                 }
