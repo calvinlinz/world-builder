@@ -1,4 +1,5 @@
 import React from 'react';
+import Grid from './Grid';
 
 const Display = ({ worldData }) => {
   return (
@@ -10,6 +11,7 @@ const Display = ({ worldData }) => {
         <li key={worldData.id}>{worldData.name}</li>
       )}
     </ul>
+    <Grid />
     </>
   );
 };
