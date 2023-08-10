@@ -34,14 +34,14 @@
     font-size: 2.8rem;
     margin-bottom: 0.5rem;
     color: #e1e0dc;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Add a drop shadow */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); 
   }
   
   .hero p {
     font-size: 1.1rem;
     color: #e1e0dc;
     margin-bottom: 2rem;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6); /* Add a drop shadow */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
   }
   
   .hero button {
@@ -55,10 +55,12 @@
     margin-top: 10px;
     transition: background-color 0.3s ease;
     font-family: 'Helvetica', sans-serif;
+    text-shadow: 1px 1px 2px rgba(215, 212, 212, 0); /* Add a drop shadow */
   }
   
   .hero button:hover {
     color: #000000;
     background-color: #e1e0dc;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
   }
   
