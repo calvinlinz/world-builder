@@ -20,6 +20,12 @@ const ConfigDropdown = () => {
     { value: 10, label: "10" },
   ];
 
+  const [isChanged, setIsChanged] = useState(false);
+
+  const handleMenuClick = () => {
+    setShowInputs(!showInputs);
+  };
+
   const handleDownload = () => {
     console.log("Download Logic TBC");
   }
@@ -27,15 +33,19 @@ const ConfigDropdown = () => {
   return (
     <div className="body">
       <div className="dropDown">
-        <h1 id="arrow" onClick={()=>setShowInputs(!showInputs)}>
-          {showInputs ? "▼" : "►"}
-        </h1>
-        <h1 id="generate">Generate</h1>
+        <div id="hamburger" onClick={handleMenuClick}>
+          <div className={`container ${showInputs ? 'change' : ''}`}>
+            <div className="bar1"></div>
+            <div className="bar2"></div>
+            <div className="bar3"></div>
+          </div>
+      </div>
+        <h1 id="generate">GENERATE</h1>
       </div>
       {showInputs && (
         <div className="content">
           <div className="slider-component">
-            <p>Grid Size</p>
+            <p>GRID SIZE</p>
             <div className="slider">
               <Slider
                 defaultValue={gridSize}
@@ -49,7 +59,7 @@ const ConfigDropdown = () => {
             </div>
           </div>
           <div className="slider-component">
-            <p>Rooms</p>
+            <p>ROOMS</p>
             <div className="slider">
               <Slider
                 defaultValue={numberOfRooms}
@@ -67,17 +77,17 @@ const ConfigDropdown = () => {
             <FormControlLabel
               control={<Checkbox defaultChecked />}
               onChange={()=>setShowFog(!showFog)}
-              label="Show Fog"
+              label="SHOW FOG"
             />
             <FormControlLabel
               control={<Checkbox/>}
               onChange={()=>setAddRemoveFog(!addRemoveFog)}
-              label="Add/Remove Fog"
+              label="ADD/REMOVE FOG"
             />
           </FormGroup>
           </div>
           <div className="button">
-          <Button variant="outlined" onClick={handleDownload}>Download</Button>
+          <Button variant="outlined" onClick={handleDownload}>DOWNLOAD</Button>
           </div>
         </div>
       )}
