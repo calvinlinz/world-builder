@@ -15,7 +15,38 @@ const NaturalFeaturesGrid = () => {
         4: allImages.rockImagesClstr,
     };
 
-    const naturalCodes = [1, 2, 3, 4];
+    const naturalCodes = [1, 3, 4];
+
+
+    // For image rotation - CURRENTLY TURNS THEM ALL THE SAME ANGLE NO GOOD!
+    const rotationAngle = Math.floor(Math.random() * 120); 
+
+    const imageStyle = {
+        transform: `rotate(${rotationAngle}deg)`,
+    };
+
+    const treeCords = [[0,1], [10, 5], [8, 10], [7, 18]];
+
+    const treeImages = treeCords.map((image, index) => {
+        const rotationAngle = Math.floor(Math.random() * 360);
+        const imageStyle = {
+          transform: `rotate(${rotationAngle}deg)`,
+          position: 'absolute',
+          left: `${image[0] * 4 + 10}vw`,
+          top: `${image[1] * 4}vw`,
+          width: `${8}vw`,
+          height: `${8}vw`,
+        };
+    
+        return (
+          <img
+            key={index}
+            src={imageMapping[2]}
+            alt={`Rotated Image ${index}`}
+            style={imageStyle}
+          />
+        );
+      });
 
     return (
         <div className="grid-container-natural">
@@ -24,11 +55,12 @@ const NaturalFeaturesGrid = () => {
             <div key={rowIndex} className="grid-row">
                 {row.map((cell, columnIndex) => (
                 <span key={columnIndex} className="grid-cell">
-                    {naturalCodes.includes(cell) ? <img key={columnIndex} className="grid-cell" src={imageMapping[cell]} alt={`Image ${cell}`} /> : <img key={columnIndex} className="grid-cell" src={imageMapping[0]} alt={`Image ${cell}`} />}
+                    {naturalCodes.includes(cell) ? <img style={imageStyle} key={columnIndex} className="grid-cell" src={imageMapping[cell]} alt={`Image ${cell}`} /> : <img key={columnIndex} className="grid-cell" src={imageMapping[0]} alt={`Image ${cell}`} />}
                 </span>
                 ))}
             </div>
             ))}
+            {treeImages}
         </div>
     );
 };
