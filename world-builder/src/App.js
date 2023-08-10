@@ -2,6 +2,8 @@ import logo from "./logo.svg";
 import "./App.css";
 import { useEffect, useState } from "react";
 import Grid from './Grid';
+import ConfigDropdown from './components/configuration/Configuration.js'
+
 
 function App() {
   const [worldData, setWorldData] = useState([]);
@@ -16,14 +18,7 @@ function App() {
 
   return (
     <div className="App">
-      <ul>
-        {Array.isArray(worldData) ? (
-          worldData.map((item) => <li key={item.id}>{item.name}</li>)
-        ) : (
-          <li key={worldData.id}>{worldData.name}</li>
-        )}
-      </ul>
-
+      <ConfigDropdown/>
       <Grid />
     </div>
   );
