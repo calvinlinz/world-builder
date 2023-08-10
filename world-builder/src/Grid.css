@@ -27,13 +27,22 @@
     z-index: 2;
 }
 
-.grid-container-building {
+.grid-container-buildings {
     position: absolute;
     top: 5vw;
     left: 5vw;
     width: 100vw;
     height: 100vh;
-    z-index: 2;
+    z-index: 3;
+}
+
+.grid-container-natural {
+    position: absolute;
+    top: 5vw;
+    left: 5vw;
+    width: 100vw;
+    height: 100vh;
+    z-index: 4;
 }
 
 .grid-container-test {

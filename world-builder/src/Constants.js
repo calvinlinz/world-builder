@@ -235,6 +235,18 @@ const rockImages = {
     sml_rock,
 }
 
+const rockImages1x1 ={
+    lrg_rock1,
+    lrg_rock2,
+    lrg_rock3,
+}
+
+const rockImagesClstr ={
+    clstr_rock1, 
+    clstr_rock2,
+    clstr_rock3,
+}
+
 const buildingImages = {
     building_2x2,
     roof_blue_2x2,
@@ -291,6 +303,8 @@ const allImages = {
     forestLeaf,
     pathImages,
     rockImages,
+    rockImages1x1,
+    rockImagesClstr,
     buildingImages,
     waterImages,
 }

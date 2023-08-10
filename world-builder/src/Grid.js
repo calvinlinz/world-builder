@@ -18,16 +18,6 @@ import { grid2 } from './TestGrids';
 const Grid = () => {
     const grid = grid2;
 
-    const renderRows = () => {
-
-        for (let i = 0; i < grid.length; i++){
-            for (let j = 0; i < grid[i].length; i++){
-
-            }
-        }
-
-    };
-
     const imageMapping = {
         0: allImages.transparent,
         1: allImages.transparent,
@@ -45,7 +35,6 @@ const Grid = () => {
 
     return (
         <div className="grid-container-test">
-            {/* Render the grid */}
             {grid.map((row, rowIndex) => (
             <div key={rowIndex} className="grid-row">
                 {row.map((cell, columnIndex) => (

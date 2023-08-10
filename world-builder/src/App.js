@@ -3,6 +3,8 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import Grid from './Grid';
 import BackgroundGrid from './BackgroundGrid';
+import BuildingsGrid from "./BuildingsGrid";
+import NaturalFeaturesGrid from "./NaturalFeaturesGrid";
 
 function App() {
   const [worldData, setWorldData] = useState([]);
@@ -26,7 +28,8 @@ function App() {
       </ul>
 
       <BackgroundGrid/>
-      <Grid/>
+      <BuildingsGrid/>
+      <NaturalFeaturesGrid/>
     </div>
   );
 }
