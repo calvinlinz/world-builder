@@ -2,6 +2,11 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import HomePage from './HomePage';
 import Display from './Display';
+import Grid from './Grid';
+import BackgroundGrid from './BackgroundGrid';
+import BuildingsGrid from "./BuildingsGrid";
+import NaturalFeaturesGrid from "./NaturalFeaturesGrid";
+
 
 function App() {
   const [worldData, setWorldData] = useState([]);
@@ -23,6 +28,15 @@ function App() {
   return (
     <div className="App">
       {gameStarted ? (<Display worldData={worldData} />) : (<HomePage startGame={startGame} />)}
+      <ul>
+        {Array.isArray(worldData) ? (
+          worldData.map((item) => <li key={item.id}>{item.name}</li>)
+        ) : (
+          <li key={worldData.id}>{worldData.name}</li>
+        )}
+      </ul>
+
+      
     </div>
   );
 }
