@@ -18,7 +18,7 @@ import floor_dark from './assets/caves/floor_dark.jpg';
 import straight from './assets/caves/straight.png';
 import sml_cave from './assets/caves/sml_cave.png';
 import lrg_cave_1 from './assets/caves/lrg_cave.png';
-import lrg_cave_2 from './assets/caves/lrg_cave_2.png';
+import lrg_cave_2 from './assets/caves/large_cave_2.png';
 import massive_cave from './assets/caves/massive_cave.png';
 
 // Forest images:
