@@ -8,10 +8,11 @@ import NaturalFeaturesGrid from "./NaturalFeaturesGrid";
 const Display = ({ worldData }) => {
   return (
     <>
-    <ConfigDropdown/>
+    
     <BackgroundGrid/>
     <BuildingsGrid/>
     <NaturalFeaturesGrid/>
+    <ConfigDropdown/>
 
     </>
   );
