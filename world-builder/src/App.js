@@ -36,10 +36,7 @@ function App() {
         )}
       </ul>
 
-      <BackgroundGrid/>
-      <BuildingsGrid/>
-      <NaturalFeaturesGrid/>
-
+      
     </div>
   );
 }
