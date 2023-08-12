@@ -47,8 +47,6 @@ import tree1 from './assets/forest/tree1.png';
 import tree2 from './assets/forest/tree2.png';
 import tree3 from './assets/forest/tree3.png';
 import tree4 from './assets/forest/tree4.png';
-import tree5 from './assets/forest/tree5.png';
-import tree6 from './assets/forest/tree6.png';
 
 // Path images:
 import path_light from './assets/paths/path_light.jpg';
