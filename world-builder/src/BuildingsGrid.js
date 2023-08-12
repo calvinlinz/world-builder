@@ -3,6 +3,7 @@ import './Grid.css';
 
 import { allImages } from './Constants';
 import { grid2 } from './TestGrids';
+import { buildingCords } from './CalculatePositions';
 
 const BuildingsGrid = () => {
     const grid = grid2;
@@ -18,108 +19,25 @@ const BuildingsGrid = () => {
         12: allImages.buildingImages.building_6x8,
         13: allImages.buildingImages.building_7x8,
     };
-
-    const imageDims = [[], [], [], [], [], [2, 2], [2, 3], [3, 3], [4, 4], [4, 6], 
-                        [5, 5], [6, 3], [6, 8], [7, 8]];
-
-    const buildingCodes = [5, 6, 7, 8, 9, 10, 11, 12, 13];
-    const symetricalCodes = [5, 7, 8, 10];
-
-    const cordList = [
-        {
-            src: 9,
-            x: 10,
-            y: 10,
-            width: 5,
-            height: 5,
-        },
-        {
-            src: 7,
-            x: 2,
-            y: 2,
-            width: 3,
-            height: 3,
-        },
-        {
-            src: 6,
-            x: 15,
-            y: 4,
-            width: 2,
-            height: 3,
-        }
-    ];
-
-    // Will return the degree that the building is orientated at 
-    function findOrientation (startX, startY, value){
-        const width = imageDims[value][0];
-        const widthCheck = grid[startY][startX + width];
-
-        if (widthCheck === value){
-            const newValue = {
-                src: value,
-                x: startX,
-                y: startY,
-                width: imageDims[value][0],
-                height: imageDims[value][1],
-              };
-            return newValue;
-        }
-        const newValue = {
-            src: value,
-            x: startX,
-            y: startY,
-            width: imageDims[value][1],
-            height: imageDims[value][0],
-          };
-        return newValue;
-    };
-
-
-    function renderRows (){
-        for (let i = 0; i < grid.length; i++){
-            for (let j = 0; j < grid[i].length; j++){
-                if (buildingCodes.includes(grid[i][j])){
-                    if (symetricalCodes.includes(grid[i][j])){
-                        const newValue = {
-                            src: grid[i][j],
-                            x: i,
-                            y: j,
-                            width: imageDims[grid[i][j]][0],
-                            height: imageDims[grid[i][j]][0],
-                          };
-                        cordList.push(newValue);
-                    }else{
-                        cordList.push(findOrientation(i, j, grid[i][j]));
-                    }
-                }
-            }
-        }
-    };
-
-    useEffect(() => {
-        renderRows();
-      }, []);
-    
     
     return (
         <div className="grid-container-buildings">
-            {cordList.map((image, index) => (
+            {buildingCords.map((image, index) => (
                 <img
                     src={imageMapping[image.src]}
                     alt={`Image ${index + 1}`}
                     style={{
+                        transform: `rotate(${image.angle}deg)`,
                         position: 'absolute',
-                        left: `${image.x * 4 + 10}vw`,
-                        top: `${image.y * 4}vw`,
+                        left: `${image.x * 4 + 10 - (image.angle/15) + image.xShift}vw`,
+                        top: `${image.y * 4  + image.yShift}vw`,
                         width: `${image.width * 4}vw`,
                         height: `${image.height * 4}vw`,
                     }}
                 />
             ))}
         </div>
-    );
-
-    
+    );    
 };
 
 export default BuildingsGrid;

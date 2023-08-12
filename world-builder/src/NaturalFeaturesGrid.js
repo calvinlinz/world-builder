@@ -3,30 +3,34 @@ import './Grid.css';
 
 import { allImages } from './Constants';
 import { grid2 } from './TestGrids';
+import { treeCords, clstrRockCords } from './CalculatePositions';
 
 const NaturalFeaturesGrid = () => {
     const grid = grid2;
 
+    const naturalCodes = [1, 3];
+
     const imageMapping = {
         0: allImages.transparent,
-        1: allImages.forestBushGreen.bush1,
-        2: allImages.forestTree.tree1,
-        3: allImages.rockImages1x1.lrg_rock2,
+        1: allImages.forestBushGreen,
+        2: allImages.forestTree,
+        3: allImages.rockImages1x1,
         4: allImages.rockImagesClstr,
     };
 
-    const naturalCodes = [1, 3, 4];
-
-
-    // For image rotation - CURRENTLY TURNS THEM ALL THE SAME ANGLE NO GOOD!
+    // For image rotation - CURRENTLY TURNS THEM ALL THE SAME ANGLE NO GOOD! ------------------------
     const rotationAngle = Math.floor(Math.random() * 120); 
 
     const imageStyle = {
         transform: `rotate(${rotationAngle}deg)`,
+        width: `90%`,
+        height: `90%`,
+
     };
 
-    const treeCords = [[0,1], [10, 5], [8, 10], [7, 18]];
+    // --------------------------------------------------------------------------------------------------
 
+    // Display all of the tree images correctly
     const treeImages = treeCords.map((image, index) => {
         const rotationAngle = Math.floor(Math.random() * 360);
         const imageStyle = {
@@ -34,14 +38,33 @@ const NaturalFeaturesGrid = () => {
           position: 'absolute',
           left: `${image[0] * 4 + 10}vw`,
           top: `${image[1] * 4}vw`,
-          width: `${8}vw`,
-          height: `${8}vw`,
+          width: `8vw`,
+          height: `8vw`,
         };
-    
         return (
           <img
             key={index}
-            src={imageMapping[2]}
+            src={imageMapping[2][Math.floor(Math.random() * 4)]}
+            alt={`Rotated Image ${index}`}
+            style={imageStyle}
+          />
+        );
+      });
+
+    // Display all of the cluster rocks correctly
+    const rockClstrImages = clstrRockCords.map((image, index) => {
+        const imageStyle = {
+          transform: `rotate(${image[2]}deg)`,
+          position: 'absolute',
+          left: `${image[0] * 4 + 10 - (image[2]/50)}vw`,
+          top: `${image[1] * 4 + (image[2]/50)}vw`,
+          width: `8vw`,
+          height: `4vw`,
+        };
+        return (
+          <img
+            key={index}
+            src={imageMapping[4][Math.floor(Math.random() * 3)]}
             alt={`Rotated Image ${index}`}
             style={imageStyle}
           />
@@ -55,12 +78,13 @@ const NaturalFeaturesGrid = () => {
             <div key={rowIndex} className="grid-row">
                 {row.map((cell, columnIndex) => (
                 <span key={columnIndex} className="grid-cell">
-                    {naturalCodes.includes(cell) ? <img style={imageStyle} key={columnIndex} className="grid-cell" src={imageMapping[cell]} alt={`Image ${cell}`} /> : <img key={columnIndex} className="grid-cell" src={imageMapping[0]} alt={`Image ${cell}`} />}
+                    {naturalCodes.includes(cell) ? <img style={imageStyle} key={columnIndex} className="grid-cell" src={imageMapping[cell][Math.floor(Math.random() * 3)]} alt={`Image ${cell}`} /> : <img key={columnIndex} className="grid-cell" src={imageMapping[0]} alt={`Image ${cell}`} />}
                 </span>
                 ))}
             </div>
             ))}
             {treeImages}
+            {rockClstrImages}
         </div>
     );
 };

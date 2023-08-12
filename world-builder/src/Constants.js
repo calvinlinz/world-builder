@@ -155,8 +155,6 @@ const forestImages = {
     tree2,
     tree3,
     tree4,
-    tree5,
-    tree6,
 }
 
 const forestBushes = {
@@ -170,9 +168,9 @@ const forestBushes = {
 }
 
 const forestBushGreen = {
-    bush1,
-    bush2,
-    bush3,
+    0: bush1,
+    1: bush2,
+    2: bush3,
 }
 
 const forestBushOrange1x1 = {
@@ -211,12 +209,10 @@ const forestLeaf = {
 }
 
 const forestTree = {
-    tree1,
-    tree2,
-    tree3,
-    tree4,
-    tree5,
-    tree6,
+    0: tree1,
+    1: tree2,
+    2: tree3,
+    3: tree4,
 }
 
 const pathImages = {
@@ -236,15 +232,15 @@ const rockImages = {
 }
 
 const rockImages1x1 ={
-    lrg_rock1,
-    lrg_rock2,
-    lrg_rock3,
+    0: lrg_rock1,
+    1: lrg_rock2,
+    2: lrg_rock3,
 }
 
 const rockImagesClstr ={
-    clstr_rock1, 
-    clstr_rock2,
-    clstr_rock3,
+    0: clstr_rock1, 
+    1: clstr_rock2,
+    2: clstr_rock3,
 }
 
 const buildingImages = {
