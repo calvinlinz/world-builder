@@ -43,6 +43,7 @@ The D&D map, which serves as a formal representation of the game world, is an in
 
 - Ability to overlay a fog-of-war over a map.
 - Set parameters e.g. the number of rooms.
+- User accounts to store their own saved worlds.
 
 ### 1.3 Out of Scope
 
@@ -50,17 +51,23 @@ The D&D map, which serves as a formal representation of the game world, is an in
 
 ## 2.0 Back End
 ### 2.1 Tools and Language Choice
+This backend application is a Maven project that was generated through Springboot with several web/API specific dependencys. These dependencies such as 'spring-boot-starter-web' gives the application the ability to act as an API to our front end React application. Code is written in Java.
 
 ### 2.2 Algorithm
-Our Map will consist of 8 diffrent quadrants. In each of the qaudruants we will randomly generate pre defined rooms, natrual features and backgrounds. Once we have randomly generated these elements we will ensure they are spaced out and not overlapping. Once this has been achived we will ensure all elemnts are accesible by linking them with paths. Every element on the map will have a unique id and this is to ensure the graphics team can determine how to render each tile on the map. 
+Our Map will consist of 6 different quadrants. In each of the quadrants we will randomly generate predefined rooms, natural features and backgrounds. Once we have randomly generated these elements we will ensure they are spaced out and not overlapping. Once this has been achieved we will ensure all elements are accessible by linking them with paths. Every element on the map will have a unique id and this is to ensure the graphics team can determine how to render each tile on the map.
 
-The map will be stored in a 2D array with each cell containing an element id. The pre defined elements must be limited in size based on the size of the qaudruants. By using pre defined elemetns we can ensure that all rooms, natrual features and backgrounds fit the theme of dungeons and dragons and look realistc.
+The map will be stored in a 2D array made up of 6 different cells with each cell containing an element id. The pre-defined elements must be limited in size based on the size of the quadrants. By using predefined elements we can ensure that all rooms, natural features and backgrounds fit the theme of dungeons and dragons and look realistic.
+
+The algorithm works by selecting a random building or natural feature, there is a 70 percent chance that element will be a building and a 30 percent chance it will be a natural feature. This is because we want the quadrant to be based around the buildings and not just be filled with natural features. Once it has selected a building or natural feature it will generate a random position for the element to be placed. The random position will be where the top left corner of the element will be placed. Once the position in the array is selected the algorithm then checks whether or not there is space for the element in the current position. If there is space the element will be added to the map and if not we start the process of randomly generating an element at a random position until we find one that fits. This results in diverse quadrants with a good mix of buildings and natural features.
+
+We then generate 6 random quadrants and stitch them together into one array which represents the whole map.
 
 
 ### 2.3 Data Storage
+We have decided to use local files such as csv and json files to store our data. This is because we are not requring the complexity and features a full fledged database offers and local files allows us to consistently share the latest version of the database within the repository when commiting and pushing.
 
 ## 3.0 Front End
-The front end of this project will be expressed as a website using React. 
+The front end of this project will be expressed as a website using React and JavaScript.
 
 ### 3.1 Tools and Language Choice
 
@@ -74,15 +81,12 @@ This section is split into the following topics:
 #### 3.2.1 Encourperated Features
 Our website must encourperate the features requested by the stakeholder that our outlined in our MVP. 
 
-**How will the user be able to download the map?**
+#### 3.2.2 Configuration
+We have decided to create a configuration dropdown menu that is persistent in the top left corner of the web application. This will allow users to toggle the visibility of the configuration settings as they require. These settings include the fog parameters, map size and download button. This feature also includes a 'generate' button that allows users to generate a new world.
 
 **How will the user be able to share the map?**
 
-**How will the user be able to select the map size?**
-
 **How will the dungeon master be able to view the monsters?**
-
-**How will the user be able to control the fog parameters?**
 
 #### 3.2.2 User Interface and Usability
 
@@ -296,6 +300,25 @@ To do this, there should be a range of different tree images that can be selecte
 
 
 The link for this relevant issue can be seen [here](https://gitlab.ecs.vuw.ac.nz/richeshayd/world-builder/-/issues/9).
+
+**Image Codes and Ids**
+| **Code** | **Image Desc** | **Image Dims** |
+|----------|----------------|----------------|
+| 0        | Background     | 1x1            |
+| 1        | Bush           | 1x1            |
+| 2        | Tree           | 2x2            |
+| 3        | Rock Small     | 1x1            |
+| 4        | Rock Cluster   | 2x1            |
+| 5        | 2x2 Building   | 2x2            |
+| 6        | 2x3 Building   | 2x3            |
+| 7        | 3x3 Building   | 3x3            |
+| 8        | 4x4 Building   | 4x4            |
+| 9        | 4x6 Building   | 4x6            |
+| 10       | 5x5 Building   | 5x5            |
+| 11       | 6x3 Building   | 6x3            |
+| 12       | 6x8 Building   | 6x8            |
+| 13       | 7x8 Building   | 7x8            |
+| 14       | Path           | 1x1            |
 
 
 #### 3.3.4 Hero Animation
