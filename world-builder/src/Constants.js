@@ -16,6 +16,10 @@ import corner from './assets/caves/corner.png';
 import floor_light from './assets/caves/floor_light.jpg';
 import floor_dark from './assets/caves/floor_dark.jpg';
 import straight from './assets/caves/straight.png';
+import sml_cave from './assets/caves/sml_cave.png';
+import lrg_cave_1 from './assets/caves/lrg_cave.png';
+import lrg_cave_2 from './assets/caves/lrg_cave_2.png';
+import massive_cave from './assets/caves/massive_cave.png';
 
 // Forest images:
 import bush1 from './assets/forest/bush1.png';
@@ -127,6 +131,17 @@ const caveImages = {
     floor_light,
     floor_dark,
     straight,
+    sml_cave,
+    lrg_cave_1,
+    lrg_cave_2,
+    massive_cave,
+}
+
+const preMadeCaveImages = {
+    sml_cave,
+    lrg_cave_1,
+    lrg_cave_2,
+    massive_cave,
 }
 
 const forestImages = {
@@ -287,6 +302,7 @@ const allImages = {
     campImages1x2,
     campImages2x2,
     caveImages,
+    preMadeCaveImages,
     forestImages,
     forestTree,
     forestBushGreen,

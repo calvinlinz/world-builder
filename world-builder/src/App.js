@@ -28,15 +28,6 @@ function App() {
   return (
     <div className="App">
       {gameStarted ? (<Display worldData={worldData} />) : (<HomePage startGame={startGame} />)}
-      <ul>
-        {Array.isArray(worldData) ? (
-          worldData.map((item) => <li key={item.id}>{item.name}</li>)
-        ) : (
-          <li key={worldData.id}>{worldData.name}</li>
-        )}
-      </ul>
-
-      
     </div>
   );
 }
