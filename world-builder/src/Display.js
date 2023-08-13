@@ -4,6 +4,7 @@ import Grid from './Grid';
 import BackgroundGrid from './BackgroundGrid';
 import BuildingsGrid from "./BuildingsGrid";
 import NaturalFeaturesGrid from "./NaturalFeaturesGrid";
+import CaveGrid from './CaveGrid';
 
 const Display = ({ worldData }) => {
   return (
@@ -13,6 +14,7 @@ const Display = ({ worldData }) => {
     {/* <BuildingsGrid/>
     <NaturalFeaturesGrid/>
     <ConfigDropdown/> */}
+    <CaveGrid/>
 
     </>
   );
