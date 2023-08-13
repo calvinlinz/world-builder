@@ -253,10 +253,9 @@ function setGridCopy(startX, startY, angle, gridCopy, value, index){
         relevantCaveDims = rotateMatrix(relevantCaveDims);
     }
 
+
     for (let i = startY; i < startY + caveDims[index][1]; i++){
         for (let j = startX; j < startX + caveDims[index][0]; j++){
-            console.log(gridCopy[i][j]);
-            console.log(relevantCaveDims[i - startY][j - startX]);
             if(gridCopy[i][j] === value && relevantCaveDims[i - startY][j - startX] === 1){
                 gridCopy[i][j] = 999;
             }
@@ -271,9 +270,10 @@ function setGridCopy(startX, startY, angle, gridCopy, value, index){
 function getSmallCaveCords(startY, startX, gridCopy){
     let angle = 0;
     if(gridCopy[startY][startX + 2] === 15 && gridCopy[startY][startX + 3] != 15)  angle = 0; 
-    else if(gridCopy[startY][startX + 1]  != 15) angle = 270; 
+    else if(gridCopy[startY][startX + 1]  != 15 && gridCopy[startY - 1][startX] === 15) angle = 270; 
     else if(gridCopy[startY][startX + 1] === 15 && gridCopy[startY][startX + 2] != 15) angle = 180;
     else if(gridCopy[startY][startX + 3] === 15 && gridCopy[startY][startX + 4] != 15) angle = 90;
+    else angle = 999;
 
     const newValue = {
         src: 15,
@@ -353,7 +353,14 @@ function getCaveCords(){
     for (let i = 0; i < gridCopy.length; i++){
         for (let j = 0; j < gridCopy[i].length; j++){
             if(caveKeys.includes(gridCopy[i][j])){
-                if(gridCopy[i][j] === 15){cordList.push(getSmallCaveCords(i, j, gridCopy));}
+                if(gridCopy[i][j] === 15){
+                    const newValue = getSmallCaveCords(i, j, gridCopy);
+                    console.log(newValue.angle);
+                    if (newValue.angle != 999){
+                        cordList.push(newValue);
+                    }
+                    
+                }
                 else if(gridCopy[i][j] === 16){cordList.push(getMedCaveCords(i, j, gridCopy));}
                 else if(gridCopy[i][j] === 17){cordList.push(getLargeCaveCords(i, j, gridCopy));}
                 else{cordList.push(getMassiveCaveCords(i, j, gridCopy));}
