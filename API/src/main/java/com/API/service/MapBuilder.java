@@ -70,6 +70,14 @@ public class MapBuilder {
         return this.map;
     }
 
+    public int getX(){
+        return this.x;
+    }
+
+    public int getY(){
+        return this.y;
+    }
+
     /**
      * Is used to determine if the MapBuilder has already made a map.
      * @return A boolean representing if a map has been generated.
