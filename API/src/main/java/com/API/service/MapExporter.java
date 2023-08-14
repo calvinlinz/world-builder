@@ -2,8 +2,6 @@ package com.API.service;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MapExporter {
 
@@ -48,7 +46,6 @@ public class MapExporter {
                     if(j != map[i].length - 1){
                         writer.write(",");
                     }
-                    
                 }
                 writer.write("\n");
             }
