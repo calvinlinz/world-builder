@@ -11,7 +11,7 @@ public class ApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ApiApplication.class, args);
 
-		MapBuilder mb = new MapBuilder();
+		MapBuilder mb = new MapBuilder(81, 54);
 	}
 
 }
