@@ -41,12 +41,16 @@ public class MapExporter {
         // Iterating through the 2D array and reading into a file.
         try (FileWriter writer = new FileWriter(filename)) {
 
-            for (int[] row : map) {
-                for (int value : row) {
-                    writer.append(Integer.toString(value));
-                    writer.append(",");
+            for (int i = 0; i < map.length; i++) {
+                for (int j = 0; j < map[i].length; j++) {
+                    int value = map[i][j];
+                    writer.write(Integer.toString(value));
+                    if(j != map[i].length - 1){
+                        writer.write(",");
+                    }
+                    
                 }
-                writer.append("\n");
+                writer.write("\n");
             }
 
             writer.flush();
