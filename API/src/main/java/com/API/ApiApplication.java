@@ -15,7 +15,7 @@ public class ApiApplication {
 		MapBuilder mb = new MapBuilder(81, 54);
 		mb.createMap();
 		MapExporter me = new MapExporter(mb);
-		me.exportMap("file");
+		me.exportMap("filename");
 	}
 
 }

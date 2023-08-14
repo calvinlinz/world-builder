@@ -1,17 +1,16 @@
 package com.API.service;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class MapExporter {
 
     /**
      * Contains the map to be exported.
      */
     private MapBuilder mapBuilder;
-
-
-    /**
-     * The columns names of the .csv file.
-     */
-    private final String[] columnNames = { "x", "y", "id"};
 
 
     /**
@@ -35,8 +34,29 @@ public class MapExporter {
             return;
         }
         filename = checkName(filename);
+        System.out.println("MAP WIDTH: " + mapBuilder.getX() + "    MAP HEIGHT: " + mapBuilder.getY());
         int[][] map = mapBuilder.getMap();
-        System.out.println("Map successfully exported into: " + filename + ".");
+        
+
+        // Iterating through the 2D array and reading into a file.
+        try (FileWriter writer = new FileWriter(filename)) {
+
+            for (int[] row : map) {
+                for (int value : row) {
+                    writer.append(Integer.toString(value));
+                    writer.append(",");
+                }
+                writer.append("\n");
+            }
+
+            writer.flush();
+            writer.close();
+
+            System.out.println("Map successfully exported into: " + filename + ".");
+        } catch (IOException e) {
+            System.err.println("Error: map could not be exported.");
+            e.printStackTrace();
+        }
 
     }
 
