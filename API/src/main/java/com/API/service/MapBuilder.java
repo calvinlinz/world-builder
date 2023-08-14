@@ -4,6 +4,7 @@ public class MapBuilder {
 
     private int[][] map;
     private final int x, y;
+    private boolean mapGenerated;
 
     /**
      * Generates a full-sized array map.
@@ -15,6 +16,7 @@ public class MapBuilder {
         this.y = y;        
         // 81 and 54, the initial values passed in as arguments, represent a 3 x 2 formation of 27 by 27 blocks.
         this.map = new int[x][y];
+        this.mapGenerated = false;
     }
 
     /**
@@ -48,7 +50,9 @@ public class MapBuilder {
         }
 
         QuadrantBuilder.printMap(map);
+        mapGenerated = true;
     }
+
 
     private void copyArray(int[][] section, int currentRow, int currentColumn) {
         // Copy the section into the master array
