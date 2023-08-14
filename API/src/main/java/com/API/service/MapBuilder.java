@@ -69,5 +69,13 @@ public class MapBuilder {
     public int[][] getMap() {
         return this.map;
     }
+
+    /**
+     * Is used to determine if the MapBuilder has already made a map.
+     * @return A boolean representing if a map has been generated.
+     */
+    public boolean isGenerated(){
+        return mapGenerated;
+    }
 }
 
