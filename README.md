@@ -312,7 +312,8 @@ To do this, there should be a range of different tree images that can be selecte
 
 The link for this relevant issue can be seen [here](https://gitlab.ecs.vuw.ac.nz/richeshayd/world-builder/-/issues/9).
 
-**Image Codes and Ids**
+##### 3.3.3.1 Image Codes and Ids
+
 | **Code** | **Image Desc** | **Image Dims** |
 |----------|----------------|----------------|
 | 0        | Background     | 1x1            |
