@@ -34,7 +34,7 @@ public class MapBuilder {
             for (int j=0; j<3; j++) {
 
                 // Generate a new section
-                int[][] newSection = QuadrantBuilder.getQuadrant(27, 10);
+                int[][] newSection = SectionBuilder.getQuadrant(27, 10);
 
                 // Copy the array over
                 copyArray(newSection, currentRow, currentColumn);
@@ -47,7 +47,7 @@ public class MapBuilder {
             currentRow += 27;
         }
 
-        QuadrantBuilder.printMap(map);
+        SectionBuilder.printMap(map);
     }
 
     private void copyArray(int[][] section, int currentRow, int currentColumn) {

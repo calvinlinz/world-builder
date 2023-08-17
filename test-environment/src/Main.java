@@ -1,4 +1,4 @@
-import QuadrantBuilder;
+import SectionBuilder;
 import MapBuilder;
 
 public class Main {
