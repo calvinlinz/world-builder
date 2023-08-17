@@ -1,7 +1,6 @@
 package com.API.controller;
 
 import com.API.model.Person;
-import com.API.model.World;
 import com.API.service.MapBuilder;
 import com.API.service.MapExporter;
 import com.API.service.PeopleService;
@@ -12,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 
 import java.util.List;
 import java.util.Optional;
