@@ -62,11 +62,13 @@ The algorithm works by selecting a random building or natural feature, there is 
 
 We then generate 6 random quadrants and stitch them together into one array which represents the whole map.
 
-
 ### 2.3 Data Storage
 We have decided to use local files such as .csv and .json files to store our data. This is because we are not requring the complexity and features a full fledged database offers and local files allows us to consistently share the latest version of the database within the repository when commiting and pushing.
 
 A map exporter has been developed to enable communication of the map from the back-end to the front-end. The MapExporter class serves as a channel for retrieving data from the MapBuilder, which is responsible for generating the 2D array. By parsing through each element within the map, the MapExporter then proceeds to compile and store this data within a .csv file, which can then be read by the graphics team to determine image placements. The data is written in the same order and dimensions as the map, allowing for easy translation into the graphics which also utilises identical formats and keycodes. Furthermore, this class can be extended to accommodate other map types, such as Monster or Furniture maps, should we decide to integrate them later on. Minor adjustments would allow it to export to different file formats if the need arises.
+
+### 2.4 Controller
+The controller configures endpoints with responses and HTTP methods. We have implemented a /world GET endpoint that will generate a new world using the map generating algorithm and returns it in the response. 
 
 ## 3.0 Front End
 The front end of this project will be expressed as a website using React and JavaScript.
@@ -80,8 +82,6 @@ React is a popular JavaScript framework for building user interfaces. React's co
 #### 3.1.2 CSS
 CSS can also be applied to enhance the visual aesthetic of the web page, which is crucial for an engaging and user friendly final product.
 
-
-
 ### 3.2 Web Features
 Our Dungeons and Dragons random map generator website will incorporate an array of essential features that seamlessly interact with the generated maps. The user interface should prioritize user-friendliness, allowing both novice and seasoned players to effortlessly navigate and manipulate the maps.
 
@@ -94,6 +94,10 @@ Our website must incorporate the features requested by the stakeholder that our 
 
 #### 3.2.2 Configuration
 We have decided to create a configuration dropdown menu that is persistent in the top left corner of the web application. This will allow users to toggle the visibility of the configuration settings as they require. These settings include the fog parameters, map size and download button. This feature also includes a 'generate' button that allows users to generate a new world.
+
+
+#### 3.3 Data Fetching
+Due to having data and business logic such as the map generating algorithm abstracted away in the backend, we are required to make relevant API calls to the Maven Java backend API to retrieve this data. We currently have succesfully configured a connection to retrieve world data. 
 
 **How will the user be able to share the map?**
 

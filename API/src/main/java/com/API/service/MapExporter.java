@@ -25,54 +25,32 @@ public class MapExporter {
      * Exports the generated map into a .csv file which can then be read by the front-end.
      * Iterates through each element in the map and puts into a file.
      */
-    public void exportMap(String filename){
+    public String exportMap(){
         // Cannot export an empty map.
         if(!mapBuilder.isGenerated()){
             System.err.println("Error: map has not been generated. Please generate a map before exporting it.");
-            return;
+            return "";
         }
-        filename = checkName(filename);
         System.out.println("MAP WIDTH: " + mapBuilder.getX() + "    MAP HEIGHT: " + mapBuilder.getY());
         int[][] map = mapBuilder.getMap();
         
+        String output = "";
 
         // Iterating through the 2D array and reading into a file.
-        try (FileWriter writer = new FileWriter(filename)) {
 
-            for (int i = 0; i < map.length; i++) {
-                for (int j = 0; j < map[i].length; j++) {
-                    int value = map[i][j];
-                    writer.write(Integer.toString(value));
-                    if(j != map[i].length - 1){
-                        writer.write(",");
-                    }
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                int value = map[i][j];
+
+                output += Integer.toString(value);
+                if(j != map[i].length - 1){
+                    output += ",";
                 }
-                writer.write("\n");
             }
-
-            writer.flush();
-            writer.close();
-
-            System.out.println("Map successfully exported into: " + filename + ".");
-        } catch (IOException e) {
-            System.err.println("Error: map could not be exported.");
-            e.printStackTrace();
+            output += "\n";
         }
 
-    }
+        return output;
 
-
-    /**
-     * Helper method to check and correct the filename passed into the program.
-     * As this could be a user input (in the future), this is a safe option.
-     * @param s
-     * @return
-     */
-    private String checkName(String s){
-        if(!s.contains(".csv")){
-            return s += ".csv";
-        }
-        return s;
     }
-    
 }
