@@ -6,7 +6,7 @@ import com.API.model.Element;
 import com.API.model.NaturalFeatureManager;
 import com.API.model.RoomManager;
 
-public class QuadrantBuilder {
+public class SectionBuilder {
 
     public static int[][] getQuadrant(int arrayS, int rooms) {
 

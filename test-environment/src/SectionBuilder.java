@@ -4,7 +4,7 @@ import model.Element;
 import model.NaturalFeatureManager;
 import model.RoomManager;
 
-public class QuadrantBuilder {
+public class SectionBuilder {
 
     public static int[][] getQuadrant(int arrayS, int rooms) {
 
