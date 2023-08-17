@@ -82,8 +82,6 @@ React is a popular JavaScript framework for building user interfaces. React's co
 #### 3.1.2 CSS
 CSS can also be applied to enhance the visual aesthetic of the web page, which is crucial for an engaging and user friendly final product.
 
-
-
 ### 3.2 Web Features
 Our Dungeons and Dragons random map generator website will incorporate an array of essential features that seamlessly interact with the generated maps. The user interface should prioritize user-friendliness, allowing both novice and seasoned players to effortlessly navigate and manipulate the maps.
 
@@ -96,6 +94,10 @@ Our website must incorporate the features requested by the stakeholder that our 
 
 #### 3.2.2 Configuration
 We have decided to create a configuration dropdown menu that is persistent in the top left corner of the web application. This will allow users to toggle the visibility of the configuration settings as they require. These settings include the fog parameters, map size and download button. This feature also includes a 'generate' button that allows users to generate a new world.
+
+
+#### 3.3 Data Fetching
+Due to having data and business logic such as the map generating algorithm abstracted away in the backend, we are required to make relevant API calls to the Maven Java backend API to retrieve this data. We currently have succesfully configured a connection to retrieve world data. 
 
 **How will the user be able to share the map?**
 
