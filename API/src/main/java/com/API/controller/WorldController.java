@@ -41,7 +41,7 @@ public class WorldController {
         }
     }
     @GetMapping("/world")
-    public ResponseEntity<String> getUser(){
+    public ResponseEntity<String> getWorld(){
 		MapBuilder mb = new MapBuilder(81, 54);
 		mb.createMap();
 		MapExporter me = new MapExporter(mb);
