@@ -11,9 +11,9 @@ const Display = ({ worldData }) => {
     <>
     
     <BackgroundGrid/>
-    {/* <BuildingsGrid/>
+    <BuildingsGrid/>
     <NaturalFeaturesGrid/>
-    <ConfigDropdown/> */}
+    <ConfigDropdown/>
     <CaveGrid/>
 
     </>

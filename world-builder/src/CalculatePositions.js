@@ -1,7 +1,7 @@
 import { allImages } from './Constants';
-import { grid2, grid3 } from './TestGrids';
+import { grid2, grid3, grid4 } from './TestGrids';
 
-const grid = grid3;
+let grid = grid4;
 
 const imageCodes = {
     0: allImages.forestGrass,
@@ -27,7 +27,6 @@ const imageCodes = {
 
 // -- FUNCTIONS FOR CALCULATING ARRAYS ------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-
 
 // Calculate the cords for all of the tree images
 function getTreeCords(){
@@ -84,7 +83,6 @@ const symetricalCodes = [5, 7, 8, 10];
 function findOrientation (startY, startX, value){
     const width = imageDims[value][0];
     const widthCheck = grid[startY][startX + width];
-    console.log(widthCheck);
     if (widthCheck === value){
         if (value ===  grid[startY][startX + width + 1]){
             const newValue = {
@@ -211,7 +209,6 @@ function getBuildingCords (){
             }
         }
     }
-    console.log(cordList);
     return cordList;
 };
 
@@ -223,9 +220,21 @@ const caveMaps = [
     [[1, 1, 1, 0, 0],[1, 1, 1, 0, 0], [1, 1, 1, 1, 0], [1, 1, 1, 1, 1], [0, 0, 0, 1, 1]],
     [[0, 0, 1, 1, 1, 0, 0, 0, 0], [0, 1, 1, 1, 1, 0, 0, 0, 0], [0, 1, 1, 1, 1, 1, 1, 1, 0], [0, 1, 1, 1, 1, 1, 1, 1, 0], [0, 1, 1, 1, 1, 1, 1, 1, 0], [0, 1, 1, 1, 1, 1, 1, 0, 0],[0, 0, 1, 1, 1, 1, 0, 0, 0]],
     [[0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0],[0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0], [0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0]],
-    [[0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 1, 1, 1, 1, 0, 0, 0, 11, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0] ],
+    [[0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0], [0, 1, 1, 1, 1, 0, 0, 0, 11, 1, 1, 1, 1, 1, 0, 0, 0], [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0] ],
 ];
 const caveFuncs = [getSmallCaveCords, getMedCaveCords, getLargeCaveCords, getMassiveCaveCords];
+let used18 = false; 
+
+// Make a deep copy of a given array
+function deepCopyArray(currentArray) {
+    var newArray = [];
+
+    for (var i = 0; i < currentArray.length; i++){
+        newArray[i] = currentArray[i].slice();
+    }
+        
+    return newArray;
+  }
 
 // Rotate the 2D array 90 degrees
 function rotateMatrix(matrix) {
@@ -245,14 +254,13 @@ function rotateMatrix(matrix) {
 
 // Set the caves values to a different value, so that the caves are not recorded twice
 function setGridCopy(startX, startY, angle, gridCopy, value, index){
-    let relevantCaveDims = Array.from(caveMaps[index]); // Make a copy of the cave dims array
+    if (value === 18){return gridCopy;} // Can only fit one on!
 
-    console.log(gridCopy);
+    let relevantCaveDims = deepCopyArray(caveMaps[index]); // Make a copy of the cave dims array
 
     for (let i = 0; i < (angle / 90); i++){ // Rotate the dims to the appropriate angle
         relevantCaveDims = rotateMatrix(relevantCaveDims);
     }
-
 
     for (let i = startY; i < startY + caveDims[index][1]; i++){
         for (let j = startX; j < startX + caveDims[index][0]; j++){
@@ -261,8 +269,6 @@ function setGridCopy(startX, startY, angle, gridCopy, value, index){
             }
         }
     }
-    console.log(gridCopy);
-
     return gridCopy;
 }
 
@@ -284,7 +290,6 @@ function getSmallCaveCords(startY, startX, gridCopy){
         angle: angle,
       };
     return newValue;
-
 }
 
 // Get the location and orientation of the medium caves 
@@ -333,7 +338,7 @@ function getMassiveCaveCords(startY, startX, gridCopy){
     else if (gridCopy[startY][startX + 5] === 18 && gridCopy[startY][startX + 6] != 18) angle = 270;
     else if (gridCopy[startY][startX + 1] === 18 && gridCopy[startY][startX + 2] != 18) angle = 180;
     else if (gridCopy[startY][startX + 3] === 18 && gridCopy[startY][startX + 4] != 18 && gridCopy[startY - 1][startX + 4] === 18) angle = 90;
-    
+    used18 = true;
     const newValue = {
         src: 18,
         x: startX,
@@ -348,14 +353,18 @@ function getMassiveCaveCords(startY, startX, gridCopy){
 // Get the cords, types and angles of all of the caves on the map
 function getCaveCords(){
     const cordList = [];
-    let gridCopy = Array.from(grid); // Make a copy of the origial grid
+
+    console.log(grid);
+    let gridCopy = deepCopyArray(grid); // Make a copy of the origial grid
+    console.log(gridCopy);
+    console.log(grid);
+
 
     for (let i = 0; i < gridCopy.length; i++){
         for (let j = 0; j < gridCopy[i].length; j++){
             if(caveKeys.includes(gridCopy[i][j])){
                 if(gridCopy[i][j] === 15){
                     const newValue = getSmallCaveCords(i, j, gridCopy);
-                    console.log(newValue.angle);
                     if (newValue.angle != 999){
                         cordList.push(newValue);
                     }
@@ -363,9 +372,9 @@ function getCaveCords(){
                 }
                 else if(gridCopy[i][j] === 16){cordList.push(getMedCaveCords(i, j, gridCopy));}
                 else if(gridCopy[i][j] === 17){cordList.push(getLargeCaveCords(i, j, gridCopy));}
-                else{cordList.push(getMassiveCaveCords(i, j, gridCopy));}
+                else{if (used18 === false) cordList.push(getMassiveCaveCords(i, j, gridCopy));}
 
-                gridCopy = setGridCopy(j, i, cordList[cordList.length - 1].angle, gridCopy, gridCopy[i][j], gridCopy[i][j] - 15);
+                if(cordList.length != 0) gridCopy = setGridCopy(j, i, cordList[cordList.length - 1].angle, gridCopy, gridCopy[i][j], gridCopy[i][j] - 15);
             }
         }
     }
@@ -376,7 +385,6 @@ function getCaveCords(){
 
 // -- IMAGE ARRAYS --------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-
 const treeCords = getTreeCords();
 const clstrRockCords = getClstrRockCords();
 const buildingCords = getBuildingCords();
