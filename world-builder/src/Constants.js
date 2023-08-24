@@ -118,6 +118,11 @@ const campImages1x2 = {
     firewood,
 }
 
+const campAccessory = {
+    bedroll,
+    firewood,
+}
+
 const campImages1x1 = {
     campfire,
     fire,
@@ -299,6 +304,7 @@ const allImages = {
     campImages1x1,
     campImages1x2,
     campImages2x2,
+    campAccessory,
     caveImages,
     preMadeCaveImages,
     forestImages,
