@@ -2,11 +2,11 @@ import React from 'react';
 import './Grid.css';
 
 import { allImages } from './Constants';
-import { grid2 } from './TestGrids';
+import { grid2, grid3, grid4 } from './TestGrids';
 import { treeCords, clstrRockCords } from './CalculatePositions';
 
 const NaturalFeaturesGrid = () => {
-    const grid = grid2;
+    const grid = grid4;
 
     const naturalCodes = [1, 3];
 

@@ -2,11 +2,9 @@ import React, {useEffect} from 'react';
 import './Grid.css';
 
 import { allImages } from './Constants';
-import { grid2 } from './TestGrids';
 import { buildingCords } from './CalculatePositions';
 
 const BuildingsGrid = () => {
-    const grid = grid2;
 
     const imageMapping = {
         5: allImages.buildingImages.building_2x2,

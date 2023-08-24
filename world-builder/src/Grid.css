@@ -45,6 +45,15 @@
     z-index: 4;
 }
 
+.grid-container-caves {
+    position: absolute;
+    top: 5vw;
+    left: 5vw;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5;
+}
+
 .grid-container-test {
     position: absolute;
     top: 5vw;
