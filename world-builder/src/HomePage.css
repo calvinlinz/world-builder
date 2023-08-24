@@ -10,7 +10,7 @@
 
 .homepage {
     background-color: #e1e0dc;
-    background-image: url('assets/homeBackground.jpg');
+    background-image: url('assets/homeBackground.gif');
     background-size: cover; 
     background-position: center;
     display: flex;
