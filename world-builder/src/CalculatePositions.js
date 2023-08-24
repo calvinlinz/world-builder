@@ -223,54 +223,8 @@ const caveMaps = [
     [[0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0], [0, 1, 1, 1, 1, 0, 0, 0, 11, 1, 1, 1, 1, 1, 0, 0, 0], [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0] ],
 ];
 const caveFuncs = [getSmallCaveCords, getMedCaveCords, getLargeCaveCords, getMassiveCaveCords];
-let used18 = false; 
+let caveUsed = [false, false, false, false];
 
-// Make a deep copy of a given array
-function deepCopyArray(currentArray) {
-    var newArray = [];
-
-    for (var i = 0; i < currentArray.length; i++){
-        newArray[i] = currentArray[i].slice();
-    }
-        
-    return newArray;
-  }
-
-// Rotate the 2D array 90 degrees
-function rotateMatrix(matrix) {
-    const numRows = matrix.length;
-    const numCols = matrix[0].length;
-
-    const rotatedMatrix = new Array(numCols).fill().map(() => new Array(numRows));
-  
-    for (let row = 0; row < numRows; row++) {
-      for (let col = 0; col < numCols; col++) {
-        rotatedMatrix[col][numRows - 1 - row] = matrix[row][col];
-      }
-    }
-  
-    return rotatedMatrix;
-  }
-
-// Set the caves values to a different value, so that the caves are not recorded twice
-function setGridCopy(startX, startY, angle, gridCopy, value, index){
-    if (value === 18){return gridCopy;} // Can only fit one on!
-
-    let relevantCaveDims = deepCopyArray(caveMaps[index]); // Make a copy of the cave dims array
-
-    for (let i = 0; i < (angle / 90); i++){ // Rotate the dims to the appropriate angle
-        relevantCaveDims = rotateMatrix(relevantCaveDims);
-    }
-
-    for (let i = startY; i < startY + caveDims[index][1]; i++){
-        for (let j = startX; j < startX + caveDims[index][0]; j++){
-            if(gridCopy[i][j] === value && relevantCaveDims[i - startY][j - startX] === 1){
-                gridCopy[i][j] = 999;
-            }
-        }
-    }
-    return gridCopy;
-}
 
 // Get the location and orientation of the small caves 
 function getSmallCaveCords(startY, startX, gridCopy){
@@ -279,7 +233,6 @@ function getSmallCaveCords(startY, startX, gridCopy){
     else if(gridCopy[startY][startX + 1]  != 15 && gridCopy[startY - 1][startX] === 15) angle = 270; 
     else if(gridCopy[startY][startX + 1] === 15 && gridCopy[startY][startX + 2] != 15) angle = 180;
     else if(gridCopy[startY][startX + 3] === 15 && gridCopy[startY][startX + 4] != 15) angle = 90;
-    else angle = 999;
 
     const newValue = {
         src: 15,
@@ -289,6 +242,8 @@ function getSmallCaveCords(startY, startX, gridCopy){
         height: caveDims[0][1],
         angle: angle,
       };
+
+    caveUsed[0] = true;
     return newValue;
 }
 
@@ -308,8 +263,9 @@ function getMedCaveCords(startY, startX, gridCopy){
         height: caveDims[1][1],
         angle: angle,
       };
+
+    caveUsed[1] = true;
     return newValue;
-    
 }
 
 // Get the location and orientation of the large caves 
@@ -328,6 +284,8 @@ function getLargeCaveCords(startY, startX, gridCopy){
         height: caveDims[2][1],
         angle: angle,
       };
+
+    caveUsed[2] = true;
     return newValue;
 }
 
@@ -338,7 +296,7 @@ function getMassiveCaveCords(startY, startX, gridCopy){
     else if (gridCopy[startY][startX + 5] === 18 && gridCopy[startY][startX + 6] != 18) angle = 270;
     else if (gridCopy[startY][startX + 1] === 18 && gridCopy[startY][startX + 2] != 18) angle = 180;
     else if (gridCopy[startY][startX + 3] === 18 && gridCopy[startY][startX + 4] != 18 && gridCopy[startY - 1][startX + 4] === 18) angle = 90;
-    used18 = true;
+
     const newValue = {
         src: 18,
         x: startX,
@@ -347,6 +305,8 @@ function getMassiveCaveCords(startY, startX, gridCopy){
         height: caveDims[3][1],
         angle: angle,
       };
+
+    caveUsed[3] = true;
     return newValue;
 }
 
@@ -354,27 +314,17 @@ function getMassiveCaveCords(startY, startX, gridCopy){
 function getCaveCords(){
     const cordList = [];
 
-    console.log(grid);
-    let gridCopy = deepCopyArray(grid); // Make a copy of the origial grid
-    console.log(gridCopy);
-    console.log(grid);
-
-
-    for (let i = 0; i < gridCopy.length; i++){
-        for (let j = 0; j < gridCopy[i].length; j++){
-            if(caveKeys.includes(gridCopy[i][j])){
-                if(gridCopy[i][j] === 15){
-                    const newValue = getSmallCaveCords(i, j, gridCopy);
-                    if (newValue.angle != 999){
-                        cordList.push(newValue);
-                    }
-                    
-                }
-                else if(gridCopy[i][j] === 16){cordList.push(getMedCaveCords(i, j, gridCopy));}
-                else if(gridCopy[i][j] === 17){cordList.push(getLargeCaveCords(i, j, gridCopy));}
-                else{if (used18 === false) cordList.push(getMassiveCaveCords(i, j, gridCopy));}
-
-                if(cordList.length != 0) gridCopy = setGridCopy(j, i, cordList[cordList.length - 1].angle, gridCopy, gridCopy[i][j], gridCopy[i][j] - 15);
+    for (let i = 0; i < grid.length; i++){
+        for (let j = 0; j < grid[i].length; j++){
+            if(caveKeys.includes(grid[i][j])){
+                if(grid[i][j] === 15){
+                    if(caveUsed[0] === false){cordList.push(getSmallCaveCords(i, j, grid));}}
+                else if(grid[i][j] === 16){
+                    if(caveUsed[1] === false){cordList.push(getMedCaveCords(i, j, grid));}}
+                else if(grid[i][j] === 17){
+                    if(caveUsed[2] === false){cordList.push(getLargeCaveCords(i, j, grid));}}
+                else if(grid[i][j] === 18){
+                    if(caveUsed[3] === false) cordList.push(getMassiveCaveCords(i, j, grid));}    
             }
         }
     }
