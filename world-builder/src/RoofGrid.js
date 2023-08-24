@@ -3,14 +3,14 @@ import './Grid.css';
 import { allImages } from './Constants';
 import { buildingCords } from './CalculatePositions';
 
-const RoofGrid = () => {
+const RoofGrid = ({opacityValue}) => {
 
-    const [opacityValue, setOpacity] = useState(1); 
+    /* const [opacityValue, setOpacity] = useState(1); 
 
     const handleClick = () => {
-        setOpacity(opacityValue === 1 ? 0 : 1)
+        setOpacity(opacityValue === 1 ? 0 : 1);
     };
-
+ */
 
     const imageMapping = {
         5: allImages.buildingImages.roof_red_2x2,
@@ -42,7 +42,7 @@ const RoofGrid = () => {
                     />
                 ))}
             </div>
-            <button className="opactity-button" onClick={handleClick} text="Click Me" />
+            {/* <button className="opactity-button" onClick={handleClick} text="Click Me" /> */}
         </div>
     );    
 };

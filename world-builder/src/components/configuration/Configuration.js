@@ -7,13 +7,12 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Button from "@mui/material/Button";
 
 
-const ConfigDropdown = () => {
+const ConfigDropdown = ({opacityToggle}) => {
   const [showInputs, setShowInputs] = useState(false);
   const [gridSize, setGridSize] = useState(5);
   const [numberOfRooms, setNumberOfRooms] = useState(5);
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
-  const [opacityValue, setOpacity] = useState(1); 
   
   const marks = [
     { value: 1, label: "1" },
@@ -87,7 +86,7 @@ const ConfigDropdown = () => {
             />
             <FormControlLabel
               control={<Checkbox/>}
-              onChange={()=>setOpacity(opacityValue === 1 ? 0 : 1)}
+              onChange={opacityToggle}
               label="ADD/REMOVE ROOFS"
             />
           </FormGroup>
