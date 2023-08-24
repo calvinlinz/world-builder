@@ -5,7 +5,12 @@ import { buildingCords } from './CalculatePositions';
 
 const RoofGrid = () => {
 
-    const opacityValue = 1;
+    const [opacityValue, setOpacity] = useState(1); 
+
+    const handleClick = () => {
+        setOpacity(opacityValue === 1 ? 0 : 1)
+    };
+
 
     const imageMapping = {
         5: allImages.buildingImages.roof_red_2x2,
@@ -20,21 +25,24 @@ const RoofGrid = () => {
     };
     
     return (
-        <div className="grid-container-roof" style={{ opacity: opacityValue }}>
-            {buildingCords.map((image, index) => (
-                <img
-                    src={imageMapping[image.src]}
-                    alt={`Image ${index + 1}`}
-                    style={{
-                        transform: `rotate(${image.angle}deg)`,
-                        position: 'absolute',
-                        left: `${image.x * 4 + 10 - (image.angle/15) + image.xShift}vw`,
-                        top: `${image.y * 4  + image.yShift}vw`,
-                        width: `${image.width * 4}vw`,
-                        height: `${image.height * 4}vw`,
-                    }}
-                />
-            ))}
+        <div>
+            <div className="grid-container-roof" style={{ opacity: opacityValue }}>
+                {buildingCords.map((image, index) => (
+                    <img
+                        src={imageMapping[image.src]}
+                        alt={`Image ${index + 1}`}
+                        style={{
+                            transform: `rotate(${image.angle}deg)`,
+                            position: 'absolute',
+                            left: `${image.x * 4 + 10 - (image.angle/15) + image.xShift}vw`,
+                            top: `${image.y * 4  + image.yShift}vw`,
+                            width: `${image.width * 4}vw`,
+                            height: `${image.height * 4}vw`,
+                        }}
+                    />
+                ))}
+            </div>
+            <button className="opactity-button" onClick={handleClick} text="Click Me" />
         </div>
     );    
 };
