@@ -1,16 +1,20 @@
 public class MapBuilder {
 
-    int[][] map;
+    private int[][] map;
+    private final int x, y;
+    private boolean mapGenerated;
 
     /**
      * Generates a full-sized array map.
      * 
      * This is done by creating a 3 by 2 map of pre-generated sections.
      */
-    public MapBuilder() {
-        
-        // 81 and 54 represents a 3 x 2 formation of 27 by 27 blocks.
-        this.map = new int[81][54];
+    public MapBuilder(int x, int y) {
+        this.x = x;
+        this.y = y;        
+        // 81 and 54, the initial values passed in as arguments, represent a 3 x 2 formation of 27 by 27 blocks.
+        this.map = new int[x][y];
+        this.mapGenerated = false;
     }
 
     /**
@@ -30,7 +34,7 @@ public class MapBuilder {
             for (int j=0; j<3; j++) {
 
                 // Generate a new section
-                int[][] newSection = QuadrantBuilder.getQuadrant(27, 10);
+                int[][] newSection = SectionBuilder.getQuadrant(27, 10);
 
                 // Copy the array over
                 copyArray(newSection, currentRow, currentColumn);
@@ -43,7 +47,7 @@ public class MapBuilder {
             currentRow += 27;
         }
 
-        QuadrantBuilder.printMap(map);
+        SectionBuilder.printMap(map);
     }
 
     private void copyArray(int[][] section, int currentRow, int currentColumn) {

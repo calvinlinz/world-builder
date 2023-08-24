@@ -16,9 +16,10 @@ function App() {
     document.title = "D&D Map Generator";
     // Fetch data from the API
     fetch("http://localhost:8080/world")
-      .then((response) => response.json())
+      .then((response) => response.text())
       .then((data) => setWorldData(data))
       .catch((error) => console.error("Error fetching data:", error));
+
   }, []);
 
   const startGame = () => {
@@ -27,7 +28,7 @@ function App() {
 
   return (
     <div className="App">
-      {gameStarted ? (<Display worldData={worldData} />) : (<HomePage startGame={startGame} />)}
+      {gameStarted ? (<Display worldData={worldData} />) : (<HomePage startGame={startGame} />)}  
     </div>
   );
 }

@@ -19,7 +19,7 @@ const ConfigDropdown = () => {
     { value: 5, label: "5" },
     { value: 10, label: "10" },
   ];
-
+  
   const [isChanged, setIsChanged] = useState(false);
 
   const handleMenuClick = () => {

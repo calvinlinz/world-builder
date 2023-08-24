@@ -1,7 +1,8 @@
 package com.API.controller;
 
 import com.API.model.Person;
-import com.API.model.World;
+import com.API.service.MapBuilder;
+import com.API.service.MapExporter;
 import com.API.service.PeopleService;
 import com.API.service.WorldService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpHeaders;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,9 +39,13 @@ public class WorldController {
         }
     }
     @GetMapping("/world")
-    public World getUser(){
-        Optional<World> world = worldService.getWorld(1);
-        return (World) world.orElse(null);
+    public ResponseEntity<String> getWorld(){
+		MapBuilder mb = new MapBuilder(81, 54);
+		mb.createMap();
+		MapExporter me = new MapExporter(mb);
+        String csvContent = me.exportMap();
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<>(csvContent, headers, HttpStatus.OK);
     }
 
     /**  
