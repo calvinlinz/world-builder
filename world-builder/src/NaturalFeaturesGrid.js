@@ -6,7 +6,7 @@ import { grid2, grid3, grid4 } from './TestGrids';
 import { treeCords, clstrRockCords } from './CalculatePositions';
 
 const NaturalFeaturesGrid = () => {
-    const grid = grid4;
+    const grid = grid2;
 
     const naturalCodes = [1, 3];
 

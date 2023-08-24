@@ -13,6 +13,7 @@ const ConfigDropdown = () => {
   const [numberOfRooms, setNumberOfRooms] = useState(5);
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
+  const [opacityValue, setOpacity] = useState(1); 
   
   const marks = [
     { value: 1, label: "1" },
@@ -83,6 +84,11 @@ const ConfigDropdown = () => {
               control={<Checkbox/>}
               onChange={()=>setAddRemoveFog(!addRemoveFog)}
               label="ADD/REMOVE FOG"
+            />
+            <FormControlLabel
+              control={<Checkbox/>}
+              onChange={()=>setOpacity(opacityValue === 1 ? 0 : 1)}
+              label="ADD/REMOVE ROOFS"
             />
           </FormGroup>
           </div>
