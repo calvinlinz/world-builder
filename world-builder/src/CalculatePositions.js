@@ -437,8 +437,6 @@ function getCampCords(){
         }
     }
     const filteredArray = cordList.filter(item => item !== undefined);
-
-    console.log(filteredArray);
     return filteredArray;
 }
 
