@@ -1,20 +1,21 @@
 /* Grid.css - Used for Grid.js and displaying the map on the website */
 
+/* Variables */
+:root {
+    --scale-factor: 0.33;
+  }
+
 .grid-container {
     /* Add any styles for the container div here */
     position: absolute;
     top: 5vw;
     left: 5vw;
-    width: 100vw;
-    height: 100vh;
 }
 
 .grid-container-background {
     position: absolute;
     top: 5vw;
     left: 5vw;
-    width: 100vw;
-    height: 100vh;
     z-index: 1;
 }
 
@@ -22,8 +23,6 @@
     position: absolute;
     top: 5vw;
     left: 5vw;
-    width: 100vw;
-    height: 100vh;
     z-index: 2;
 }
 
@@ -31,8 +30,6 @@
     position: absolute;
     top: 5vw;
     left: 5vw;
-    width: 100vw;
-    height: 100vh;
     z-index: 3;
 }
 
@@ -40,8 +37,6 @@
     position: absolute;
     top: 5vw;
     left: 5vw;
-    width: 100vw;
-    height: 100vh;
     z-index: 3;
 }
 
@@ -49,8 +44,6 @@
     position: absolute;
     top: 5vw;
     left: 5vw;
-    width: 100vw;
-    height: 100vh;
     z-index: 4;
 }
 
@@ -59,8 +52,6 @@
     position: absolute;
     top: 5vw;
     left: 5vw;
-    width: 100vw;
-    height: 100vh;
     z-index: 5;
 }
 
@@ -68,8 +59,6 @@
     position: absolute;
     top: 5vw;
     left: 5vw;
-    width: 100vw;
-    height: 100vh;
     z-index: 2;
 }
 
@@ -77,21 +66,19 @@
     position: absolute;
     top: 5vw;
     left: 5vw;
-    width: 100vw;
-    height: 100vh;
     z-index: 6;
 }
   
 .grid-row {
     /* Add any styles for the row div here */
-    width: 100vw;
-    height: 4vw;
+    width: calc(100vw * var(--scale-factor));
+    height: calc(4vw* var(--scale-factor));
 }
   
 .grid-cell {
     display: inline-block; 
-    width: 4vw;
-    height: 4vw;
+    width: calc(4vw * var(--scale-factor));
+    height: calc(4vw * var(--scale-factor));
     overflow: hidden;
 }
 

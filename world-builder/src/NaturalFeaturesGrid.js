@@ -36,10 +36,10 @@ const NaturalFeaturesGrid = () => {
         const imageStyle = {
           transform: `rotate(${rotationAngle}deg)`,
           position: 'absolute',
-          left: `${image[0] * 4 + 10}vw`,
-          top: `${image[1] * 4}vw`,
-          width: `8vw`,
-          height: `8vw`,
+          left: `${(image[0] * 4 + 10) * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scale-factor'))}vw`,
+          top: `${image[1] * 4 * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scale-factor'))}vw`,
+          width: `${8 * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scale-factor'))}vw`,
+          height: `${8 * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scale-factor'))}vw`,
         };
         return (
           <img
@@ -56,10 +56,10 @@ const NaturalFeaturesGrid = () => {
         const imageStyle = {
           transform: `rotate(${image[2]}deg)`,
           position: 'absolute',
-          left: `${image[0] * 4 + 10 - (image[2]/50)}vw`,
-          top: `${image[1] * 4 + (image[2]/50)}vw`,
-          width: `8vw`,
-          height: `4vw`,
+          left: `${(image[0] * 4 + 10 - (image[2]/50)) * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scale-factor'))}vw`,
+          top: `${(image[1] * 4 + (image[2]/50)) * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scale-factor'))}vw`,
+          width: `${8 * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scale-factor'))}vw`,
+          height: `${4 * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scale-factor'))}vw`,
         };
         return (
           <img

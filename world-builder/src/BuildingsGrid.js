@@ -27,10 +27,10 @@ const BuildingsGrid = () => {
                     style={{
                         transform: `rotate(${image.angle}deg)`,
                         position: 'absolute',
-                        left: `${image.x * 4 + 10 - (image.angle/15) + image.xShift}vw`,
-                        top: `${image.y * 4  + image.yShift}vw`,
-                        width: `${image.width * 4}vw`,
-                        height: `${image.height * 4}vw`,
+                        left: `${(image.x * 4 + 10 - (image.angle/15) + image.xShift) * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scale-factor'))}vw`,
+                        top: `${(image.y * 4  + image.yShift) * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scale-factor'))}vw`,
+                        width: `${image.width * 4 * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scale-factor'))}vw`,
+                        height: `${image.height * 4 * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scale-factor'))}vw`,
                     }}
                 />
             ))}

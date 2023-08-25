@@ -19,10 +19,10 @@ const CaveGrid = () => {
                     style={{
                         transform: `rotate(${image.angle}deg)`,
                         position: 'absolute',
-                        left: `${image.x * 4 + 10 - (image.angle/15)}vw`,
-                        top: `${image.y * 4}vw`,
-                        width: `${image.width * 4}vw`,
-                        height: `${image.height * 4}vw`,
+                        left: `${(image.x * 4 + 10 - (image.angle/15)) * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scale-factor'))}vw`,
+                        top: `${image.y * 4 * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scale-factor'))}vw`,
+                        width: `${image.width * 4 * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scale-factor'))}vw`,
+                        height: `${image.height * 4 * parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scale-factor'))}vw`,
                     }}
                 />
             ))}
