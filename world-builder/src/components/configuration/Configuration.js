@@ -5,14 +5,16 @@ import FormGroup from "@mui/material/FormGroup";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Button from "@mui/material/Button";
-
+import "../../Grid.css";
 
 const ConfigDropdown = ({opacityToggle}) => {
   const [showInputs, setShowInputs] = useState(false);
-  const [gridSize, setGridSize] = useState(5);
+  const [scaleFactor, setScaleFactor] = useState(0.33);
   const [numberOfRooms, setNumberOfRooms] = useState(5);
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
+
+  
   
   const marks = [
     { value: 1, label: "1" },
@@ -28,6 +30,13 @@ const ConfigDropdown = ({opacityToggle}) => {
 
   const handleDownload = () => {
     console.log("Download Logic TBC");
+  }
+
+  const handleChangeScale = (e) => {
+      const newScaleFactor = e/10;
+      setScaleFactor(newScaleFactor);
+      document.documentElement.style.setProperty('--scale-factor', newScaleFactor);
+ 
   }
 
   return (
@@ -48,13 +57,13 @@ const ConfigDropdown = ({opacityToggle}) => {
             <p>GRID SIZE</p>
             <div className="slider">
               <Slider
-                defaultValue={gridSize}
+                defaultValue={scaleFactor}
                 aria-label="Small"
                 valueLabelDisplay="auto"
                 min={1}
                 max={10}
                 marks={marks}
-                onChange={(e)=>setGridSize(e.target.value)}
+                onChange={(e)=>handleChangeScale(e.target.value)}
               />
             </div>
           </div>
