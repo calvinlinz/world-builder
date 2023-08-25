@@ -334,7 +334,7 @@ function getCaveCords(){
 // -- CAMP FUNCS ----------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
 
-const campKeys = [19, 20, 21, 22];
+const campKeys = [19, 20, 21, 22, 23];
 const campDims = [[1, 2], [2, 2], [1, 1], [1, 2], [3, 3]];
 
 function getSmallCampCords(i, j){
@@ -404,7 +404,7 @@ function getCampCords(){
                     cordList.push(newValue);
                 }else if (grid[i][j] === 19){ // It is a small tent
                     cordList.push(getSmallCampCords(i, j));
-                }else if (grid[i][j] === 20){ // It is a large tent
+                }else if (grid[i][j] === 20){ // It is a med tent
                     // If it is the top left corner of the tent
                     if(grid[i][j + 1] === 20 && grid[i + 1][j] === 20 &&grid[i + 1][j + 1] === 20){
                         const newValue = {
@@ -419,6 +419,19 @@ function getCampCords(){
                     } 
                 }else if (grid[i][j] === 22){ // It is accessory
                     cordList.push(getCampAccessoryCords(i, j));
+                }else if (grid[i][j] === 23){ // It is a large tent
+                    if(grid[i][j + 1] === 23 && grid[i][j + 2] === 23 && grid[i + 1][j] === 23 && grid[i + 2][j] === 23){
+                        const newValue = {
+                            src: 23,
+                            x: j,
+                            y: i,
+                            width: campDims[4][0],
+                            height: campDims[4][1],
+                            angle: 0,
+                        };
+                        cordList.push(newValue);
+                    } 
+
                 }
             }
         }
