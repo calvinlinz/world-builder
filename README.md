@@ -340,9 +340,10 @@ The link for this relevant issue can be seen [here](https://gitlab.ecs.vuw.ac.nz
 | 17       | Large Cave     | Refer to 'Cave Dim' table |
 | 18       | Massive Cave     | Refer to 'Cave Dim' table |
 | 19       | Small Tent     | 1x2            | 
-| 20       | Large Tent     | 2x2            |
+| 20       | Medium Tent    | 2x2            |
 | 21       | Camp Fire      | 1x1            | 
 | 22       | Camp Accessories  | 1x2         |
+| 23       | Large Tent     | 3x3            |
 
 **Cave Dims Table**
 

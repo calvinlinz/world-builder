@@ -1,7 +1,7 @@
 import { allImages } from './Constants';
-import { grid2, grid3, grid4 } from './TestGrids';
+import { grid2, grid3, grid4, grid5 } from './TestGrids';
 
-let grid = grid2;
+let grid = grid5;
 
 const imageCodes = {
     0: allImages.forestGrass,
@@ -335,17 +335,17 @@ function getCaveCords(){
 // ------------------------------------------------------------------------------------------------
 
 const campKeys = [19, 20, 21, 22];
-const campDims = [[1, 2], [2, 2], [1, 1], [1, 2]];
+const campDims = [[1, 2], [2, 2], [1, 1], [1, 2], [3, 3]];
 
 function getSmallCampCords(i, j){
     if(grid[i][j + 1] === 19){
         const newValue = {
             src: 19,
-            x: j,
-            y: i,
+            x: j + 2,
+            y: i - 0.5,
             width: campDims[0][0],
-            height: caveDims[0][1],
-            angle: 0,
+            height: campDims[0][1],
+            angle: 90,
         };
         return newValue;
     }else if(grid[i + 1][j] === 19){
@@ -353,9 +353,9 @@ function getSmallCampCords(i, j){
             src: 19,
             x: j,
             y: i,
-            width: campDims[0][1],
-            height: caveDims[0][0],
-            angle: 90,
+            width: campDims[0][0],
+            height: campDims[0][1],
+            angle: 0,
         };
         return newValue;   
     }
@@ -365,11 +365,11 @@ function getCampAccessoryCords(i, j){
     if(grid[i][j + 1] === 22){
         const newValue = {
             src: 22,
-            x: j,
-            y: i,
+            x: j + 2,
+            y: i - 0.5,
             width: campDims[3][0],
-            height: caveDims[3][1],
-            angle: 0,
+            height: campDims[3][1],
+            angle: 90,
         };
         return newValue;
     }else if(grid[i + 1][j] === 22){
@@ -378,8 +378,8 @@ function getCampAccessoryCords(i, j){
             x: j,
             y: i,
             width: campDims[3][1],
-            height: caveDims[3][0],
-            angle: 90,
+            height: campDims[3][0],
+            angle: 0,
         };
         return newValue;   
     }
@@ -398,7 +398,7 @@ function getCampCords(){
                         x: j,
                         y: i,
                         width: campDims[2][0],
-                        height: caveDims[2][1],
+                        height: campDims[2][1],
                         angle: 0,
                     };
                     cordList.push(newValue);
@@ -412,7 +412,7 @@ function getCampCords(){
                             x: j,
                             y: i,
                             width: campDims[1][0],
-                            height: caveDims[1][1],
+                            height: campDims[1][1],
                             angle: 0,
                         };
                         cordList.push(newValue);
@@ -423,7 +423,10 @@ function getCampCords(){
             }
         }
     }
-    return cordList;
+    const filteredArray = cordList.filter(item => item !== undefined);
+
+    console.log(filteredArray);
+    return filteredArray;
 }
 
 
