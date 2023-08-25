@@ -1,7 +1,7 @@
 import { allImages } from './Constants';
-import { grid2, grid3, grid4 } from './TestGrids';
+import { grid2, grid3, grid4, grid5 } from './TestGrids';
 
-let grid = grid2;
+let grid = grid5;
 
 const imageCodes = {
     0: allImages.forestGrass,
@@ -331,6 +331,114 @@ function getCaveCords(){
     return cordList;
 }
 
+// -- CAMP FUNCS ----------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+
+const campKeys = [19, 20, 21, 22, 23];
+const campDims = [[1, 2], [2, 2], [1, 1], [1, 2], [3, 3]];
+
+function getSmallCampCords(i, j){
+    if(grid[i][j + 1] === 19){
+        const newValue = {
+            src: 19,
+            x: j + 2,
+            y: i - 0.5,
+            width: campDims[0][0],
+            height: campDims[0][1],
+            angle: 90,
+        };
+        return newValue;
+    }else if(grid[i + 1][j] === 19){
+        const newValue = {
+            src: 19,
+            x: j,
+            y: i,
+            width: campDims[0][0],
+            height: campDims[0][1],
+            angle: 0,
+        };
+        return newValue;   
+    }
+}
+
+function getCampAccessoryCords(i, j){
+    if(grid[i][j + 1] === 22){
+        const newValue = {
+            src: 22,
+            x: j + 2,
+            y: i - 0.5,
+            width: campDims[3][0],
+            height: campDims[3][1],
+            angle: 90,
+        };
+        return newValue;
+    }else if(grid[i + 1][j] === 22){
+        const newValue = {
+            src: 22,
+            x: j,
+            y: i,
+            width: campDims[3][1],
+            height: campDims[3][0],
+            angle: 0,
+        };
+        return newValue;   
+    }
+}
+
+// Get the cords, types and angles of all of the camp items on the map
+function getCampCords(){
+    const cordList = [];
+
+    for (let i = 0; i < grid.length; i++){
+        for (let j = 0; j < grid[i].length; j++){
+            if(campKeys.includes(grid[i][j])){
+                if (grid[i][j] === 21){ // It is a fireplace
+                    const newValue = {
+                        src: 21,
+                        x: j,
+                        y: i,
+                        width: campDims[2][0],
+                        height: campDims[2][1],
+                        angle: 0,
+                    };
+                    cordList.push(newValue);
+                }else if (grid[i][j] === 19){ // It is a small tent
+                    cordList.push(getSmallCampCords(i, j));
+                }else if (grid[i][j] === 20){ // It is a med tent
+                    // If it is the top left corner of the tent
+                    if(grid[i][j + 1] === 20 && grid[i + 1][j] === 20 &&grid[i + 1][j + 1] === 20){
+                        const newValue = {
+                            src: 20,
+                            x: j,
+                            y: i,
+                            width: campDims[1][0],
+                            height: campDims[1][1],
+                            angle: 0,
+                        };
+                        cordList.push(newValue);
+                    } 
+                }else if (grid[i][j] === 22){ // It is accessory
+                    cordList.push(getCampAccessoryCords(i, j));
+                }else if (grid[i][j] === 23){ // It is a large tent
+                    if(grid[i][j + 1] === 23 && grid[i][j + 2] === 23 && grid[i + 1][j] === 23 && grid[i + 2][j] === 23){
+                        const newValue = {
+                            src: 23,
+                            x: j,
+                            y: i,
+                            width: campDims[4][0],
+                            height: campDims[4][1],
+                            angle: 0,
+                        };
+                        cordList.push(newValue);
+                    } 
+
+                }
+            }
+        }
+    }
+    const filteredArray = cordList.filter(item => item !== undefined);
+    return filteredArray;
+}
 
 
 // -- IMAGE ARRAYS --------------------------------------------------------------------------------
@@ -339,6 +447,7 @@ const treeCords = getTreeCords();
 const clstrRockCords = getClstrRockCords();
 const buildingCords = getBuildingCords();
 const caveCords = getCaveCords(); 
+const campCords = getCampCords(); 
 
 
 export{
@@ -347,4 +456,5 @@ export{
     clstrRockCords,
     buildingCords,
     caveCords,
+    campCords,
 };

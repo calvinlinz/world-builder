@@ -6,6 +6,7 @@ import BuildingsGrid from "./BuildingsGrid";
 import NaturalFeaturesGrid from "./NaturalFeaturesGrid";
 import CaveGrid from './CaveGrid';
 import RoofGrid from './RoofGrid';
+import CampGrid from './CampGrid';
 
 const Display = ({ worldData }) => {
   const [opacityValue, setOpacity] = useState(1); 
@@ -23,6 +24,7 @@ const Display = ({ worldData }) => {
     <ConfigDropdown opacityToggle={toggleOpactiy}/>
     <CaveGrid/>
     <RoofGrid opacityValue={opacityValue}/>
+    <CampGrid/>
 
     </>
   );
