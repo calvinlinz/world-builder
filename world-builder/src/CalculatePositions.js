@@ -1,7 +1,7 @@
 import { allImages } from './Constants';
 import { grid2, grid3, grid4, grid5 } from './TestGrids';
 
-let grid = grid3;
+let grid = grid2;
 
 const imageCodes = {
     0: allImages.forestGrass,

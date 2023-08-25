@@ -7,14 +7,12 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Button from "@mui/material/Button";
 import "../../Grid.css";
 
-const ConfigDropdown = ({opacityToggle}) => {
+const ConfigDropdown = ({opacityToggle, setScaleFactorImages}) => {
   const [showInputs, setShowInputs] = useState(false);
   const [scaleFactor, setScaleFactor] = useState(0.33);
   const [numberOfRooms, setNumberOfRooms] = useState(5);
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
-
-  
   
   const marks = [
     { value: 1, label: "1" },
@@ -35,7 +33,8 @@ const ConfigDropdown = ({opacityToggle}) => {
   const handleChangeScale = (e) => {
       const newScaleFactor = e/10;
       setScaleFactor(newScaleFactor);
-      document.documentElement.style.setProperty('--scale-factor', newScaleFactor);
+      setScaleFactorImages(newScaleFactor);
+      document.documentElement.style.setProperty('--scale-factor', scaleFactor);
  
   }
 
@@ -54,14 +53,14 @@ const ConfigDropdown = ({opacityToggle}) => {
       {showInputs && (
         <div className="content">
           <div className="slider-component">
-            <p>GRID SIZE</p>
+            <p>GRID ZOOM</p>
             <div className="slider">
               <Slider
                 defaultValue={scaleFactor}
                 aria-label="Small"
                 valueLabelDisplay="auto"
-                min={1}
-                max={10}
+                min={3}
+                max={7}
                 marks={marks}
                 onChange={(e)=>handleChangeScale(e.target.value)}
               />
