@@ -8,70 +8,70 @@
 .grid-container {
     /* Add any styles for the container div here */
     position: absolute;
-    top: 5vw;
-    left: 5vw;
+    top: 0vw;
+    left: 0vw;
 }
 
 .grid-container-background {
     position: absolute;
-    top: 5vw;
-    left: 5vw;
+    top: 3vw;
+    left: 7vw;
     z-index: 1;
 }
 
 .grid-container-path {
     position: absolute;
-    top: 5vw;
-    left: 5vw;
+    top: 3vw;
+    left: 7vw;
     z-index: 2;
 }
 
 .grid-container-buildings {
     position: absolute;
-    top: 5vw;
-    left: 5vw;
+    top: 3vw;
+    left: 7vw;
     z-index: 3;
 }
 
 .grid-container-camp{
     position: absolute;
-    top: 5vw;
-    left: 5vw;
+    top: 3vw;
+    left: 7vw;
     z-index: 3;
 }
 
 .grid-container-natural {
     position: absolute;
-    top: 5vw;
-    left: 5vw;
+    top: 3vw;
+    left: 7vw;
     z-index: 4;
 }
 
 
 .grid-container-caves {
     position: absolute;
-    top: 5vw;
-    left: 5vw;
+    top: 3vw;
+    left: 7vw;
     z-index: 5;
 }
 
 .grid-container-test {
     position: absolute;
-    top: 5vw;
-    left: 5vw;
+    top: 3vw;
+    left: 7vw;
     z-index: 2;
 }
 
 .grid-container-roof{
     position: absolute;
-    top: 5vw;
-    left: 5vw;
+    top: 3vw;
+    left: 7vw;
     z-index: 6;
 }
   
 .grid-row {
     /* Add any styles for the row div here */
-    width: calc(100vw * var(--scale-factor));
+    width: calc(260vw * var(--scale-factor));
     height: calc(4vw* var(--scale-factor));
 }
   
