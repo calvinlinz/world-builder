@@ -7,6 +7,7 @@ import NaturalFeaturesGrid from "./NaturalFeaturesGrid";
 import CaveGrid from './CaveGrid';
 import RoofGrid from './RoofGrid';
 import CampGrid from './CampGrid';
+import './Grid.css';
 
 const Display = ({ worldData }) => {
   const [opacityValue, setOpacity] = useState(1); 
@@ -17,7 +18,8 @@ const Display = ({ worldData }) => {
   };
 
   const setScaleFactorImages = (e) =>{
-    setScaleFactor(e);
+    setScaleFactor(e/10);
+    document.documentElement.style.setProperty('--scale-factor', scaleFactor);
     console.log(scaleFactor);
   };
 

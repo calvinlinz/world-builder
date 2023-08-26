@@ -9,7 +9,6 @@ import "../../Grid.css";
 
 const ConfigDropdown = ({opacityToggle, setScaleFactorImages}) => {
   const [showInputs, setShowInputs] = useState(false);
-  const [scaleFactor, setScaleFactor] = useState(0.33);
   const [numberOfRooms, setNumberOfRooms] = useState(5);
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
@@ -30,13 +29,6 @@ const ConfigDropdown = ({opacityToggle, setScaleFactorImages}) => {
     console.log("Download Logic TBC");
   }
 
-  const handleChangeScale = (e) => {
-      const newScaleFactor = e/10;
-      setScaleFactor(newScaleFactor);
-      setScaleFactorImages(newScaleFactor);
-      document.documentElement.style.setProperty('--scale-factor', scaleFactor);
- 
-  }
 
   return (
     <div className="body">
@@ -56,13 +48,13 @@ const ConfigDropdown = ({opacityToggle, setScaleFactorImages}) => {
             <p>GRID ZOOM</p>
             <div className="slider">
               <Slider
-                defaultValue={scaleFactor}
+                defaultValue={0.33}
                 aria-label="Small"
                 valueLabelDisplay="auto"
                 min={3}
                 max={7}
                 marks={marks}
-                onChange={(e)=>handleChangeScale(e.target.value)}
+                onChange={(e)=>setScaleFactorImages(e.target.value)}
               />
             </div>
           </div>
