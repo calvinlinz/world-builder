@@ -4,7 +4,7 @@ import './Grid.css';
 import { allImages } from './Constants';
 import { campCords } from './CalculatePositions';
 
-const CampGrid = () => {
+const CampGrid = ({scaleFactor}) => {
 
     const imageMapping = {
         19: allImages.campImages.tent_1x2,
@@ -23,10 +23,10 @@ const CampGrid = () => {
                     style={{
                         transform: `rotate(${image.angle}deg)`,
                         position: 'absolute',
-                        left: `${image.x * 4 + 10 - (image.angle/15)}vw`,
-                        top: `${image.y * 4}vw`,
-                        width: `${image.width * 4}vw`,
-                        height: `${image.height * 4}vw`,
+                        left: `${(image.x * 4 + 10 - (image.angle/15)) * scaleFactor}vw`,
+                        top: `${image.y * 4 * scaleFactor}vw`,
+                        width: `${image.width * 4 * scaleFactor}vw`,
+                        height: `${image.height * 4 * scaleFactor}vw`,
                     }}
                 />
             ))}

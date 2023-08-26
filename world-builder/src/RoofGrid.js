@@ -3,7 +3,7 @@ import './Grid.css';
 import { allImages } from './Constants';
 import { buildingCords } from './CalculatePositions';
 
-const RoofGrid = ({opacityValue}) => {
+const RoofGrid = ({opacityValue, scaleFactor}) => {
 
     /* const [opacityValue, setOpacity] = useState(1); 
 
@@ -34,10 +34,10 @@ const RoofGrid = ({opacityValue}) => {
                         style={{
                             transform: `rotate(${image.angle}deg)`,
                             position: 'absolute',
-                            left: `${image.x * 4 + 10 - (image.angle/15) + image.xShift}vw`,
-                            top: `${image.y * 4  + image.yShift}vw`,
-                            width: `${image.width * 4}vw`,
-                            height: `${image.height * 4}vw`,
+                            left: `${(image.x * 4 + 10 - (image.angle/15) + image.xShift) * scaleFactor}vw`,
+                            top: `${(image.y * 4  + image.yShift) * scaleFactor}vw`,
+                            width: `${image.width * 4 * scaleFactor}vw`,
+                            height: `${image.height * 4 * scaleFactor}vw`,
                         }}
                     />
                 ))}

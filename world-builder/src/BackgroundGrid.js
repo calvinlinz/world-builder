@@ -1,10 +1,10 @@
 import React from 'react';
 import './Grid.css';
 import { allImages } from './Constants';
-import { grid2 } from './TestGrids';
+import { grid2, grid6 } from './TestGrids';
 
 const BackgroundGrid = () => {
-    const grid = grid2;
+    const grid = grid6;
 
     const imageMapping = {
         0: allImages.forestGrass.grass1,

@@ -2,11 +2,11 @@ import React from 'react';
 import './Grid.css';
 
 import { allImages } from './Constants';
-import { grid2, grid3, grid4 } from './TestGrids';
+import { grid2, grid3, grid4, grid6 } from './TestGrids';
 import { treeCords, clstrRockCords } from './CalculatePositions';
 
-const NaturalFeaturesGrid = () => {
-    const grid = grid2;
+const NaturalFeaturesGrid = ({scaleFactor}) => {
+    const grid = grid6;
 
     const naturalCodes = [1, 3];
 
@@ -36,10 +36,10 @@ const NaturalFeaturesGrid = () => {
         const imageStyle = {
           transform: `rotate(${rotationAngle}deg)`,
           position: 'absolute',
-          left: `${image[0] * 4 + 10}vw`,
-          top: `${image[1] * 4}vw`,
-          width: `8vw`,
-          height: `8vw`,
+          left: `${(image[0] * 4 + 10) * scaleFactor}vw`,
+          top: `${image[1] * 4 * scaleFactor}vw`,
+          width: `${8 * scaleFactor}vw`,
+          height: `${8 * scaleFactor}vw`,
         };
         return (
           <img
@@ -56,10 +56,10 @@ const NaturalFeaturesGrid = () => {
         const imageStyle = {
           transform: `rotate(${image[2]}deg)`,
           position: 'absolute',
-          left: `${image[0] * 4 + 10 - (image[2]/50)}vw`,
-          top: `${image[1] * 4 + (image[2]/50)}vw`,
-          width: `8vw`,
-          height: `4vw`,
+          left: `${(image[0] * 4 + 10 - (image[2]/50)) * scaleFactor}vw`,
+          top: `${(image[1] * 4 + (image[2]/50)) * scaleFactor}vw`,
+          width: `${8 * scaleFactor}vw`,
+          height: `${4 * scaleFactor}vw`,
         };
         return (
           <img

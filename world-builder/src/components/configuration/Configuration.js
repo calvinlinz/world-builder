@@ -5,11 +5,10 @@ import FormGroup from "@mui/material/FormGroup";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Button from "@mui/material/Button";
+import "../../Grid.css";
 
-
-const ConfigDropdown = ({opacityToggle}) => {
+const ConfigDropdown = ({opacityToggle, setScaleFactorImages}) => {
   const [showInputs, setShowInputs] = useState(false);
-  const [gridSize, setGridSize] = useState(5);
   const [numberOfRooms, setNumberOfRooms] = useState(5);
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
@@ -30,6 +29,7 @@ const ConfigDropdown = ({opacityToggle}) => {
     console.log("Download Logic TBC");
   }
 
+
   return (
     <div className="body">
       <div className="dropDown">
@@ -45,16 +45,16 @@ const ConfigDropdown = ({opacityToggle}) => {
       {showInputs && (
         <div className="content">
           <div className="slider-component">
-            <p>GRID SIZE</p>
+            <p>GRID ZOOM</p>
             <div className="slider">
               <Slider
-                defaultValue={gridSize}
+                defaultValue={0.33}
                 aria-label="Small"
                 valueLabelDisplay="auto"
-                min={1}
-                max={10}
+                min={3}
+                max={7}
                 marks={marks}
-                onChange={(e)=>setGridSize(e.target.value)}
+                onChange={(e)=>setScaleFactorImages(e.target.value)}
               />
             </div>
           </div>
