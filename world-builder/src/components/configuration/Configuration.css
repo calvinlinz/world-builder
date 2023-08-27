@@ -7,7 +7,7 @@
         position: absolute;
         padding: 20px;
         /* text-shadow: 2px 2px 4px rgba(193, 193, 193, 0.8); */
-        z-index: 1000;
+        
     }
     
     .dropDown {
@@ -31,6 +31,7 @@
         height: 23.5px;
         margin-left: 60px;
         box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.7);
+        z-index: 1000;
     }
     
     #hamburger:active {
@@ -58,6 +59,7 @@
         border-radius: 10px;
         box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5);
         position: absolute;
+        z-index: 1010;
     }
     
     .slider-component {
