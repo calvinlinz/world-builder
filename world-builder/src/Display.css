@@ -1,0 +1,88 @@
+:root {
+    --frame-color:  #f7f7f2;
+    --background-color: #26291b;
+}
+  
+
+body{
+    width:100vw;
+    height: 100vh;
+    /* background: radial-gradient(circle, #13426e, #101860); */
+    background-color: var(--background-color);
+}
+
+.dropShadow{
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 1);
+    position: absolute;
+    width: 79.2vw;
+    height: 93.3vh;
+    top: 3vw;
+    left: 10.3vw;
+    z-index: 0;
+}
+
+.rounded-div {
+    top: 1vw;
+    left: 9vw;
+    width: 81.8vw;
+    height: 97vh;
+    background-color: var(--frame-color);
+    border-radius: 3vw; /* Adjust the radius value to your preference */
+    padding: 0px; /* Optional: Add padding to provide some spacing between content and rounded corners */
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 1);
+    position: absolute;
+}
+
+.frame {
+    top: 1.5vw;
+    left: 10vw;
+    width: 80vw;
+    height: 95vh;
+    border: 20px solid var(--frame-color); /* Border color for the frame */
+    border-radius: 3vw; /* Adjust the radius value for rounded corners */
+    background-color: transparent; /* Transparent inside */
+    box-sizing: border-box; /* Make sure the border width is included in the element's dimensions */
+    z-index: 1000;
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5);
+    position: absolute;
+}
+
+.square-one{
+    top: 2vw;
+    left: 10.3vw;
+    width: 1vw;
+    height: 1vw; 
+    background-color: var(--background-color);
+    z-index: 999;
+    position: absolute;
+}
+
+.square-two{
+    top: 2vw;
+    left: 88.5vw;
+    width: 1vw;
+    height: 1vw; 
+    background-color: var(--background-color);
+    z-index: 999;
+    position: absolute;
+}
+
+.square-three{
+    top: 95.2vh;
+    left: 88.5vw;
+    width: 1vw;
+    height: 1vw; 
+    background-color: var(--background-color);
+    z-index: 999;
+    position: absolute;
+}
+
+.square-four{
+    top: 94.9vh;
+    left: 10.3vw;
+    width: 1.5vw;
+    height: 1.5vw; 
+    background-color: var(--background-color);
+    z-index: 999;
+    position: absolute;
+}

@@ -8,6 +8,7 @@ import CaveGrid from './CaveGrid';
 import RoofGrid from './RoofGrid';
 import CampGrid from './CampGrid';
 import './Grid.css';
+import './Display.css';
 
 const Display = ({ worldData }) => {
   const [opacityValue, setOpacity] = useState(1); 
@@ -25,7 +26,6 @@ const Display = ({ worldData }) => {
 
   return (
     <>
-    
     <BackgroundGrid/>
     <BuildingsGrid scaleFactor={scaleFactor}/>
     <NaturalFeaturesGrid scaleFactor={scaleFactor}/>
@@ -33,7 +33,11 @@ const Display = ({ worldData }) => {
     <CaveGrid scaleFactor={scaleFactor}/>
     <RoofGrid opacityValue={opacityValue} scaleFactor={scaleFactor}/>
     <CampGrid scaleFactor={scaleFactor}/>
-
+    <div className='frame'></div>
+    <div className='square-one'></div>
+    <div className='square-two'></div>
+    <div className='square-three'></div>
+    <div className='square-four'></div>
     </>
   );
 };
