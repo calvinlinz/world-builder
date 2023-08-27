@@ -14,35 +14,35 @@
 
 .grid-container-background {
     position: absolute;
-    top: 3vw;
+    top: 2vw;
     left: 7vw;
     z-index: 1;
 }
 
 .grid-container-path {
     position: absolute;
-    top: 3vw;
+    top: 2vw;
     left: 7vw;
     z-index: 2;
 }
 
 .grid-container-buildings {
     position: absolute;
-    top: 3vw;
+    top: 2vw;
     left: 7vw;
     z-index: 3;
 }
 
 .grid-container-camp{
     position: absolute;
-    top: 3vw;
+    top: 2vw;
     left: 7vw;
     z-index: 3;
 }
 
 .grid-container-natural {
     position: absolute;
-    top: 3vw;
+    top: 2vw;
     left: 7vw;
     z-index: 4;
 }
@@ -50,21 +50,21 @@
 
 .grid-container-caves {
     position: absolute;
-    top: 3vw;
+    top: 2vw;
     left: 7vw;
     z-index: 5;
 }
 
 .grid-container-test {
     position: absolute;
-    top: 3vw;
+    top: 2vw;
     left: 7vw;
     z-index: 2;
 }
 
 .grid-container-roof{
     position: absolute;
-    top: 3vw;
+    top: 2vw;
     left: 7vw;
     z-index: 6;
 }
@@ -97,3 +97,13 @@
     cursor: pointer;
     border-radius: 4px;
   }
+
+  .rounded-div {
+    width: 90vw;
+    height: 90vh;
+    background-color: #ffffff;
+    border-radius: 3vw; /* Adjust the radius value to your preference */
+    padding: 0px; /* Optional: Add padding to provide some spacing between content and rounded corners */
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 1);
+    position: absolute;
+}

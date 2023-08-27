@@ -40,7 +40,6 @@ const ConfigDropdown = ({opacityToggle, setScaleFactorImages}) => {
             <div className="bar3"></div>
           </div>
       </div>
-        <h1 id="generate">GENERATE</h1>
       </div>
       {showInputs && (
         <div className="content">
@@ -91,9 +90,26 @@ const ConfigDropdown = ({opacityToggle, setScaleFactorImages}) => {
             />
           </FormGroup>
           </div>
-          <div className="button">
-          <Button variant="outlined" onClick={handleDownload}>DOWNLOAD</Button>
+          <div className="button-container">
+            <div className="button">
+              <Button variant="outlined" onClick={handleDownload} style={{
+                  color: '#000000', 
+                  borderColor: '#000000', 
+                  borderWidth: '1px', 
+                }}>
+                  DOWNLOAD</Button>
+            </div>
+            <div className="button">
+              <Button variant="outlined" onClick={handleDownload} 
+                style={{
+                  color: '#000000', 
+                  borderColor: '#000000', 
+                  borderWidth: '1px', 
+                }
+                }>GENERATE</Button>
+            </div>
           </div>
+          
         </div>
       )}
     </div>
