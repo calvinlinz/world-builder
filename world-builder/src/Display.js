@@ -7,6 +7,7 @@ import NaturalFeaturesGrid from "./NaturalFeaturesGrid";
 import CaveGrid from './CaveGrid';
 import RoofGrid from './RoofGrid';
 import CampGrid from './CampGrid';
+import LoadingPage from './LoadingPage';
 import './Grid.css';
 import './Display.css';
 
@@ -38,6 +39,7 @@ const Display = ({ worldData }) => {
     <div className='square-two'></div>
     <div className='square-three'></div>
     <div className='square-four'></div>
+    <LoadingPage/>
     </>
   );
 };
