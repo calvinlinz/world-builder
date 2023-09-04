@@ -27,3 +27,17 @@ No major problems have been faced so far. However, the team has decided that the
 -----------------------------------------------------------------
 
 ### Sprint 2: Binomial
+
+#### Setting the Stage
+The team's second sprint, Binomial, was focused on refining our graphics displaying, and beginning to implement path-finding to connect elements on the map. During the sprint, we were also required to submit a group progress report.
+
+#### What Went Well
+All sprint goals were achieved. The exception being path-finding is not 100% ready to be implemented, however, significant progress was made toward this. The goal on the project timeline for path-finding is the end of Week Eight.
+
+#### Challenges Faced
+No notable challenges were faced during the sprint.
+
+#### Next Steps
+- Complete path-finding.
+- Complete graphics.
+- Add map downloading functionality.
