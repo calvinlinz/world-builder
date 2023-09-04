@@ -5,6 +5,7 @@ import java.util.Random;
 import com.API.model.Element;
 import com.API.model.NaturalFeatureManager;
 import com.API.model.RoomManager;
+import com.API.model.CampSiteManager;
 
 public class SectionBuilder {
 
@@ -54,8 +55,6 @@ public class SectionBuilder {
 
             }
         }
-        //printMap(array);
-
         return array;
     }
 

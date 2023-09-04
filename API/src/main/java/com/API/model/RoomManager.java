@@ -14,16 +14,15 @@ public class RoomManager {
 
     private void initializeRooms() {
         // Add the rooms here with their dimensions and Id numbers
-        rooms.put("1", new Room(1, 4, 4));
-        rooms.put("2", new Room(2, 2, 3));
-        rooms.put("3", new Room(3, 3, 3));
-        rooms.put("4", new Room(4, 4, 6));
-        rooms.put("5", new Room(5, 5, 5));
-        rooms.put("6", new Room(6, 6, 3));
-        rooms.put("7", new Room(7, 6, 8));
-        rooms.put("8", new Room(8, 7, 8));
-        rooms.put("9", new Room(9, 2, 2));
-        // Add more rooms as we go...
+        rooms.put("5", new Room(5, 2, 2)); // 2x2 Building
+        rooms.put("6", new Room(6, 2, 3)); // 2x3 Building
+        rooms.put("7", new Room(7, 3, 3)); // 3x3 Building
+        rooms.put("8", new Room(8, 4, 4)); // 4x4 Building
+        rooms.put("9", new Room(9, 4, 6)); // 4x6 Building
+        rooms.put("10", new Room(10, 5, 5)); // 5x5 Building
+        rooms.put("11", new Room(11, 6, 3)); // 6x3 Building
+        rooms.put("12", new Room(12, 6, 8)); // 6x8 Building
+        rooms.put("13", new Room(13, 7, 8)); // 7x8 Building
     }
 
     public Room getRoom(String id) {
