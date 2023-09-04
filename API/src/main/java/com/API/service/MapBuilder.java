@@ -42,11 +42,11 @@ public class MapBuilder {
                 copyArray(newSection, currentRow, currentColumn);
 
                 // Index the current column
-                currentColumn += 27;
+                currentRow += 27;
             }
 
-            currentColumn = 0;
-            currentRow += 27;
+            currentRow = 0;
+            currentColumn += 27;
         }
 
         SectionBuilder.printMap(map);
