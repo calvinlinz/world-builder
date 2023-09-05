@@ -29,18 +29,26 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
 
   const handleDownload = () => {
     setShowInputs(!showInputs);
+    setTimeout(() => {
+      const targetElement = document.documentElement;      
+      html2canvas(targetElement, {
+        width: window.innerWidth,    // Set the width of the screenshot
+        height: window.innerHeight,  // Set the height of the screenshot
+        x: 0,            // X-coordinate of the top-left corner of the screenshot
+        y: 0,            // Y-coordinate of the top-left corner of the screenshot
+      }).then((canvas) => {
+        // Convert the canvas content to a data URL (PNG image)
+        const dataURL = canvas.toDataURL('image/png');
 
-    // Convert the canvas content to a data URL (PNG image)
-    const dataURL = canvas.toDataURL('image/png');
+        // Create a download link
+        const downloadLink = document.createElement('a');
+        downloadLink.href = dataURL;
+        downloadLink.download = 'screenshot.png'; // Set the filename
 
-    // Create a download link
-    const downloadLink = document.createElement('a');
-    downloadLink.href = dataURL;
-    downloadLink.download = 'screenshot.png'; // Set the filename
-
-    // Trigger a click event on the download link to initiate the download
-    downloadLink.click();
-
+        // Trigger a click event on the download link to initiate the download
+        downloadLink.click();
+      });
+    }, 0);
   };
 
   return (
