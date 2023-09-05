@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import HomePage from "./HomePage";
 import Display from "./Display";
+import Configuration from "./components/configuration/Configuration";
 import Grid from "./Grid";
 import BackgroundGrid from "./BackgroundGrid";
 import BuildingsGrid from "./BuildingsGrid";
@@ -30,6 +31,7 @@ function App() {
       ) : (
         <HomePage startGame={startGame} />
       )}
+      <Configuration worldData={worldData} />
     </div>
   );
 }
