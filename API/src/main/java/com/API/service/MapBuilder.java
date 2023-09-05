@@ -19,6 +19,10 @@ public class MapBuilder {
         this.mapGenerated = false;
     }
 
+    public void setMap(int[][] map){
+        this.map = map;
+    }
+
     /**
      * Creates a new map, and saves over top of the existing map.
      * 
