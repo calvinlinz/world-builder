@@ -6,12 +6,17 @@ import model.RoomManager;
 
 public class SectionBuilder {
 
-    public static int[][] getQuadrant(int arrayS, int rooms) {
+    NaturalFeatureManager nfm;
+
+    public SectionBuilder() {
+        nfm = new NaturalFeatureManager();
+    }
+
+    public int[][] getQuadrant(int arrayS, int rooms) {
 
         // Assuming you have a 20x20 array filled with 0s and a 1 at one position
 
         RoomManager roomM = new RoomManager();
-        NaturalFeatureManager natM = new NaturalFeatureManager();
         Random random = new Random();
         int roomCount = rooms;
         int arraySize = arrayS;
@@ -31,9 +36,8 @@ public class SectionBuilder {
                 currentElement = roomM.getRoom(String.valueOf(id));
 
             } else {
-                id = natM.getRandomFeature().getId();
-                currentElement = natM.getNaturalFeature(String.valueOf(id));
-
+                currentElement = nfm.getRandomFeature();
+                id = currentElement.getId();
             }
 
             int num = id;
@@ -51,7 +55,6 @@ public class SectionBuilder {
                 }
 
                 count++;
-
             }
         }
         //printMap(array);
@@ -59,7 +62,7 @@ public class SectionBuilder {
         return array;
     }
 
-    public static boolean checkAval(int[][] array, int tlr, int brr, int tlc, int brc) {
+    public boolean checkAval(int[][] array, int tlr, int brr, int tlc, int brc) {
         if (brc > array.length || brr > array.length) {
             return false;
         }
@@ -80,7 +83,7 @@ public class SectionBuilder {
         return true;
     }
 
-    public static void printMap(int[][] array) {
+    public void printMap(int[][] array) {
         // Print the resulting array to see the 4x4 square
         String red = "\u001B[31m";
         String green = "\u001B[32m";

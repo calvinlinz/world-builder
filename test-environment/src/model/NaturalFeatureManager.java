@@ -1,40 +1,67 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class NaturalFeatureManager {
-    private Map<String, NaturalFeature> naturalFeatures;
+    private List<NaturalFeature> naturalFeatures;
 
-    private int lowerBound = 20;
+    boolean[] caveAvailability;
 
     public NaturalFeatureManager() {
-        naturalFeatures = new HashMap<>();
+        naturalFeatures = new ArrayList<>();
         initializeNaturalFeatures();
+
+        caveAvailability = new boolean[4];
     }
 
     private void initializeNaturalFeatures() {
-        // Add the natural features here with their dimensions and id possibly natrual fatures could be in some id range e.g 20-40 
-        naturalFeatures.put("20", new NaturalFeature(20, 1, 1));
-        naturalFeatures.put("21", new NaturalFeature(21, 1, 1));
-        // Add more pre made natural features as we go...
+        // Add the natural features here with their dimensions and id
+        naturalFeatures.add(new NaturalFeature(1, 1, 1)); // bush
+        naturalFeatures.add(new NaturalFeature(2, 2, 2)); // tree
+        naturalFeatures.add(new NaturalFeature(3, 1, 1)); // small rock
+        naturalFeatures.add(new NaturalFeature(4, 2, 1)); // rock cluster
+        naturalFeatures.add(new NaturalFeature(15, 3, 3)); // small cave 
+        naturalFeatures.add(new NaturalFeature(16, 3, 3)); // medium cave
+        naturalFeatures.add(new NaturalFeature(17, 3, 3)); // large cave
+        naturalFeatures.add(new NaturalFeature(18, 3, 3)); // Massive Cave
     }
 
-    public NaturalFeature getNaturalFeature(String id) {
+    public NaturalFeature getNaturalFeature(int id) {
         return naturalFeatures.get(id);
     }
 
-    public NaturalFeature getRandomFeature(){
-        Random random = new Random();
-        
-        //Generate a random number to pick a random room
-        int randomNumber = random.nextInt(naturalFeatures.size()) + lowerBound;
-        
-        // Turn random number into a string
-        String randomKey = String.valueOf(randomNumber);
-    
-        return naturalFeatures.get(randomKey);
+    public NaturalFeature getRandomFeature() {
 
+        boolean validNum = false;
+        int index = 0;
+
+        do {
+            Random random = new Random();
+            
+            // Generate random number to act as an index for the list
+            int randomNumber = random.nextInt(naturalFeatures.size());
+            index = randomNumber;
+
+            if (randomNumber>3) {
+                // check if the cave has been used
+                validNum = checkCaveAvailability(randomNumber);
+            } else {
+                // not a cave, break
+                break;
+            }
+        } while (!validNum);
+    
+        return naturalFeatures.get(index);
     }
 
+    public boolean checkCaveAvailability(int randomNumber) {
+        int index = randomNumber-4;
 
+        if (caveAvailability[index]) {
+            return false;
+        } else {
+            caveAvailability[index] = true;
+            return true;
+        }
+    }
 }
