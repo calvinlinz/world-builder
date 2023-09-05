@@ -29,7 +29,18 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
 
   const handleDownload = () => {
     setShowInputs(!showInputs);
-    
+
+    // Convert the canvas content to a data URL (PNG image)
+    const dataURL = canvas.toDataURL('image/png');
+
+    // Create a download link
+    const downloadLink = document.createElement('a');
+    downloadLink.href = dataURL;
+    downloadLink.download = 'screenshot.png'; // Set the filename
+
+    // Trigger a click event on the download link to initiate the download
+    downloadLink.click();
+
   };
 
   return (
