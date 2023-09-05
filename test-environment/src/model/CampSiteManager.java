@@ -1,5 +1,3 @@
-package com.API.model;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
