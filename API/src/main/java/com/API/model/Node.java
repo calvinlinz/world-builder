@@ -2,7 +2,8 @@ package com.API.model;
 
 public class Node {
 
-    int x, y;
+    public int x;
+    public int y;
 
     public Node(int x, int y) {
         this.x = x;
