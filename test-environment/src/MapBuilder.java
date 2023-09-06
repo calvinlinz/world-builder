@@ -49,7 +49,7 @@ public class MapBuilder {
             currentRow += 27;
         }
 
-        AStarPathfinding.makePaths(map, SectionBuilder.getAllRooms());
+        AStarPathFinding.makePaths(map, SectionBuilder.getAllRooms());
         SectionBuilder.printMap(map);
         mapGenerated = true;
     }

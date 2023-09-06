@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 
 
-public class AStarPathfinding {
+public class AStarPathFinding {
 
 
     // Arrays for moving in four directions: right, left, down, up
