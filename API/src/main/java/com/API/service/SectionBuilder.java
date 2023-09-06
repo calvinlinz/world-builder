@@ -19,7 +19,7 @@ public class SectionBuilder {
     private static ArrayList<Node> roomList5 = new ArrayList<Node>(); 
     private static ArrayList<Node> roomList6 = new ArrayList<Node>(); 
 
-    public static int[][] getQuadrant(int arrayS, int rooms, int secNumber) {
+    public static int[][] getSection(int arrayS, int rooms, int secNumber) {
 
         RoomManager roomM = new RoomManager();
         NaturalFeatureManager natM = new NaturalFeatureManager();

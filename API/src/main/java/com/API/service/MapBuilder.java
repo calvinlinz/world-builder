@@ -38,7 +38,7 @@ public class MapBuilder {
                 secNumber++;
 
                 // Generate a new section
-                int[][] newSection = SectionBuilder.getQuadrant(27, 10, secNumber);
+                int[][] newSection = SectionBuilder.getSection(27, 10, secNumber);
 
                 // Copy the array over
                 copyArray(newSection, currentRow, currentColumn);
