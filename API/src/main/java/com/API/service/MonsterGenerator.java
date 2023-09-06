@@ -52,8 +52,8 @@ public class MonsterGenerator {
     private void initialiseProbs(){
         probabilities.add(52.0); // boss rank prob
         probabilities.add(48.0); // hard rank prob
-        probabilities.add(30.0); // medium rank prob
-        probabilities.add(15.0); // easy rank prob
+        probabilities.add(35.0); // medium rank prob
+        probabilities.add(20.0); // easy rank prob
     }
 
     public int[][] generateMonsters(){
@@ -82,11 +82,11 @@ public class MonsterGenerator {
                     int intel = getSkill(rank);
                     int wis = getSkill(rank);
                     int cha = getSkill(rank);
-                    int type = determineType(cellValue);
-                    String currMonster = String.valueOf(rankVal) + String.valueOf(str) + String.valueOf(dex) + String.valueOf(con) + String.valueOf(intel) + String.valueOf(wis) + String.valueOf(cha) + String.valueOf(type);
+                    //int type = determineType(cellValue);
+                    String currMonster = String.valueOf(rankVal) + String.valueOf(str) + String.valueOf(dex) + String.valueOf(con) + String.valueOf(intel) + String.valueOf(wis) + String.valueOf(cha);
                     System.out.println(currMonster);
 
-                    this.map[i][j] = Integer.valueOf(currMonster);
+                    //this.map[i][j] = Integer.valueOf(currMonster);
                 } 
             }
         }
@@ -125,7 +125,11 @@ public class MonsterGenerator {
      * @return An int 0-9 corresponding to the strength of the skill.
      */
     private int getSkill(int rank){
-        return 2;
+        List<Integer> lowerLimits = new ArrayList<>(List.of(7, 5, 2, 1));
+        List<Integer> upperLimits = new ArrayList<>(List.of(10, 9, 8, 5));
+        int skillLevel = rand.nextInt(upperLimits.get(rank)) + lowerLimits.get(rank);
+        if(skillLevel == 10) skillLevel = 0;
+        return skillLevel;
     }
     
 }
