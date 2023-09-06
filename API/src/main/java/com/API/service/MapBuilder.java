@@ -21,6 +21,7 @@ public class MapBuilder {
 
     public void setMap(int[][] map){
         this.map = map;
+        SectionBuilder.printMap(map);
     }
 
     /**
