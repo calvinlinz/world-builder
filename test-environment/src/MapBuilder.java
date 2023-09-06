@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class MapBuilder {
 
     private int[][] map;
@@ -51,7 +53,8 @@ public class MapBuilder {
             currentRow = 0;
         }
 
-        AStarPathfinding.makePaths(map, sb.getAllRooms());
+        AStarPathFinding.makePaths(map, sb.getAllRooms());
+
         sb.printMap(map);
         mapGenerated = true;
     }

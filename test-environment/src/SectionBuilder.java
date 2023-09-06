@@ -5,10 +5,6 @@ public class SectionBuilder {
 
     NaturalFeatureManager nfm;
 
-    public SectionBuilder() {
-        nfm = new NaturalFeatureManager();
-    }
-
     private static ArrayList<Node> AllRoomsList = new ArrayList<Node>(); 
     private static ArrayList<Node> roomList1 = new ArrayList<Node>(); 
     private static ArrayList<Node> roomList2 = new ArrayList<Node>(); 
@@ -17,9 +13,14 @@ public class SectionBuilder {
     private static ArrayList<Node> roomList5 = new ArrayList<Node>(); 
     private static ArrayList<Node> roomList6 = new ArrayList<Node>(); 
 
+    public SectionBuilder() {
+        nfm = new NaturalFeatureManager();
+    }
+
     public int[][] getSection(int arrayS, int rooms, int secNumber) {
 
         RoomManager roomM = new RoomManager();
+        NaturalFeatureManager natM = new NaturalFeatureManager();
         Random random = new Random();
         int roomCount = rooms;
         boolean isRoom = false;
@@ -44,8 +45,7 @@ public class SectionBuilder {
                 currentElement = nfm.getRandomFeature();
                 id = currentElement.getId();
             } else {
-                id = natM.getRandomFeature().getId();
-                currentElement = natM.getNaturalFeature(String.valueOf(id));
+                currentElement = natM.getRandomFeature();
 
             }
 
@@ -98,7 +98,7 @@ public class SectionBuilder {
         return null;
     }
 
-    public static boolean checkAval(int[][] array, int tlr, int brr, int tlc, int brc) {
+    public boolean checkAval(int[][] array, int tlr, int brr, int tlc, int brc) {
         if(brc>=array.length || brr>=array.length || tlr == 0 || tlc == 0){
             return false;
         }
@@ -122,7 +122,7 @@ public class SectionBuilder {
         return true;
     }
 
-    public static void printMap(int[][] array) {
+    public void printMap(int[][] array) {
         String red = "\u001B[31m";
         String green = "\u001B[32m";
         String resetColor = "\u001B[0m";
@@ -147,9 +147,7 @@ public class SectionBuilder {
 
     }
 
-    public static ArrayList<Node> getAllRooms(){
-
-
+    public ArrayList<Node> getAllRooms(){
         // here we are creating a order for the path to take so it zig zags 
         // through the sections as oppose to a boring path straight up and down the map
         AllRoomsList.addAll(roomList1);
@@ -162,11 +160,11 @@ public class SectionBuilder {
         return AllRoomsList;
     }
 
-    public static void clearRooms(){
+    public void clearRooms(){
         AllRoomsList.clear();
     }
 
-    public static void addCorrectPosition(int secNumber, int topLeftRow, int topLeftCol){
+    public void addCorrectPosition(int secNumber, int topLeftRow, int topLeftCol){
         switch (secNumber) {
                    case 1:
                        roomList1.add(new Node(topLeftRow+1, topLeftCol-1));
@@ -187,6 +185,6 @@ public class SectionBuilder {
                        roomList6.add(new Node(topLeftRow+1+ 54, topLeftCol-1 +27) );
                        break;
                }    
-}
+    }
 
 }
