@@ -27,39 +27,60 @@ public class SectionBuilder {
             int randomRow = random.nextInt(arraySize);
             int randomCol = random.nextInt(arraySize);
 
-            int duel = random.nextInt(11);
+            int duel = random.nextInt(15);
             int id = 0;
             Element currentElement = null;
 
             if (duel < 7) {
                 id = roomM.getRandomRoom().getId();
                 currentElement = roomM.getRoom(String.valueOf(id));
-
-            } else {
+            } else if (duel < 12) {
                 currentElement = nfm.getRandomFeature();
                 id = currentElement.getId();
-            }
+            } 
 
             int num = id;
             int topLeftRow = Math.max(randomRow, 0);
-            int topLeftCol = Math.max(randomCol, 0);
+            int topLeftCol = Math.max(randomRow, 0);
             int bottomRightRow = randomRow + currentElement.getHeight();
             int bottomRightCol = randomCol + currentElement.getWidth();
 
-            if (checkAval(array, topLeftRow, bottomRightRow, topLeftCol, bottomRightCol)) {
+            // If duel is above 11, generate a campsite
+            if (duel > 11) {
+                Random campRandom = new Random();
+                int campWidth = campRandom.nextInt(4)+6;
+                int campHeight = campRandom.nextInt(4)+6;
+                int[] campArray = generateCamp(campWidth, campHeight);
 
-                for (int i = topLeftRow; i < bottomRightRow; i++) {
-                    for (int j = topLeftCol; j < bottomRightCol; j++) {
-                        array[i][j] = num;
+                if (checkAval(array, topLeftRow, bottomRightRow, topLeftCol, bottomRightCol)) {
+
+                    for (int i = topLeftRow; i < bottomRightRow; i++) {
+                        for (int j = topLeftCol; j < bottomRightCol; j++) {
+                            array[i][j] = num;
+                        }
                     }
+                    count++;
                 }
+            // else, copy in the other selected entity
+            } else {
+                if (checkAval(array, topLeftRow, bottomRightRow, topLeftCol, bottomRightCol)) {
 
-                count++;
+                    for (int i = topLeftRow; i < bottomRightRow; i++) {
+                        for (int j = topLeftCol; j < bottomRightCol; j++) {
+                            array[i][j] = num;
+                        }
+                    }
+                    count++;
+                }
             }
         }
         //printMap(array);
 
         return array;
+    }
+
+    public int[] generateCamp(int width, int height) {
+        return null;
     }
 
     public boolean checkAval(int[][] array, int tlr, int brr, int tlc, int brc) {
