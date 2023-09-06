@@ -22,7 +22,9 @@ public class MonsterGenerator {
 
     private List<Double> probabilities = new ArrayList<>();
 
-    // The following map codes are based on Ella's graphic front-end.
+    // The following map codes are based on Ella's graphic front-end codes.
+    // These have yet to be corrected by the back-end team in other areas of the algorithm.
+    // As such, the monster generation does not work perfectly and may miss some rooms.
 
     // RANK SETS: BOSS, HARD, MEDIUM, AND EASY
     // The monsters will be ranked 0 = boss, 1 = hard, 2 = medium, 3 = easy
@@ -51,9 +53,9 @@ public class MonsterGenerator {
 
     private void initialiseProbs(){
         probabilities.add(52.0); // boss rank prob
-        probabilities.add(48.0); // hard rank prob
+        probabilities.add(40.0); // hard rank prob
         probabilities.add(35.0); // medium rank prob
-        probabilities.add(20.0); // easy rank prob
+        probabilities.add(27.0); // easy rank prob
     }
 
     public int[][] generateMonsters(){
@@ -75,7 +77,7 @@ public class MonsterGenerator {
                 int randomValue = (int)(rand.nextDouble() * maxValue);
                 if(randomValue == 1){
                     
-                    int rankVal = rank + 1; // The monster int cannot start with a 0 so range is 1-4.
+                    int rankVal = rank;
                     int str = getSkill(rank);
                     int dex = getSkill(rank);
                     int con = getSkill(rank);
@@ -86,7 +88,7 @@ public class MonsterGenerator {
                     String currMonster = String.valueOf(rankVal) + String.valueOf(str) + String.valueOf(dex) + String.valueOf(con) + String.valueOf(intel) + String.valueOf(wis) + String.valueOf(cha);
                     System.out.println(currMonster);
 
-                    //this.map[i][j] = Integer.valueOf(currMonster);
+                    this.map[i][j] = Integer.valueOf(currMonster);
                 } 
             }
         }
