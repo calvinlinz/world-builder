@@ -26,15 +26,17 @@ public class MapBuilder {
 
         int currentRow = 0;
         int currentColumn = 0;
+        int secNumber = 0;
 
         // Create two rows
         for (int i=0; i<2; i++) {
 
             // Create three columns
             for (int j=0; j<3; j++) {
+                secNumber++;
 
                 // Generate a new section
-                int[][] newSection = SectionBuilder.getQuadrant(27, 10);
+                int[][] newSection = SectionBuilder.getSection(27, 10, secNumber);
 
                 // Copy the array over
                 copyArray(newSection, currentRow, currentColumn);
@@ -47,8 +49,11 @@ public class MapBuilder {
             currentRow += 27;
         }
 
+        AStarPathfinding.makePaths(map, SectionBuilder.getAllRooms());
         SectionBuilder.printMap(map);
+        mapGenerated = true;
     }
+
 
     private void copyArray(int[][] section, int currentRow, int currentColumn) {
         // Copy the section into the master array
@@ -63,7 +68,23 @@ public class MapBuilder {
      * Returns the current map.
      */
     public int[][] getMap() {
-        return this.currentMap;
+        return this.map;
+    }
+
+    public int getX(){
+        return this.x;
+    }
+
+    public int getY(){
+        return this.y;
+    }
+
+    /**
+     * Is used to determine if the MapBuilder has already made a map.
+     * @return A boolean representing if a map has been generated.
+     */
+    public boolean isGenerated(){
+        return mapGenerated;
     }
 }
 
