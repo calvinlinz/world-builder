@@ -66,6 +66,29 @@ public class AStarPathFinding {
         return null;
     }
 
+    public static int[][]  makePaths(int[][] grid, ArrayList<Node> locations ) {
+       
+        for (int i = 0; i < locations.size()-1; i++) {
+          
+        // creates a path between 2 rooms    
+        List<Node> path = astar(locations.get(i), locations.get(i+1), grid);
+
+        // if path was created then we add it into the grid, represented by 40 in the grid
+        if (path != null) {
+            for (Node node : path) {
+                grid[node.x][node.y] = 40;
+            }
+        } else {
+            System.out.println("No path found.");
+        }
+
+        }
+        
+        //return the finished grid with paths in place
+        return grid;
+
+    }
+
     // Reconstruct the path from the destination node to the start node
     static List<Node> reconstructPath(Map<Node, Node> cameFrom, Node current) {
         List<Node> path = new ArrayList<>();
