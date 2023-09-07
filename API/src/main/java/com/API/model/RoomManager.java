@@ -1,46 +1,50 @@
 package com.API.model;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class RoomManager {
-    private Map<String, Room> rooms;
+    private List<Room> rooms;
+
+    int minFeatures;
+    int maxFeatures;
 
     public RoomManager() {
-        rooms = new HashMap<>();
+        minFeatures = 5;
+        maxFeatures = 8;
+        rooms = new ArrayList<>();
         initializeRooms();
     }
 
     private void initializeRooms() {
         // Add the rooms here with their dimensions and Id numbers
-        rooms.put("5", new Room(5, 2, 2)); // 2x2 Building
-        rooms.put("6", new Room(6, 2, 3)); // 2x3 Building
-        rooms.put("7", new Room(7, 3, 3)); // 3x3 Building
-        rooms.put("8", new Room(8, 4, 4)); // 4x4 Building
-        rooms.put("9", new Room(9, 4, 6)); // 4x6 Building
-        rooms.put("10", new Room(10, 5, 5)); // 5x5 Building
-        rooms.put("11", new Room(11, 6, 3)); // 6x3 Building
-        rooms.put("12", new Room(12, 6, 8)); // 6x8 Building
-        rooms.put("13", new Room(13, 7, 8)); // 7x8 Building
+        rooms.add(new Room(5, 2, 2)); // 2x2 Building
+        rooms.add(new Room(6, 2, 3)); // 2x3 Building
+        rooms.add(new Room(7, 3, 3)); // 3x3 Building
+        rooms.add(new Room(8, 4, 4)); // 4x4 Building
+        rooms.add(new Room(9, 4, 6)); // 4x6 Building
+        rooms.add(new Room(10, 5, 5)); // 5x5 Building
+        rooms.add(new Room(11, 6, 3)); // 6x3 Building
+        rooms.add(new Room(12, 6, 8)); // 6x8 Building
+        rooms.add(new Room(13, 7, 8)); // 7x8 Building
+        // Add more rooms as we go...
     }
 
-    public Room getRoom(String id) {
-        return rooms.get(id);
-    }
-
-    
-    public Room getRandomRoom(){
+   public Room getRandomRoom(){
         Random random = new Random();
         
         //Generate a random number to pick a random room
-        int randomNumber = random.nextInt(rooms.size()) + 1;
-        
-        // Turn random number into a string
-        String randomKey = String.valueOf(randomNumber);
+        int randomNumber = random.nextInt(rooms.size());
     
-        return rooms.get(randomKey);
+        return rooms.get(randomNumber);
+    }
 
+    public int getMaxFeatures() {
+        return maxFeatures;
+    }
+
+    public int getMinFeatures() {
+        return minFeatures;
     }
 }
-

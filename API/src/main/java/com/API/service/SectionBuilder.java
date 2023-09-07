@@ -1,18 +1,32 @@
 package com.API.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
-import com.API.model.Element;
-import com.API.model.NaturalFeatureManager;
-import com.API.model.Node;
-import com.API.model.RoomManager;
-import com.API.model.CampSiteManager;
+import java.lang.Math;
 
+/**
+ * Generates a section according to a randomly generated double.
+ * Four possible sections can be added, either Woodlands, Natural Features
+ * (caves, lakes etc),  a Village, or a Campsite
+ */
 public class SectionBuilder {
 
-    private static ArrayList<Node> AllRoomsList = new ArrayList<Node>(); 
+    RoomManager rm;
+    NaturalFeatureManager nfm;
+    CampSiteManager csm;
+    WoodlandManager wm;
 
+    private final int maxVillages = 3;
+    private final int maxNature = 2;
+    private final int maxCamps = 1;
+    
+    int villagesBuilt;
+    int natureBuilt;
+    int campsBuilt;
+
+    private static ArrayList<Node> AllRoomsList = new ArrayList<Node>(); 
     private static ArrayList<Node> roomList1 = new ArrayList<Node>(); 
     private static ArrayList<Node> roomList2 = new ArrayList<Node>(); 
     private static ArrayList<Node> roomList3 = new ArrayList<Node>(); 
@@ -20,62 +34,205 @@ public class SectionBuilder {
     private static ArrayList<Node> roomList5 = new ArrayList<Node>(); 
     private static ArrayList<Node> roomList6 = new ArrayList<Node>(); 
 
-    public static int[][] getSection(int arrayS, int rooms, int secNumber) {
-
-        RoomManager roomM = new RoomManager();
-        NaturalFeatureManager natM = new NaturalFeatureManager();
-        Random random = new Random();
-        int roomCount = rooms;
-        boolean isRoom = false;
-        int arraySize = arrayS;
-        int count = 0;
-        int[][] array = new int[arraySize][arraySize];
-
-        while (count < roomCount) {
-            isRoom = false;
-            int randomRow = random.nextInt(arraySize);
-            int randomCol = random.nextInt(arraySize);
-
-            int duel = random.nextInt(11);
-            int id = 0;
-            Element currentElement = null;
-
-            if (duel < 7) {
-                id = roomM.getRandomRoom().getId();
-                currentElement = roomM.getRoom(String.valueOf(id));
-                isRoom = true;
-
-            } else {
-                id = natM.getRandomFeature().getId();
-                currentElement = natM.getNaturalFeature(String.valueOf(id));
-
-            }
-
-            int num = id;
-            int topLeftRow = Math.max(randomRow, 0);
-            int topLeftCol = Math.max(randomCol, 0);
-            int bottomRightRow = randomRow + currentElement.getHeight();
-            int bottomRightCol = randomCol + currentElement.getWidth();
-
-            if (checkAval(array, topLeftRow, bottomRightRow, topLeftCol, bottomRightCol)) {
-
-                for (int i = topLeftRow; i < bottomRightRow; i++) {
-                    for (int j = topLeftCol; j < bottomRightCol; j++) {
-                        array[i][j] = num;
-                    }
-                }
-                if(isRoom){
-                    addCorrectPosition(secNumber, topLeftRow, topLeftCol);
-                }
-
-                count++;
-
-            }
-        }
-        return array;
+    public SectionBuilder() {
+        rm = new RoomManager();
+        nfm = new NaturalFeatureManager();
+        csm = new CampSiteManager();
+        wm = new WoodlandManager();
+        
+        villagesBuilt = 0;
+        natureBuilt = 0;
+        campsBuilt = 0;
     }
 
-    public static boolean checkAval(int[][] array, int tlr, int brr, int tlc, int brc) {
+    public int[][] getSection(int arrayS, int secNumber) {
+        double random = Math.random();
+
+        int totalFeatures = 0;
+        Random calcFeatures = new Random();
+
+        if (random < 0.3) {
+        	villagesBuilt++;
+        	
+        	if (villagesBuilt <= maxVillages) {
+	            totalFeatures = calcFeatures.nextInt(rm.getMaxFeatures()-rm.getMinFeatures()) + rm.getMinFeatures();
+	            return generateVillage(totalFeatures, secNumber);
+        	} else {
+        		random += 0.25; // move to next possible section type
+        	}
+        }
+        
+        if (random < 0.55) {
+        	natureBuilt++;
+        	
+        	if (natureBuilt <= maxNature) {
+        		totalFeatures = calcFeatures.nextInt(nfm.getMaxFeatures()-nfm.getMinFeatures()) + nfm.getMinFeatures();
+        		return generateNaturalFeature(totalFeatures, secNumber);
+        	} else {
+        		random += 0.25; // move to next possible section type
+        	}
+        }
+        
+        if (random < 0.80) {
+        	campsBuilt++;
+        	
+        	if (campsBuilt <= maxCamps) {
+        		totalFeatures = calcFeatures.nextInt(csm.getMaxFeatures()-csm.getMinFeatures()) + csm.getMinFeatures();
+        		return generateCamp(totalFeatures, secNumber);
+        	} else {
+        		random += 0.25; // move to default section type
+        	}
+        } 
+        
+        // Default to woodlands
+    	totalFeatures = calcFeatures.nextInt(wm.getMaxFeatures()-wm.getMinFeatures()) + wm.getMinFeatures();
+        return generateWoodland(totalFeatures, secNumber);
+    }
+
+    /**
+     * Generate a campsite surrounded by woodland features
+     * @param features the number of features to generate
+     * @return the section to be added to the map
+     */
+    public int[][] generateCamp(int features, int secNumber) {
+         int[][] section = new int[27][27];
+
+        int count = 0;
+        
+        System.out.println(features);
+
+        while (count != features) {
+        	System.out.println(count);
+            CampSite newCamp = csm.getRandomCampSite();
+
+            int[][] prevSection = copyArray(section);
+            section = drawIDs(section, newCamp, false, secNumber);
+
+            if (!Arrays.equals(prevSection, section)) count++;
+        } 
+        
+        section = addTrees(section, secNumber); // add trees to the segment
+
+        return section;
+    }
+
+    /**
+     * Generate a village surrounded by woodland features
+     * @param features the number of features to generate
+     * @return the section to be added to the map
+     */
+    public int[][] generateVillage(int features, int secNumber) {
+        int[][] section = new int[27][27];
+
+        int count = 0;
+
+        while (count != features) {
+            Room newRoom = rm.getRandomRoom();
+
+            int[][] prevSection = copyArray(section);
+            section = drawIDs(section, newRoom, true, secNumber);
+
+            if (!Arrays.equals(prevSection, section)) count++;
+        } 
+        
+        section = addTrees(section, secNumber); // add trees to the segment
+
+        return section;
+    }
+
+    /**
+     * Generate a large natural feature surrounded by woodland features
+     * @param features the number of features to generate
+     * @return the section to be added to the map
+     */
+    public int[][] generateNaturalFeature(int features, int secNumber) {
+        int[][] section = new int[27][27];
+
+        int count = 0;
+
+        while (count != features) {
+            NaturalFeature newFeat = nfm.getRandomFeature();
+
+            int[][] prevSection = copyArray(section);
+            section = drawIDs(section, newFeat, false, secNumber);
+
+            if (!Arrays.equals(prevSection, section)) count++;
+        } 
+        
+        section = addTrees(section, secNumber); // add trees to the segment
+
+        return section;
+    }
+
+    /**
+     * Generate a woodland
+     * @return the section to be added to the map
+     */
+    public int[][] generateWoodland(int features, int secNumber) {
+        int[][] section = new int[27][27];
+
+        int count = 0;
+
+        while (count != features) {
+            Woodland newWoodland = wm.getRandomWoodland();
+
+            int[][] prevSection = copyArray(section);
+            section = drawIDs(section, newWoodland, false, secNumber);
+
+            if (!Arrays.equals(prevSection, section)) count++;
+        }
+        
+        return section;
+    }
+    
+    public int[][] addTrees(int[][] section, int secNumber) {
+    	Random random = new Random();
+    	int numOfTrees = random.nextInt(7)+7; // add between seven to fourteen trees
+    	
+    	int count = 0;
+    	
+    	while (count != numOfTrees) {
+            Woodland newWoodland = wm.getRandomWoodland();
+
+            int[][] prevSection = copyArray(section);
+            section = drawIDs(section, newWoodland, false, secNumber);
+
+            if (!Arrays.equals(prevSection, section)) count++;
+        }
+    	
+    	return section;
+    }
+
+    public int[][] drawIDs(int[][] currentArray, Element currentElement, boolean isRoom, int secNumber) {
+        int[][] newArray = copyArray(currentArray);
+
+        Random random = new Random();
+
+        int id = currentElement.getId();
+
+        int randomRow = random.nextInt(27);
+        int randomCol = random.nextInt(27);
+        int topLeftRow = Math.max(randomRow, 0);
+        int topLeftCol = Math.max(randomCol, 0);
+        int bottomRightRow = randomRow + currentElement.getHeight();
+        int bottomRightCol = randomCol + currentElement.getWidth();
+
+        if (checkAval(newArray, topLeftRow, bottomRightRow, topLeftCol, bottomRightCol)) {
+
+            for (int i = topLeftRow; i < bottomRightRow; i++) {
+                for (int j = topLeftCol; j < bottomRightCol; j++) {
+                    newArray[i][j] = id;
+                }
+            }
+
+            if(isRoom){
+                addCorrectPosition(secNumber, topLeftRow, topLeftCol);
+            }
+        }
+        return newArray;
+    }
+
+    public boolean checkAval(int[][] array, int tlr, int brr, int tlc, int brc) {
         if(brc>=array.length || brr>=array.length || tlr == 0 || tlc == 0){
             return false;
         }
@@ -99,7 +256,7 @@ public class SectionBuilder {
         return true;
     }
 
-    public static void printMap(int[][] array) {
+    public void printMap(int[][] array) {
         String red = "\u001B[31m";
         String green = "\u001B[32m";
         String resetColor = "\u001B[0m";
@@ -121,12 +278,19 @@ public class SectionBuilder {
             }
             System.out.println();
         }
-
+    }
+    
+    public void printPlainMap(int[][] array) {
+    	for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[i].length; j++) {
+            	System.out.print(array[i][j] + " ");
+            }
+            System.out.println();
+        }
+    	System.out.println();
     }
 
-    public static ArrayList<Node> getAllRooms(){
-
-
+    public ArrayList<Node> getAllRooms(){
         // here we are creating a order for the path to take so it zig zags 
         // through the sections as oppose to a boring path straight up and down the map
         AllRoomsList.addAll(roomList1);
@@ -138,12 +302,24 @@ public class SectionBuilder {
 
         return AllRoomsList;
     }
+    
+    private int[][] copyArray(int[][] array) {
+    	int[][] returnArray = new int[27][27];
+    	
+    	for(int i=0; i<27; i++) {
+    		for(int j=0; j<27; j++) {
+    			returnArray[i][j] = array[i][j];
+    		}
+    	}
+    	
+    	return returnArray;
+    }
 
-    public static void clearRooms(){
+    public void clearRooms(){
         AllRoomsList.clear();
     }
 
-    public static void addCorrectPosition(int secNumber, int topLeftRow, int topLeftCol){
+    public void addCorrectPosition(int secNumber, int topLeftRow, int topLeftCol){
         switch (secNumber) {
                    case 1:
                        roomList1.add(new Node(topLeftRow+1, topLeftCol-1));
@@ -163,7 +339,6 @@ public class SectionBuilder {
                    case 6:
                        roomList6.add(new Node(topLeftRow+1+ 54, topLeftCol-1 +27) );
                        break;
-               }    
-}
-
+        }    
+    }
 }

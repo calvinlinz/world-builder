@@ -1,45 +1,78 @@
 package com.API.model;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class NaturalFeatureManager {
-    private Map<String, NaturalFeature> naturalFeatures;
+    private List<NaturalFeature> naturalFeatures;
+
+    boolean[] caveAvailability;
+
+    int minFeatures;
+    int maxFeatures;
 
     public NaturalFeatureManager() {
-        naturalFeatures = new HashMap<>();
+        minFeatures = 1;
+        maxFeatures = 3;
+        naturalFeatures = new ArrayList<>();
         initializeNaturalFeatures();
+
+        caveAvailability = new boolean[4];
     }
 
     private void initializeNaturalFeatures() {
         // Add the natural features here with their dimensions and id
-        naturalFeatures.put("1", new NaturalFeature(1, 1, 1)); // bush
-        naturalFeatures.put("2", new NaturalFeature(2, 2, 2)); // tree
-        naturalFeatures.put("3", new NaturalFeature(3, 1, 1)); // small rock
-        naturalFeatures.put("4", new NaturalFeature(4, 2, 1)); // rock cluster
-        naturalFeatures.put("15", new NaturalFeature(15, 0, 0)); // small cave 
-        naturalFeatures.put("16", new NaturalFeature(16, 0, 0)); // medium cave
-        naturalFeatures.put("17", new NaturalFeature(17, 0, 0)); // large cave
-        naturalFeatures.put("18", new NaturalFeature(18, 0, 0)); // Massive Cave
+        naturalFeatures.add(new NaturalFeature(15, 3, 3)); // small cave 
+        naturalFeatures.add(new NaturalFeature(16, 4, 4)); // medium cave
+        naturalFeatures.add(new NaturalFeature(17, 5, 5)); // large cave
+        naturalFeatures.add(new NaturalFeature(18, 6, 6)); // Massive Cave
     }
 
-    public NaturalFeature getNaturalFeature(String id) {
+    public NaturalFeature getNaturalFeature(int id) {
         return naturalFeatures.get(id);
     }
 
-    public NaturalFeature getRandomFeature(){
-        Random random = new Random();
-        
-        //Generate a random number to pick a random room
-        int randomNumber = random.nextInt(naturalFeatures.size()) + lowerBound;
-        
-        // Turn random number into a string
-        String randomKey = String.valueOf(randomNumber);
-    
-        return naturalFeatures.get(randomKey);
+    public NaturalFeature getRandomFeature() {
 
+        boolean validNum = false;
+        int index = 0;
+
+        do {
+            Random random = new Random();
+            
+            // Generate random number to act as an index for the list
+            int randomNumber = random.nextInt(naturalFeatures.size());
+            index = randomNumber;
+
+            if (randomNumber>3) {
+                // check if the cave has been used
+                validNum = checkCaveAvailability(randomNumber);
+            } else {
+                // not a cave, break
+                break;
+            }
+        } while (!validNum);
+    
+        return naturalFeatures.get(index);
     }
 
+    public boolean checkCaveAvailability(int randomNumber) {
+        int index = randomNumber-4;
 
+        if (caveAvailability[index]) {
+            return false;
+        } else {
+            caveAvailability[index] = true;
+            return true;
+        }
+    }
+
+    public int getMaxFeatures() {
+        return maxFeatures;
+    }
+
+    public int getMinFeatures() {
+        return minFeatures;
+    }
 }
