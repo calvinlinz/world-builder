@@ -7,7 +7,12 @@ public class NaturalFeatureManager {
 
     boolean[] caveAvailability;
 
+    int minFeatures;
+    int maxFeatures;
+
     public NaturalFeatureManager() {
+        minFeatures = 1;
+        maxFeatures = 3;
         naturalFeatures = new ArrayList<>();
         initializeNaturalFeatures();
 
@@ -59,6 +64,14 @@ public class NaturalFeatureManager {
             caveAvailability[index] = true;
             return true;
         }
+    }
+
+    public int getMaxFeatures() {
+        return maxFeatures;
+    }
+
+    public int getMinFeatures() {
+        return minFeatures;
     }
 }
 

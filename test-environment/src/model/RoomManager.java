@@ -5,7 +5,12 @@ import java.util.Random;
 public class RoomManager {
     private List<Room> rooms;
 
+    int minFeatures;
+    int maxFeatures;
+
     public RoomManager() {
+        minFeatures = 4;
+        maxFeatures = 8;
         rooms = new ArrayList<>();
         initializeRooms();
     }
@@ -31,6 +36,14 @@ public class RoomManager {
         int randomNumber = random.nextInt(rooms.size());
     
         return rooms.get(randomNumber);
+    }
+
+    public int getMaxFeatures() {
+        return maxFeatures;
+    }
+
+    public int getMinFeatures() {
+        return minFeatures;
     }
 }
 

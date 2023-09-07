@@ -2,10 +2,17 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.lang.Math;
 
+/**
+ * Generates a section according to a randomly generated double.
+ * Four possible sections can be added, either Woodlands, Natural Features
+ * (caves, lakes etc),  a Village, or a Campsite
+ */
 public class SectionBuilder {
 
     RoomManager rm;
     NaturalFeatureManager nfm;
+    CampSiteManager csm;
+    WoodlandManager wm;
 
     private static ArrayList<Node> AllRoomsList = new ArrayList<Node>(); 
     private static ArrayList<Node> roomList1 = new ArrayList<Node>(); 
@@ -18,35 +25,63 @@ public class SectionBuilder {
     public SectionBuilder() {
         rm = new RoomManager();
         nfm = new NaturalFeatureManager();
+        csm = new CampSiteManager();
+        wm = new WoodlandManager();
     }
 
     public int[][] getSection(int arrayS, int secNumber) {
         double random = Math.random();
 
+        int totalFeatures = 0;
+        Random calcFeatures = new Random();
+
         if (random < 0.5) {
-            return generateVillage();
+            totalFeatures = calcFeatures.nextInt(rm.getMaxFeatures()-rm.getMinFeatures()) + rm.getMinFeatures();
+            return generateVillage(totalFeatures);
         } else if (random < 0.5) {
-            return generateNaturalFeature();
+            totalFeatures = calcFeatures.nextInt(nfm.getMaxFeatures()-nfm.getMinFeatures()) + nfm.getMinFeatures();
+            return generateNaturalFeature(totalFeatures);
         } else if (random < 0.75) {
-            return generateCamp();
+            totalFeatures = calcFeatures.nextInt(csm.getMaxFeatures()-csm.getMinFeatures()) + csm.getMinFeatures();
+            return generateCamp(totalFeatures);
         } else {
-            return generateWoodland();
+            totalFeatures = calcFeatures.nextInt(wm.getMaxFeatures()-wm.getMinFeatures()) + wm.getMinFeatures();
+            return generateWoodland(totalFeatures);
         }
     }
 
-    public int[][] generateCamp() {
+    /**
+     * Generate a campsite surrounded by woodland features
+     * @param features the number of features to generate
+     * @return the section to be added to the map
+     */
+    public int[][] generateCamp(int features) {
         return null;
     }
 
-    public int[][] generateVillage() {
+    /**
+     * Generate a village surrounded by woodland features
+     * @param features the number of features to generate
+     * @return the section to be added to the map
+     */
+    public int[][] generateVillage(int features) {
         return null;
     }
 
-    public int[][] generateNaturalFeature() {
+    /**
+     * Generate a large natural feature surrounded by woodland features
+     * @param features the number of features to generate
+     * @return the section to be added to the map
+     */
+    public int[][] generateNaturalFeature(int features) {
         return null;
     }
 
-    public int[][] generateWoodland() {
+    /**
+     * Generate a woodland
+     * @return the section to be added to the map
+     */
+    public int[][] generateWoodland(int features) {
         return null;
     }
 
@@ -96,7 +131,6 @@ public class SectionBuilder {
             }
             System.out.println();
         }
-
     }
 
     public ArrayList<Node> getAllRooms(){
@@ -138,5 +172,4 @@ public class SectionBuilder {
                        break;
                }    
     }
-
 }

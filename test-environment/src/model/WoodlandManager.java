@@ -5,7 +5,12 @@ import java.util.Random;
 public class WoodlandManager {
     private List<Woodland> woodlands;
 
+    int minFeatures;
+    int maxFeatures;
+
     public WoodlandManager() {
+        minFeatures = 15;
+        maxFeatures = 30;
         woodlands = new ArrayList<>();
         initializeWoodlands();
     }
@@ -25,7 +30,14 @@ public class WoodlandManager {
         int randomNumber = random.nextInt(woodlands.size());
     
         return woodlands.get(randomNumber);
+    }
 
+    public int getMaxFeatures() {
+        return maxFeatures;
+    }
+
+    public int getMinFeatures() {
+        return minFeatures;
     }
 }
 

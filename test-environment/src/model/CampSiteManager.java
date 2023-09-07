@@ -6,7 +6,12 @@ import java.util.Random;
 public class CampSiteManager {
     private List<CampSite> camp;
 
+    int minFeatures;
+    int maxFeatures;
+
     public CampSiteManager() {
+        minFeatures = 5;
+        maxFeatures = 10;
         camp = new ArrayList<>();
         initializeCampSites();
     }
@@ -27,6 +32,14 @@ public class CampSiteManager {
         int randomNumber = random.nextInt(camp.size());
     
         return camp.get(randomNumber);
+    }
+
+    public int getMaxFeatures() {
+        return maxFeatures;
+    }
+
+    public int getMinFeatures() {
+        return minFeatures;
     }
 }
 
