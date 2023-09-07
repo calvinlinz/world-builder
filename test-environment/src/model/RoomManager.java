@@ -1,45 +1,42 @@
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class RoomManager {
-    private Map<String, Room> rooms;
+    private List<Room> rooms;
 
     public RoomManager() {
-        rooms = new HashMap<>();
+        rooms = new ArrayList<>();
         initializeRooms();
     }
 
     private void initializeRooms() {
         // Add the rooms here with their dimensions and Id numbers
-        rooms.put("1", new Room(1, 4, 4));
-        rooms.put("2", new Room(2, 2, 3));
-        rooms.put("3", new Room(3, 3, 3));
-        rooms.put("4", new Room(4, 4, 6));
-        rooms.put("5", new Room(5, 5, 5));
-        rooms.put("6", new Room(6, 6, 3));
-        rooms.put("7", new Room(7, 6, 8));
-        rooms.put("8", new Room(8, 7, 8));
-        rooms.put("9", new Room(9, 2, 2));
+        rooms.add(new Room(5, 2, 2)); // 2x2 Building
+        rooms.add(new Room(6, 2, 3)); // 2x3 Building
+        rooms.add(new Room(7, 3, 3)); // 3x3 Building
+        rooms.add(new Room(8, 4, 4)); // 4x4 Building
+        rooms.add(new Room(9, 4, 6)); // 4x6 Building
+        rooms.add(new Room(10, 5, 5)); // 5x5 Building
+        rooms.add(new Room(11, 6, 3)); // 6x3 Building
+        rooms.add(new Room(12, 6, 8)); // 6x8 Building
+        rooms.add(new Room(13, 7, 8)); // 7x8 Building
         // Add more rooms as we go...
     }
 
-    public Room getRoom(String id) {
-        return rooms.get(id);
-    }
-
-    
-    public Room getRandomRoom(){
+   public Room getRandomRoom(){
         Random random = new Random();
         
         //Generate a random number to pick a random room
-        int randomNumber = random.nextInt(rooms.size()) + 1;
-        
-        // Turn random number into a string
-        String randomKey = String.valueOf(randomNumber);
+        int randomNumber = random.nextInt(rooms.size());
     
-        return rooms.get(randomKey);
+        return rooms.get(randomNumber);
+    }
+}
 
+class Room extends Element {
+    public Room(int id, int height, int width) {
+        super(id, height, width);
     }
 }
 

@@ -1,8 +1,10 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.lang.Math;
 
 public class SectionBuilder {
 
+    RoomManager rm;
     NaturalFeatureManager nfm;
 
     private static ArrayList<Node> AllRoomsList = new ArrayList<Node>(); 
@@ -14,87 +16,37 @@ public class SectionBuilder {
     private static ArrayList<Node> roomList6 = new ArrayList<Node>(); 
 
     public SectionBuilder() {
+        rm = new RoomManager();
         nfm = new NaturalFeatureManager();
     }
 
-    public int[][] getSection(int arrayS, int rooms, int secNumber) {
+    public int[][] getSection(int arrayS, int secNumber) {
+        double random = Math.random();
 
-        RoomManager roomM = new RoomManager();
-        NaturalFeatureManager natM = new NaturalFeatureManager();
-        Random random = new Random();
-        int roomCount = rooms;
-        boolean isRoom = false;
-        int arraySize = arrayS;
-        int count = 0;
-        int[][] array = new int[arraySize][arraySize];
-
-        while (count < roomCount) {
-            isRoom = false;
-            int randomRow = random.nextInt(arraySize);
-            int randomCol = random.nextInt(arraySize);
-
-            int duel = random.nextInt(15);
-            int id = 0;
-            Element currentElement = null;
-
-            if (duel < 7) {
-                id = roomM.getRandomRoom().getId();
-                currentElement = roomM.getRoom(String.valueOf(id));
-                isRoom = true;
-            } else if (duel < 12) {
-                currentElement = nfm.getRandomFeature();
-                id = currentElement.getId();
-            } else {
-                currentElement = natM.getRandomFeature();
-
-            }
-
-            int num = id;
-            int topLeftRow = Math.max(randomRow, 0);
-            int topLeftCol = Math.max(randomRow, 0);
-            int bottomRightRow = randomRow + currentElement.getHeight();
-            int bottomRightCol = randomCol + currentElement.getWidth();
-
-            // If duel is above 11, generate a campsite
-            if (duel > 11) {
-                Random campRandom = new Random();
-                int campWidth = campRandom.nextInt(4)+6;
-                int campHeight = campRandom.nextInt(4)+6;
-                int[] campArray = generateCamp(campWidth, campHeight);
-
-                if (checkAval(array, topLeftRow, bottomRightRow, topLeftCol, bottomRightCol)) {
-
-                    for (int i = topLeftRow; i < bottomRightRow; i++) {
-                        for (int j = topLeftCol; j < bottomRightCol; j++) {
-                            array[i][j] = num;
-                        }
-                    }
-                    count++;
-                }
-            // else, copy in the other selected entity
-            } else {
-                if (checkAval(array, topLeftRow, bottomRightRow, topLeftCol, bottomRightCol)) {
-
-                    for (int i = topLeftRow; i < bottomRightRow; i++) {
-                        for (int j = topLeftCol; j < bottomRightCol; j++) {
-                            array[i][j] = num;
-                        }
-                    }
-
-                    if (isRoom){
-                        addCorrectPosition(secNumber, topLeftRow, topLeftCol);
-                    }
-
-                    count++;
-                }
-            }
+        if (random < 0.5) {
+            return generateVillage();
+        } else if (random < 0.5) {
+            return generateNaturalFeature();
+        } else if (random < 0.75) {
+            return generateCamp();
+        } else {
+            return generateWoodland();
         }
-        //printMap(array);
-
-        return array;
     }
 
-    public int[] generateCamp(int width, int height) {
+    public int[][] generateCamp() {
+        return null;
+    }
+
+    public int[][] generateVillage() {
+        return null;
+    }
+
+    public int[][] generateNaturalFeature() {
+        return null;
+    }
+
+    public int[][] generateWoodland() {
         return null;
     }
 

@@ -16,10 +16,6 @@ public class NaturalFeatureManager {
 
     private void initializeNaturalFeatures() {
         // Add the natural features here with their dimensions and id
-        naturalFeatures.add(new NaturalFeature(1, 1, 1)); // bush
-        naturalFeatures.add(new NaturalFeature(2, 2, 2)); // tree
-        naturalFeatures.add(new NaturalFeature(3, 1, 1)); // small rock
-        naturalFeatures.add(new NaturalFeature(4, 2, 1)); // rock cluster
         naturalFeatures.add(new NaturalFeature(15, 3, 3)); // small cave 
         naturalFeatures.add(new NaturalFeature(16, 3, 3)); // medium cave
         naturalFeatures.add(new NaturalFeature(17, 3, 3)); // large cave
@@ -63,5 +59,11 @@ public class NaturalFeatureManager {
             caveAvailability[index] = true;
             return true;
         }
+    }
+}
+
+class NaturalFeature extends Element {
+    public NaturalFeature(int id, int height, int width) {
+        super(id, height, width);
     }
 }

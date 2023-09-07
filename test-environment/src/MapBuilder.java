@@ -40,7 +40,7 @@ public class MapBuilder {
                 secNumber++;
 
                 // Generate a new section
-                int[][] newSection = sb.getSection(27, 10, secNumber);
+                int[][] newSection = sb.getSection(27, secNumber);
 
                 // Copy the array over
                 copyArray(newSection, currentRow, currentColumn);
