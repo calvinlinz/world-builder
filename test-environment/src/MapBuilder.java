@@ -53,7 +53,7 @@ public class MapBuilder {
 
         AStarPathFinding.makePaths(map, sb.getAllRooms());
 
-        sb.printMap(map);
+        sb.printPlainMap(map);
         mapGenerated = true;
     }
 

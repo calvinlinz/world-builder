@@ -9,8 +9,8 @@ public class WoodlandManager {
     int maxFeatures;
 
     public WoodlandManager() {
-        minFeatures = 15;
-        maxFeatures = 30;
+        minFeatures = 30;
+        maxFeatures = 50;
         woodlands = new ArrayList<>();
         initializeWoodlands();
     }
@@ -38,11 +38,5 @@ public class WoodlandManager {
 
     public int getMinFeatures() {
         return minFeatures;
-    }
-}
-
-class Woodland extends Element {
-    public Woodland(int id, int height, int width) {
-        super(id, height, width);
     }
 }

@@ -9,7 +9,7 @@ public class RoomManager {
     int maxFeatures;
 
     public RoomManager() {
-        minFeatures = 4;
+        minFeatures = 5;
         maxFeatures = 8;
         rooms = new ArrayList<>();
         initializeRooms();
@@ -46,10 +46,3 @@ public class RoomManager {
         return minFeatures;
     }
 }
-
-class Room extends Element {
-    public Room(int id, int height, int width) {
-        super(id, height, width);
-    }
-}
-

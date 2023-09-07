@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
+
 import java.lang.Math;
 
 /**
@@ -14,6 +16,14 @@ public class SectionBuilder {
     CampSiteManager csm;
     WoodlandManager wm;
 
+    private final int maxVillages = 3;
+    private final int maxNature = 2;
+    private final int maxCamps = 1;
+    
+    int villagesBuilt;
+    int natureBuilt;
+    int campsBuilt;
+
     private static ArrayList<Node> AllRoomsList = new ArrayList<Node>(); 
     private static ArrayList<Node> roomList1 = new ArrayList<Node>(); 
     private static ArrayList<Node> roomList2 = new ArrayList<Node>(); 
@@ -27,6 +37,10 @@ public class SectionBuilder {
         nfm = new NaturalFeatureManager();
         csm = new CampSiteManager();
         wm = new WoodlandManager();
+        
+        villagesBuilt = 0;
+        natureBuilt = 0;
+        campsBuilt = 0;
     }
 
     public int[][] getSection(int arrayS, int secNumber) {
@@ -35,19 +49,42 @@ public class SectionBuilder {
         int totalFeatures = 0;
         Random calcFeatures = new Random();
 
-        if (random < 0.5) {
-            totalFeatures = calcFeatures.nextInt(rm.getMaxFeatures()-rm.getMinFeatures()) + rm.getMinFeatures();
-            return generateVillage(totalFeatures, secNumber);
-        } else if (random < 0.5) {
-            totalFeatures = calcFeatures.nextInt(nfm.getMaxFeatures()-nfm.getMinFeatures()) + nfm.getMinFeatures();
-            return generateNaturalFeature(totalFeatures, secNumber);
-        } else if (random < 0.75) {
-            totalFeatures = calcFeatures.nextInt(csm.getMaxFeatures()-csm.getMinFeatures()) + csm.getMinFeatures();
-            return generateCamp(totalFeatures, secNumber);
-        } else {
-            totalFeatures = calcFeatures.nextInt(wm.getMaxFeatures()-wm.getMinFeatures()) + wm.getMinFeatures();
-            return generateWoodland(totalFeatures, secNumber);
+        if (random < 0.3) {
+        	villagesBuilt++;
+        	
+        	if (villagesBuilt <= maxVillages) {
+	            totalFeatures = calcFeatures.nextInt(rm.getMaxFeatures()-rm.getMinFeatures()) + rm.getMinFeatures();
+	            return generateVillage(totalFeatures, secNumber);
+        	} else {
+        		random += 0.25; // move to next possible section type
+        	}
         }
+        
+        if (random < 0.55) {
+        	natureBuilt++;
+        	
+        	if (natureBuilt <= maxNature) {
+        		totalFeatures = calcFeatures.nextInt(nfm.getMaxFeatures()-nfm.getMinFeatures()) + nfm.getMinFeatures();
+        		return generateNaturalFeature(totalFeatures, secNumber);
+        	} else {
+        		random += 0.25; // move to next possible section type
+        	}
+        }
+        
+        if (random < 0.80) {
+        	campsBuilt++;
+        	
+        	if (campsBuilt <= maxCamps) {
+        		totalFeatures = calcFeatures.nextInt(csm.getMaxFeatures()-csm.getMinFeatures()) + csm.getMinFeatures();
+        		return generateCamp(totalFeatures, secNumber);
+        	} else {
+        		random += 0.25; // move to default section type
+        	}
+        } 
+        
+        // Default to woodlands
+    	totalFeatures = calcFeatures.nextInt(wm.getMaxFeatures()-wm.getMinFeatures()) + wm.getMinFeatures();
+        return generateWoodland(totalFeatures, secNumber);
     }
 
     /**
@@ -59,15 +96,20 @@ public class SectionBuilder {
          int[][] section = new int[27][27];
 
         int count = 0;
+        
+        System.out.println(features);
 
-        do {
+        while (count != features) {
+        	System.out.println(count);
             CampSite newCamp = csm.getRandomCampSite();
 
-            int[][] prevSection = section.clone();
+            int[][] prevSection = copyArray(section);
             section = drawIDs(section, newCamp, false, secNumber);
 
-            if (!prevSection.equals(section)) count++;
-        } while (count < features);
+            if (!Arrays.equals(prevSection, section)) count++;
+        } 
+        
+        section = addTrees(section, secNumber); // add trees to the segment
 
         return section;
     }
@@ -82,14 +124,16 @@ public class SectionBuilder {
 
         int count = 0;
 
-        do {
+        while (count != features) {
             Room newRoom = rm.getRandomRoom();
 
-            int[][] prevSection = section.clone();
+            int[][] prevSection = copyArray(section);
             section = drawIDs(section, newRoom, true, secNumber);
 
-            if (!prevSection.equals(section)) count++;
-        } while (count < features);
+            if (!Arrays.equals(prevSection, section)) count++;
+        } 
+        
+        section = addTrees(section, secNumber); // add trees to the segment
 
         return section;
     }
@@ -104,14 +148,16 @@ public class SectionBuilder {
 
         int count = 0;
 
-        do {
+        while (count != features) {
             NaturalFeature newFeat = nfm.getRandomFeature();
 
-            int[][] prevSection = section.clone();
+            int[][] prevSection = copyArray(section);
             section = drawIDs(section, newFeat, false, secNumber);
 
-            if (!prevSection.equals(section)) count++;
-        } while (count < features);
+            if (!Arrays.equals(prevSection, section)) count++;
+        } 
+        
+        section = addTrees(section, secNumber); // add trees to the segment
 
         return section;
     }
@@ -125,20 +171,38 @@ public class SectionBuilder {
 
         int count = 0;
 
-        do {
+        while (count != features) {
             Woodland newWoodland = wm.getRandomWoodland();
 
-            int[][] prevSection = section.clone();
+            int[][] prevSection = copyArray(section);
             section = drawIDs(section, newWoodland, false, secNumber);
 
-            if (!prevSection.equals(section)) count++;
-        } while (count < features);
-
+            if (!Arrays.equals(prevSection, section)) count++;
+        }
+        
         return section;
+    }
+    
+    public int[][] addTrees(int[][] section, int secNumber) {
+    	Random random = new Random();
+    	int numOfTrees = random.nextInt(7)+7; // add between seven to fourteen trees
+    	
+    	int count = 0;
+    	
+    	while (count != numOfTrees) {
+            Woodland newWoodland = wm.getRandomWoodland();
+
+            int[][] prevSection = copyArray(section);
+            section = drawIDs(section, newWoodland, false, secNumber);
+
+            if (!Arrays.equals(prevSection, section)) count++;
+        }
+    	
+    	return section;
     }
 
     public int[][] drawIDs(int[][] currentArray, Element currentElement, boolean isRoom, int secNumber) {
-        int[][] newArray = currentArray.clone();
+        int[][] newArray = copyArray(currentArray);
 
         Random random = new Random();
 
@@ -163,7 +227,6 @@ public class SectionBuilder {
                 addCorrectPosition(secNumber, topLeftRow, topLeftCol);
             }
         }
-
         return newArray;
     }
 
@@ -214,6 +277,16 @@ public class SectionBuilder {
             System.out.println();
         }
     }
+    
+    public void printPlainMap(int[][] array) {
+    	for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[i].length; j++) {
+            	System.out.print(array[i][j] + " ");
+            }
+            System.out.println();
+        }
+    	System.out.println();
+    }
 
     public ArrayList<Node> getAllRooms(){
         // here we are creating a order for the path to take so it zig zags 
@@ -226,6 +299,18 @@ public class SectionBuilder {
         AllRoomsList.addAll(roomList6);
 
         return AllRoomsList;
+    }
+    
+    private int[][] copyArray(int[][] array) {
+    	int[][] returnArray = new int[27][27];
+    	
+    	for(int i=0; i<27; i++) {
+    		for(int j=0; j<27; j++) {
+    			returnArray[i][j] = array[i][j];
+    		}
+    	}
+    	
+    	return returnArray;
     }
 
     public void clearRooms(){
@@ -252,6 +337,6 @@ public class SectionBuilder {
                    case 6:
                        roomList6.add(new Node(topLeftRow+1+ 54, topLeftCol-1 +27) );
                        break;
-               }    
+        }    
     }
 }

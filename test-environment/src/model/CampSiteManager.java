@@ -10,8 +10,8 @@ public class CampSiteManager {
     int maxFeatures;
 
     public CampSiteManager() {
-        minFeatures = 5;
-        maxFeatures = 10;
+        minFeatures = 6;
+        maxFeatures = 12;
         camp = new ArrayList<>();
         initializeCampSites();
     }
@@ -40,11 +40,5 @@ public class CampSiteManager {
 
     public int getMinFeatures() {
         return minFeatures;
-    }
-}
-
-class CampSite extends Element {
-    public CampSite(int id, int height, int width) {
-        super(id, height, width);
     }
 }
