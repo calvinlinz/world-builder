@@ -3,6 +3,7 @@ package com.API.controller;
 import com.API.model.Person;
 import com.API.service.MapBuilder;
 import com.API.service.MapExporter;
+import com.API.service.MonsterGenerator;
 import com.API.service.PeopleService;
 import com.API.service.WorldService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,11 @@ public class WorldController {
     public ResponseEntity<int[][]> getWorld(){
 		MapBuilder mb = new MapBuilder(54, 81);
 		mb.createMap();
-		MapExporter me = new MapExporter(mb);
+		
+        MonsterGenerator mg = new MonsterGenerator(mb);
+        mb.setMap(mg.generateMonsters());
+
+        MapExporter me = new MapExporter(mb);
         int[][] csvContent = me.exportMap();
         return ResponseEntity.ok(csvContent);
     }

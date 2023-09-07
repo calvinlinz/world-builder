@@ -21,6 +21,11 @@ public class MapBuilder {
         sb = new SectionBuilder();
     }
 
+    public void setMap(int[][] map){
+        this.map = map;
+        SectionBuilder.printMap(map);
+    }
+
     /**
      * Creates a new map, and saves over top of the existing map.
      * 
