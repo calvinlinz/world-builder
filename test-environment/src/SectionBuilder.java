@@ -37,16 +37,16 @@ public class SectionBuilder {
 
         if (random < 0.5) {
             totalFeatures = calcFeatures.nextInt(rm.getMaxFeatures()-rm.getMinFeatures()) + rm.getMinFeatures();
-            return generateVillage(totalFeatures);
+            return generateVillage(totalFeatures, secNumber);
         } else if (random < 0.5) {
             totalFeatures = calcFeatures.nextInt(nfm.getMaxFeatures()-nfm.getMinFeatures()) + nfm.getMinFeatures();
-            return generateNaturalFeature(totalFeatures);
+            return generateNaturalFeature(totalFeatures, secNumber);
         } else if (random < 0.75) {
             totalFeatures = calcFeatures.nextInt(csm.getMaxFeatures()-csm.getMinFeatures()) + csm.getMinFeatures();
-            return generateCamp(totalFeatures);
+            return generateCamp(totalFeatures, secNumber);
         } else {
             totalFeatures = calcFeatures.nextInt(wm.getMaxFeatures()-wm.getMinFeatures()) + wm.getMinFeatures();
-            return generateWoodland(totalFeatures);
+            return generateWoodland(totalFeatures, secNumber);
         }
     }
 
@@ -55,8 +55,21 @@ public class SectionBuilder {
      * @param features the number of features to generate
      * @return the section to be added to the map
      */
-    public int[][] generateCamp(int features) {
-        return null;
+    public int[][] generateCamp(int features, int secNumber) {
+         int[][] section = new int[27][27];
+
+        int count = 0;
+
+        do {
+            CampSite newCamp = csm.getRandomCampSite();
+
+            int[][] prevSection = section.clone();
+            section = drawIDs(section, newCamp, false, secNumber);
+
+            if (!prevSection.equals(section)) count++;
+        } while (count < features);
+
+        return section;
     }
 
     /**
@@ -64,8 +77,21 @@ public class SectionBuilder {
      * @param features the number of features to generate
      * @return the section to be added to the map
      */
-    public int[][] generateVillage(int features) {
-        return null;
+    public int[][] generateVillage(int features, int secNumber) {
+        int[][] section = new int[27][27];
+
+        int count = 0;
+
+        do {
+            Room newRoom = rm.getRandomRoom();
+
+            int[][] prevSection = section.clone();
+            section = drawIDs(section, newRoom, true, secNumber);
+
+            if (!prevSection.equals(section)) count++;
+        } while (count < features);
+
+        return section;
     }
 
     /**
@@ -73,16 +99,72 @@ public class SectionBuilder {
      * @param features the number of features to generate
      * @return the section to be added to the map
      */
-    public int[][] generateNaturalFeature(int features) {
-        return null;
+    public int[][] generateNaturalFeature(int features, int secNumber) {
+        int[][] section = new int[27][27];
+
+        int count = 0;
+
+        do {
+            NaturalFeature newFeat = nfm.getRandomFeature();
+
+            int[][] prevSection = section.clone();
+            section = drawIDs(section, newFeat, false, secNumber);
+
+            if (!prevSection.equals(section)) count++;
+        } while (count < features);
+
+        return section;
     }
 
     /**
      * Generate a woodland
      * @return the section to be added to the map
      */
-    public int[][] generateWoodland(int features) {
-        return null;
+    public int[][] generateWoodland(int features, int secNumber) {
+        int[][] section = new int[27][27];
+
+        int count = 0;
+
+        do {
+            Woodland newWoodland = wm.getRandomWoodland();
+
+            int[][] prevSection = section.clone();
+            section = drawIDs(section, newWoodland, false, secNumber);
+
+            if (!prevSection.equals(section)) count++;
+        } while (count < features);
+
+        return section;
+    }
+
+    public int[][] drawIDs(int[][] currentArray, Element currentElement, boolean isRoom, int secNumber) {
+        int[][] newArray = currentArray.clone();
+
+        Random random = new Random();
+
+        int id = currentElement.getId();
+
+        int randomRow = random.nextInt(27);
+        int randomCol = random.nextInt(27);
+        int topLeftRow = Math.max(randomRow, 0);
+        int topLeftCol = Math.max(randomCol, 0);
+        int bottomRightRow = randomRow + currentElement.getHeight();
+        int bottomRightCol = randomCol + currentElement.getWidth();
+
+        if (checkAval(newArray, topLeftRow, bottomRightRow, topLeftCol, bottomRightCol)) {
+
+            for (int i = topLeftRow; i < bottomRightRow; i++) {
+                for (int j = topLeftCol; j < bottomRightCol; j++) {
+                    newArray[i][j] = id;
+                }
+            }
+
+            if(isRoom){
+                addCorrectPosition(secNumber, topLeftRow, topLeftCol);
+            }
+        }
+
+        return newArray;
     }
 
     public boolean checkAval(int[][] array, int tlr, int brr, int tlc, int brc) {
