@@ -6,48 +6,29 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Button from "@mui/material/Button";
 import "../../Grid.css";
-import html2canvas from 'html2canvas';
 
 const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
   const [showInputs, setShowInputs] = useState(false);
   const [numberOfRooms, setNumberOfRooms] = useState(5);
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
-
+  
   const marks = [
     { value: 1, label: "1" },
     { value: 5, label: "5" },
     { value: 10, label: "10" },
   ];
-
+  
   const [isChanged, setIsChanged] = useState(false);
 
   const handleMenuClick = () => {
     setShowInputs(!showInputs);
   };
 
-
   const handleDownload = () => {
-    setShowInputs(!showInputs);
-    setTimeout(() => {
-      const targetElement = document.documentElement;      
-      html2canvas(targetElement, {
-        width: window.innerWidth,    // Set the width of the screenshot
-        height: window.innerHeight,  // Set the height of the screenshot
-        x: 0,            // X-coordinate of the top-left corner of the screenshot
-        y: 0,            // Y-coordinate of the top-left corner of the screenshot
-      }).then((canvas) => {
-        // Convert the canvas content to a data URL (PNG image)
-        const dataURL = canvas.toDataURL('image/png');
-        // Create a download link
-        const downloadLink = document.createElement('a');
-        downloadLink.href = dataURL;
-        downloadLink.download = 'map-image.png'; // Set the filename
-        // Trigger a click event on the download link to initiate the download
-        downloadLink.click();
-      });
-    }, 0);
-  };
+    console.log("Download Logic TBC");
+  }
+
 
   const handleGenerate = () => {
     console.log("Logic for generating a new map TBC");
@@ -62,7 +43,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
             <div className="bar2"></div>
             <div className="bar3"></div>
           </div>
-        </div>
+      </div>
       </div>
       {showInputs && (
         <div className="content">
@@ -76,7 +57,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
                 min={3}
                 max={7}
                 marks={marks}
-                onChange={(e) => setScaleFactorImages(e.target.value)}
+                onChange={(e)=>setScaleFactorImages(e.target.value)}
               />
             </div>
           </div>
@@ -89,50 +70,50 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
                 valueLabelDisplay="auto"
                 min={1}
                 max={10}
-                onChange={(e) => setNumberOfRooms(e.target.value)}
+                onChange={(e)=>setNumberOfRooms(e.target.value)}
                 marks={marks}
               />
             </div>
           </div>
           <div className="formGroup">
-            <FormGroup>
-              <FormControlLabel
-                control={<Checkbox defaultChecked />}
-                onChange={() => setShowFog(!showFog)}
-                label="SHOW FOG"
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                onChange={() => setAddRemoveFog(!addRemoveFog)}
-                label="ADD/REMOVE FOG"
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                onChange={opacityToggle}
-                label="ADD/REMOVE ROOFS"
-              />
-            </FormGroup>
+          <FormGroup>
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              onChange={()=>setShowFog(!showFog)}
+              label="SHOW FOG"
+            />
+            <FormControlLabel
+              control={<Checkbox/>}
+              onChange={()=>setAddRemoveFog(!addRemoveFog)}
+              label="ADD/REMOVE FOG"
+            />
+            <FormControlLabel
+              control={<Checkbox/>}
+              onChange={opacityToggle}
+              label="ADD/REMOVE ROOFS"
+            />
+          </FormGroup>
           </div>
           <div className="button-container">
             <div className="button">
               <Button variant="outlined" onClick={handleDownload} style={{
-                color: '#000000',
-                borderColor: '#000000',
-                borderWidth: '1px',
-              }}>
-                DOWNLOAD</Button>
+                  color: '#000000', 
+                  borderColor: '#000000', 
+                  borderWidth: '1px', 
+                }}>
+                  DOWNLOAD</Button>
             </div>
             <div className="button">
-              <Button variant="outlined" onClick={handleDownload}
+              <Button variant="outlined" onClick={handleDownload} 
                 style={{
-                  color: '#000000',
-                  borderColor: '#000000',
-                  borderWidth: '1px',
+                  color: '#000000', 
+                  borderColor: '#000000', 
+                  borderWidth: '1px', 
                 }
                 }>GENERATE</Button>
             </div>
           </div>
-
+          
         </div>
       )}
     </div>
