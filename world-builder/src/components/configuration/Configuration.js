@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import "../../Grid.css";
 import html2canvas from 'html2canvas';
 
-const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
+const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
   const [showInputs, setShowInputs] = useState(false);
   const [numberOfRooms, setNumberOfRooms] = useState(5);
   const [showFog, setShowFog] = useState(true);
@@ -49,6 +49,10 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
     }, 0);
   };
 
+  const handleGenerate = () => {
+    console.log("Logic for generating a new map TBC");
+  }
+  
   return (
     <div className="body">
       <div className="dropDown">

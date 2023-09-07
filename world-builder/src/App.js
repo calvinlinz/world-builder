@@ -31,7 +31,6 @@ function App() {
       ) : (
         <HomePage startGame={startGame} />
       )}
-      <Configuration worldData={worldData} />
     </div>
   );
 }
