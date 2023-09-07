@@ -6,6 +6,7 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Button from "@mui/material/Button";
 import "../../Grid.css";
+import html2canvas from 'html2canvas';
 
 const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
   const [showInputs, setShowInputs] = useState(false);
@@ -26,7 +27,26 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
   };
 
   const handleDownload = () => {
-    console.log("Download Logic TBC");
+    setShowInputs(!showInputs);
+    setTimeout(() => {
+      const targetElement = document.documentElement;      
+      html2canvas(targetElement, {
+        width: window.innerWidth,    // Set the width of the screenshot
+        height: window.innerHeight,  // Set the height of the screenshot
+        x: 0,            // X-coordinate of the top-left corner of the screenshot
+        y: 0,            // Y-coordinate of the top-left corner of the screenshot
+      }).then((canvas) => {
+        // Convert the canvas content to a data URL (PNG image)
+        const dataURL = canvas.toDataURL('image/png');
+        // Create a download link
+        const downloadLink = document.createElement('a');
+        downloadLink.href = dataURL;
+        downloadLink.download = 'screenshot.png'; // Set the filename
+
+        // Trigger a click event on the download link to initiate the download
+        downloadLink.click();
+      });
+    }, 0);
   }
 
 
