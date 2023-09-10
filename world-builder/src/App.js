@@ -28,7 +28,6 @@ function rotateMatrix(matrix) {
   return rotatedMatrix;
 }
 
-
 function App() {
   const [worldData, setWorldData] = useState([]);
   const [gameStarted, setGameStarted] = useState(false);
@@ -37,7 +36,7 @@ function App() {
     // Fetch the data from your backend endpoint
     fetch("http://localhost:8080/world")
       .then((response) => response.json())
-      .then((data) => {setWorldData(rotateMatrix(data)); setGrid(rotateMatrix(data));})
+      .then((data) => {setWorldData(data); setGrid(data);})
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
