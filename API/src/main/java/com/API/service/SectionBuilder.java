@@ -105,7 +105,7 @@ public class SectionBuilder {
             int[][] prevSection = copyArray(section);
             section = drawIDs(section, newCamp, false, secNumber);
 
-            if (!Arrays.equals(prevSection, section)) count++;
+            if (!compareMaps(section, prevSection)) count++;
         } 
         
         section = addTrees(section, secNumber); // add trees to the segment
@@ -129,7 +129,7 @@ public class SectionBuilder {
             int[][] prevSection = copyArray(section);
             section = drawIDs(section, newRoom, true, secNumber);
 
-            if (!Arrays.equals(prevSection, section)) count++;
+            if (!compareMaps(section, prevSection)) count++;
         } 
         
         section = addTrees(section, secNumber); // add trees to the segment
@@ -153,7 +153,7 @@ public class SectionBuilder {
             int[][] prevSection = copyArray(section);
             section = drawIDs(section, newFeat, false, secNumber);
 
-            if (!Arrays.equals(prevSection, section)) count++;
+            if (!compareMaps(section, prevSection)) count++;
         } 
         
         section = addTrees(section, secNumber); // add trees to the segment
@@ -176,7 +176,7 @@ public class SectionBuilder {
             int[][] prevSection = copyArray(section);
             section = drawIDs(section, newWoodland, false, secNumber);
 
-            if (!Arrays.equals(prevSection, section)) count++;
+            if (!compareMaps(section, prevSection)) count++;
         }
         
         return section;
@@ -251,6 +251,17 @@ public class SectionBuilder {
             }
         }
         return true;
+    }
+
+    private boolean compareMaps(int[][] one, int[][] two) {
+    	for (int i=0; i<27; i++) {
+    		for (int j=0; j<27; j++) {
+    			if (one[i][j] != two[i][j]) {
+    				return false;
+    			}
+    		}
+    	}
+    	return true;
     }
 
     public void printMap(int[][] array) {
