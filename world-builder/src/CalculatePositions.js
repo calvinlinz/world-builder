@@ -1,7 +1,12 @@
 import { allImages } from './Constants';
 import { grid2, grid3, grid4, grid5, grid6 } from './TestGrids';
 
-let grid = grid6;
+let grid = [];
+
+export function setGrid(data) {
+    grid = data
+    console.log(data)
+  }
 
 const imageCodes = {
     0: allImages.forestGrass,

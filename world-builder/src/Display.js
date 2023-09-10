@@ -11,6 +11,7 @@ import LoadingPage from './LoadingPage';
 import './Grid.css';
 import './Display.css';
 
+
 const Display = ({ worldData }) => {
   const [opacityValue, setOpacity] = useState(1); 
   const [scaleFactor, setScaleFactor] = useState(0.33);
@@ -29,7 +30,7 @@ const Display = ({ worldData }) => {
     <>
     <BackgroundGrid/>
     <BuildingsGrid scaleFactor={scaleFactor}/>
-    <NaturalFeaturesGrid scaleFactor={scaleFactor}/>
+    <NaturalFeaturesGrid scaleFactor={scaleFactor} worldData={worldData}/>
     <ConfigDropdown opacityToggle={toggleOpactiy} setScaleFactorImages={setScaleFactorImages}/>
     <CaveGrid scaleFactor={scaleFactor}/>
     <RoofGrid opacityValue={opacityValue} scaleFactor={scaleFactor}/>

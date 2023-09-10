@@ -1,12 +1,10 @@
 import React from 'react';
 import './Grid.css';
-
 import { allImages } from './Constants';
-import { grid2, grid3, grid4, grid6 } from './TestGrids';
 import { treeCords, clstrRockCords } from './CalculatePositions';
 
-const NaturalFeaturesGrid = ({scaleFactor}) => {
-    const grid = grid6;
+const NaturalFeaturesGrid = ({scaleFactor, worldData}) => {
+    const grid = worldData;
 
     const naturalCodes = [1, 3];
 
