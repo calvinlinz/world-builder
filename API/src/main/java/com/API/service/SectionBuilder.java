@@ -99,10 +99,7 @@ public class SectionBuilder {
 
         int count = 0;
         
-        System.out.println(features);
-
         while (count != features) {
-        	System.out.println(count);
             CampSite newCamp = csm.getRandomCampSite();
 
             int[][] prevSection = copyArray(section);
