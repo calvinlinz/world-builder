@@ -11,7 +11,6 @@ const BackgroundGrid = () => {
         1: allImages.forestGrass.grass3,
     };
 
-
     return (
         <div className="grid-container-background">
             {/* Render the grid */}
