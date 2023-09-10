@@ -3,4 +3,3 @@ public class NaturalFeature extends Element {
         super(id, height, width);
     }
 }
-

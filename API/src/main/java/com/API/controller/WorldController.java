@@ -41,7 +41,7 @@ public class WorldController {
     }
     @GetMapping("/world")
     public ResponseEntity<int[][]> getWorld(){
-		MapBuilder mb = new MapBuilder(81, 54);
+		MapBuilder mb = new MapBuilder(54, 81);
 		mb.createMap();
 		
         MonsterGenerator mg = new MonsterGenerator(mb);

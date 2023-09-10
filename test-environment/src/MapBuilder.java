@@ -3,6 +3,7 @@ public class MapBuilder {
     private int[][] map;
     private final int x, y;
     private boolean mapGenerated;
+    private SectionBuilder sb;
 
     /**
      * Generates a full-sized array map.
@@ -15,6 +16,7 @@ public class MapBuilder {
         // 81 and 54, the initial values passed in as arguments, represent a 3 x 2 formation of 27 by 27 blocks.
         this.map = new int[x][y];
         this.mapGenerated = false;
+        sb = new SectionBuilder();
     }
 
     /**
@@ -36,21 +38,22 @@ public class MapBuilder {
                 secNumber++;
 
                 // Generate a new section
-                int[][] newSection = SectionBuilder.getSection(27, 10, secNumber);
+                int[][] newSection = sb.getSection(27, secNumber);
 
                 // Copy the array over
                 copyArray(newSection, currentRow, currentColumn);
 
                 // Index the current column
-                currentColumn += 27;
+                currentRow += 27;
             }
 
-            currentColumn = 0;
-            currentRow += 27;
+            currentColumn += 27;
+            currentRow = 0;
         }
 
-        AStarPathFinding.makePaths(map, SectionBuilder.getAllRooms());
-        SectionBuilder.printMap(map);
+        AStarPathFinding.makePaths(map, sb.getAllRooms());
+
+        sb.printPlainMap(map);
         mapGenerated = true;
     }
 
