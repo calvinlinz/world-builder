@@ -124,7 +124,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
                   DOWNLOAD</Button>
             </div>
             <div className="button">
-              <Button variant="outlined" onClick={handleDownload} 
+              <Button variant="outlined" onClick={handleGenerate} 
                 style={{
                   color: '#000000', 
                   borderColor: '#000000', 
