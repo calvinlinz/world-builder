@@ -99,9 +99,11 @@ import waterfall from './assets/water/waterfall.png';
 
 // Monster Images:
 import fairy from './assets/monsters/fairy.png';
+import shadow from './assets/monsters/monster_shadow.png';
 
 const monsterImages = {
     fairy,
+    shadow,
 }
 
 const campImages = {
