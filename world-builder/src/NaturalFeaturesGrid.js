@@ -1,10 +1,12 @@
 import React from 'react';
 import './Grid.css';
 import { allImages } from './Constants';
-import { treeCords, clstrRockCords } from './CalculatePositions';
+import { getTreeCords, getClstrRockCords } from './CalculatePositions';
 
 const NaturalFeaturesGrid = ({scaleFactor, worldData}) => {
     const grid = worldData;
+    const treeCords = getTreeCords(worldData);
+    const clstrRockCords = getClstrRockCords(worldData);
 
     const naturalCodes = [1, 3];
 

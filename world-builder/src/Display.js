@@ -28,13 +28,13 @@ const Display = ({ worldData }) => {
 
   return (
     <>
-    <BackgroundGrid/>
-    <BuildingsGrid scaleFactor={scaleFactor}/>
+    <BackgroundGrid worldData={worldData}/>
+    <BuildingsGrid scaleFactor={scaleFactor} worldData={worldData}/>
     <NaturalFeaturesGrid scaleFactor={scaleFactor} worldData={worldData}/>
     <ConfigDropdown opacityToggle={toggleOpactiy} setScaleFactorImages={setScaleFactorImages}/>
-    <CaveGrid scaleFactor={scaleFactor}/>
-    <RoofGrid opacityValue={opacityValue} scaleFactor={scaleFactor}/>
-    <CampGrid scaleFactor={scaleFactor}/>
+    <CaveGrid scaleFactor={scaleFactor} worldData={worldData}/>
+    <RoofGrid opacityValue={opacityValue} scaleFactor={scaleFactor} worldData={worldData}/>
+    <CampGrid scaleFactor={scaleFactor} worldData={worldData}/>
     <div className='frame'></div>
     <div className='square-one'></div>
     <div className='square-two'></div>
