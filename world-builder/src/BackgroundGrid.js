@@ -3,7 +3,7 @@ import './Grid.css';
 import { allImages } from './Constants';
 import { grid2, grid6 } from './TestGrids';
 
-const BackgroundGrid = () => {
+const BackgroundGrid = ({worldData}) => {
     const grid = grid6;
 
     const imageMapping = {

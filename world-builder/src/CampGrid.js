@@ -2,9 +2,10 @@ import React, {useEffect} from 'react';
 import './Grid.css';
 
 import { allImages } from './Constants';
-import { campCords } from './CalculatePositions';
+import { getCampCords } from './CalculatePositions';
 
-const CampGrid = ({scaleFactor}) => {
+const CampGrid = ({scaleFactor, worldData}) => {
+    const campCords = getCampCords(worldData);
 
     const imageMapping = {
         19: allImages.campImages.tent_1x2,
@@ -18,6 +19,7 @@ const CampGrid = ({scaleFactor}) => {
         <div className="grid-container-camp">
             {campCords.map((image, index) => (
                 <img
+                    key={index} 
                     src={imageMapping[image.src]}
                     alt={`Image ${index + 1}`}
                     style={{

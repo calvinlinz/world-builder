@@ -82,17 +82,17 @@ const LoadingPage = () =>{
             <div>
 {/*               <h1 className="counter">{counterValue}</h1>
               <h1 className="te-reo-counter">{teReoCounterValue}</h1> */}
-              <div class="overlay">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
+              <div className="overlay">
+                <div className="bar"></div>
+                <div className="bar"></div>
+                <div className="bar"></div>
+                <div className="bar"></div>
+                <div className="bar"></div>
+                <div className="bar"></div>
+                <div className="bar"></div>
+                <div className="bar"></div>
+                <div className="bar"></div>
+                <div className="bar"></div>
             </div>
             </div>
           );

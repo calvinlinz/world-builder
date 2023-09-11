@@ -36,9 +36,10 @@ function App() {
     // Fetch the data from your backend endpoint
     fetch("http://localhost:8080/world")
       .then((response) => response.json())
-      .then((data) => {setWorldData(data); setGrid(data);})
+      .then((data) => setWorldData(data))
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
+
 
   const startGame = () => {
     setGameStarted(true);
@@ -47,7 +48,7 @@ function App() {
   return (
     <div className="App">
       {gameStarted ? (
-        <Display worldData={worldData} />
+         <Display worldData={worldData} />
       ) : (
         <HomePage startGame={startGame} />
       )}
