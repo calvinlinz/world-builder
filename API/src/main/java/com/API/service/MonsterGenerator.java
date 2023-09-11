@@ -77,18 +77,17 @@ public class MonsterGenerator {
                 int randomValue = (int)(rand.nextDouble() * maxValue);
                 if(randomValue == 1){
                     
-                    int rankVal = rank;
+                    int rankVal = rank + 1;
                     int str = getSkill(rank);
                     int dex = getSkill(rank);
                     int con = getSkill(rank);
                     int intel = getSkill(rank);
-                    int wis = getSkill(rank);
-                    int cha = getSkill(rank);
-                    //int type = determineType(cellValue);
-                    String currMonster = String.valueOf(rankVal) + String.valueOf(str) + String.valueOf(dex) + String.valueOf(con) + String.valueOf(intel) + String.valueOf(wis) + String.valueOf(cha);
+                    String currMonster = String.valueOf(rankVal) + String.valueOf(str) + String.valueOf(dex) + String.valueOf(con) + String.valueOf(intel);
                     System.out.println(currMonster);
 
-                    this.map[i][j] = Integer.valueOf(currMonster);
+                    int input = Integer.parseInt(currMonster);
+
+                    this.map[i][j] = input;
                 } 
             }
         }
