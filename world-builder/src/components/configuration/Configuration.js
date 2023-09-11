@@ -40,7 +40,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
   if (selectedMonsterOption === 'none') {
     contentToRender = <div>None selected</div>;
   } else if (selectedMonsterOption === 'option2') {
-    contentToRender = <MonstersOverlay/>;
+    contentToRender = <MonstersOverlay monsterName={"Fairy Test"} monsterRank={"Fairy Rank"}/>;
   } else if (selectedMonsterOption === 'option3') {
     contentToRender = <div>Option 3 selected</div>;
   }
@@ -125,6 +125,12 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
               <Select
                 value={selectedMonsterOption}
                 onChange={handleSelectChange}
+                style={{
+                  color: '#000000', 
+                  borderColor: '#000000', 
+                  borderWidth: '1px', 
+                  margin:'0px 0px 30px 0px',
+                }}
               >
                 <MenuItem value="none">None</MenuItem>
                 <MenuItem value="option2">Option 2</MenuItem>

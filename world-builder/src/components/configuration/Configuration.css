@@ -84,7 +84,7 @@
     .formGroup {
         display: flex;
         justify-content: left;
-        padding: 20px;
+        padding: 10px 20px;
     }
     
     .button-container{
