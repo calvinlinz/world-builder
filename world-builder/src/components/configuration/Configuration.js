@@ -7,12 +7,16 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Button from "@mui/material/Button";
 import "../../Grid.css";
 import html2canvas from 'html2canvas';
+import Select from "@mui/material/Select"; 
+import MenuItem from "@mui/material/MenuItem"; 
+import FormControl from "@mui/material/FormControl"; 
 
 const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
   const [showInputs, setShowInputs] = useState(false);
   const [numberOfRooms, setNumberOfRooms] = useState(5);
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
+  const [selectedMonsterOption, setSelectedMonsterOption] = useState("none");
   
   const marks = [
     { value: 1, label: "1" },
@@ -81,20 +85,6 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
               />
             </div>
           </div>
-          <div className="slider-component">
-            <p>ROOMS</p>
-            <div className="slider">
-              <Slider
-                defaultValue={numberOfRooms}
-                aria-label="Small"
-                valueLabelDisplay="auto"
-                min={1}
-                max={10}
-                onChange={(e)=>setNumberOfRooms(e.target.value)}
-                marks={marks}
-              />
-            </div>
-          </div>
           <div className="formGroup">
           <FormGroup>
             <FormControlLabel
@@ -114,6 +104,17 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
             />
           </FormGroup>
           </div>
+          <FormControl>
+            <p>VIEW MONSTER STATS</p> 
+            <Select
+              value={selectedMonsterOption}
+              onChange={(e) => setSelectedMonsterOption(e.target.value)}
+            >
+              <MenuItem value="none">None</MenuItem>
+              <MenuItem value="option2">Option 2</MenuItem>
+              <MenuItem value="option3">Option 3</MenuItem>
+            </Select>
+          </FormControl>
           <div className="button-container">
             <div className="button">
               <Button variant="outlined" onClick={handleDownload} style={{

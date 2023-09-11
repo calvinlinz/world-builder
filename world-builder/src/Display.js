@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import ConfigDropdown from './components/configuration/Configuration';
+import MonstersOverlay from './components/configuration/MonstersOverlay';
 import Grid from './Grid';
 import BackgroundGrid from './BackgroundGrid';
 import BuildingsGrid from "./BuildingsGrid";
@@ -32,6 +33,7 @@ const Display = ({ worldData }) => {
     <BuildingsGrid scaleFactor={scaleFactor}/>
     <NaturalFeaturesGrid scaleFactor={scaleFactor} worldData={worldData}/>
     <ConfigDropdown opacityToggle={toggleOpactiy} setScaleFactorImages={setScaleFactorImages}/>
+    <MonstersOverlay/>
     <CaveGrid scaleFactor={scaleFactor}/>
     <RoofGrid opacityValue={opacityValue} scaleFactor={scaleFactor}/>
     <CampGrid scaleFactor={scaleFactor}/>
