@@ -43,13 +43,15 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
   };
 
   const handleOptionSelect2 = (option2) => {
-    setSelectedOption2(option2);
-    handleDropdownClose();
-    if (option2 == "as-png") {
-      sharePNG();
-    } else if (option2 == "as-json") {
-      shareJSON();
-    }
+      handleDropdownClose();
+      const actions = {
+        'as-png': sharePNG,
+        'as-json': shareJSON,
+      };
+      const selectedAction = actions[option2];
+      if (selectedAction) {
+        selectedAction();
+      }
   };
 
   const shareJSON = () => {
