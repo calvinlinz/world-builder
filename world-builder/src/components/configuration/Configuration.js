@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import "./Configuration.css";
 import Slider from "@mui/material/Slider";
 import FormGroup from "@mui/material/FormGroup";
@@ -8,13 +8,14 @@ import { Menu, Button, MenuItem, FormControl, Select } from "@mui/material";
 import "../../Grid.css";
 import html2canvas from "html2canvas";
 import MonstersOverlay from "./MonstersOverlay";
+import { WorldDataContext } from "../../context/worldDataContext";
 
-const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
+const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
+  const {worldData, setWorldData} = useContext(WorldDataContext);
   const [showInputs, setShowInputs] = useState(false);
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
   const [selectedMonsterOption, setSelectedMonsterOption] = useState("none");
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -102,7 +103,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
   }
 
   const handleGenerate = () => {
-    console.log("Logic for generating a new map TBC");
+    fetch("http://localhost:8080/world").then((response)=>response.json()).then((data)=>setWorldData(data)).catch((error)=>console.log(error));
   };
 
   return (
