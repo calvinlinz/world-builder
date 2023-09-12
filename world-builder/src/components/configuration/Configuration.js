@@ -92,7 +92,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
               <p>GRID ZOOM</p>
               <div className="slider">
                 <Slider
-                  defaultValue={0.33}
+                  defaultValue={0.25}
                   aria-label="Small"
                   valueLabelDisplay="auto"
                   min={3}

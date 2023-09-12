@@ -2,7 +2,7 @@
 
 /* Variables */
 :root {
-    --scale-factor: 0.33;
+    --scale-factor: 0.25;
   }
 
 .grid-container {
@@ -71,14 +71,14 @@
   
 .grid-row {
     /* Add any styles for the row div here */
-    width: calc(260vw * var(--scale-factor));
-    height: calc(4vw* var(--scale-factor));
+    width: calc(340vw * var(--scale-factor));
+    height: calc(3.9vw* var(--scale-factor));
 }
   
 .grid-cell {
     display: inline-block; 
-    width: calc(4vw * var(--scale-factor));
-    height: calc(4vw * var(--scale-factor));
+    width: calc(4.1vw * var(--scale-factor));
+    height: calc(4.1w * var(--scale-factor));
     overflow: hidden;
 }
 
