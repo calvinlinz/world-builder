@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import ConfigDropdown from './components/configuration/Configuration';
+import MonstersOverlay from './components/configuration/MonstersOverlay';
 import Grid from './Grid';
 import BackgroundGrid from './BackgroundGrid';
 import BuildingsGrid from "./BuildingsGrid";

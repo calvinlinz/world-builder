@@ -97,6 +97,15 @@ import water_rock from './assets/water/water_rock.png';
 import water from './assets/water/water.jpg';
 import waterfall from './assets/water/waterfall.png';
 
+// Monster Images:
+import fairy from './assets/monsters/fairy.png';
+import shadow from './assets/monsters/monster_shadow.png';
+
+const monsterImages = {
+    fairy,
+    shadow,
+}
+
 const campImages = {
     tent_1x2, 
     tent_2x2_1,
@@ -323,6 +332,7 @@ const allImages = {
     rockImagesClstr,
     buildingImages,
     waterImages,
+    monsterImages,
 }
 
 export{
