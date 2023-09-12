@@ -101,11 +101,6 @@ h1 {
     margin-top: 4.5px;
 }
 
-.container {
-    display: inline-block;
-    cursor: pointer;
-}
-
 .bar1,
 .bar2,
 .bar3 {
@@ -116,7 +111,7 @@ h1 {
     transition: 0.4s;
 }
 
-.buto .change .bar1 {
+.change .bar1 {
     transform: translate(0, 5.5px) rotate(-45deg);
 }
 
