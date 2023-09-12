@@ -4,9 +4,10 @@ import Slider from "@mui/material/Slider";
 import FormGroup from "@mui/material/FormGroup";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { Button, Menu, MenuItem } from "@mui/material";
+import { Button, Menu, MenuItem, Select, FormControl } from "@mui/material";
 import "../../Grid.css";
 import html2canvas from "html2canvas";
+import MonstersOverlay from "./MonstersOverlay";
 
 const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
   const [showInputs, setShowInputs] = useState(false);
@@ -14,6 +15,8 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
   const [downloadDropdown, setDownloadDropdown] = useState(false);
+  const [selectedMonsterOption, setSelectedMonsterOption] = useState("none");
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -25,6 +28,26 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
   const handleDropdownClose = () => {
     setAnchorEl(null);
   };
+
+  const handleSelectChange = (e) => {
+    setSelectedMonsterOption(e.target.value);
+  };
+
+  let contentToRender;
+
+  if (selectedMonsterOption === "none") {
+    contentToRender = <div>None selected</div>;
+  } else if (selectedMonsterOption === "option2") {
+    contentToRender = (
+      <MonstersOverlay
+        className="monsterContent"
+        monsterName={"Fairy Test"}
+        monsterRank={"Fairy Rank"}
+      />
+    );
+  } else if (selectedMonsterOption === "option3") {
+    contentToRender = <div>Option 3 selected</div>;
+  }
 
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
@@ -55,7 +78,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
       const date = new Date().toISOString();
       const a = document.createElement("a");
       a.href = url;
-      a.download = "worldData-" + date+ ".json";
+      a.download = "worldData-" + date + ".json";
       a.click();
       window.URL.revokeObjectURL(url);
     }
@@ -148,6 +171,24 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
               />
             </FormGroup>
           </div>
+          <FormControl>
+            <p>VIEW MONSTER STATS</p>
+            <Select
+              value={selectedMonsterOption}
+              onChange={handleSelectChange}
+              style={{
+                color: "#000000",
+                borderColor: "#000000",
+                borderWidth: "1px",
+                margin: "0px 0px 30px 0px",
+              }}
+            >
+              <MenuItem value="none">None</MenuItem>
+              <MenuItem value="option2">Option 2</MenuItem>
+              <MenuItem value="option3">Option 3</MenuItem>
+            </Select>
+          </FormControl>
+
           <div className="button-container">
             <div className="button">
               <Button
@@ -190,6 +231,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
           </div>
         </div>
       )}
+      <div> {contentToRender}</div>
     </div>
   );
 };
