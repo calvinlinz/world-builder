@@ -32,7 +32,7 @@ const Display = ({ worldData }) => {
     <BackgroundGrid worldData={worldData}/>
     <BuildingsGrid scaleFactor={scaleFactor} worldData={worldData}/>
     <NaturalFeaturesGrid scaleFactor={scaleFactor} worldData={worldData}/>
-    <ConfigDropdown opacityToggle={toggleOpactiy} setScaleFactorImages={setScaleFactorImages}/>
+    <ConfigDropdown opacityToggle={toggleOpactiy} setScaleFactorImages={setScaleFactorImages} worldData ={worldData}/>
     <CaveGrid scaleFactor={scaleFactor} worldData={worldData}/>
     <RoofGrid opacityValue={opacityValue} scaleFactor={scaleFactor} worldData={worldData}/>
     <CampGrid scaleFactor={scaleFactor} worldData={worldData}/>

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import HomePage from "./HomePage";
 import Display from "./Display";
-import {setGrid} from "./CalculatePositions"
+import { setGrid } from "./CalculatePositions";
+import { WorldDataContext } from "./context/worldDataContext";
 
 function rotateMatrix(matrix) {
   const rows = matrix.length;
@@ -40,20 +41,27 @@ function App() {
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
-
   const startGame = () => {
     setGameStarted(true);
     console.log(worldData);
   };
 
   return (
-    <div className="App">
-      {gameStarted ? (
-         <Display worldData={worldData} />
-      ) : (
-        <HomePage startGame={startGame} />
-      )}
-    </div>
+    <WorldDataContext.Provider value={{
+      worldData: worldData,
+      setWorldData: (worldData) => {
+        setWorldData(worldData);
+      },
+    }}
+  >
+      <div className="App">
+        {gameStarted ? (
+          <Display worldData={worldData} />
+        ) : (
+          <HomePage startGame={startGame} />
+        )}
+      </div>
+    </WorldDataContext.Provider>
   );
 }
 
