@@ -181,9 +181,38 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
                   color: "#000000",
                   borderColor: "#000000",
                   borderWidth: "1px",
+                  marginTop: "-30px",
+                  marginLeft: "40px",
                 }}
               >
                 Save
+              </Button>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleDropdownClose}
+              >
+                <MenuItem onClick={() => handleOptionSelect("png")}>
+                  PNG
+                </MenuItem>
+                <MenuItem onClick={() => handleOptionSelect("json")}>
+                  JSON
+                </MenuItem>
+              </Menu>
+            </div>
+            <div className="button">
+              <Button
+                variant="outlined"
+                onClick={handleDropdownOpen}
+                style={{
+                  color: "#000000",
+                  borderColor: "#000000",
+                  borderWidth: "1px",
+                  marginTop: "-30px",
+                  marginLeft: "20px",
+                }}
+              >
+                Share
               </Button>
               <Menu
                 anchorEl={anchorEl}
@@ -207,6 +236,8 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
                   color: "#000000",
                   borderColor: "#000000",
                   borderWidth: "1px",
+                  marginTop: "30px",
+                  marginLeft: "-305px",
                 }}
               >
                 GENERATE
