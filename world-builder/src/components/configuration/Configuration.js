@@ -130,7 +130,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
                 valueLabelDisplay="auto"
                 min={3}
                 max={7}
-                // onChange={(e) => setScaleFactorImages(e.target.value)} // You need to implement setScaleFactorImages
+                onChange={(e) => setScaleFactorImages(e.target.value)} // You need to implement setScaleFactorImages
               />
             </div>
           </div>
@@ -138,17 +138,17 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
             <FormGroup>
               <FormControlLabel
                 control={<Checkbox defaultChecked />}
-                // onChange={() => setShowFog(!showFog)} // Implement setShowFog
+                onChange={() => setShowFog(!showFog)} // Implement setShowFog
                 label="SHOW FOG"
               />
               <FormControlLabel
                 control={<Checkbox />}
-                // onChange={() => setAddRemoveFog(!addRemoveFog)} // Implement setAddRemoveFog
+                onChange={() => setAddRemoveFog(!addRemoveFog)} // Implement setAddRemoveFog
                 label="ADD/REMOVE FOG"
               />
               <FormControlLabel
                 control={<Checkbox />}
-                // onChange={opacityToggle} // Implement opacityToggle
+                onChange={opacityToggle} // Implement opacityToggle
                 label="ADD/REMOVE ROOFS"
               />
             </FormGroup>
