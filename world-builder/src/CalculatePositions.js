@@ -160,7 +160,7 @@ function getBuildingCords(grid) {
         for (let j = 0; j < grid[i].length; j++) {
             if (buildingCodes.includes(grid[i][j])) {
                 if(!buildingCodes.includes(grid[i-1][j])){
-                    if(!buildingCodes.includes(grid[i][j-1])){
+                    if(!buildingCodes.includes(grid[i][j-1])){ 
                         if (symetricalCodes.includes(grid[i][j])) {
                             // Ensure that the buildings location is only recorded once
                             if (i === 0 && j === 0) { // If y = 0 and x = 0
