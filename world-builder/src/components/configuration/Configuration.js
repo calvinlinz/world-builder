@@ -1,4 +1,4 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import "./Configuration.css";
 import Slider from "@mui/material/Slider";
 import FormGroup from "@mui/material/FormGroup";
@@ -10,34 +10,60 @@ import html2canvas from "html2canvas";
 import MonstersOverlay from "./MonstersOverlay";
 import { WorldDataContext } from "../../context/worldDataContext";
 
-const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
-  const {worldData, setWorldData} = useContext(WorldDataContext);
+const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
+  const { worldData, setWorldData } = useContext(WorldDataContext);
   const [showInputs, setShowInputs] = useState(false);
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
   const [selectedMonsterOption, setSelectedMonsterOption] = useState("none");
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorElSave, setAnchorElSave] = useState(null);
+  const [anchorElShare, setAnchorElShare] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption2, setSelectedOption2] = useState(null);
 
   const [showContent, setShowContent] = useState(true);
 
-  const handleDropdownOpen = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleDropdownOpenSave = (event) => {
+    setAnchorElSave(event.currentTarget);
+  };
+
+  const handleDropdownOpenShare = (event) => {
+    setAnchorElShare(event.currentTarget);
   };
 
   const handleDropdownClose = () => {
-    setAnchorEl(null);
+    setAnchorElSave(null);
+    setAnchorElShare(null);
   };
 
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
     handleDropdownClose();
-    if (option == "png") {
-      downloadPNG();
-    } else if (option == "json") {
-      downloadJSON();
+      if (option == "png") {
+        downloadPNG();
+      } else if (option == "json") {
+        downloadJSON();
+      }
+  };
+
+  const handleOptionSelect2 = (option2) => {
+    setSelectedOption2(option2);
+    handleDropdownClose();
+    if (option2 == "as-png") {
+      sharePNG();
+    } else if (option2 == "as-json") {
+      shareJSON();
     }
   };
+
+  const shareJSON = () => {
+    console.log("shareJSON");
+  };
+
+  const sharePNG = () => {
+    console.log("sharePNG");
+  };
+
 
   const downloadJSON = () => {
     if (worldData) {
@@ -70,7 +96,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
         const downloadLink = document.createElement("a");
         downloadLink.href = dataURL;
         const date = new Date().toISOString();
-        downloadLink.download = "map-"+date+".png"; // Set the filename
+        downloadLink.download = "map-" + date + ".png"; // Set the filename
         downloadLink.click();
         setShowContent(true);
         setSelectedMonsterOption(currentMonster);
@@ -103,7 +129,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
   }
 
   const handleGenerate = () => {
-    fetch("http://localhost:8080/world").then((response)=>response.json()).then((data)=>setWorldData(data)).catch((error)=>console.log(error));
+    fetch("http://localhost:8080/world").then((response) => response.json()).then((data) => setWorldData(data)).catch((error) => console.log(error));
   };
 
   return (
@@ -176,7 +202,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
             <div className="button">
               <Button
                 variant="outlined"
-                onClick={handleDropdownOpen}
+                onClick={handleDropdownOpenSave}
                 style={{
                   color: "#000000",
                   borderColor: "#000000",
@@ -188,8 +214,8 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
                 Save
               </Button>
               <Menu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
+                anchorEl={anchorElSave}
+                open={Boolean(anchorElSave)}
                 onClose={handleDropdownClose}
               >
                 <MenuItem onClick={() => handleOptionSelect("png")}>
@@ -200,10 +226,11 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
                 </MenuItem>
               </Menu>
             </div>
+
             <div className="button">
               <Button
                 variant="outlined"
-                onClick={handleDropdownOpen}
+                onClick={handleDropdownOpenShare}
                 style={{
                   color: "#000000",
                   borderColor: "#000000",
@@ -215,14 +242,14 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
                 Share
               </Button>
               <Menu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
+                anchorEl={anchorElShare}
+                open={Boolean(anchorElShare)}
                 onClose={handleDropdownClose}
               >
-                <MenuItem onClick={() => handleOptionSelect("png")}>
+                <MenuItem onClick={() => handleOptionSelect2("as-png")}>
                   PNG
                 </MenuItem>
-                <MenuItem onClick={() => handleOptionSelect("json")}>
+                <MenuItem onClick={() => handleOptionSelect2("as-json")}>
                   JSON
                 </MenuItem>
               </Menu>
