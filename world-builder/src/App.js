@@ -35,10 +35,15 @@ function App() {
 
   useEffect(() => {
     // Fetch the data from your backend endpoint
-    fetch("http://localhost:8080/world")
-      .then((response) => response.json())
-      .then((data) => setWorldData(data))
-      .catch((error) => console.error("Error fetching data:", error));
+    fetch("http://localhost:8080/world", {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+      },
+      body: JSON.stringify({
+        size:27
+      })
+    }).then((response)=>response.json()).then((data)=>setWorldData(data)).catch((error)=>console.log(error));
   }, []);
 
   const startGame = () => {
