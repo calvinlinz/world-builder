@@ -11,7 +11,6 @@ import MonstersOverlay from "./MonstersOverlay";
 
 const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
   const [showInputs, setShowInputs] = useState(false);
-  const [numberOfRooms, setNumberOfRooms] = useState(5);
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
   const [downloadDropdown, setDownloadDropdown] = useState(false);
@@ -150,6 +149,12 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
                 onChange={(e) => setNumberOfRooms(e.target.value)}
                 marks={marks}
               />
+              <FormControlLabel
+                control={<Checkbox/>}
+                onChange={opacityToggle}
+                label="ADD/REMOVE ROOFS"
+              />
+            </FormGroup>
             </div>
           </div>
           <div className="formGroup">
@@ -228,6 +233,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
                 GENERATE
               </Button>
             </div>
+            
           </div>
         </div>
       )}

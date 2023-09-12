@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import ConfigDropdown from './components/configuration/Configuration';
+import MonstersOverlay from './components/configuration/MonstersOverlay';
 import Grid from './Grid';
 import BackgroundGrid from './BackgroundGrid';
 import BuildingsGrid from "./BuildingsGrid";
@@ -14,7 +15,7 @@ import './Display.css';
 
 const Display = ({ worldData }) => {
   const [opacityValue, setOpacity] = useState(1); 
-  const [scaleFactor, setScaleFactor] = useState(0.33);
+  const [scaleFactor, setScaleFactor] = useState(0.25);
 
   const toggleOpactiy = () => {
     setOpacity(opacityValue === 1 ? 0 : 1);
