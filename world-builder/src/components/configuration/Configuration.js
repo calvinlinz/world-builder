@@ -14,10 +14,11 @@ import MonstersOverlay from "./MonstersOverlay";
 
 const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
   const [showInputs, setShowInputs] = useState(false);
-  const [numberOfRooms, setNumberOfRooms] = useState(5);
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
   const [selectedMonsterOption, setSelectedMonsterOption] = useState("none");
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  
   
   const marks = [
     { value: 1, label: "1" },
@@ -40,7 +41,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
   if (selectedMonsterOption === 'none') {
     contentToRender = <div>None selected</div>;
   } else if (selectedMonsterOption === 'option2') {
-    contentToRender = <MonstersOverlay monsterName={"Fairy Test"} monsterRank={"Fairy Rank"}/>;
+    contentToRender = <MonstersOverlay className="monsterContent" monsterName={"Fairy Test"} monsterRank={"Fairy Rank"}/>;
   } else if (selectedMonsterOption === 'option3') {
     contentToRender = <div>Option 3 selected</div>;
   }
