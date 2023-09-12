@@ -18,6 +18,8 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
 
+  const [showContent, setShowContent] = useState(true);
+
   const handleDropdownOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -49,9 +51,10 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
       window.URL.revokeObjectURL(url);
     }
   };
-
   const downloadPNG = () => {
-    setShowInputs(!showInputs);
+    setShowContent(false);
+    const currentMonster = selectedMonsterOption;
+    setSelectedMonsterOption("none");
     setTimeout(() => {
       const targetElement = document.documentElement;
       html2canvas(targetElement, {
@@ -61,22 +64,18 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
         y: 0, // Y-coordinate of the top-left corner of the screenshot
       }).then((canvas) => {
         // Convert the canvas content to a data URL (PNG image)
-        const dataURL = canvas.toDataURL("image/png");
+        const dataURL = canvas.toDataURL("image/png;");
         // Create a download link
         const downloadLink = document.createElement("a");
         downloadLink.href = dataURL;
-        downloadLink.download = "screenshot.png"; // Set the filename
+        const date = new Date().toISOString();
+        downloadLink.download = "map-"+date+".png"; // Set the filename
         downloadLink.click();
+        setShowContent(true);
+        setSelectedMonsterOption(currentMonster);
       });
     }, 0);
   };
-  const marks = [
-    { value: 1, label: "1" },
-    { value: 5, label: "5" },
-    { value: 10, label: "10" },
-  ];
-
-  const [isChanged, setIsChanged] = useState(false);
 
   const handleMenuClick = () => {
     setShowInputs(!showInputs);
@@ -108,17 +107,19 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
 
   return (
     <div className="body">
-      <div className="dropDown">
-        <div id="hamburger" onClick={handleMenuClick}>
-          <div className={`container ${showInputs ? "change" : ""}`}>
-            <div className="bar1"></div>
-            <div className="bar2"></div>
-            <div className="bar3"></div>
+      {showContent && (
+        <div className="dropDown">
+          <div id="hamburger" onClick={handleMenuClick}>
+            <div className={`container ${showInputs ? "change" : ""}`}>
+              <div className="bar1"></div>
+              <div className="bar2"></div>
+              <div className="bar3"></div>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
-      {showInputs && (
+      {showContent && showInputs && (
         <div className="content">
           <div className="slider-component">
             <p>GRID ZOOM</p>
@@ -129,8 +130,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
                 valueLabelDisplay="auto"
                 min={3}
                 max={7}
-                marks={marks}
-                onChange={(e) => setScaleFactorImages(e.target.value)}
+                // onChange={(e) => setScaleFactorImages(e.target.value)} // You need to implement setScaleFactorImages
               />
             </div>
           </div>
@@ -138,17 +138,17 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
             <FormGroup>
               <FormControlLabel
                 control={<Checkbox defaultChecked />}
-                onChange={() => setShowFog(!showFog)}
+                // onChange={() => setShowFog(!showFog)} // Implement setShowFog
                 label="SHOW FOG"
               />
               <FormControlLabel
                 control={<Checkbox />}
-                onChange={() => setAddRemoveFog(!addRemoveFog)}
+                // onChange={() => setAddRemoveFog(!addRemoveFog)} // Implement setAddRemoveFog
                 label="ADD/REMOVE FOG"
               />
               <FormControlLabel
                 control={<Checkbox />}
-                onChange={opacityToggle}
+                // onChange={opacityToggle} // Implement opacityToggle
                 label="ADD/REMOVE ROOFS"
               />
             </FormGroup>
@@ -214,9 +214,8 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages, worldData }) => {
           </div>
         </div>
       )}
-      {contentToRender}
+      {showContent && contentToRender}
     </div>
   );
 };
-
 export default ConfigDropdown;
