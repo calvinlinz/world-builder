@@ -319,6 +319,13 @@ public class SectionBuilder {
 
     public void clearRooms(){
         AllRoomsList.clear();
+        roomList1.clear();
+        roomList2.clear();
+        roomList3.clear();
+        roomList4.clear();
+        roomList5.clear();
+        roomList6.clear();
+
     }
 
     public void addCorrectPosition(int secNumber, int topLeftRow, int topLeftCol){
