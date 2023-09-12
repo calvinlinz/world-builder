@@ -23,12 +23,8 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
 
   const [showContent, setShowContent] = useState(true);
 
-  const handleDropdownOpenSave = (event) => {
-    setAnchorElSave(event.currentTarget);
-  };
-
-  const handleDropdownOpenShare = (event) => {
-    setAnchorElShare(event.currentTarget);
+  const handleDropdownOpen = (event, anchorElSetter) => {
+    anchorElSetter(event.currentTarget);
   };
 
   const handleDropdownClose = () => {
@@ -39,11 +35,11 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
     handleDropdownClose();
-      if (option == "png") {
-        downloadPNG();
-      } else if (option == "json") {
-        downloadJSON();
-      }
+    if (option == "png") {
+      downloadPNG();
+    } else if (option == "json") {
+      downloadJSON();
+    }
   };
 
   const handleOptionSelect2 = (option2) => {
@@ -202,7 +198,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
             <div className="button">
               <Button
                 variant="outlined"
-                onClick={handleDropdownOpenSave}
+                onClick={(e) => handleDropdownOpen(e, setAnchorElSave)}
                 style={{
                   color: "#000000",
                   borderColor: "#000000",
@@ -230,7 +226,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
             <div className="button">
               <Button
                 variant="outlined"
-                onClick={handleDropdownOpenShare}
+                onClick={(e) => handleDropdownOpen(e, setAnchorElShare)}
                 style={{
                   color: "#000000",
                   borderColor: "#000000",
