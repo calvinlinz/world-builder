@@ -159,80 +159,84 @@ function getBuildingCords(grid) {
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             if (buildingCodes.includes(grid[i][j])) {
-                if (symetricalCodes.includes(grid[i][j])) {
-                    // Ensure that the buildings location is only recorded once
-                    if (i === 0 && j === 0) { // If y = 0 and x = 0
-                        const newValue = {
-                            src: grid[i][j],
-                            x: j,
-                            y: i,
-                            width: imageDims[grid[i][j]][0],
-                            height: imageDims[grid[i][j]][0],
-                            angle: 0,
-                            xShift: imageShift[grid[i][j]][0],
-                            yShift: imageShift[grid[i][j]][1],
-                        };
-                        cordList.push(newValue);
-                    } else if (i === 0) { // If y = 0
-                        if (grid[i][j] != grid[i][j - 1]) {
-                            const newValue = {
-                                src: grid[i][j],
-                                x: j,
-                                y: i,
-                                width: imageDims[grid[i][j]][0],
-                                height: imageDims[grid[i][j]][0],
-                                angle: 0,
-                                xShift: imageShift[grid[i][j]][0],
-                                yShift: imageShift[grid[i][j]][1],
-                            };
+                if(!buildingCodes.includes(grid[i-1][j])){
+                    if(!buildingCodes.includes(grid[i][j-1])){
+                        if (symetricalCodes.includes(grid[i][j])) {
+                            // Ensure that the buildings location is only recorded once
+                            if (i === 0 && j === 0) { // If y = 0 and x = 0
+                                const newValue = {
+                                    src: grid[i][j],
+                                    x: j,
+                                    y: i,
+                                    width: imageDims[grid[i][j]][0],
+                                    height: imageDims[grid[i][j]][0],
+                                    angle: 0,
+                                    xShift: imageShift[grid[i][j]][0],
+                                    yShift: imageShift[grid[i][j]][1],
+                                };
                             cordList.push(newValue);
+                            } else if (i === 0) { // If y = 0
+                                if (grid[i][j] != grid[i][j - 1]) {
+                                    const newValue = {
+                                        src: grid[i][j],
+                                        x: j,
+                                        y: i,
+                                        width: imageDims[grid[i][j]][0],
+                                        height: imageDims[grid[i][j]][0],
+                                        angle: 0,
+                                        xShift: imageShift[grid[i][j]][0],
+                                        yShift: imageShift[grid[i][j]][1],
+                                    };
+                                    cordList.push(newValue);
+                                }
+                            } else if (j === 0) { // If x = 0 
+                                if (grid[i][j] != grid[i - 1][j]) {
+                                    const newValue = {
+                                        src: grid[i][j],
+                                        x: j,
+                                        y: i,
+                                        width: imageDims[grid[i][j]][0],
+                                        height: imageDims[grid[i][j]][0],
+                                        angle: 0,
+                                        xShift: imageShift[grid[i][j]][0],
+                                        yShift: imageShift[grid[i][j]][1],
+                                    };
+                                    cordList.push(newValue);
+                                }
+                            } else {
+                                if (grid[i][j] != grid[i - 1][j] && grid[i][j] != grid[i][j - 1]) {
+                                    const newValue = {
+                                        src: grid[i][j],
+                                        x: j,
+                                        y: i,
+                                        width: imageDims[grid[i][j]][0],
+                                        height: imageDims[grid[i][j]][0],
+                                        angle: 0,
+                                        xShift: imageShift[grid[i][j]][0],
+                                        yShift: imageShift[grid[i][j]][1],
+                                    };
+                                    cordList.push(newValue);
+                                }
+                            }
+                        } else {
+                            // Ensure that the buildings location is only recorded once
+                            if (i === 0 && j === 0) {
+                                cordList.push(findOrientation(i, j, grid[i][j], grid));
+                            } else if (i === 0) { // If y = 0
+                                if (grid[i][j] != grid[i][j - 1]) {
+                                    cordList.push(findOrientation(i, j, grid[i][j], grid));
+                                }
+                            } else if (j === 0) { // If x = 0 
+                                if (grid[i][j] != grid[i - 1][j]) {
+                                    cordList.push(findOrientation(i, j, grid[i][j], grid));
+                                }
+                            } else {
+                                if (grid[i][j] != grid[i - 1][j] && grid[i][j] != grid[i][j - 1]) {
+                                    cordList.push(findOrientation(i, j, grid[i][j], grid));
+                                }
+                            }
                         }
-                    } else if (j === 0) { // If x = 0 
-                        if (grid[i][j] != grid[i - 1][j]) {
-                            const newValue = {
-                                src: grid[i][j],
-                                x: j,
-                                y: i,
-                                width: imageDims[grid[i][j]][0],
-                                height: imageDims[grid[i][j]][0],
-                                angle: 0,
-                                xShift: imageShift[grid[i][j]][0],
-                                yShift: imageShift[grid[i][j]][1],
-                            };
-                            cordList.push(newValue);
-                        }
-                    } else {
-                        if (grid[i][j] != grid[i - 1][j] && grid[i][j] != grid[i][j - 1]) {
-                            const newValue = {
-                                src: grid[i][j],
-                                x: j,
-                                y: i,
-                                width: imageDims[grid[i][j]][0],
-                                height: imageDims[grid[i][j]][0],
-                                angle: 0,
-                                xShift: imageShift[grid[i][j]][0],
-                                yShift: imageShift[grid[i][j]][1],
-                            };
-                            cordList.push(newValue);
-                        }
-                    }
-                } else {
-                    // Ensure that the buildings location is only recorded once
-                    if (i === 0 && j === 0) {
-                        cordList.push(findOrientation(i, j, grid[i][j], grid));
-                    } else if (i === 0) { // If y = 0
-                        if (grid[i][j] != grid[i][j - 1]) {
-                            cordList.push(findOrientation(i, j, grid[i][j], grid));
-                        }
-                    } else if (j === 0) { // If x = 0 
-                        if (grid[i][j] != grid[i - 1][j]) {
-                            cordList.push(findOrientation(i, j, grid[i][j], grid));
-                        }
-                    } else {
-                        if (grid[i][j] != grid[i - 1][j] && grid[i][j] != grid[i][j - 1]) {
-                            cordList.push(findOrientation(i, j, grid[i][j], grid));
-                        }
-                    }
+                }
                 }
             }
         }
