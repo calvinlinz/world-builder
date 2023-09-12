@@ -17,8 +17,8 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
   const [addRemoveFog, setAddRemoveFog] = useState(false);
   const [selectedMonsterOption, setSelectedMonsterOption] = useState("none");
   const [anchorEl, setAnchorEl] = useState(null);
+  const [gridSize, setGridSize] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
-
   const [showContent, setShowContent] = useState(true);
 
   const handleDropdownOpen = (event) => {
@@ -82,6 +82,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
     setShowInputs(!showInputs);
   };
 
+
   const handleSelectChange = (e) => {
     setSelectedMonsterOption(e.target.value);
   };
@@ -103,7 +104,15 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
   }
 
   const handleGenerate = () => {
-    fetch("http://localhost:8080/world").then((response)=>response.json()).then((data)=>setWorldData(data)).catch((error)=>console.log(error));
+    fetch("http://localhost:8080/world", {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+      },
+      body: JSON.stringify({
+        size:gridSize
+      })
+    }).then((response)=>response.json()).then((data)=>setWorldData(data)).catch((error)=>console.log(error));
   };
 
   return (
@@ -132,6 +141,19 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
                 min={3}
                 max={7}
                 onChange={(e) => setScaleFactorImages(e.target.value)} // You need to implement setScaleFactorImages
+              />
+            </div>
+          </div>
+          <div className="slider-component">
+            <p>GRID SIZE</p>
+            <div className="slider">
+              <Slider
+                defaultValue={27}
+                aria-label="Small"
+                valueLabelDisplay="auto"
+                min={20}
+                max={50}
+                onChange={(e) => setGridSize(e.target.value)} 
               />
             </div>
           </div>

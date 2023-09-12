@@ -3,7 +3,7 @@ package com.API.service;
 public class MapBuilder {
 
     private int[][] map;
-    private final int x, y;
+    private final int size;
     private boolean mapGenerated;
     private SectionBuilder sb;
 
@@ -12,16 +12,18 @@ public class MapBuilder {
      * 
      * This is done by creating a 3 by 2 map of pre-generated sections.
      */
-    public MapBuilder(int x, int y) {
-        this.x = x;
-        this.y = y;        
-        // 81 and 54, the initial values passed in as arguments, represent a 3 x 2 formation of 27 by 27 blocks.
+    public MapBuilder(int size) {
+        this.size = size;
+        // 81 and 54, the initial values passed in as arguments, represent a 3 x 2
+        // formation of 27 by 27 blocks.
+        int x = size * 2;
+        int y = size * 3;
         this.map = new int[x][y];
         this.mapGenerated = false;
         sb = new SectionBuilder();
     }
 
-    public void setMap(int[][] map){
+    public void setMap(int[][] map) {
         this.map = map;
         sb.printMap(map);
     }
@@ -38,23 +40,23 @@ public class MapBuilder {
         int secNumber = 0;
 
         // Create two rows
-        for (int i=0; i<2; i++) {
+        for (int i = 0; i < 2; i++) {
 
             // Create three columns
-            for (int j=0; j<3; j++) {
+            for (int j = 0; j < 3; j++) {
                 secNumber++;
 
                 // Generate a new section
-                int[][] newSection = sb.getSection(27, secNumber);
+                int[][] newSection = sb.getSection(this.size, secNumber);
 
                 // Copy the array over
                 copyArray(newSection, currentRow, currentColumn);
 
                 // Index the current column
-                currentRow += 27;
+                currentRow += size;
             }
 
-            currentColumn += 27;
+            currentColumn += size;
             currentRow = 0;
         }
 
@@ -64,12 +66,11 @@ public class MapBuilder {
         mapGenerated = true;
     }
 
-
     private void copyArray(int[][] section, int currentRow, int currentColumn) {
         // Copy the section into the master array
-        for (int i=currentColumn; i<currentColumn+27; i++) {
-            for (int j=currentRow; j<currentRow+27; j++) {
-                map[i][j] = section[(i%27)][(j%27)];
+        for (int i = currentColumn; i < currentColumn + size; i++) {
+            for (int j = currentRow; j < currentRow + size; j++) {
+                map[i][j] = section[(i % size)][(j % size)];
             }
         }
     }
@@ -81,19 +82,16 @@ public class MapBuilder {
         return this.map;
     }
 
-    public int getX(){
-        return this.x;
+    public int getSize() {
+        return this.size;
     }
 
-    public int getY(){
-        return this.y;
-    }
-
-    /**
+    /*
      * Is used to determine if the MapBuilder has already made a map.
+     * 
      * @return A boolean representing if a map has been generated.
      */
-    public boolean isGenerated(){
+    public boolean isGenerated() {
         return mapGenerated;
     }
 }
