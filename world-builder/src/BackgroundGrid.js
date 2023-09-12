@@ -4,7 +4,7 @@ import { allImages } from './Constants';
 import { grid2, grid6 } from './TestGrids';
 
 const BackgroundGrid = ({worldData}) => {
-    const grid = grid6;
+    const grid = worldData;
 
     const imageMapping = {
         0: allImages.forestGrass.grass1,
