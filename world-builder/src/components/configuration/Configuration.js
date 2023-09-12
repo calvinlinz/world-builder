@@ -19,7 +19,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
   const [anchorElSave, setAnchorElSave] = useState(null);
   const [anchorElShare, setAnchorElShare] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
-  const [selectedOption2, setSelectedOption2] = useState(null);
+  const [selectedButton, setSelectedButton] = useState(null);
 
   const [showContent, setShowContent] = useState(true);
 
@@ -32,26 +32,24 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
     setAnchorElShare(null);
   };
 
-  const handleOptionSelect = (option) => {
+  const handleOptionSelect = (button, option) => {
     setSelectedOption(option);
+    setSelectedButton(button);
     handleDropdownClose();
-    if (option == "png") {
-      downloadPNG();
-    } else if (option == "json") {
-      downloadJSON();
+    const actions = {
+      save: {
+        'png': downloadPNG,
+        'json': downloadJSON,
+      },
+      share: {
+        'png': sharePNG,
+        'json': shareJSON,
+      },
+    };
+    const selectedAction = actions[button][option];
+    if (selectedAction) {
+      selectedAction();
     }
-  };
-
-  const handleOptionSelect2 = (option2) => {
-      handleDropdownClose();
-      const actions = {
-        'as-png': sharePNG,
-        'as-json': shareJSON,
-      };
-      const selectedAction = actions[option2];
-      if (selectedAction) {
-        selectedAction();
-      }
   };
 
   const shareJSON = () => {
@@ -216,10 +214,10 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
                 open={Boolean(anchorElSave)}
                 onClose={handleDropdownClose}
               >
-                <MenuItem onClick={() => handleOptionSelect("png")}>
+                <MenuItem onClick={() => handleOptionSelect("save", "png")}>
                   PNG
                 </MenuItem>
-                <MenuItem onClick={() => handleOptionSelect("json")}>
+                <MenuItem onClick={() => handleOptionSelect("save", "json")}>
                   JSON
                 </MenuItem>
               </Menu>
@@ -244,10 +242,10 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
                 open={Boolean(anchorElShare)}
                 onClose={handleDropdownClose}
               >
-                <MenuItem onClick={() => handleOptionSelect2("as-png")}>
+                <MenuItem onClick={() => handleOptionSelect("share", "png")}>
                   PNG
                 </MenuItem>
-                <MenuItem onClick={() => handleOptionSelect2("as-json")}>
+                <MenuItem onClick={() => handleOptionSelect("share","json")}>
                   JSON
                 </MenuItem>
               </Menu>
