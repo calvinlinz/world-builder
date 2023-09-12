@@ -43,6 +43,7 @@ function App() {
 
   const startGame = () => {
     setGameStarted(true);
+    console.log(worldData);
   };
 
   return (
