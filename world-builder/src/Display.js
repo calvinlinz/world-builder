@@ -9,6 +9,7 @@ import CaveGrid from './CaveGrid';
 import RoofGrid from './RoofGrid';
 import CampGrid from './CampGrid';
 import LoadingPage from './LoadingPage';
+import PathGrid from './PathGrid';
 import './Grid.css';
 import './Display.css';
 
@@ -30,6 +31,7 @@ const Display = ({ worldData }) => {
   return (
     <>
     <BackgroundGrid worldData={worldData}/>
+    <PathGrid worldData={worldData}/>
     <BuildingsGrid scaleFactor={scaleFactor} worldData={worldData}/>
     <NaturalFeaturesGrid scaleFactor={scaleFactor} worldData={worldData}/>
     <ConfigDropdown opacityToggle={toggleOpactiy} setScaleFactorImages={setScaleFactorImages}/>
