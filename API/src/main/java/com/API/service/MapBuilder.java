@@ -64,6 +64,8 @@ public class MapBuilder {
 
         sb.printPlainMap(map);
         mapGenerated = true;
+
+        sb.clearRooms(); // clearing all room locations so we have no overlap of locations between generations
     }
 
     private void copyArray(int[][] section, int currentRow, int currentColumn) {

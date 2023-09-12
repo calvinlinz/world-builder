@@ -265,13 +265,24 @@ public class SectionBuilder {
         String blue = "\u001B[34m";
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[i].length; j++) {
-                if (array[i][j] >= 20 && array[i][j] < 40) {
+                if (array[i][j] >= 15 && array[i][j] <= 18) {
                     System.out.print(green + array[i][j] + "" + resetColor);
-                } else if (array[i][j] != 0 && array[i][j] < 20) {
+                } else if (array[i][j] >= 5 && array[i][j] <= 13) {
+                    if(array[i][j] >= 10){
+                         System.out.print(red + array[i][j] + "" + resetColor);
+                    }
+                    else{
                     System.out.print(red + array[i][j] + " " + resetColor);
+                    }
                 } 
                 else if(array[i][j] == 40){
                     System.out.print(blue + "#" + " " + resetColor);
+                }
+                else if(array[i][j] >= 1 && array[i][j] <= 4){
+                    System.out.print(green + array[i][j] + " " + resetColor);
+                }
+                else if(array[i][j] >= 19 && array[i][j] <= 23){
+                    System.out.print(red + array[i][j] + "" + resetColor);
                 }
                 else {
                     System.out.print(array[i][j] + " ");
@@ -319,6 +330,13 @@ public class SectionBuilder {
 
     public void clearRooms(){
         AllRoomsList.clear();
+        roomList1.clear();
+        roomList2.clear();
+        roomList3.clear();
+        roomList4.clear();
+        roomList5.clear();
+        roomList6.clear();
+
     }
 
     public void addCorrectPosition(int secNumber, int topLeftRow, int topLeftCol, int size){
