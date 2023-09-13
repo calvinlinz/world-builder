@@ -20,7 +20,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
   const [gridSize, setGridSize] = useState(27);
   const [selectedOption, setSelectedOption] = useState(null);
   const [showContent, setShowContent] = useState(true);
-  const API_URL = process.env.REACT_APP_API_URL;
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080"
 
   const handleDropdownOpen = (event) => {
     setAnchorEl(event.currentTarget);
