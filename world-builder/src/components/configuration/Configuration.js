@@ -17,9 +17,10 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
   const [addRemoveFog, setAddRemoveFog] = useState(false);
   const [selectedMonsterOption, setSelectedMonsterOption] = useState("none");
   const [anchorEl, setAnchorEl] = useState(null);
-  const [gridSize, setGridSize] = useState(null);
+  const [gridSize, setGridSize] = useState(27);
   const [selectedOption, setSelectedOption] = useState(null);
   const [showContent, setShowContent] = useState(true);
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080"
 
   const handleDropdownOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -104,7 +105,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
   }
 
   const handleGenerate = () => {
-    fetch("http://localhost:8080/world", {
+    fetch(API_URL+"/world", {
       method:"POST",
       headers:{
         "Content-Type":"application/json",
@@ -148,10 +149,10 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
             <p>GRID SIZE</p>
             <div className="slider">
               <Slider
-                defaultValue={27}
+                defaultValue={gridSize}
                 aria-label="Small"
                 valueLabelDisplay="auto"
-                min={20}
+                min={27}
                 max={50}
                 onChange={(e) => setGridSize(e.target.value)} 
               />
