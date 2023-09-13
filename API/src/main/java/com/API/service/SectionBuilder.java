@@ -345,19 +345,19 @@ public class SectionBuilder {
                        roomList1.add(new Node(topLeftRow+1, topLeftCol-1));
                        break;
                    case 2:
-                       roomList2.add(new Node(topLeftRow+1 + size, topLeftCol-1) );
+                       roomList2.add(new Node(topLeftRow+1 , topLeftCol-1 + size) );
                        break;
                    case 3:
-                      roomList3.add(new Node(topLeftRow+1 +(size*2), topLeftCol-1 ) );
+                      roomList3.add(new Node(topLeftRow+1 , topLeftCol-1 + (size*2)) );
                        break;
                    case 4:
-                       roomList4.add(new Node(topLeftRow+1, topLeftCol-1 + size) );
+                       roomList4.add(new Node(topLeftRow+1 +size, topLeftCol-1) );
                        break;
                    case 5:
                        roomList5.add(new Node(topLeftRow+1+ size, topLeftCol-1 +size) );
                        break;
                    case 6:
-                       roomList6.add(new Node(topLeftRow+1+ (size*2), topLeftCol-1 +size) );
+                       roomList6.add(new Node(topLeftRow+1+ size, topLeftCol-1 +(size*2)) );
                        break;
         }    
     }
