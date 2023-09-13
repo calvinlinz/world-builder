@@ -108,7 +108,7 @@ public class SectionBuilder {
             CampSite newCamp = csm.getRandomCampSite();
 
             int[][] prevSection = copyArray(section,size);
-            section = drawIDs(section, newCamp, false, secNumber,size);
+            section = drawIDs(section, newCamp, true, secNumber,size);
 
             if (!Arrays.equals(prevSection, section)) count++;
         } 
