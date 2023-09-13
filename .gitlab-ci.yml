@@ -10,6 +10,11 @@
 # This template uses one generic job with conditional builds
 # for the default branch and all other (MR) branches.
 
+on:
+  push:
+    branches: [86-create-ci-cd-pipeline-to-automate-docker-deployment-process-to-render]
+
+
 docker-build:
   # Use the official docker image.
   image: docker:latest
@@ -17,20 +22,13 @@ docker-build:
   services:
     - docker:dind
   before_script:
-    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" 
   # Default branch leaves tag empty (= latest tag)
   # All other branches are tagged with the escaped branch name (commit ref slug)
   script:
-    - |
-      if [[ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]]; then
-        tag=""
-        echo "Running on default branch '$CI_DEFAULT_BRANCH': tag = 'latest'"
-      else
-        tag=":$CI_COMMIT_REF_SLUG"
-        echo "Running on branch '$CI_COMMIT_BRANCH': tag = $tag"
-      fi
-    - docker build --pull -t "$CI_REGISTRY_IMAGE${tag}" .
-    - docker push "$CI_REGISTRY_IMAGE${tag}"
+    - docker build --platform=linux/amd64 -t api -f ./API/Dockerfile ./API
+    - docker tag api licalv/world-builder-api
+    - docker push licalv/world-builder-api
   # Run this job in a branch where a Dockerfile exists
   rules:
     - if: $CI_COMMIT_BRANCH
