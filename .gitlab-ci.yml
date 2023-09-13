@@ -34,7 +34,3 @@ docker-build:
     - if: $CI_COMMIT_BRANCH
       exists:
         - Dockerfile
-
-only:
-  - push
-  - merge_requests
