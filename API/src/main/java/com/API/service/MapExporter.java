@@ -31,7 +31,7 @@ public class MapExporter {
             System.err.println("Error: map has not been generated. Please generate a map before exporting it.");
             return null;
         }
-        System.out.println("MAP WIDTH: " + mapBuilder.getX() + "    MAP HEIGHT: " + mapBuilder.getY());
+        System.out.println("MAP WIDTH: " + mapBuilder.getSize() + "    MAP HEIGHT: " + mapBuilder.getSize());
         int[][] map = mapBuilder.getMap();
         
         return map;
