@@ -38,15 +38,10 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
     handleDropdownClose();
-    const actions = {
-      save: {
-        'png': downloadPNG,
-        'json': downloadJSON,
-      }
-    };
-    const selectedAction = actions[option];
-    if (selectedAction) {
-      selectedAction();
+    if (option === "png") {
+      downloadPNG();
+    } else if (option === "json") {
+      downloadJSON();
     }
   };
 
@@ -94,6 +89,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
   }
 
   const downloadJSON = () => {
+    console.log("JSON");
     if (worldData) {
       const jsonData = JSON.stringify(worldData);
       const blob = new Blob([jsonData], { type: "application/json" });
@@ -107,6 +103,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
     }
   };
   const downloadPNG = () => {
+    console.log("PNG");
     setShowContent(false);
     const currentMonster = selectedMonsterOption;
     setSelectedMonsterOption("none");
@@ -257,7 +254,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
                   color: "#000000",
                   borderColor: "#000000",
                   borderWidth: "1px",
-                  marginTop: "-30px",
+                  marginTop: "-55px",
                   marginLeft: "40px",
                 }}
               >
@@ -285,7 +282,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
                   color: "#000000",
                   borderColor: "#000000",
                   borderWidth: "1px",
-                  marginTop: "-30px",
+                  marginTop: "-55px",
                   marginLeft: "20px",
                 }}
               >
@@ -301,7 +298,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
                   color: "#000000",
                   borderColor: "#000000",
                   borderWidth: "1px",
-                  marginTop: "30px",
+                  marginTop: "10px",
                   marginLeft: "-305px",
                 }}
               >
