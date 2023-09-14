@@ -25,6 +25,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
   const [gridSize, setGridSize] = useState(27);
   const [selectedOption, setSelectedOption] = useState(null);
   const [showContent, setShowContent] = useState(true);
+  const [text, setButtonText] = useState('Insert your Email');
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080"
 
   const handleDropdownOpen = (event) => {
@@ -82,6 +83,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
         setEmail("");
       })
       .catch((error) => {
+        setButtonText('Error! Please try again.');
         console.log('Email failed to send:', error);
         setShowContent(true);
         setSelectedMonsterOption(currentMonster);
@@ -102,6 +104,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
       window.URL.revokeObjectURL(url);
     }
   };
+
   const downloadPNG = () => {
     console.log("PNG");
     setShowContent(false);
@@ -133,7 +136,6 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
     setShowInputs(!showInputs);
   };
 
-
   const handleSelectChange = (e) => {
     setSelectedMonsterOption(e.target.value);
   };
@@ -155,15 +157,15 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
   }
 
   const handleGenerate = () => {
-    fetch(API_URL+"/world", {
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json",
+    fetch(API_URL + "/world", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        size:gridSize
+        size: gridSize
       })
-    }).then((response)=>response.json()).then((data)=>setWorldData(data)).catch((error)=>console.log(error));
+    }).then((response) => response.json()).then((data) => setWorldData(data)).catch((error) => console.log(error));
   };
 
   return (
@@ -204,7 +206,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
                 valueLabelDisplay="auto"
                 min={27}
                 max={50}
-                onChange={(e) => setGridSize(e.target.value)} 
+                onChange={(e) => setGridSize(e.target.value)}
               />
             </div>
           </div>
@@ -254,7 +256,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
                   color: "#000000",
                   borderColor: "#000000",
                   borderWidth: "1px",
-                  marginTop: "-55px",
+                  marginTop: "-35px",
                   marginLeft: "40px",
                 }}
               >
@@ -282,7 +284,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
                   color: "#000000",
                   borderColor: "#000000",
                   borderWidth: "1px",
-                  marginTop: "-55px",
+                  marginTop: "-35px",
                   marginLeft: "20px",
                 }}
               >
@@ -298,7 +300,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
                   color: "#000000",
                   borderColor: "#000000",
                   borderWidth: "1px",
-                  marginTop: "10px",
+                  marginTop: "30px",
                   marginLeft: "-305px",
                 }}
               >
@@ -313,7 +315,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
                     fontSize: '20px',
                     fontWeight: 'bold',
                   }}>
-                    Insert your Email
+                    {text}
                   </Typography>
                   <Input id="modal-modal-description" sx={{
                     mt: 2,
