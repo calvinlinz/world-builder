@@ -4,11 +4,13 @@ import Slider from "@mui/material/Slider";
 import FormGroup from "@mui/material/FormGroup";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { Menu, Button, MenuItem, FormControl, Select } from "@mui/material";
+import { Menu, Button, MenuItem, FormControl, Select, Modal, Typography, Box, Input } from "@mui/material";
 import "../../Grid.css";
 import html2canvas from "html2canvas";
 import MonstersOverlay from "./MonstersOverlay";
 import { WorldDataContext } from "../../context/worldDataContext";
+import emailjs from "@emailjs/browser";
+emailjs.init('VDupAfE4CYPyVT2Ry');
 
 const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
   const { worldData, setWorldData } = useContext(WorldDataContext);
@@ -16,50 +18,79 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
   const [selectedMonsterOption, setSelectedMonsterOption] = useState("none");
-  const [anchorElSave, setAnchorElSave] = useState(null);
-  const [anchorElShare, setAnchorElShare] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
-  const [selectedButton, setSelectedButton] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [screenshot, setScreenshot] = useState(null);
 
   const [showContent, setShowContent] = useState(true);
 
-  const handleDropdownOpen = (event, anchorElSetter) => {
-    anchorElSetter(event.currentTarget);
+  const handleDropdownOpen = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
   const handleDropdownClose = () => {
-    setAnchorElSave(null);
-    setAnchorElShare(null);
+    setAnchorEl(null);
   };
 
-  const handleOptionSelect = (button, option) => {
+  const handleOptionSelect = (option) => {
     setSelectedOption(option);
-    setSelectedButton(button);
     handleDropdownClose();
     const actions = {
       save: {
         'png': downloadPNG,
         'json': downloadJSON,
-      },
-      share: {
-        'png': sharePNG,
-        'json': shareJSON,
-      },
+      }
     };
-    const selectedAction = actions[button][option];
+    const selectedAction = actions[option];
     if (selectedAction) {
       selectedAction();
     }
   };
 
-  const shareJSON = () => {
-    console.log("shareJSON");
+  const shareFile = () => {
+    setShowContent(false);
+    setSelectedMonsterOption("none");
+    setTimeout(() => {
+      const targetElement = document.documentElement;
+      html2canvas(targetElement, {
+        width: window.innerWidth,
+        height: window.innerHeight,
+        x: 0,
+        y: 0,
+      }).then((canvas) => {
+        setOpen(true);
+        const dataURL = canvas.toDataURL('image/jpeg', 0.2);
+        console.log(dataURL.length / 1024);
+        setScreenshot(dataURL);
+        setShowContent(true);
+      });
+    }, 0);
   };
 
-  const sharePNG = () => {
-    console.log("sharePNG");
-  };
-
+  const sendEmail = () => {
+    const currentMonster = selectedMonsterOption;
+    const emailParams = {
+      to_email: email,
+      message: "Attached file are your world data as PNG format and raw data!",
+      file: btoa(JSON.stringify(worldData)),
+      image: screenshot,
+    };
+    emailjs.send('service_123456789', 'template_mv7apne', emailParams)
+      .then((response) => {
+        console.log('Email sent successfully!', response);
+        setShowContent(true);
+        setSelectedMonsterOption(currentMonster);
+        setOpen(false);
+        setEmail("");
+      })
+      .catch((error) => {
+        console.log('Email failed to send:', error);
+        setShowContent(true);
+        setSelectedMonsterOption(currentMonster);
+      });
+  }
 
   const downloadJSON = () => {
     if (worldData) {
@@ -198,7 +229,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
             <div className="button">
               <Button
                 variant="outlined"
-                onClick={(e) => handleDropdownOpen(e, setAnchorElSave)}
+                onClick={(e) => handleDropdownOpen(e, setAnchorEl)}
                 style={{
                   color: "#000000",
                   borderColor: "#000000",
@@ -210,14 +241,14 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
                 Save
               </Button>
               <Menu
-                anchorEl={anchorElSave}
-                open={Boolean(anchorElSave)}
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
                 onClose={handleDropdownClose}
               >
-                <MenuItem onClick={() => handleOptionSelect("save", "png")}>
+                <MenuItem onClick={() => handleOptionSelect("png")}>
                   PNG
                 </MenuItem>
-                <MenuItem onClick={() => handleOptionSelect("save", "json")}>
+                <MenuItem onClick={() => handleOptionSelect("json")}>
                   JSON
                 </MenuItem>
               </Menu>
@@ -226,7 +257,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
             <div className="button">
               <Button
                 variant="outlined"
-                onClick={(e) => handleDropdownOpen(e, setAnchorElShare)}
+                onClick={shareFile}
                 style={{
                   color: "#000000",
                   borderColor: "#000000",
@@ -237,18 +268,6 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
               >
                 Share
               </Button>
-              <Menu
-                anchorEl={anchorElShare}
-                open={Boolean(anchorElShare)}
-                onClose={handleDropdownClose}
-              >
-                <MenuItem onClick={() => handleOptionSelect("share", "png")}>
-                  PNG
-                </MenuItem>
-                <MenuItem onClick={() => handleOptionSelect("share","json")}>
-                  JSON
-                </MenuItem>
-              </Menu>
             </div>
 
             <div className="button">
@@ -265,6 +284,40 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
               >
                 GENERATE
               </Button>
+              <Modal
+                open={open}
+                onClose={() => setOpen(false)}
+              >
+                <Box sx={style}>
+                  <Typography id="modal-modal-title" variant="h6" component="h2" sx={{
+                    fontSize: '20px',
+                    fontWeight: 'bold',
+                  }}>
+                    Insert your Email
+                  </Typography>
+                  <Input id="modal-modal-description" sx={{
+                    mt: 2,
+                    border: '1px solid #ccc',
+                    borderRadius: '4px',
+                    padding: '8px',
+                    width: '100%',
+                  }}
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                  />
+                  <Button
+                    variant="outlined"
+                    onClick={sendEmail}
+                    style={{
+                      color: "#000000",
+                      borderColor: "#000000",
+                      borderWidth: "1px",
+                      marginTop: "-185px",
+                      marginLeft: "300px",
+                    }}
+                  >Submit</Button>
+                </Box>
+              </Modal>
             </div>
           </div>
         </div>
@@ -273,4 +326,17 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
     </div>
   );
 };
+
 export default ConfigDropdown;
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
