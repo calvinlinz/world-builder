@@ -9,6 +9,7 @@ function rotateMatrix(matrix) {
   const rows = matrix.length;
   const cols = matrix[0].length;
 
+
   // Create a new empty matrix with swapped dimensions
   const rotatedMatrix = new Array(cols)
     .fill(null)
@@ -30,15 +31,22 @@ function rotateMatrix(matrix) {
 }
 
 function App() {
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080"
+
   const [worldData, setWorldData] = useState([]);
   const [gameStarted, setGameStarted] = useState(false);
 
   useEffect(() => {
     // Fetch the data from your backend endpoint
-    fetch("http://localhost:8080/world")
-      .then((response) => response.json())
-      .then((data) => setWorldData(data))
-      .catch((error) => console.error("Error fetching data:", error));
+    fetch(API_URL+"/world", {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json",
+      },
+      body: JSON.stringify({
+        size:27
+      })
+    }).then((response)=>response.json()).then((data)=>setWorldData(data)).catch((error)=>console.log(error));
   }, []);
 
   const startGame = () => {

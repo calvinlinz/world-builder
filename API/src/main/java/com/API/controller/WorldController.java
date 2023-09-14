@@ -1,5 +1,6 @@
 package com.API.controller;
 
+import com.API.dto.WorldRequest;
 import com.API.model.Person;
 import com.API.service.MapBuilder;
 import com.API.service.MapExporter;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpHeaders;
 
@@ -29,37 +32,18 @@ public class WorldController {
         this.peopleService = peopleService;
     }
 
-    @GetMapping("/users")
-    public ResponseEntity<List<Person>> getAllUsers() {
-        Optional<List<Person>> optionalPeople = peopleService.getPeople();
-        if (optionalPeople.isPresent()) {
-            List<Person> people = optionalPeople.get();
-            return ResponseEntity.ok(people);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-    }
-    @GetMapping("/world")
-    public ResponseEntity<int[][]> getWorld(){
-		MapBuilder mb = new MapBuilder(54, 81);
+
+    @PostMapping("/world")
+    public ResponseEntity<int[][]> postWorld(@RequestBody WorldRequest worldRequest) {
+        int size = worldRequest.getSize();
+        MapBuilder mb = new MapBuilder(size);
 		mb.createMap();
-		
         MonsterGenerator mg = new MonsterGenerator(mb);
         mb.setMap(mg.generateMonsters());
-
         MapExporter me = new MapExporter(mb);
-        int[][] csvContent = me.exportMap();
-        return ResponseEntity.ok(csvContent);
+        int[][] jsonContent = me.exportMap();
+        return ResponseEntity.ok(jsonContent);
     }
 
-    /**  
-     * Get world by ID 
-     * Syntax is as follows: localhost:8080/world?id={ID}
-     * 
-    */
-    // @GetMapping("/world")
-    // public World getUser(@RequestParam Integer id){
-    //     Optional<World> world = worldService.getWorld(id);
-    //     return (World) world.orElse(null);
-    // }
+
 }
