@@ -122,6 +122,13 @@ const monsterImages = {
     shadow,
 }
 
+const houseMonsterImages = {
+    house1,
+    house2,
+    house3,
+    house4,
+}
+
 const campImages = {
     tent_1x2, 
     tent_2x2_1,
@@ -349,6 +356,7 @@ const allImages = {
     buildingImages,
     waterImages,
     monsterImages,
+    houseMonsterImages,
 }
 
 export{
