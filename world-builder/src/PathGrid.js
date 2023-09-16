@@ -6,7 +6,7 @@ const PathGrid = ({scaleFactor, worldData}) => {
     const grid = worldData;
 
     return (
-        <div className="grid-container-natural">
+        <div className="grid-container-path">
             {/* Render the grid */}
             {grid.map((row, rowIndex) => (
             <div key={rowIndex} className="grid-row">
