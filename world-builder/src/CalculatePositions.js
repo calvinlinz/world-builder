@@ -566,34 +566,54 @@ function getPathEdges(grid){
                     }
                 }
 
-
-                // Check for a with x2 vertical stragight path
-                if(grid[i][j+1] === 40 && grid[i][j+2] != 40){
-                    if(grid[i+1][j] === 40 && grid[i-1][j] === 40 && grid[i+1][j+1] === 40 && grid[i-1][j+1] === 40){
-                        if(grid[i][j - 1] != 40  && grid[i+1][j-1] != 40 && grid[i-1][j-1] != 40 && grid[i+1][j+2] != 40 && grid[i-1][j+2] != 40){
-                            // PUT 2 TEXTURES ON THE SIDE
-                        }
-                    }
-                }
-                
-
-                // Check for a with x2 horizontal stragight path
-                if(grid[i+1][j] === 40 && grid[i+2][j] != 40){
-                    if(grid[i][j+1] === 40 && grid[i][j-1] === 40 && grid[i+1][j+1] === 40 && grid[i+1][j-1] === 40){
-                        if(grid[i - 1][j - 1] != 40  && grid[i+2][j-1] != 40 && grid[i-1][j] != 40 && grid[i+2][j+1] != 40 && grid[i-1][j+1] != 40){
-                            // PUT 2 TEXTURES ON THE SIDE
-                        }
-                    }
-                }
-
             }
-
-
-
 
         }
     }
     console.log(cordList);
+    return cordList;
+}
+
+function getWideVerticalPathEdges(grid){
+    const cordList = [];
+
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            if(grid[i][j] === 40){ // it is a path
+                // Check for a with x2 vertical stragight path
+                if(grid[i][j+1] === 40 && grid[i][j+2] != 40){
+                    if(grid[i+1][j] === 40 && grid[i-1][j] === 40 && grid[i+1][j+1] === 40 && grid[i-1][j+1] === 40){
+                        if(grid[i][j - 1] != 40  && grid[i+1][j-1] != 40 && grid[i-1][j-1] != 40 && grid[i+1][j+2] != 40 && grid[i-1][j+2] != 40){
+                            const leftImgSrc = Math.floor(Math.random() * 4);
+                            const rightImgSrc = Math.floor(Math.random() * 4);
+
+                            const leftValue = {
+                                src: leftImgSrc,
+                                x: j,
+                                y: i,
+                                width: pathEdgeDims[leftImgSrc][0],
+                                height: pathEdgeDims[leftImgSrc][1],
+                                angle: 0,
+                            };
+
+                            const rightValue = {
+                                src: rightImgSrc,
+                                x: j + 2,
+                                y: i,
+                                width: pathEdgeDims[rightImgSrc][0],
+                                height: pathEdgeDims[rightImgSrc][1],
+                                angle: 0,
+                                transform: `scaleX(-1)`,
+                            };
+
+                            cordList.push(leftValue);
+                            cordList.push(rightValue);
+                        }
+                    }
+                }
+            }
+        }
+    }
     return cordList;
 }
 
@@ -639,6 +659,49 @@ function getHorizontalPathEdges(grid){
 
 }
 
+function getWideHorizontalPathEdges(grid){
+    const cordList = [];
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            if(grid[i][j] === 40){ // it is a path
+                // Check for a with x2 horizontal stragight path
+                if(grid[i+1][j] === 40 && grid[i+2][j] != 40){
+                    if(grid[i][j+1] === 40 && grid[i][j-1] === 40 && grid[i+1][j+1] === 40 && grid[i+1][j-1] === 40){
+                        if(grid[i - 1][j - 1] != 40  && grid[i+2][j-1] != 40 && grid[i-1][j] != 40 && grid[i+2][j+1] != 40 && grid[i-1][j+1] != 40){
+                            const upImgSrc = 1;
+                            const downImgSrc = 0;
+
+                            const upValue = {
+                                src: upImgSrc,
+                                x: j,
+                                y: i - 2,
+                                width: pathEdgeDims[upImgSrc][0],
+                                height: pathEdgeDims[upImgSrc][1],
+                                angle: 90,
+                                transform: `rotate(90deg)`,
+                            };
+
+                            const downValue = {
+                                src: upImgSrc,
+                                x: j,
+                                y: i - 0.2,
+                                width: pathEdgeDims[downImgSrc][0],
+                                height: pathEdgeDims[downImgSrc][1],
+                                angle: 90,
+                                transform: `rotate(280deg)`,
+                            };
+
+                            cordList.push(upValue);
+                            cordList.push(downValue);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return cordList;
+}
+
 
 
 
@@ -653,4 +716,6 @@ export {
     getCampCords,
     getPathEdges,
     getHorizontalPathEdges,
+    getWideVerticalPathEdges,
+    getWideHorizontalPathEdges,
 };

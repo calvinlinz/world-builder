@@ -1,12 +1,14 @@
 import React from 'react';
 import './Grid.css';
 import { allImages } from './Constants';
-import { getPathEdges, getHorizontalPathEdges} from './CalculatePositions';
+import { getPathEdges, getHorizontalPathEdges, getWideVerticalPathEdges, getWideHorizontalPathEdges} from './CalculatePositions';
 
 const PathGrid = ({scaleFactor, worldData}) => {
     const grid = worldData;
     const pathEdgeCords = getPathEdges(worldData);
     const horizontalPathEdges = getHorizontalPathEdges(worldData);
+    const wideVerticalPathEdges = getWideVerticalPathEdges(worldData);
+    const wideHorizontalPathEdges = getWideHorizontalPathEdges(worldData);
     
     const pathImageMapping = {
         0: allImages.pathEdgeImages.path_edge1,
@@ -16,6 +18,27 @@ const PathGrid = ({scaleFactor, worldData}) => {
     };
 
     const pathEdgeImages = pathEdgeCords.map((image, index) => {
+        console.log(pathEdgeCords)
+        const imageStyle = {
+              transform: `${image.transform}`,
+              position: "absolute",
+              left: `${image.x + 7.3 + (image.x * 0.030)}vw`,
+              top: `${image.y + 1}vw`,
+              width: `${image.width}vw`,
+              
+          };
+        return (
+            <img
+            key={index}
+            src={pathImageMapping[image.src]}
+            alt={`Image ${index + 1}`}
+            className = {"grid-container-path-edge"}
+            style={imageStyle}
+          />
+        );
+      });
+
+      const wideVerticalPathEdgesImages = wideVerticalPathEdges.map((image, index) => {
         console.log(pathEdgeCords)
         const imageStyle = {
               transform: `${image.transform}`,
@@ -56,6 +79,27 @@ const PathGrid = ({scaleFactor, worldData}) => {
         );
       });
 
+      const wideHorizontalPathEdgesImages = wideHorizontalPathEdges.map((image, index) => {
+        const imageStyle = {
+              transform: `${image.transform}`,
+              position: "absolute",
+              left: `${image.x + 7.3 + (image.x * 0.030)}vw`,
+              top: `${image.y + 3 - (image.y * 0.02)}vw`,
+              width: `${image.width}vw`,
+              
+          };
+        return (
+            <img
+            key={index}
+            src={pathImageMapping[image.src]}
+            alt={`Image ${index + 1}`}
+            className = {"grid-container-path-edge"}
+            style={imageStyle}
+          />
+        );
+      });
+
+
 
     return (
         <div>
@@ -73,7 +117,9 @@ const PathGrid = ({scaleFactor, worldData}) => {
             
             </div>
             {pathEdgeImages}
+            {wideVerticalPathEdgesImages}
             {horizontalPathEdgesImages}
+            {wideHorizontalPathEdgesImages}
 
         </div>
         

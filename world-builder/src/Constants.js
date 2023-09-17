@@ -55,6 +55,8 @@ import path_edge1 from './assets/paths/path_edge1.png';
 import path_edge2 from './assets/paths/path_edge2.png';
 import path_edge3 from './assets/paths/path_edge3.png';
 import path_edge4 from './assets/paths/path_edge4.png';
+import path_end from './assets/paths/path_end.png';
+import path_bend_outside from './assets/paths/path_bend_outside.png';
 
 // Rock images:
 import clstr_rock1 from './assets/rocks/clstr_rock1.png';
@@ -256,6 +258,8 @@ const pathEdgeImages = {
     path_edge2,
     path_edge3,
     path_edge4,
+    path_end,
+    path_bend_outside,
 }
 
 const rockImages = {
