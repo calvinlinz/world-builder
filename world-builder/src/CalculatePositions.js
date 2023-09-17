@@ -253,62 +253,12 @@ const caveDims = [
     [9, 8],
     [16, 14]
 ];
-const caveMaps = [
-    [
-        [1, 1, 1, 0, 0],
-        [1, 1, 1, 0, 0],
-        [1, 1, 1, 1, 0],
-        [1, 1, 1, 1, 1],
-        [0, 0, 0, 1, 1]
-    ],
-    [
-        [0, 0, 1, 1, 1, 0, 0, 0, 0],
-        [0, 1, 1, 1, 1, 0, 0, 0, 0],
-        [0, 1, 1, 1, 1, 1, 1, 1, 0],
-        [0, 1, 1, 1, 1, 1, 1, 1, 0],
-        [0, 1, 1, 1, 1, 1, 1, 1, 0],
-        [0, 1, 1, 1, 1, 1, 1, 0, 0],
-        [0, 0, 1, 1, 1, 1, 0, 0, 0]
-    ],
-    [
-        [0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
-        [0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0],
-        [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-        [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-        [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-        [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0],
-        [0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0]
-    ],
-    [
-        [0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0],
-        [0, 1, 1, 1, 1, 0, 0, 0, 11, 1, 1, 1, 1, 1, 0, 0, 0],
-        [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-        [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
-        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
-        [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
-        [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0]
-    ],
-];
-const caveFuncs = [getSmallCaveCords, getMedCaveCords, getLargeCaveCords, getMassiveCaveCords];
-let caveUsed = [false, false, false, false];
 
+const caveFuncs = [getSmallCaveCords, getMedCaveCords, getLargeCaveCords, getMassiveCaveCords];
 
 // Get the location and orientation of the small caves 
 function getSmallCaveCords(startY, startX, gridCopy) {
     let angle = 0;
-    if (gridCopy[startY][startX + 2] === 15 && gridCopy[startY][startX + 3] != 15) angle = 0;
-    else if (gridCopy[startY][startX + 1] != 15 && gridCopy[startY - 1][startX] === 15) angle = 270;
-    else if (gridCopy[startY][startX + 1] === 15 && gridCopy[startY][startX + 2] != 15) angle = 180;
-    else if (gridCopy[startY][startX + 3] === 15 && gridCopy[startY][startX + 4] != 15) angle = 90;
-
     const newValue = {
         src: 15,
         x: startX,
@@ -318,18 +268,12 @@ function getSmallCaveCords(startY, startX, gridCopy) {
         angle: angle,
     };
 
-    caveUsed[0] = true;
     return newValue;
 }
 
 // Get the location and orientation of the medium caves 
 function getMedCaveCords(startY, startX, gridCopy) {
     let angle = 0;
-    if (gridCopy[startY][startX + 2] === 16 && gridCopy[startY + 1][startX - 1] === 16 && gridCopy[startY + 1][startX + 3] != 16) angle = 0;
-    else if (gridCopy[startY][startX + 2] === 16 && gridCopy[startY + 1][startX - 1] != 16 && gridCopy[startY + 1][startX + 3] === 16) angle = 270;
-    else if (gridCopy[startY][startX + 2] === 16 && gridCopy[startY][startX + 3] != 16) angle = 180;
-    else if (gridCopy[startY][startX + 4] === 16) angle = 90;
-
     const newValue = {
         src: 16,
         x: startX,
@@ -339,18 +283,39 @@ function getMedCaveCords(startY, startX, gridCopy) {
         angle: angle,
     };
 
-    caveUsed[1] = true;
     return newValue;
 }
 
 // Get the location and orientation of the large caves 
 function getLargeCaveCords(startY, startX, gridCopy) {
     let angle = 0;
-    if (gridCopy[startY][startX + 5] === 17 && gridCopy[startY][startX + 6] != 17) angle = 0;
-    else if (gridCopy[startY][startX + 4] === 17 && gridCopy[startY][startX + 5] != 17 && gridCopy[startY - 1][startX - 2] != 17) angle = 270;
-    else if (gridCopy[startY][startX + 4] === 17 && gridCopy[startY][startX + 5] != 17 && gridCopy[startY - 1][startX - 2] == 17) angle = 180;
-    else if (gridCopy[startY][startX + 2] === 17 && gridCopy[startY][startX + 3] != 17) angle = 90;
+    const width = caveDims[2][0];
+    const widthCheck = gridCopy[startY][startX + width];
 
+    if (widthCheck === 17) {
+        if (17 === gridCopy[startY][startX + width + 1]) {
+            const newValue = {
+                src: 17,
+                x: startX,
+                y: startY,
+                width: imageDims[2][0],
+                height: imageDims[2][1],
+                angle: 90,
+            };
+            return newValue;
+        } else {
+            const newValue = {
+                src: 17,
+                x: startX,
+                y: startY,
+                width: imageDims[2][0],
+                height: imageDims[2][1],
+                angle: 0,
+            };
+            return newValue;
+        }
+
+    }
     const newValue = {
         src: 17,
         x: startX,
@@ -360,17 +325,39 @@ function getLargeCaveCords(startY, startX, gridCopy) {
         angle: angle,
     };
 
-    caveUsed[2] = true;
     return newValue;
 }
 
 // Get the location and orientation of the massive caves 
 function getMassiveCaveCords(startY, startX, gridCopy) {
     let angle = 0;
-    if (gridCopy[startY][startX + 3] === 18 && gridCopy[startY][startX + 4] != 18 && gridCopy[startY - 1][startX + 4] != 18) angle = 0;
-    else if (gridCopy[startY][startX + 5] === 18 && gridCopy[startY][startX + 6] != 18) angle = 270;
-    else if (gridCopy[startY][startX + 1] === 18 && gridCopy[startY][startX + 2] != 18) angle = 180;
-    else if (gridCopy[startY][startX + 3] === 18 && gridCopy[startY][startX + 4] != 18 && gridCopy[startY - 1][startX + 4] === 18) angle = 90;
+    const width = caveDims[3][0];
+    const widthCheck = gridCopy[startY][startX + width];
+
+    if (widthCheck === 18) {
+        if (18 === gridCopy[startY][startX + width + 1]) {
+            const newValue = {
+                src: 18,
+                x: startX,
+                y: startY,
+                width: imageDims[3][0],
+                height: imageDims[3][1],
+                angle: 90,
+            };
+            return newValue;
+        } else {
+            const newValue = {
+                src: 18,
+                x: startX,
+                y: startY,
+                width: imageDims[3][0],
+                height: imageDims[3][1],
+                angle: 0,
+            };
+            return newValue;
+        }
+
+    }
 
     const newValue = {
         src: 18,
@@ -381,7 +368,6 @@ function getMassiveCaveCords(startY, startX, gridCopy) {
         angle: angle,
     };
 
-    caveUsed[3] = true;
     return newValue;
 }
 
@@ -393,13 +379,21 @@ function getCaveCords(grid) {
         for (let j = 0; j < grid[i].length; j++) {
             if (caveKeys.includes(grid[i][j])) {
                 if (grid[i][j] === 15) {
-                    if (caveUsed[0] === false) { cordList.push(getSmallCaveCords(i, j, grid)); }
+                    if (grid[i][j] != grid[i - 1][j] && grid[i][j] != grid[i][j - 1]) {
+                        cordList.push(getSmallCaveCords(i, j, grid));
+                    }
                 } else if (grid[i][j] === 16) {
-                    if (caveUsed[1] === false) { cordList.push(getMedCaveCords(i, j, grid)); }
+                    if (grid[i][j] != grid[i - 1][j] && grid[i][j] != grid[i][j - 1]) {
+                        cordList.push(getMedCaveCords(i, j, grid));
+                    }
                 } else if (grid[i][j] === 17) {
-                    if (caveUsed[2] === false) { cordList.push(getLargeCaveCords(i, j, grid)); }
+                    if (grid[i][j] != grid[i - 1][j] && grid[i][j] != grid[i][j - 1]) {
+                        cordList.push(getLargeCaveCords(i, j, grid));
+                    }        
                 } else if (grid[i][j] === 18) {
-                    if (caveUsed[3] === false) cordList.push(getMassiveCaveCords(i, j, grid));
+                    if (grid[i][j] != grid[i - 1][j] && grid[i][j] != grid[i][j - 1]) {
+                        cordList.push(getMassiveCaveCords(i, j, grid))
+                    }
                 }
             }
         }

@@ -84,6 +84,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
       })
       .catch((error) => {
         setButtonText('Error! Please try again.');
+        setEmail("");
         console.log('Email failed to send:', error);
         setShowContent(true);
         setSelectedMonsterOption(currentMonster);
@@ -142,18 +143,12 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
 
   let contentToRender;
 
-  if (selectedMonsterOption === "none") {
-    contentToRender = <div>None selected</div>;
-  } else if (selectedMonsterOption === "option2") {
-    contentToRender = (
-      <MonstersOverlay
-        className="monsterContent"
-        monsterName={"Fairy Test"}
-        monsterRank={"Fairy Rank"}
-      />
-    );
-  } else if (selectedMonsterOption === "option3") {
-    contentToRender = <div>Option 3 selected</div>;
+  if (selectedMonsterOption === 'none') {
+    contentToRender = <div></div>;
+  } else if (selectedMonsterOption === 'option2') {
+    contentToRender = <MonstersOverlay className="monsterContent" monsterName={"Fairy Test"} monsterRank={"Fairy Rank"}/>;
+  } else if (selectedMonsterOption === 'option3') {
+    contentToRender = <div></div>;
   }
 
   const handleGenerate = () => {
