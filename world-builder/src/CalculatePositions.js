@@ -517,6 +517,63 @@ function getCampCords(grid) {
 }
 
 
+// -- PATH FUNCS ----------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+
+function getPathEdges(grid){
+    const cordList = [];
+
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            if(grid[i][j] === 40){ // it is a path
+
+                // Check for a with x1 vertical straight path 
+                if(grid[i+1][j] === 40 && grid[i-1][j] === 40){ // Above and below is a path
+                    if(grid[i][j - 1] != 40 && grid[i][j + 1] != 40 && grid[i+1][j-1] != 40 && grid[i+1][j+1] != 40 && grid[i-1][j-1] != 40 && grid[i-1][j+1] != 40){ // No path on the sides 
+                        // PUT 2 TEXTURES ON THE SIDE
+                    }
+                }
+
+
+                // Check for a with x2 vertical stragight path
+                if(grid[i][j+1] === 40 && grid[i][j+2] != 40){
+                    if(grid[i+1][j] === 40 && grid[i-1][j] === 40 && grid[i+1][j+1] === 40 && grid[i-1][j+1] === 40){
+                        if(grid[i][j - 1] != 40  && grid[i+1][j-1] != 40 && grid[i-1][j-1] != 40 && grid[i+1][j+2] != 40 && grid[i-1][j+2] != 40){
+                            // PUT 2 TEXTURES ON THE SIDE
+                        }
+                    }
+                }
+
+                // Check for a with x1 horizontal straight path 
+                if(grid[i][j+1] === 40 && grid[i][j-1] === 40){ // Left and right is a path
+                    if(grid[i + 1][j - 1] != 40 && grid[i + 1][j + 1] != 40 && grid[i+1][j] != 40 && grid[i - 1][j+1] != 40 && grid[i-1][j-1] != 40 && grid[i-1][j] != 40){ // No path on the sides 
+                        // PUT 2 TEXTURES ON THE SIDE
+                    }
+                }
+
+
+                // Check for a with x2 horizontal stragight path
+                if(grid[i+1][j] === 40 && grid[i+2][j] != 40){
+                    if(grid[i][j+1] === 40 && grid[i][j-1] === 40 && grid[i+1][j+1] === 40 && grid[i+1][j-1] === 40){
+                        if(grid[i - 1][j - 1] != 40  && grid[i+2][j-1] != 40 && grid[i-1][j] != 40 && grid[i+2][j+1] != 40 && grid[i-1][j+1] != 40){
+                            // PUT 2 TEXTURES ON THE SIDE
+                        }
+                    }
+                }
+
+            }
+
+
+
+
+        }
+    }
+}
+
+
+
+
+// ------------------------------------------------------------------------------------------------
 
 export {
     imageCodes,
