@@ -51,6 +51,10 @@ import tree4 from './assets/forest/tree4.png';
 // Path images:
 import path_light from './assets/paths/path_light.jpg';
 import path_dark from './assets/paths/path_dark.jpg';
+import path_edge1 from './assets/paths/path_edge1.png';
+import path_edge2 from './assets/paths/path_edge2.png';
+import path_edge3 from './assets/paths/path_edge3.png';
+import path_edge4 from './assets/paths/path_edge4.png';
 
 // Rock images:
 import clstr_rock1 from './assets/rocks/clstr_rock1.png';
@@ -247,6 +251,13 @@ const pathImages = {
     path_dark,
 }
 
+const pathEdgeImages = {
+    path_edge1,
+    path_edge2,
+    path_edge3,
+    path_edge4,
+}
+
 const rockImages = {
     clstr_rock1, 
     clstr_rock2,
@@ -327,6 +338,7 @@ const allImages = {
     forestGrassTexture,
     forestLeaf,
     pathImages,
+    pathEdgeImages,
     rockImages,
     rockImages1x1,
     rockImagesClstr,
