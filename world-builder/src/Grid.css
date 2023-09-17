@@ -25,6 +25,13 @@
     left: 7vw;
     z-index: 2;
 }
+.grid-container-path-edge {
+    position: absolute;
+    top: 2vw;
+    left: 7vw;
+    z-index: 3;
+    width: 10%;
+}
 
 .grid-container-buildings {
     position: absolute;

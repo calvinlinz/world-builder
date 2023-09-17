@@ -520,6 +520,14 @@ function getCampCords(grid) {
 // -- PATH FUNCS ----------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
 
+const pathEdgeDims = [
+    [1,1],
+    [1,2],
+    [1,3],
+    [1,3],
+];
+
+
 function getPathEdges(grid){
     const cordList = [];
 
@@ -531,6 +539,30 @@ function getPathEdges(grid){
                 if(grid[i+1][j] === 40 && grid[i-1][j] === 40){ // Above and below is a path
                     if(grid[i][j - 1] != 40 && grid[i][j + 1] != 40 && grid[i+1][j-1] != 40 && grid[i+1][j+1] != 40 && grid[i-1][j-1] != 40 && grid[i-1][j+1] != 40){ // No path on the sides 
                         // PUT 2 TEXTURES ON THE SIDE
+                        const leftImgSrc = Math.floor(Math.random() * 4);
+                        const rightImgSrc = Math.floor(Math.random() * 4);
+
+                        const leftValue = {
+                            src: leftImgSrc,
+                            x: j,
+                            y: i,
+                            width: pathEdgeDims[leftImgSrc][0],
+                            height: pathEdgeDims[leftImgSrc][1],
+                            angle: 0,
+                        };
+
+                        const rightValue = {
+                            src: rightImgSrc,
+                            x: j + 1,
+                            y: i,
+                            width: pathEdgeDims[rightImgSrc][0],
+                            height: pathEdgeDims[rightImgSrc][1],
+                            angle: 0,
+                            transform: `scaleX(-1)`,
+                        };
+
+                        cordList.push(leftValue);
+                        cordList.push(rightValue);
                     }
                 }
 
@@ -543,14 +575,7 @@ function getPathEdges(grid){
                         }
                     }
                 }
-
-                // Check for a with x1 horizontal straight path 
-                if(grid[i][j+1] === 40 && grid[i][j-1] === 40){ // Left and right is a path
-                    if(grid[i + 1][j - 1] != 40 && grid[i + 1][j + 1] != 40 && grid[i+1][j] != 40 && grid[i - 1][j+1] != 40 && grid[i-1][j-1] != 40 && grid[i-1][j] != 40){ // No path on the sides 
-                        // PUT 2 TEXTURES ON THE SIDE
-                    }
-                }
-
+                
 
                 // Check for a with x2 horizontal stragight path
                 if(grid[i+1][j] === 40 && grid[i+2][j] != 40){
@@ -568,6 +593,50 @@ function getPathEdges(grid){
 
         }
     }
+    console.log(cordList);
+    return cordList;
+}
+
+function getHorizontalPathEdges(grid){
+    const cordList = [];
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            if(grid[i][j] === 40){ // it is a path
+                if(grid[i][j+1] === 40 && grid[i][j-1] === 40){ // Left and right is a path
+                    if(grid[i + 1][j - 1] != 40 && grid[i + 1][j + 1] != 40 && grid[i+1][j] != 40 && grid[i - 1][j+1] != 40 && grid[i-1][j-1] != 40 && grid[i-1][j] != 40){ // No path on the sides 
+                        const upImgSrc = 1;
+                        const downImgSrc = 0;
+
+                        const upValue = {
+                            src: upImgSrc,
+                            x: j,
+                            y: i - 1,
+                            width: pathEdgeDims[upImgSrc][0],
+                            height: pathEdgeDims[upImgSrc][1],
+                            angle: 90,
+                            transform: `rotate(90deg)`,
+                        };
+
+                        const downValue = {
+                            src: upImgSrc,
+                            x: j,
+                            y: i - 0.1,
+                            width: pathEdgeDims[downImgSrc][0],
+                            height: pathEdgeDims[downImgSrc][1],
+                            angle: 90,
+                            transform: `rotate(280deg)`,
+                        };
+
+                        cordList.push(upValue);
+                        cordList.push(downValue);
+                    }
+                }
+            }
+        }
+    }
+
+    return cordList;
+
 }
 
 
@@ -582,4 +651,6 @@ export {
     getBuildingCords,
     getCaveCords,
     getCampCords,
+    getPathEdges,
+    getHorizontalPathEdges,
 };
