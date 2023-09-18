@@ -70,6 +70,24 @@ A map exporter has been developed to enable communication of the map from the ba
 ### 2.4 Controller
 The controller configures endpoints with responses and HTTP methods. We have implemented a /world GET endpoint that will generate a new world using the map generating algorithm and returns it in the response. 
 
+### 2.5 Monster Generator
+
+#### 2.5.1 Monster Names
+
+| **BOSS MONSTER x10**  | **HARD MONSTER x10**  | **MEDIUM MONSTER x10**  | **EASY MONSTER x10**  |
+|-----------------------|-----------------------|-------------------------|-----------------------|
+| Barbie                | Morgaloth             | Melissa                 | Greb                  |
+| Vorluk                | Vorgrak               | Perceptron              | Morph                 |
+| Sylvaria              | Azrakarn              | Neuralnet               | Crinkle               |
+| Dendrogram            | Cynariel              | Graboost                | Crawler               |
+| Ellaquora             | PP-poo’oo             | Stochastion             | Bloblin               |
+| Annihilith            | Dread                 | Sloth                   | Bunny                 |
+| Haydron               | Maymeens              | Kayenen                 | Ratling               |
+| Milandroth            | Drexthul              | Genprog                 | Beebir                |
+| Calvorr               | Azrakarm              | Genalg                  | Mothie                |
+| Amirax                | Thal’gulon            | Deebeescan              | Ken                   |
+
+
 ## 3.0 Front End
 The front end of this project will be expressed as a website using React and JavaScript.
 
