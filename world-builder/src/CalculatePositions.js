@@ -536,22 +536,28 @@ function getAbovePathEdge(grid){
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             if(grid[i][j] === 40){ // it is a path
-                if(grid[i-1][j] !== 40){ // needs an edge
-                    let upImgSrc = Math.floor(Math.random() * 4);
-
-                    if(grid[i-1][j-1] === 40 || grid[i-1][j+1] === 40 || grid[i-2][j-1] === 40 || grid[i-2][j+1] === 40){upImgSrc = 0;}
-
-                    const upValue = {
-                        src: upImgSrc,
-                        x: j,
-                        y: i - 1 + aboveImgShifts[upImgSrc],
-                        width: pathEdgeDims[upImgSrc][0],
-                        height: pathEdgeDims[upImgSrc][1],
-                        angle: 90,
-                        transform: `rotate(90deg)`,
-                    };
-                    cordList.push(upValue);
+                if(i > 2 && j > 2 && i < (grid.length-2) && j < (grid[i].length-2)){
+                    if(grid[i-1][j] !== 40){ // needs an edge
+                        let upImgSrc = Math.floor(Math.random() * 4);
+                        
+                        
+                            if(grid[i-1][j-1] === 40 || grid[i-1][j+1] === 40 || grid[i-2][j-1] === 40 || grid[i-2][j+1] === 40){upImgSrc = 0;}
+    
+                            const upValue = {
+                                src: upImgSrc,
+                                x: j,
+                                y: i - 1 + aboveImgShifts[upImgSrc],
+                                width: pathEdgeDims[upImgSrc][0],
+                                height: pathEdgeDims[upImgSrc][1],
+                                angle: 90,
+                                transform: `rotate(90deg)`,
+                            };
+                            cordList.push(upValue);
+                        
+                        
+                    }
                 }
+                
             }
         }
     }
@@ -564,22 +570,26 @@ function getBelowPathEdge(grid){
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             if(grid[i][j] === 40){ // it is a path
-                if(grid[i+1][j] !== 40){ // needs an edge
-                    let downImgSrc = Math.floor(Math.random() * 4);
-
-                    if(grid[i+1][j-1] === 40 || grid[i+1][j+1] === 40 || grid[i+2][j-1] === 40 || grid[i+2][j+1] === 40){downImgSrc = 0;}
-
-                    const downValue = {
-                        src: downImgSrc,
-                        x: j,
-                        y: i + belowImgShifts[downImgSrc],
-                        width: pathEdgeDims[downImgSrc][0],
-                        height: pathEdgeDims[downImgSrc][1],
-                        angle: 90,
-                        transform: `rotate(280deg)`,
-                    };
-                    cordList.push(downValue);
+                if(i > 2 && j > 2 && i < (grid.length-2) && j < (grid[i].length-2)){
+                    if(grid[i+1][j] !== 40){ // needs an edge
+                        let downImgSrc = Math.floor(Math.random() * 4);
+                        
+                            if(grid[i+1][j-1] === 40 || grid[i+1][j+1] === 40 || grid[i+2][j-1] === 40 || grid[i+2][j+1] === 40){downImgSrc = 0;}
+    
+                            const downValue = {
+                                src: downImgSrc,
+                                x: j,
+                                y: i + belowImgShifts[downImgSrc],
+                                width: pathEdgeDims[downImgSrc][0],
+                                height: pathEdgeDims[downImgSrc][1],
+                                angle: 90,
+                                transform: `rotate(280deg)`,
+                            };
+                            cordList.push(downValue);
+                        
+                    }
                 }
+                
             }
         }
     }
@@ -592,20 +602,24 @@ function getLeftPathEdge(grid){
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             if(grid[i][j] === 40){ // it is a path
-                if(grid[i][j-1] !== 40){ // needs an edge
-                    let leftImgSrc = Math.floor(Math.random() * 4);
-                    if(grid[i-1][j-1] === 40 || grid[i+1][j-1] === 40 || grid[i-1][j-2] === 40 || grid[i+1][j-2] === 40){leftImgSrc = 0;}
-                    if(grid[i+1][j] !== 40 || grid[i-1][j] !== 40 ){leftImgSrc = 0;}
-
-                    const leftValue = {
-                        src: leftImgSrc,
-                        x: j,
-                        y: i,
-                        width: pathEdgeDims[leftImgSrc][0],
-                        height: pathEdgeDims[leftImgSrc][1],
-                        angle: 0,
-                    };
-                    cordList.push(leftValue);
+                if(i > 2 && j > 2 && i < (grid.length-2) && j < (grid[i].length-2)){
+                    if(grid[i][j-1] !== 40){ // needs an edge
+                        let leftImgSrc = Math.floor(Math.random() * 4);
+    
+                        
+                            if(grid[i-1][j-1] === 40 || grid[i+1][j-1] === 40 || grid[i-1][j-2] === 40 || grid[i+1][j-2] === 40){leftImgSrc = 0;}
+                            if(grid[i+1][j] !== 40 || grid[i-1][j] !== 40 ){leftImgSrc = 0;}
+    
+                            const leftValue = {
+                                src: leftImgSrc,
+                                x: j,
+                                y: i,
+                                width: pathEdgeDims[leftImgSrc][0],
+                                height: pathEdgeDims[leftImgSrc][1],
+                                angle: 0,
+                            };
+                            cordList.push(leftValue);
+                    }
                 }
             }
         }
@@ -619,27 +633,35 @@ function getRightPathEdge(grid){
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             if(grid[i][j] === 40){ // it is a path
-                if(grid[i][j+1] !== 40){ // needs an edge
-                    let rightImgSrc = Math.floor(Math.random() * 4);
-                    let xShift = 0;
-                    if(grid[i-1][j+1] === 40 || grid[i+1][j+1] === 40 || grid[i-1][j+2] === 40 || grid[i+1][j+2] === 40){rightImgSrc = 0;}
-                    if(grid[i+1][j] !== 40 || grid[i-1][j] !== 40 ){rightImgSrc = 0;}
-
-                    if(grid[i][j-1] === 40){
-                        xShift = 0;
+                if(i > 2 && j > 2 && i < (grid.length-2) && j < (grid[i].length-2)){
+                    if(grid[i][j+1] !== 40){ // needs an edge
+                        let rightImgSrc = Math.floor(Math.random() * 4);
+                        let xShift = 0;
+    
+                        
+                            if(grid[i-1][j+1] === 40 || grid[i+1][j+1] === 40 || grid[i-1][j+2] === 40 || grid[i+1][j+2] === 40){rightImgSrc = 0;}
+                            if(grid[i+1][j] !== 40 || grid[i-1][j] !== 40 ){rightImgSrc = 0;}
+    
+                            if(grid[i][j-1] === 40){
+                                xShift = 0;
+                            }
+    
+                            const rightValue = {
+                                src: rightImgSrc,
+                                x: j + 1 + xShift,
+                                y: i,
+                                width: pathEdgeDims[rightImgSrc][0],
+                                height: pathEdgeDims[rightImgSrc][1],
+                                angle: 0,
+                                transform: `scaleX(-1)`,
+                            };
+                            cordList.push(rightValue);
+                        
+                        
                     }
 
-                    const rightValue = {
-                        src: rightImgSrc,
-                        x: j + 1 + xShift,
-                        y: i,
-                        width: pathEdgeDims[rightImgSrc][0],
-                        height: pathEdgeDims[rightImgSrc][1],
-                        angle: 0,
-                        transform: `scaleX(-1)`,
-                    };
-                    cordList.push(rightValue);
                 }
+                
             }
         }
     }
