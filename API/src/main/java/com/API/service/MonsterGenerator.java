@@ -58,6 +58,14 @@ public class MonsterGenerator {
         probabilities.add(27.0); // easy rank prob
     }
 
+    private boolean byWall(int cellValue, int i, int j){
+        boolean corner = false;
+        if(map[i-1][j] != cellValue || map[i+1][j] != cellValue || map[i][j-1] != cellValue || map[i][j+1] != cellValue){
+            corner = true;
+        }
+        return corner;
+    }
+
     public int[][] generateMonsters(){
 
         // Iterate through all the cells in the map and determine which are rooms.
@@ -66,6 +74,15 @@ public class MonsterGenerator {
                 
                 int cellValue = map[i][j]; // The current map cell.
                 if(!allCodes.contains(cellValue)) continue; // An invalid cell to place a monster in.
+                
+                // If the cell is not on the edge of the map, then we can check if by the wall.
+                if(i > 0 && i < map.length - 1 && j > 0 && j < map[i].length - 1){
+                    if(byWall(cellValue, i, j)){
+                        continue;
+                    }
+                } else{
+                    continue; // If it is by the edge of map, do not spawn.
+                }
                 
                 // Determine the rank of the monster based on the room value.
                 int rank = determineRank(cellValue);
@@ -87,6 +104,7 @@ public class MonsterGenerator {
 
                     int input = Integer.parseInt(currMonster);
 
+                    System.out.println("Adding monster: " + input + " at " + i + " " + j);
                     this.map[i][j] = input;
                 } 
             }
