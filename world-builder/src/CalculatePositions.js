@@ -407,6 +407,41 @@ function getCaveCords(grid) {
     return cordList;
 }
 
+// -- MONSTER FUNCS ----------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+
+function getMonsterCords(grid) {
+    const cordList = [];
+
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            if(grid[i][j] > 100){ // it is a monster
+                const monsterStr = grid[i][j].toString();
+
+                let enviro = 2;
+                if(buildingCodes.includes(grid[i-1][j])){enviro = 0;}
+                if(caveKeys.includes(grid[i-1][j])){enviro = 1;}
+
+                const newMonster = {
+                    environment: enviro,
+                    rank: parseInt(monsterStr.charAt(0), 10),
+                    str: parseInt(monsterStr.charAt(1), 10),
+                    dex: parseInt(monsterStr.charAt(2), 10),
+                    con: parseInt(monsterStr.charAt(3), 10),
+                    int: parseInt(monsterStr.charAt(4), 10),
+                    wis: parseInt(monsterStr.charAt(5), 10),
+                    x: j - 0.5,
+                    y: i - 0.5,
+                };
+
+                cordList.push(newMonster);
+            }
+
+        }
+    }
+
+    return cordList;
+}
 // -- CAMP FUNCS ----------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
 
@@ -531,4 +566,5 @@ export {
     getBuildingCords,
     getCaveCords,
     getCampCords,
+    getMonsterCords,
 };

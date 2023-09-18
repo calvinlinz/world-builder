@@ -9,6 +9,7 @@ import "../../Grid.css";
 import html2canvas from "html2canvas";
 import MonstersOverlay from "./MonstersOverlay";
 import { WorldDataContext } from "../../context/worldDataContext";
+import { getMonsterCords } from "../../CalculatePositions";
 
 const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
   const {worldData, setWorldData} = useContext(WorldDataContext);
@@ -86,7 +87,10 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
     setSelectedMonsterOption(e.target.value);
   };
 
+
+  // -- Implementation for the Monster Drop Down --------
   let contentToRender;
+  const allMonsterCords = getMonsterCords(worldData);
 
   if (selectedMonsterOption === "none") {
     contentToRender = <div>None selected</div>;
@@ -101,6 +105,8 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
   } else if (selectedMonsterOption === "option3") {
     contentToRender = <div>Option 3 selected</div>;
   }
+
+  // -------------------------------------------------------
 
   const handleGenerate = () => {
     fetch("http://localhost:8080/world").then((response)=>response.json()).then((data)=>setWorldData(data)).catch((error)=>console.log(error));

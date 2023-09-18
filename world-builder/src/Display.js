@@ -8,6 +8,7 @@ import NaturalFeaturesGrid from "./NaturalFeaturesGrid";
 import CaveGrid from './CaveGrid';
 import RoofGrid from './RoofGrid';
 import CampGrid from './CampGrid';
+import MonsterGrid from './MonsterGrid';
 import LoadingPage from './LoadingPage';
 import './Grid.css';
 import './Display.css';
@@ -36,6 +37,7 @@ const Display = ({ worldData }) => {
     <CaveGrid scaleFactor={scaleFactor} worldData={worldData}/>
     <RoofGrid opacityValue={opacityValue} scaleFactor={scaleFactor} worldData={worldData}/>
     <CampGrid scaleFactor={scaleFactor} worldData={worldData}/>
+    <MonsterGrid worldData={worldData} scaleFactor={scaleFactor}/>
     <div className='frame'></div>
     <div className='square-one'></div>
     <div className='square-two'></div>
