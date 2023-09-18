@@ -517,6 +517,139 @@ function getCampCords(grid) {
 }
 
 
+// -- PATH FUNCS ----------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+
+const pathEdgeDims = [
+    [1,1],
+    [1,2],
+    [1,3],
+    [1,3],
+];
+
+const aboveImgShifts = [0.5, 0, -0.5, -0.5];
+const belowImgShifts = [0.5, -0.2, -0.2, -0.2];
+
+function getAbovePathEdge(grid){
+    const cordList = [];
+
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            if(grid[i][j] === 40){ // it is a path
+                if(grid[i-1][j] !== 40){ // needs an edge
+                    let upImgSrc = Math.floor(Math.random() * 4);
+
+                    if(grid[i-1][j-1] === 40 || grid[i-1][j+1] === 40 || grid[i-2][j-1] === 40 || grid[i-2][j+1] === 40){upImgSrc = 0;}
+
+                    const upValue = {
+                        src: upImgSrc,
+                        x: j,
+                        y: i - 1 + aboveImgShifts[upImgSrc],
+                        width: pathEdgeDims[upImgSrc][0],
+                        height: pathEdgeDims[upImgSrc][1],
+                        angle: 90,
+                        transform: `rotate(90deg)`,
+                    };
+                    cordList.push(upValue);
+                }
+            }
+        }
+    }
+    return cordList; 
+}
+
+function getBelowPathEdge(grid){
+    const cordList = [];
+
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            if(grid[i][j] === 40){ // it is a path
+                if(grid[i+1][j] !== 40){ // needs an edge
+                    let downImgSrc = Math.floor(Math.random() * 4);
+
+                    if(grid[i+1][j-1] === 40 || grid[i+1][j+1] === 40 || grid[i+2][j-1] === 40 || grid[i+2][j+1] === 40){downImgSrc = 0;}
+
+                    const downValue = {
+                        src: downImgSrc,
+                        x: j,
+                        y: i + belowImgShifts[downImgSrc],
+                        width: pathEdgeDims[downImgSrc][0],
+                        height: pathEdgeDims[downImgSrc][1],
+                        angle: 90,
+                        transform: `rotate(280deg)`,
+                    };
+                    cordList.push(downValue);
+                }
+            }
+        }
+    }
+    return cordList; 
+}
+
+function getLeftPathEdge(grid){
+    const cordList = [];
+
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            if(grid[i][j] === 40){ // it is a path
+                if(grid[i][j-1] !== 40){ // needs an edge
+                    let leftImgSrc = Math.floor(Math.random() * 4);
+                    if(grid[i-1][j-1] === 40 || grid[i+1][j-1] === 40 || grid[i-1][j-2] === 40 || grid[i+1][j-2] === 40){leftImgSrc = 0;}
+                    if(grid[i+1][j] !== 40 || grid[i-1][j] !== 40 ){leftImgSrc = 0;}
+
+                    const leftValue = {
+                        src: leftImgSrc,
+                        x: j,
+                        y: i,
+                        width: pathEdgeDims[leftImgSrc][0],
+                        height: pathEdgeDims[leftImgSrc][1],
+                        angle: 0,
+                    };
+                    cordList.push(leftValue);
+                }
+            }
+        }
+    }
+    return cordList; 
+}
+
+function getRightPathEdge(grid){
+    const cordList = [];
+
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            if(grid[i][j] === 40){ // it is a path
+                if(grid[i][j+1] !== 40){ // needs an edge
+                    let rightImgSrc = Math.floor(Math.random() * 4);
+                    let xShift = 0;
+                    if(grid[i-1][j+1] === 40 || grid[i+1][j+1] === 40 || grid[i-1][j+2] === 40 || grid[i+1][j+2] === 40){rightImgSrc = 0;}
+                    if(grid[i+1][j] !== 40 || grid[i-1][j] !== 40 ){rightImgSrc = 0;}
+
+                    if(grid[i][j-1] === 40){
+                        xShift = 0;
+                    }
+
+                    const rightValue = {
+                        src: rightImgSrc,
+                        x: j + 1 + xShift,
+                        y: i,
+                        width: pathEdgeDims[rightImgSrc][0],
+                        height: pathEdgeDims[rightImgSrc][1],
+                        angle: 0,
+                        transform: `scaleX(-1)`,
+                    };
+                    cordList.push(rightValue);
+                }
+            }
+        }
+    }
+    return cordList; 
+}
+
+
+
+
+// ------------------------------------------------------------------------------------------------
 
 export {
     imageCodes,
@@ -525,4 +658,8 @@ export {
     getBuildingCords,
     getCaveCords,
     getCampCords,
+    getAbovePathEdge,
+    getBelowPathEdge,
+    getLeftPathEdge,
+    getRightPathEdge,
 };

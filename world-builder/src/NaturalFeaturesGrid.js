@@ -36,7 +36,7 @@ const NaturalFeaturesGrid = ({scaleFactor, worldData}) => {
         const imageStyle = {
           transform: `rotate(${rotationAngle}deg)`,
           position: 'absolute',
-          left: `${(image[0] * 4 + 9) * scaleFactor}vw`,
+          left: `${(image[0] * 4 + 4 + (image[0] * 0.1)) * scaleFactor}vw`,
           top: `${image[1] * 4 * scaleFactor}vw`,
           width: `${8 * scaleFactor}vw`,
           height: `${8 * scaleFactor}vw`,
