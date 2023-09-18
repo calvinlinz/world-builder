@@ -1,15 +1,15 @@
 import React from 'react';
 import './Grid.css';
 import { allImages } from './Constants';
-import { getPathEdges, getHorizontalPathEdges, getWideVerticalPathEdges, getWideHorizontalPathEdges, getSingularPathEnd} from './CalculatePositions';
+import { getAbovePathEdge, getBelowPathEdge, getLeftPathEdge, getRightPathEdge} from './CalculatePositions';
 
 const PathGrid = ({scaleFactor, worldData}) => {
     const grid = worldData;
-    const pathEdgeCords = getPathEdges(worldData);
-    const horizontalPathEdges = getHorizontalPathEdges(worldData);
-    const wideVerticalPathEdges = getWideVerticalPathEdges(worldData);
-    const wideHorizontalPathEdges = getWideHorizontalPathEdges(worldData);
-    const singularPathEnd = getSingularPathEnd(worldData);
+
+    const abovePathEdges = getAbovePathEdge(worldData);
+    const belowPathEdges = getBelowPathEdge(worldData);
+    const leftPathEdges = getLeftPathEdge(worldData);
+    const rightPathEdges = getRightPathEdge(worldData);
     
     const pathImageMapping = {
         0: allImages.pathEdgeImages.path_edge1,
@@ -17,49 +17,9 @@ const PathGrid = ({scaleFactor, worldData}) => {
         2: allImages.pathEdgeImages.path_edge3,
         3: allImages.pathEdgeImages.path_edge4,
         4: allImages.pathEdgeImages.path_end,
-    };
+    }; 
 
-    const pathEdgeImages = pathEdgeCords.map((image, index) => {
-        const imageStyle = {
-              transform: `${image.transform}`,
-              position: "absolute",
-              left: `${image.x + 7.3 + (image.x * 0.030)}vw`,
-              top: `${image.y + 1}vw`,
-              width: `${image.width}vw`,
-              
-          };
-        return (
-            <img
-            key={index}
-            src={pathImageMapping[image.src]}
-            alt={`Image ${index + 1}`}
-            className = {"grid-container-path-edge"}
-            style={imageStyle}
-          />
-        );
-      });
-
-      const wideVerticalPathEdgesImages = wideVerticalPathEdges.map((image, index) => {
-        const imageStyle = {
-              transform: `${image.transform}`,
-              position: "absolute",
-              left: `${image.x + 7.3 + (image.x * 0.030)}vw`,
-              top: `${image.y + 1}vw`,
-              width: `${image.width}vw`,
-              
-          };
-        return (
-            <img
-            key={index}
-            src={pathImageMapping[image.src]}
-            alt={`Image ${index + 1}`}
-            className = {"grid-container-path-edge"}
-            style={imageStyle}
-          />
-        );
-      });
-
-      const horizontalPathEdgesImages = horizontalPathEdges.map((image, index) => {
+      const abovePathEdgeImages = abovePathEdges.map((image, index) => {
         const imageStyle = {
               transform: `${image.transform}`,
               position: "absolute",
@@ -79,12 +39,12 @@ const PathGrid = ({scaleFactor, worldData}) => {
         );
       });
 
-      const wideHorizontalPathEdgesImages = wideHorizontalPathEdges.map((image, index) => {
+      const belowPathEdgeImages = belowPathEdges.map((image, index) => {
         const imageStyle = {
               transform: `${image.transform}`,
               position: "absolute",
               left: `${image.x + 7.3 + (image.x * 0.030)}vw`,
-              top: `${image.y + 3 - (image.y * 0.02)}vw`,
+              top: `${image.y + 2 - (image.y * 0.02)}vw`,
               width: `${image.width}vw`,
               
           };
@@ -99,12 +59,11 @@ const PathGrid = ({scaleFactor, worldData}) => {
         );
       });
 
-      const singularPathEndImages = singularPathEnd.map((image, index) => {
-        console.log(singularPathEnd);
+      const leftPathEdgeImages = leftPathEdges.map((image, index) => {
         const imageStyle = {
               transform: `${image.transform}`,
               position: "absolute",
-              left: `${image.x + 7.5 + (image.x * 0.030)}vw`,
+              left: `${image.x + 7.3 + (image.x * 0.030)}vw`,
               top: `${image.y + 1}vw`,
               width: `${image.width}vw`,
               
@@ -119,6 +78,27 @@ const PathGrid = ({scaleFactor, worldData}) => {
           />
         );
       });
+
+      const rightPathEdgesImages = rightPathEdges.map((image, index) => {
+        const imageStyle = {
+              transform: `${image.transform}`,
+              position: "absolute",
+              left: `${image.x + 7.3 + (image.x * 0.030)}vw`,
+              top: `${image.y + 1}vw`,
+              width: `${image.width}vw`,
+              
+          };
+        return (
+            <img
+            key={index}
+            src={pathImageMapping[image.src]}
+            alt={`Image ${index + 1}`}
+            className = {"grid-container-path-edge"}
+            style={imageStyle}
+          />
+        );
+      });
+
 
 
 
@@ -137,11 +117,10 @@ const PathGrid = ({scaleFactor, worldData}) => {
             ))}
             
             </div>
-            {pathEdgeImages}
-            {wideVerticalPathEdgesImages}
-            {horizontalPathEdgesImages}
-            {wideHorizontalPathEdgesImages}
-            {singularPathEndImages}
+            {abovePathEdgeImages}
+            {belowPathEdgeImages}
+            {leftPathEdgeImages}
+            {rightPathEdgesImages}
 
         </div>
         

@@ -527,223 +527,110 @@ const pathEdgeDims = [
     [1,3],
 ];
 
+const aboveImgShifts = [0.5, 0, -0.5, -0.5];
+const belowImgShifts = [0.5, -0.2, -0.2, -0.2];
 
-function getPathEdges(grid){
+function getAbovePathEdge(grid){
     const cordList = [];
 
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             if(grid[i][j] === 40){ // it is a path
+                if(grid[i-1][j] !== 40){ // needs an edge
+                    const upImgSrc = Math.floor(Math.random() * 4);
 
-                // Check for a with x1 vertical straight path 
-                if(grid[i+1][j] === 40 && grid[i-1][j] === 40){ // Above and below is a path
-                    if(grid[i][j - 1] != 40 && grid[i][j + 1] != 40 && grid[i+1][j-1] != 40 && grid[i+1][j+1] != 40 && grid[i-1][j-1] != 40 && grid[i-1][j+1] != 40){ // No path on the sides 
-                        // PUT 2 TEXTURES ON THE SIDE
-                        const leftImgSrc = Math.floor(Math.random() * 4);
-                        const rightImgSrc = Math.floor(Math.random() * 4);
-
-                        const leftValue = {
-                            src: leftImgSrc,
-                            x: j,
-                            y: i,
-                            width: pathEdgeDims[leftImgSrc][0],
-                            height: pathEdgeDims[leftImgSrc][1],
-                            angle: 0,
-                        };
-
-                        const rightValue = {
-                            src: rightImgSrc,
-                            x: j + 1,
-                            y: i,
-                            width: pathEdgeDims[rightImgSrc][0],
-                            height: pathEdgeDims[rightImgSrc][1],
-                            angle: 0,
-                            transform: `scaleX(-1)`,
-                        };
-
-                        cordList.push(leftValue);
-                        cordList.push(rightValue);
-                    }
+                    const upValue = {
+                        src: upImgSrc,
+                        x: j,
+                        y: i - 1 + aboveImgShifts[upImgSrc],
+                        width: pathEdgeDims[upImgSrc][0],
+                        height: pathEdgeDims[upImgSrc][1],
+                        angle: 90,
+                        transform: `rotate(90deg)`,
+                    };
+                    cordList.push(upValue);
                 }
-
             }
-
         }
     }
-    console.log(cordList);
-    return cordList;
+    return cordList; 
 }
 
-function getWideVerticalPathEdges(grid){
+function getBelowPathEdge(grid){
     const cordList = [];
 
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             if(grid[i][j] === 40){ // it is a path
-                // Check for a with x2 vertical stragight path
-                if(grid[i][j+1] === 40 && grid[i][j+2] != 40){
-                    if(grid[i+1][j] === 40 && grid[i-1][j] === 40 && grid[i+1][j+1] === 40 && grid[i-1][j+1] === 40){
-                        if(grid[i][j - 1] != 40  && grid[i+1][j-1] != 40 && grid[i-1][j-1] != 40 && grid[i+1][j+2] != 40 && grid[i-1][j+2] != 40){
-                            const leftImgSrc = Math.floor(Math.random() * 4);
-                            const rightImgSrc = Math.floor(Math.random() * 4);
+                if(grid[i+1][j] !== 40){ // needs an edge
+                    const downImgSrc = Math.floor(Math.random() * 4);
 
-                            const leftValue = {
-                                src: leftImgSrc,
-                                x: j,
-                                y: i,
-                                width: pathEdgeDims[leftImgSrc][0],
-                                height: pathEdgeDims[leftImgSrc][1],
-                                angle: 0,
-                            };
-
-                            const rightValue = {
-                                src: rightImgSrc,
-                                x: j + 2,
-                                y: i,
-                                width: pathEdgeDims[rightImgSrc][0],
-                                height: pathEdgeDims[rightImgSrc][1],
-                                angle: 0,
-                                transform: `scaleX(-1)`,
-                            };
-
-                            cordList.push(leftValue);
-                            cordList.push(rightValue);
-                        }
-                    }
+                    const downValue = {
+                        src: downImgSrc,
+                        x: j,
+                        y: i + belowImgShifts[downImgSrc],
+                        width: pathEdgeDims[downImgSrc][0],
+                        height: pathEdgeDims[downImgSrc][1],
+                        angle: 90,
+                        transform: `rotate(280deg)`,
+                    };
+                    cordList.push(downValue);
                 }
             }
         }
     }
-    return cordList;
+    return cordList; 
 }
 
-function getHorizontalPathEdges(grid){
+function getLeftPathEdge(grid){
     const cordList = [];
+
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             if(grid[i][j] === 40){ // it is a path
-                if(grid[i][j+1] === 40 && grid[i][j-1] === 40){ // Left and right is a path
-                    if(grid[i + 1][j - 1] != 40 && grid[i + 1][j + 1] != 40 && grid[i+1][j] != 40 && grid[i - 1][j+1] != 40 && grid[i-1][j-1] != 40 && grid[i-1][j] != 40){ // No path on the sides 
-                        const upImgSrc = 1;
-                        const downImgSrc = 0;
+                if(grid[i][j-1] !== 40){ // needs an edge
+                    const leftImgSrc = Math.floor(Math.random() * 4);
 
-                        const upValue = {
-                            src: upImgSrc,
-                            x: j,
-                            y: i - 1,
-                            width: pathEdgeDims[upImgSrc][0],
-                            height: pathEdgeDims[upImgSrc][1],
-                            angle: 90,
-                            transform: `rotate(90deg)`,
-                        };
-
-                        const downValue = {
-                            src: upImgSrc,
-                            x: j,
-                            y: i - 0.1,
-                            width: pathEdgeDims[downImgSrc][0],
-                            height: pathEdgeDims[downImgSrc][1],
-                            angle: 90,
-                            transform: `rotate(280deg)`,
-                        };
-
-                        cordList.push(upValue);
-                        cordList.push(downValue);
-                    }
+                    const leftValue = {
+                        src: leftImgSrc,
+                        x: j,
+                        y: i,
+                        width: pathEdgeDims[leftImgSrc][0],
+                        height: pathEdgeDims[leftImgSrc][1],
+                        angle: 0,
+                    };
+                    cordList.push(leftValue);
                 }
             }
         }
     }
-
-    return cordList;
-
+    return cordList; 
 }
 
-function getWideHorizontalPathEdges(grid){
-    const cordList = [];
-    for (let i = 0; i < grid.length; i++) {
-        for (let j = 0; j < grid[i].length; j++) {
-            if(grid[i][j] === 40){ // it is a path
-                // Check for a with x2 horizontal stragight path
-                if(grid[i+1][j] === 40 && grid[i+2][j] != 40){
-                    if(grid[i][j+1] === 40 && grid[i][j-1] === 40 && grid[i+1][j+1] === 40 && grid[i+1][j-1] === 40){
-                        if(grid[i - 1][j - 1] != 40  && grid[i+2][j-1] != 40 && grid[i-1][j] != 40 && grid[i+2][j+1] != 40 && grid[i-1][j+1] != 40){
-                            const upImgSrc = 1;
-                            const downImgSrc = 0;
-
-                            const upValue = {
-                                src: upImgSrc,
-                                x: j,
-                                y: i - 2,
-                                width: pathEdgeDims[upImgSrc][0],
-                                height: pathEdgeDims[upImgSrc][1],
-                                angle: 90,
-                                transform: `rotate(90deg)`,
-                            };
-
-                            const downValue = {
-                                src: upImgSrc,
-                                x: j,
-                                y: i - 0.2,
-                                width: pathEdgeDims[downImgSrc][0],
-                                height: pathEdgeDims[downImgSrc][1],
-                                angle: 90,
-                                transform: `rotate(280deg)`,
-                            };
-
-                            cordList.push(upValue);
-                            cordList.push(downValue);
-                        }
-                    }
-                }
-            }
-        }
-    }
-    return cordList;
-}
-
-function getSingularPathEnd(grid){
+function getRightPathEdge(grid){
     const cordList = [];
 
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             if(grid[i][j] === 40){ // it is a path
-                if(grid[i - 1][j] === 40 && grid[i + 1][j] !== 40){
-                    if(grid[i][j+1] !== 40 && grid[i][j-1] !== 40){
-                        const endValue = {
-                            src: 4,
-                            x: j,
-                            y: i,
-                            width: 2,
-                            height: 2,
-                            angle: 0,
-                            transform: `rotate(180deg)`,
-                        };
-                        cordList.push(endValue);
-                    }
-                }
+                if(grid[i][j-1] !== 40){ // needs an edge
+                    const rightImgSrc = Math.floor(Math.random() * 4);
 
-                if(grid[i + 1][j] === 40 && grid[i - 1][j] !== 40){
-                    if(grid[i][j+1] !== 40 && grid[i][j-1] !== 40){
-                        const endValue = {
-                            src: 4,
-                            x: j,
-                            y: i,
-                            width: 2,
-                            height: 2,
-                            angle: 0,
-                            transform: `rotate(0deg)`,
-                        };
-                        cordList.push(endValue);
-                    }
+                    const rightValue = {
+                        src: rightImgSrc,
+                        x: j + 1,
+                        y: i,
+                        width: pathEdgeDims[rightImgSrc][0],
+                        height: pathEdgeDims[rightImgSrc][1],
+                        angle: 0,
+                        transform: `scaleX(-1)`,
+                    };
+                    cordList.push(rightValue);
                 }
             }
         }
     }
-    console.log("HERER")
-    console.log(cordList)
-    return cordList;
-
+    return cordList; 
 }
 
 
@@ -758,9 +645,8 @@ export {
     getBuildingCords,
     getCaveCords,
     getCampCords,
-    getPathEdges,
-    getHorizontalPathEdges,
-    getWideVerticalPathEdges,
-    getWideHorizontalPathEdges,
-    getSingularPathEnd,
+    getAbovePathEdge,
+    getBelowPathEdge,
+    getLeftPathEdge,
+    getRightPathEdge,
 };
