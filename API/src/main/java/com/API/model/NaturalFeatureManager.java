@@ -23,10 +23,10 @@ public class NaturalFeatureManager {
 
     private void initializeNaturalFeatures() {
         // Add the natural features here with their dimensions and id
-        naturalFeatures.add(new NaturalFeature(15, 3, 3)); // small cave 
-        naturalFeatures.add(new NaturalFeature(16, 4, 4)); // medium cave
-        naturalFeatures.add(new NaturalFeature(17, 5, 5)); // large cave
-        naturalFeatures.add(new NaturalFeature(18, 6, 6)); // Massive Cave
+        naturalFeatures.add(new NaturalFeature(15, 5, 5)); // small cave 
+        naturalFeatures.add(new NaturalFeature(16, 7, 7)); // medium cave
+        naturalFeatures.add(new NaturalFeature(17, 9, 8)); // large cave
+        naturalFeatures.add(new NaturalFeature(18, 16, 14)); // Massive Cave
     }
 
     public NaturalFeature getNaturalFeature(int id) {
