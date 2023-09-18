@@ -1,14 +1,16 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import "./Configuration.css";
 import Slider from "@mui/material/Slider";
 import FormGroup from "@mui/material/FormGroup";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { Menu, Button, MenuItem, FormControl, Select } from "@mui/material";
+import { Menu, Button, MenuItem, FormControl, Select, Modal, Typography, Box, Input } from "@mui/material";
 import "../../Grid.css";
 import html2canvas from "html2canvas";
 import MonstersOverlay from "./MonstersOverlay";
 import { WorldDataContext } from "../../context/worldDataContext";
+import emailjs from "@emailjs/browser";
+emailjs.init('VDupAfE4CYPyVT2Ry');
 
 const ConfigDropdown = ({opacityToggle, showContent, setShowContent, gridSize, setGridSize}) => {
   const {worldData, setWorldData} = useContext(WorldDataContext);
@@ -30,14 +32,60 @@ const ConfigDropdown = ({opacityToggle, showContent, setShowContent, gridSize, s
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
     handleDropdownClose();
-    if (option == "png") {
+    if (option === "png") {
       downloadPNG();
-    } else if (option == "json") {
+    } else if (option === "json") {
       downloadJSON();
     }
   };
 
+  const shareFile = () => {
+    setShowContent(false);
+    setSelectedMonsterOption("none");
+    setTimeout(() => {
+      const targetElement = document.documentElement;
+      html2canvas(targetElement, {
+        width: window.innerWidth,
+        height: window.innerHeight,
+        x: 0,
+        y: 0,
+      }).then((canvas) => {
+        setOpen(true);
+        const dataURL = canvas.toDataURL('image/jpeg', 0.2);
+        console.log(dataURL.length / 1024);
+        setScreenshot(dataURL);
+        setShowContent(true);
+      });
+    }, 0);
+  };
+
+  const sendEmail = () => {
+    const currentMonster = selectedMonsterOption;
+    const emailParams = {
+      to_email: email,
+      message: "Attached file are your world data as PNG format and raw data!",
+      file: btoa(JSON.stringify(worldData)),
+      image: screenshot,
+    };
+    emailjs.send('service_123456789', 'template_mv7apne', emailParams)
+      .then((response) => {
+        console.log('Email sent successfully!', response);
+        setShowContent(true);
+        setSelectedMonsterOption(currentMonster);
+        setOpen(false);
+        setEmail("");
+      })
+      .catch((error) => {
+        setButtonText('Error! Please try again.');
+        setEmail("");
+        console.log('Email failed to send:', error);
+        setShowContent(true);
+        setSelectedMonsterOption(currentMonster);
+      });
+  }
+
   const downloadJSON = () => {
+    console.log("JSON");
     if (worldData) {
       const jsonData = JSON.stringify(worldData);
       const blob = new Blob([jsonData], { type: "application/json" });
@@ -50,7 +98,9 @@ const ConfigDropdown = ({opacityToggle, showContent, setShowContent, gridSize, s
       window.URL.revokeObjectURL(url);
     }
   };
+
   const downloadPNG = () => {
+    console.log("PNG");
     setShowContent(false);
     const currentMonster = selectedMonsterOption;
     setSelectedMonsterOption("none");
@@ -68,14 +118,13 @@ const ConfigDropdown = ({opacityToggle, showContent, setShowContent, gridSize, s
         const downloadLink = document.createElement("a");
         downloadLink.href = dataURL;
         const date = new Date().toISOString();
-        downloadLink.download = "map-"+date+".png"; // Set the filename
+        downloadLink.download = "map-" + date + ".png"; // Set the filename
         downloadLink.click();
         setShowContent(true);
         setSelectedMonsterOption(currentMonster);
       });
     }, 0);
   };
-
 
 
   const handleSelectChange = (e) => {
@@ -93,15 +142,15 @@ const ConfigDropdown = ({opacityToggle, showContent, setShowContent, gridSize, s
   }
 
   const handleGenerate = () => {
-    fetch(API_URL+"/world", {
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json",
+    fetch(API_URL + "/world", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        size:gridSize
+        size: gridSize
       })
-    }).then((response)=>response.json()).then((data)=>setWorldData(data)).catch((error)=>console.log(error));
+    }).then((response) => response.json()).then((data) => setWorldData(data)).catch((error) => console.log(error));
   };
 
   return (
@@ -117,7 +166,7 @@ const ConfigDropdown = ({opacityToggle, showContent, setShowContent, gridSize, s
                 valueLabelDisplay="auto"
                 min={27}
                 max={50}
-                onChange={(e) => setGridSize(e.target.value)} 
+                onChange={(e) => setGridSize(e.target.value)}
               />
             </div>
           </div>
@@ -162,11 +211,13 @@ const ConfigDropdown = ({opacityToggle, showContent, setShowContent, gridSize, s
             <div className="button">
               <Button
                 variant="outlined"
-                onClick={handleDropdownOpen}
+                onClick={(e) => handleDropdownOpen(e, setAnchorEl)}
                 style={{
                   color: "#000000",
                   borderColor: "#000000",
                   borderWidth: "1px",
+                  marginTop: "-35px",
+                  marginLeft: "40px",
                 }}
               >
                 Save
@@ -188,15 +239,67 @@ const ConfigDropdown = ({opacityToggle, showContent, setShowContent, gridSize, s
             <div className="button">
               <Button
                 variant="outlined"
+                onClick={shareFile}
+                style={{
+                  color: "#000000",
+                  borderColor: "#000000",
+                  borderWidth: "1px",
+                  marginTop: "-35px",
+                  marginLeft: "20px",
+                }}
+              >
+                Share
+              </Button>
+            </div>
+
+            <div className="button">
+              <Button
+                variant="outlined"
                 onClick={handleGenerate}
                 style={{
                   color: "#000000",
                   borderColor: "#000000",
                   borderWidth: "1px",
+                  marginTop: "30px",
+                  marginLeft: "-305px",
                 }}
               >
                 GENERATE
               </Button>
+              <Modal
+                open={open}
+                onClose={() => setOpen(false)}
+              >
+                <Box sx={style}>
+                  <Typography id="modal-modal-title" variant="h6" component="h2" sx={{
+                    fontSize: '20px',
+                    fontWeight: 'bold',
+                  }}>
+                    {text}
+                  </Typography>
+                  <Input id="modal-modal-description" sx={{
+                    mt: 2,
+                    border: '1px solid #ccc',
+                    borderRadius: '4px',
+                    padding: '8px',
+                    width: '100%',
+                  }}
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                  />
+                  <Button
+                    variant="outlined"
+                    onClick={sendEmail}
+                    style={{
+                      color: "#000000",
+                      borderColor: "#000000",
+                      borderWidth: "1px",
+                      marginTop: "-185px",
+                      marginLeft: "300px",
+                    }}
+                  >Submit</Button>
+                </Box>
+              </Modal>
             </div>
           </div>
         </div>
@@ -205,4 +308,17 @@ const ConfigDropdown = ({opacityToggle, showContent, setShowContent, gridSize, s
     </div>
   );
 };
+
 export default ConfigDropdown;
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
