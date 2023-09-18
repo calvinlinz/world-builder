@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./Sidebar.css";
-import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
 import ThreeDRotation from "@mui/icons-material/ThreeDRotation";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SettingsIcon from "@mui/icons-material/Settings";
