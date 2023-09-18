@@ -12,12 +12,16 @@ import LoadingPage from './LoadingPage';
 import PathGrid from './PathGrid';
 import './Grid.css';
 import './Display.css';
+import SideBar from './components/configuration/Sidebar';
 
 
 const Display = ({ worldData }) => {
   const [opacityValue, setOpacity] = useState(1); 
   const [scaleFactor, setScaleFactor] = useState(0.25);
-
+  const [sidebarOpen, setSideBarOpen] = useState(false);
+  const handleViewSidebar = () => {
+    setSideBarOpen(!sidebarOpen);
+  };
   const toggleOpactiy = () => {
     setOpacity(opacityValue === 1 ? 0 : 1);
   };
@@ -30,11 +34,13 @@ const Display = ({ worldData }) => {
 
   return (
     <>
+        <SideBar isOpen={sidebarOpen} toggleSidebar={handleViewSidebar} />
+
     <BackgroundGrid worldData={worldData}/>
     <PathGrid worldData={worldData}/>
     <BuildingsGrid scaleFactor={scaleFactor} worldData={worldData}/>
     <NaturalFeaturesGrid scaleFactor={scaleFactor} worldData={worldData}/>
-    <ConfigDropdown opacityToggle={toggleOpactiy} setScaleFactorImages={setScaleFactorImages}/>
+    {/* <ConfigDropdown opacityToggle={toggleOpactiy} setScaleFactorImages={setScaleFactorImages}/> */}
     <CaveGrid scaleFactor={scaleFactor} worldData={worldData}/>
     <RoofGrid opacityValue={opacityValue} scaleFactor={scaleFactor} worldData={worldData}/>
     <CampGrid scaleFactor={scaleFactor} worldData={worldData}/>
