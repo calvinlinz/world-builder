@@ -10,13 +10,12 @@ import html2canvas from "html2canvas";
 import MonstersOverlay from "./MonstersOverlay";
 import { WorldDataContext } from "../../context/worldDataContext";
 
-const ConfigDropdown = ({opacityToggle, showContent, setShowContent}) => {
+const ConfigDropdown = ({opacityToggle, showContent, setShowContent, gridSize, setGridSize}) => {
   const {worldData, setWorldData} = useContext(WorldDataContext);
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
   const [selectedMonsterOption, setSelectedMonsterOption] = useState("none");
   const [anchorEl, setAnchorEl] = useState(null);
-  const [gridSize, setGridSize] = useState(27);
   const [selectedOption, setSelectedOption] = useState(null);
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080"
 

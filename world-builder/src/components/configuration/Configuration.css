@@ -37,11 +37,13 @@ h1 {
 }
 
 .slider-component p {
-    width: 100px;
-    padding: 25px;
+    width: 125px;
+    padding-top: 25px;
     justify-content: left;
+    font-size: 1rem;
     display: flex;
     padding-bottom: 0;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
 .slider {
