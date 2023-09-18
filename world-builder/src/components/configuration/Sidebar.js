@@ -27,9 +27,6 @@ const SideBar = ({opacityToggle}) => {
       : "sidebar-toggle2";
       const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080"
 
-
-
-
   const handleGenerate = () => {
     fetch(API_URL+"/world", {
       method:"POST",
