@@ -702,6 +702,50 @@ function getWideHorizontalPathEdges(grid){
     return cordList;
 }
 
+function getSingularPathEnd(grid){
+    const cordList = [];
+
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            if(grid[i][j] === 40){ // it is a path
+                if(grid[i - 1][j] === 40 && grid[i + 1][j] !== 40){
+                    if(grid[i][j+1] !== 40 && grid[i][j-1] !== 40){
+                        const endValue = {
+                            src: 4,
+                            x: j,
+                            y: i,
+                            width: 2,
+                            height: 2,
+                            angle: 0,
+                            transform: `rotate(180deg)`,
+                        };
+                        cordList.push(endValue);
+                    }
+                }
+
+                if(grid[i + 1][j] === 40 && grid[i - 1][j] !== 40){
+                    if(grid[i][j+1] !== 40 && grid[i][j-1] !== 40){
+                        const endValue = {
+                            src: 4,
+                            x: j,
+                            y: i,
+                            width: 2,
+                            height: 2,
+                            angle: 0,
+                            transform: `rotate(0deg)`,
+                        };
+                        cordList.push(endValue);
+                    }
+                }
+            }
+        }
+    }
+    console.log("HERER")
+    console.log(cordList)
+    return cordList;
+
+}
+
 
 
 
@@ -718,4 +762,5 @@ export {
     getHorizontalPathEdges,
     getWideVerticalPathEdges,
     getWideHorizontalPathEdges,
+    getSingularPathEnd,
 };
