@@ -23,7 +23,7 @@ const PathGrid = ({scaleFactor, worldData}) => {
         const imageStyle = {
               transform: `${image.transform}`,
               position: "absolute",
-              left: `${image.x + 7.3 + (image.x * 0.030)}vw`,
+              left: `${image.x + 7.9 + (image.x * 0.030)}vw`,
               top: `${image.y + 2 - (image.y * 0.02)}vw`,
               width: `${image.width}vw`,
               
@@ -43,7 +43,7 @@ const PathGrid = ({scaleFactor, worldData}) => {
         const imageStyle = {
               transform: `${image.transform}`,
               position: "absolute",
-              left: `${image.x + 7.3 + (image.x * 0.030)}vw`,
+              left: `${image.x + 7.9 + (image.x * 0.030)}vw`,
               top: `${image.y + 2 - (image.y * 0.02)}vw`,
               width: `${image.width}vw`,
               
@@ -64,7 +64,7 @@ const PathGrid = ({scaleFactor, worldData}) => {
               transform: `${image.transform}`,
               position: "absolute",
               left: `${image.x + 7.3 + (image.x * 0.030)}vw`,
-              top: `${image.y + 1}vw`,
+              top: `${image.y + 1.5}vw`,
               width: `${image.width}vw`,
               
           };
@@ -84,7 +84,7 @@ const PathGrid = ({scaleFactor, worldData}) => {
               transform: `${image.transform}`,
               position: "absolute",
               left: `${image.x + 7.3 + (image.x * 0.030)}vw`,
-              top: `${image.y + 1}vw`,
+              top: `${image.y + 1.3 + (1 - (image.y/50))}vw`,
               width: `${image.width}vw`,
               
           };
