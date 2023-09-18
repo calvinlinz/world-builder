@@ -12,20 +12,13 @@ import { WorldDataContext } from "../../context/worldDataContext";
 import emailjs from "@emailjs/browser";
 emailjs.init('VDupAfE4CYPyVT2Ry');
 
-const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
-  const { worldData, setWorldData } = useContext(WorldDataContext);
-  const [showInputs, setShowInputs] = useState(false);
+const ConfigDropdown = ({opacityToggle, showContent, setShowContent, gridSize, setGridSize}) => {
+  const {worldData, setWorldData} = useContext(WorldDataContext);
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
   const [selectedMonsterOption, setSelectedMonsterOption] = useState("none");
   const [anchorEl, setAnchorEl] = useState(null);
-  const [open, setOpen] = useState(false);
-  const [email, setEmail] = useState("");
-  const [screenshot, setScreenshot] = useState(null);
-  const [gridSize, setGridSize] = useState(27);
   const [selectedOption, setSelectedOption] = useState(null);
-  const [showContent, setShowContent] = useState(true);
-  const [text, setButtonText] = useState('Insert your Email');
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080"
 
   const handleDropdownOpen = (event) => {
@@ -133,9 +126,6 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
     }, 0);
   };
 
-  const handleMenuClick = () => {
-    setShowInputs(!showInputs);
-  };
 
   const handleSelectChange = (e) => {
     setSelectedMonsterOption(e.target.value);
@@ -166,32 +156,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
   return (
     <div className="body">
       {showContent && (
-        <div className="dropDown">
-          <div id="hamburger" onClick={handleMenuClick}>
-            <div className={`container ${showInputs ? "change" : ""}`}>
-              <div className="bar1"></div>
-              <div className="bar2"></div>
-              <div className="bar3"></div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {showContent && showInputs && (
-        <div className="content">
-          <div className="slider-component">
-            <p>GRID ZOOM</p>
-            <div className="slider">
-              <Slider
-                defaultValue={0.25}
-                aria-label="Small"
-                valueLabelDisplay="auto"
-                min={3}
-                max={7}
-                onChange={(e) => setScaleFactorImages(e.target.value)} // You need to implement setScaleFactorImages
-              />
-            </div>
-          </div>
+        <div className="configContent">
           <div className="slider-component">
             <p>GRID SIZE</p>
             <div className="slider">
@@ -219,8 +184,8 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages }) => {
               />
               <FormControlLabel
                 control={<Checkbox />}
-                onChange={opacityToggle} // Implement opacityToggle
                 label="ADD/REMOVE ROOFS"
+                onChange={opacityToggle}
               />
             </FormGroup>
           </div>
