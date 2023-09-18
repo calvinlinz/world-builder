@@ -4,22 +4,43 @@ import Slider from "@mui/material/Slider";
 import FormGroup from "@mui/material/FormGroup";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { Menu, Button, MenuItem, FormControl, Select, Modal, Typography, Box, Input } from "@mui/material";
+import {
+  Menu,
+  Button,
+  MenuItem,
+  FormControl,
+  Select,
+  Modal,
+  Typography,
+  Box,
+  Input,
+} from "@mui/material";
 import "../../Grid.css";
 import html2canvas from "html2canvas";
 import MonstersOverlay from "./MonstersOverlay";
 import { WorldDataContext } from "../../context/worldDataContext";
 import emailjs from "@emailjs/browser";
-emailjs.init('VDupAfE4CYPyVT2Ry');
+emailjs.init("VDupAfE4CYPyVT2Ry");
 
-const ConfigDropdown = ({opacityToggle, showContent, setShowContent, gridSize, setGridSize}) => {
-  const {worldData, setWorldData} = useContext(WorldDataContext);
+const ConfigDropdown = ({
+  opacityToggle,
+  showContent,
+  setShowContent,
+  gridSize,
+  setGridSize,
+}) => {
+  const { worldData, setWorldData } = useContext(WorldDataContext);
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
   const [selectedMonsterOption, setSelectedMonsterOption] = useState("none");
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
-  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080"
+  const [text, setButtonText] = useState("Insert your Email");
+
+  const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [screenshot, setScreenshot] = useState(null);
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
 
   const handleDropdownOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -51,7 +72,7 @@ const ConfigDropdown = ({opacityToggle, showContent, setShowContent, gridSize, s
         y: 0,
       }).then((canvas) => {
         setOpen(true);
-        const dataURL = canvas.toDataURL('image/jpeg', 0.2);
+        const dataURL = canvas.toDataURL("image/jpeg", 0.2);
         console.log(dataURL.length / 1024);
         setScreenshot(dataURL);
         setShowContent(true);
@@ -67,22 +88,23 @@ const ConfigDropdown = ({opacityToggle, showContent, setShowContent, gridSize, s
       file: btoa(JSON.stringify(worldData)),
       image: screenshot,
     };
-    emailjs.send('service_123456789', 'template_mv7apne', emailParams)
+    emailjs
+      .send("service_123456789", "template_mv7apne", emailParams)
       .then((response) => {
-        console.log('Email sent successfully!', response);
+        console.log("Email sent successfully!", response);
         setShowContent(true);
         setSelectedMonsterOption(currentMonster);
         setOpen(false);
         setEmail("");
       })
       .catch((error) => {
-        setButtonText('Error! Please try again.');
+        setButtonText("Error! Please try again.");
         setEmail("");
-        console.log('Email failed to send:', error);
+        console.log("Email failed to send:", error);
         setShowContent(true);
         setSelectedMonsterOption(currentMonster);
       });
-  }
+  };
 
   const downloadJSON = () => {
     console.log("JSON");
@@ -126,18 +148,23 @@ const ConfigDropdown = ({opacityToggle, showContent, setShowContent, gridSize, s
     }, 0);
   };
 
-
   const handleSelectChange = (e) => {
     setSelectedMonsterOption(e.target.value);
   };
 
   let contentToRender;
 
-  if (selectedMonsterOption === 'none') {
+  if (selectedMonsterOption === "none") {
     contentToRender = <div></div>;
-  } else if (selectedMonsterOption === 'option2') {
-    contentToRender = <MonstersOverlay className="monsterContent" monsterName={"Fairy Test"} monsterRank={"Fairy Rank"}/>;
-  } else if (selectedMonsterOption === 'option3') {
+  } else if (selectedMonsterOption === "option2") {
+    contentToRender = (
+      <MonstersOverlay
+        className="monsterContent"
+        monsterName={"Fairy Test"}
+        monsterRank={"Fairy Rank"}
+      />
+    );
+  } else if (selectedMonsterOption === "option3") {
     contentToRender = <div></div>;
   }
 
@@ -148,9 +175,12 @@ const ConfigDropdown = ({opacityToggle, showContent, setShowContent, gridSize, s
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        size: gridSize
-      })
-    }).then((response) => response.json()).then((data) => setWorldData(data)).catch((error) => console.log(error));
+        size: gridSize,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => setWorldData(data))
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -266,24 +296,28 @@ const ConfigDropdown = ({opacityToggle, showContent, setShowContent, gridSize, s
               >
                 GENERATE
               </Button>
-              <Modal
-                open={open}
-                onClose={() => setOpen(false)}
-              >
+              <Modal open={open} onClose={() => setOpen(false)}>
                 <Box sx={style}>
-                  <Typography id="modal-modal-title" variant="h6" component="h2" sx={{
-                    fontSize: '20px',
-                    fontWeight: 'bold',
-                  }}>
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                    sx={{
+                      fontSize: "20px",
+                      fontWeight: "bold",
+                    }}
+                  >
                     {text}
                   </Typography>
-                  <Input id="modal-modal-description" sx={{
-                    mt: 2,
-                    border: '1px solid #ccc',
-                    borderRadius: '4px',
-                    padding: '8px',
-                    width: '100%',
-                  }}
+                  <Input
+                    id="modal-modal-description"
+                    sx={{
+                      mt: 2,
+                      border: "1px solid #ccc",
+                      borderRadius: "4px",
+                      padding: "8px",
+                      width: "100%",
+                    }}
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
                   />
@@ -297,7 +331,9 @@ const ConfigDropdown = ({opacityToggle, showContent, setShowContent, gridSize, s
                       marginTop: "-185px",
                       marginLeft: "300px",
                     }}
-                  >Submit</Button>
+                  >
+                    Submit
+                  </Button>
                 </Box>
               </Modal>
             </div>
@@ -312,13 +348,13 @@ const ConfigDropdown = ({opacityToggle, showContent, setShowContent, gridSize, s
 export default ConfigDropdown;
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  bgcolor: "background.paper",
+  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
 };
