@@ -24,7 +24,7 @@ const SideBar = ({ opacityToggle }) => {
   const configuration = slideOpen && isOpen ? "config open" : "config";
   const buttonClass = isOpen && slideOpen ? "config-toggle" : "sidebar-toggle";
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
-
+  let timeoutActive = false;
   const handleGenerate = () => {
     setWorldData(worldData, true);
     fetch(API_URL + "/world", {
@@ -55,7 +55,7 @@ const SideBar = ({ opacityToggle }) => {
     } else if (type == "import") {
       setSlideContent(
         <ImportExport
-          
+
         />
       );
     }
@@ -69,21 +69,37 @@ const SideBar = ({ opacityToggle }) => {
     }, 300);
   };
 
+
   const slideHandler = (type) => {
     if(slideOpen && type.type != slideContent.type){
       return;
     }
+
+    if (timeoutActive) {
+      return; // Don't execute if the timeout is active
+    }
+  
+    timeoutActive = true; // Set the flag to indicate that the timeout is active
+  
     setSlideOpen(!slideOpen);
+  
     if (!slideOpen) {
       setTimeout(() => {
         setSlideButtonOpen(!slideButtonOpen);
+        timeoutActive = false; 
       }, 50);
     } else {
       setTimeout(() => {
         setSlideButtonOpen(!slideButtonOpen);
+        timeoutActive = false; 
       }, 150);
     }
+    setTimeout(() => {
+      setSlideButtonOpen(!slideButtonOpen);
+      timeoutActive = false; // Reset the flag when the timeout completes
+    }, 50);
   };
+
   return (
     <div className="sidebar-container">
       <div className={configuration}>
