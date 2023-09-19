@@ -9,14 +9,15 @@ import PathGrid from "../../grids/PathGrid";
 import "../../grids/Grid.css";
 import "./Display.css";
 import SideBar from "../..//components/sidebar/Sidebar";
-import Loading from "../../components/loading/loading"
+import Loading from "../../components/loading/loading";
 import { useContext } from "react";
 import { WorldDataContext } from "../../context/worldDataContext";
 
 const Display = () => {
-  const {worldData, loading, setWorldData} = useContext(WorldDataContext);
+  const { worldData, loading, setWorldData } = useContext(WorldDataContext);
   const [opacityValue, setOpacity] = useState(1);
   const [scaleFactor, setScaleFactor] = useState(0.25);
+  const [renderTimeout, setRenderTimeout] = useState(true);
   const [sidebarOpen, setSideBarOpen] = useState(false);
   const handleViewSidebar = () => {
     setSideBarOpen(!sidebarOpen);
@@ -31,11 +32,19 @@ const Display = () => {
     console.log(scaleFactor);
   };
 
+  useEffect(() => {
+    if (!loading) {
+      setRenderTimeout(false);
+    }
+  }, [loading]);
+
   return (
     <>
       <SideBar opacityToggle={toggleOpactiy} />
       {loading ? (
-        <Loading/>
+        <Loading />
+      ) : renderTimeout ? (
+        <Loading />
       ) : (
         <>
           <BackgroundGrid worldData={worldData} />
