@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./App.css";
-import HomePage from "./HomePage";
-import Display from "./Display";
-import { setGrid } from "./CalculatePositions";
+import HomePage from "./pages/homePage/HomePage";
+import Display from "./pages/display/Display";
+import { setGrid } from "./grids/CalculatePositions";
 import { WorldDataContext } from "./context/worldDataContext";
 import Loading from './components/loading/loading'
 
@@ -56,7 +56,6 @@ function App() {
 
   const startGame = () => {
     setGameStarted(true);
-    console.log(worldData);
   };
 
   return (
@@ -70,7 +69,7 @@ function App() {
   >
       <div className="App">
         {gameStarted ? (
-          <Display worldData={worldData} loading={loading} />
+          <Display/>
         ) : (
           <HomePage startGame={startGame} />
         )}

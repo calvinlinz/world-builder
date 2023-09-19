@@ -1,5 +1,5 @@
 import "./MonsterOverlay.css";
-import { allImages } from "../../Constants";
+import { allImages } from "../../grids/Constants";
 
 const MonstersOverlay = ({monsterName, monsterRank}) => {
 

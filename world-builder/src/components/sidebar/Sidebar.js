@@ -5,7 +5,7 @@ import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
 import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined';
-import ConfigDropdown from "./Configuration";
+import ConfigDropdown from "../configuration/Configuration";
 import { useContext } from "react";
 import { WorldDataContext } from "../../context/worldDataContext";
 
@@ -16,11 +16,8 @@ const SideBar = ({ opacityToggle }) => {
   const sidebarClass = isOpen ? "sidebar open" : "sidebar";
   const [configOpen, setConfigOpen] = useState(false);
   const [configButtonOpen, setConfigButtonOpen] = useState(false);
-
   const configuration = configOpen && isOpen ? "config open" : "config";
   const buttonClass = isOpen && configOpen ? "config-toggle" : "sidebar-toggle";
-
-
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
 
   const handleGenerate = () => {

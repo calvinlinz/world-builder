@@ -15,9 +15,9 @@ import {
   Box,
   Input,
 } from "@mui/material";
-import "../../Grid.css";
+import "../../grids/Grid.css";
 import html2canvas from "html2canvas";
-import MonstersOverlay from "./MonstersOverlay";
+import MonstersOverlay from "../monstersOverlay/MonstersOverlay";
 import { WorldDataContext } from "../../context/worldDataContext";
 import emailjs from "@emailjs/browser";
 emailjs.init("VDupAfE4CYPyVT2Ry");

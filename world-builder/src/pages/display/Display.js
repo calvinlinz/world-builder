@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
-import ConfigDropdown from "./components/configuration/Configuration";
-import MonstersOverlay from "./components/configuration/MonstersOverlay";
-import Grid from "./Grid";
-import BackgroundGrid from "./BackgroundGrid";
-import BuildingsGrid from "./BuildingsGrid";
-import NaturalFeaturesGrid from "./NaturalFeaturesGrid";
-import CaveGrid from "./CaveGrid";
-import RoofGrid from "./RoofGrid";
-import CampGrid from "./CampGrid";
-import PathGrid from "./PathGrid";
-import "./Grid.css";
+import BackgroundGrid from "../../grids/BackgroundGrid";
+import BuildingsGrid from "../../grids/BuildingsGrid";
+import NaturalFeaturesGrid from "../../grids/NaturalFeaturesGrid";
+import CaveGrid from "../../grids/CaveGrid";
+import RoofGrid from "../../grids/RoofGrid";
+import CampGrid from "../..//grids/CampGrid";
+import PathGrid from "../../grids/PathGrid";
+import "../../grids/Grid.css";
 import "./Display.css";
-import SideBar from "./components/configuration/Sidebar";
-import Loading from "./components/loading/loading"
+import SideBar from "../..//components/sidebar/Sidebar";
+import Loading from "../../components/loading/loading"
+import { useContext } from "react";
+import { WorldDataContext } from "../../context/worldDataContext";
 
-const Display = ({ worldData, loading }) => {
+const Display = () => {
+  const {worldData, loading, setWorldData} = useContext(WorldDataContext);
   const [opacityValue, setOpacity] = useState(1);
   const [scaleFactor, setScaleFactor] = useState(0.25);
   const [sidebarOpen, setSideBarOpen] = useState(false);
