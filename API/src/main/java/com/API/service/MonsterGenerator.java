@@ -106,12 +106,11 @@ public class MonsterGenerator {
                     int intel = getSkill(rank);
                     int wis = getSkill(rank);
                     int cha = getSkill(rank);
-                    String currMonster = String.valueOf(rankVal) + String.valueOf(str) + String.valueOf(dex) + String.valueOf(con) + String.valueOf(intel);
-                    System.out.println(currMonster);
+                    String currMonster = String.valueOf(rankVal) + String.valueOf(str) + String.valueOf(dex) + String.valueOf(con) + 
+                                         String.valueOf(intel) + String.valueOf(wis) + String.valueOf(cha);
 
                     int input = Integer.parseInt(currMonster);
-                    System.out.println("Adding monster: " + input + " at " + i + " " + j);
-                    System.out.println(rankVal + " " + str + " " + dex + " " + con + " " + intel);
+                    System.out.println(rankVal + " " + str + " " + dex + " " + con + " " + intel + " " + wis + " " + cha);
                     this.map[i][j] = input;
                 } 
             }
@@ -140,6 +139,10 @@ public class MonsterGenerator {
      * @return An int 0-9 corresponding to the strength of the skill.
      */
     private int getSkill(int rank){
+        int wildcard = rand.nextInt(8) + 1;
+        if(wildcard == 1){
+            return rand.nextInt(10);
+        }
         List<Integer> lowerLimits = new ArrayList<>(List.of(7, 5, 2, 1));
         List<Integer> upperLimits = new ArrayList<>(List.of(10, 9, 8, 5));
         int lowerLimit = lowerLimits.get(rank);
