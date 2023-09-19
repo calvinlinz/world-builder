@@ -43,85 +43,6 @@ const ConfigDropdown = ({
   const [screenshot, setScreenshot] = useState(null);
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
 
-  const handleDropdownOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleDropdownClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleOptionSelect = (option) => {
-    setSelectedOption(option);
-    handleDropdownClose();
-    if (option === "png") {
-      downloadPNG();
-    } else if (option === "json") {
-      downloadJSON();
-    }
-  };
-
-  const shareFile = () => {
-    setShowContent(false);
-    setSelectedMonsterOption("none");
-    setTimeout(() => {
-      const targetElement = document.documentElement;
-      html2canvas(targetElement, {
-        width: window.innerWidth,
-        height: window.innerHeight,
-        x: 0,
-        y: 0,
-      }).then((canvas) => {
-        setOpen(true);
-        const dataURL = canvas.toDataURL("image/jpeg", 0.2);
-        console.log(dataURL.length / 1024);
-        setScreenshot(dataURL);
-        setShowContent(true);
-      });
-    }, 0);
-  };
-
-  const sendEmail = () => {
-    const currentMonster = selectedMonsterOption;
-    const emailParams = {
-      to_email: email,
-      message: "Attached file are your world data as PNG format and raw data!",
-      file: btoa(JSON.stringify(worldData)),
-      image: screenshot,
-    };
-    emailjs
-      .send("service_123456789", "template_mv7apne", emailParams)
-      .then((response) => {
-        console.log("Email sent successfully!", response);
-        setShowContent(true);
-        setSelectedMonsterOption(currentMonster);
-        setOpen(false);
-        setEmail("");
-      })
-      .catch((error) => {
-        setButtonText("Error! Please try again.");
-        setEmail("");
-        console.log("Email failed to send:", error);
-        setShowContent(true);
-        setSelectedMonsterOption(currentMonster);
-      });
-  };
-
-  const downloadJSON = () => {
-    console.log("JSON");
-    if (worldData) {
-      const jsonData = JSON.stringify(worldData);
-      const blob = new Blob([jsonData], { type: "application/json" });
-      const url = window.URL.createObjectURL(blob);
-      const date = new Date().toISOString();
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "worldData-" + date + ".json";
-      a.click();
-      window.URL.revokeObjectURL(url);
-    }
-  };
-
   const downloadPNG = () => {
     console.log("PNG");
     setShowContent(false);
@@ -172,7 +93,7 @@ const ConfigDropdown = ({
 
     contentToRender = (
       <MonstersOverlay
-        className={styles.monsterContent} // Updated className
+        className={styles.monsterContent} 
         monsterName={selectedMonsterOption.name}
         monsterRank={rankVal}
         monsterSTR={"0." + selectedMonsterOption.str}
@@ -184,24 +105,6 @@ const ConfigDropdown = ({
       />
     );
   }
-
-  // --------------------------------
-
-  const handleGenerate = () => {
-    setWorldData(worldData, true);
-    fetch(API_URL + "/world", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        size: gridSize,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => setWorldData(data))
-      .catch((error) => console.log(error));
-  };
 
   return (
     <div className={styles.body}>
@@ -266,15 +169,3 @@ const ConfigDropdown = ({
 };
 
 export default ConfigDropdown;
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
