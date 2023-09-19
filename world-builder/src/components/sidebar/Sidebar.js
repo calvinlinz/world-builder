@@ -5,7 +5,7 @@ import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import PlayArrowOutlinedIcon from "@mui/icons-material/PlayArrowOutlined";
-import Configuration from "../configuration/configuration";
+import Configuration from "../configuration/Configuration";
 import ImportExportOutlinedIcon from "@mui/icons-material/ImportExportOutlined";
 import { useContext } from "react";
 import { WorldDataContext } from "../../context/worldDataContext";
@@ -74,15 +74,12 @@ const SideBar = ({ opacityToggle }) => {
     if(slideOpen && type.type != slideContent.type){
       return;
     }
-
     if (timeoutActive) {
-      return; // Don't execute if the timeout is active
+      return; 
     }
-  
-    timeoutActive = true; // Set the flag to indicate that the timeout is active
-  
+    timeoutActive = true;
     setSlideOpen(!slideOpen);
-  
+
     if (!slideOpen) {
       setTimeout(() => {
         setSlideButtonOpen(!slideButtonOpen);
@@ -96,7 +93,7 @@ const SideBar = ({ opacityToggle }) => {
     }
     setTimeout(() => {
       setSlideButtonOpen(!slideButtonOpen);
-      timeoutActive = false; // Reset the flag when the timeout completes
+      timeoutActive = false; 
     }, 50);
   };
 

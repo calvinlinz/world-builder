@@ -18,6 +18,13 @@
     margin: 0;
 }
 
+.configContent p {
+    padding-top: 25px;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: left;
+}
+
 #generate:active {
     background-color: #e9e9e0;
 }

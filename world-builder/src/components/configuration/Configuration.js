@@ -23,7 +23,7 @@ import { getMonsterCords } from "../../grids/CalculatePositions";
 import emailjs from "@emailjs/browser";
 emailjs.init("VDupAfE4CYPyVT2Ry");
 
-const Configuration = ({
+const ConfigDropdown = ({
   opacityToggle,
   showContent,
   setShowContent,
@@ -162,17 +162,17 @@ const Configuration = ({
   } else {
     let rankVal = "Boss Monster";
 
-    if(selectedMonsterOption.rank === 1){
+    if (selectedMonsterOption.rank === 1) {
       rankVal = "Easy Monster";
-    }else if(selectedMonsterOption.rank === 2){
+    } else if (selectedMonsterOption.rank === 2) {
       rankVal = "Medium Monster";
-    }else if(selectedMonsterOption.rank === 3){
-      rankVal = "Hard Monster"
+    } else if (selectedMonsterOption.rank === 3) {
+      rankVal = "Hard Monster";
     }
 
     contentToRender = (
       <MonstersOverlay
-        className="monsterContent"
+        className={styles.monsterContent} // Updated className
         monsterName={selectedMonsterOption.name}
         monsterRank={rankVal}
         monsterSTR={"0." + selectedMonsterOption.str}
@@ -206,8 +206,8 @@ const Configuration = ({
   return (
     <div className={styles.body}>
       <div className={styles.configContent}>
-        <h2>CONFIGURATION</h2>
-        <div className={styles["slider-component"]}>
+      <h2>CONFIGURATION</h2>
+        <div className={styles.sliderComponent}>
           <p>GRID SIZE</p>
           <div className={styles.slider}>
             <Slider
@@ -224,12 +224,12 @@ const Configuration = ({
           <FormGroup>
             <FormControlLabel
               control={<Checkbox defaultChecked />}
-              onChange={() => setShowFog(!showFog)}
+              onChange={() => setShowFog(!showFog)} // Implement setShowFog
               label="SHOW FOG"
             />
             <FormControlLabel
               control={<Checkbox />}
-              onChange={() => setAddRemoveFog(!addRemoveFog)}
+              onChange={() => setAddRemoveFog(!addRemoveFog)} // Implement setAddRemoveFog
               label="ADD/REMOVE FOG"
             />
             <FormControlLabel
@@ -252,141 +252,20 @@ const Configuration = ({
             }}
           >
             <MenuItem value="none">None</MenuItem>
-            <MenuItem value="option2">Option 2</MenuItem>
-            <MenuItem value="option3">Option 3</MenuItem>
+            {allMonsterCords.map((monsterCord, index) => (
+              <MenuItem key={index} value={monsterCord}>
+                {monsterCord.name}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
-        <div className={styles["button-container"]}>
-          <div className={styles.button}>
-            <Button
-              variant="outlined"
-              onClick={(e) => handleDropdownOpen(e, setAnchorEl)}
-              style={{
-                color: "#000000",
-                borderColor: "#000000",
-                borderWidth: "1px",
-                marginTop: "-35px",
-                marginLeft: "40px",
-              }}
-            >
-              <MenuItem value="none">None</MenuItem>
-              {allMonsterCords.map((monsterCord, index) => (
-                <MenuItem key={index} value={monsterCord}>
-                  {monsterCord.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-
-          <div className="button-container">
-            <div className="button">
-              <Button
-                variant="outlined"
-                onClick={(e) => handleDropdownOpen(e, setAnchorEl)}
-                style={{
-                  color: "#000000",
-                  borderColor: "#000000",
-                  borderWidth: "1px",
-                  marginTop: "-35px",
-                  marginLeft: "40px",
-                }}
-              >
-                Save
-              </Button>
-              <Menu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleDropdownClose}
-              >
-                <MenuItem onClick={() => handleOptionSelect("png")}>
-                  PNG
-                </MenuItem>
-                <MenuItem onClick={() => handleOptionSelect("json")}>
-                  JSON
-                </MenuItem>
-              </Menu>
-            </div>
-
-            <div className="button">
-              <Button
-                variant="outlined"
-                onClick={shareFile}
-                style={{
-                  color: "#000000",
-                  borderColor: "#000000",
-                  borderWidth: "1px",
-                  marginTop: "-35px",
-                  marginLeft: "20px",
-                }}
-              >
-                Share
-              </Button>
-            </div>
-
-            <div className="button">
-              <Button
-                variant="outlined"
-                onClick={handleGenerate}
-                style={{
-                  color: "#000000",
-                  borderColor: "#000000",
-                  borderWidth: "1px",
-                  marginTop: "30px",
-                  marginLeft: "-305px",
-                }}
-              >
-                GENERATE
-              </Button>
-              <Modal open={open} onClose={() => setOpen(false)}>
-                <Box sx={style}>
-                  <Typography
-                    id="modal-modal-title"
-                    variant="h6"
-                    component="h2"
-                    sx={{
-                      fontSize: "20px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {text}
-                  </Typography>
-                  <Input
-                    id="modal-modal-description"
-                    sx={{
-                      mt: 2,
-                      border: "1px solid #ccc",
-                      borderRadius: "4px",
-                      padding: "8px",
-                      width: "100%",
-                    }}
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email}
-                  />
-                  <Button
-                    variant="outlined"
-                    onClick={sendEmail}
-                    style={{
-                      color: "#000000",
-                      borderColor: "#000000",
-                      borderWidth: "1px",
-                      marginTop: "-185px",
-                      marginLeft: "300px",
-                    }}
-                  >
-                    Submit
-                  </Button>
-                </Box>
-              </Modal>
-            </div>
-          </div>
-        </div>
       </div>
       {contentToRender}
     </div>
   );
 };
 
-export default Configuration;
+export default ConfigDropdown;
 
 const style = {
   position: "absolute",
