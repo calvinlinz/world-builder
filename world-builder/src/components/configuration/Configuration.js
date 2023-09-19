@@ -19,6 +19,7 @@ import "../../grids/Grid.css";
 import html2canvas from "html2canvas";
 import MonstersOverlay from "../monstersOverlay/MonstersOverlay";
 import { WorldDataContext } from "../../context/worldDataContext";
+import { getMonsterCords } from "../../grids/CalculatePositions";
 import emailjs from "@emailjs/browser";
 emailjs.init("VDupAfE4CYPyVT2Ry");
 
@@ -148,25 +149,43 @@ const ConfigDropdown = ({
     }, 0);
   };
 
+  // -- Handle Monster Change -------
   const handleSelectChange = (e) => {
     setSelectedMonsterOption(e.target.value);
   };
 
   let contentToRender;
+  const allMonsterCords = getMonsterCords(worldData);
 
   if (selectedMonsterOption === "none") {
     contentToRender = <div></div>;
-  } else if (selectedMonsterOption === "option2") {
+  } else {
+    let rankVal = "Boss Monster";
+
+    if(selectedMonsterOption.rank === 1){
+      rankVal = "Easy Monster";
+    }else if(selectedMonsterOption.rank === 2){
+      rankVal = "Medium Monster";
+    }else if(selectedMonsterOption.rank === 3){
+      rankVal = "Hard Monster"
+    }
+
     contentToRender = (
       <MonstersOverlay
         className="monsterContent"
-        monsterName={"Fairy Test"}
-        monsterRank={"Fairy Rank"}
+        monsterName={selectedMonsterOption.name}
+        monsterRank={rankVal}
+        monsterSTR={"0." + selectedMonsterOption.str}
+        monsterDEX={"0." + selectedMonsterOption.dex}
+        monsterCON={"0." + selectedMonsterOption.con}
+        monsterINT={"0." + selectedMonsterOption.int}
+        enviro={selectedMonsterOption.environment}
+        rankInt={selectedMonsterOption.rank}
       />
     );
-  } else if (selectedMonsterOption === "option3") {
-    contentToRender = <div></div>;
   }
+
+  // --------------------------------
 
   const handleGenerate = () => {
     setWorldData(worldData, true);
@@ -233,8 +252,11 @@ const ConfigDropdown = ({
               }}
             >
               <MenuItem value="none">None</MenuItem>
-              <MenuItem value="option2">Option 2</MenuItem>
-              <MenuItem value="option3">Option 3</MenuItem>
+              {allMonsterCords.map((monsterCord, index) => (
+                <MenuItem key={index} value={monsterCord}>
+                  {monsterCord.name}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
 
