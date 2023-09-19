@@ -83,32 +83,44 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
     setShowInputs(!showInputs);
   };
 
-  const handleSelectChange = (e) => {
-    setSelectedMonsterOption(e.target.value);
-  };
+  
 
 
   // -- Implementation for the Monster Drop Down --------
   let contentToRender;
   const allMonsterCords = getMonsterCords(worldData);
 
+  const handleSelectChange = (e) => {
+    setSelectedMonsterOption(e.target.value);
+  };
+
   if (selectedMonsterOption === "none") {
     contentToRender = <div>None selected</div>;
-  } else if (selectedMonsterOption === "option2") {
+  } else {
+    let rankVal = "Boss Monster";
+
+    if(selectedMonsterOption.rank === 1){
+      rankVal = "Easy Monster";
+    }else if(selectedMonsterOption.rank === 2){
+      rankVal = "Medium Monster";
+    }else if(selectedMonsterOption.rank === 3){
+      rankVal = "Hard Monster"
+    }
+
     contentToRender = (
       <MonstersOverlay
         className="monsterContent"
-        monsterName={"Fairy Test"}
-        monsterRank={"Fairy Rank"}
-        monsterSTR={0.6}
-        monsterDEX={0.3}
-        monsterCON={0.4}
-        monsterINT={0.7}
+        monsterName={selectedMonsterOption.name}
+        monsterRank={rankVal}
+        monsterSTR={"0." + selectedMonsterOption.str}
+        monsterDEX={"0." + selectedMonsterOption.dex}
+        monsterCON={"0." + selectedMonsterOption.con}
+        monsterINT={"0." + selectedMonsterOption.int}
+        enviro={selectedMonsterOption.environment}
+        rankInt={selectedMonsterOption.rank}
       />
     );
-  } else if (selectedMonsterOption === "option3") {
-    contentToRender = <div>Option 3 selected</div>;
-  }
+  } 
 
   // -------------------------------------------------------
 
@@ -177,8 +189,11 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
               }}
             >
               <MenuItem value="none">None</MenuItem>
-              <MenuItem value="option2">Option 2</MenuItem>
-              <MenuItem value="option3">Option 3</MenuItem>
+              {allMonsterCords.map((monsterCord, index) => (
+                <MenuItem key={index} value={monsterCord}>
+                  {monsterCord.name}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
 

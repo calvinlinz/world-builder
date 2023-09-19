@@ -1,7 +1,31 @@
 import "./MonsterOverlay.css";
 import { allImages } from "../../Constants";
 
-const MonstersOverlay = ({monsterName, monsterRank, monsterSTR, monsterDEX, monsterCON, monsterINT}) => {
+const MonstersOverlay = ({monsterName, monsterRank, monsterSTR, monsterDEX, monsterCON, monsterINT, enviro, rankInt}) => {
+
+    const houseMonsters = {
+        1: allImages.houseMonsterImages.house1,
+        2: allImages.houseMonsterImages.house2,
+        3: allImages.houseMonsterImages.house3,
+        4: allImages.houseMonsterImages.house4,
+    };
+
+    const forestMonsters = {
+        1: allImages.monsterImages.cat,
+        2: allImages.monsterImages.fairy,
+        3: allImages.monsterImages.monkey,
+        4: allImages.monsterImages.snake,
+    };
+
+    const caveMonsters = {
+        1: allImages.monsterImages.skeleton,
+        2: allImages.monsterImages.skeleton,
+        3: allImages.monsterImages.skeleton,
+        4: allImages.monsterImages.skeleton,
+    };
+
+    const monsterImageMaps = [houseMonsters, caveMonsters, forestMonsters];
+
 
     return (
         <div className="body">
@@ -16,10 +40,11 @@ const MonstersOverlay = ({monsterName, monsterRank, monsterSTR, monsterDEX, mons
                 />
 
                 <img
-                    src={allImages.monsterImages.fairy}
+                    src={monsterImageMaps[enviro][rankInt]}
                     alt={`Monster Image`}
                     class="overlay-image"
                     style={{
+                        height: '15vh',
                         }}
                 />
 

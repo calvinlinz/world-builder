@@ -422,25 +422,34 @@ function getMonsterCords(grid) {
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             if(grid[i][j] > 100){ // it is a monster
-                const monsterStr = grid[i][j].toString();
+                if(i > 1){
+                    const monsterStr = grid[i][j].toString();
 
-                let enviro = 2;
-                if(buildingCodes.includes(grid[i-1][j])){enviro = 0;}
-                if(caveKeys.includes(grid[i-1][j])){enviro = 1;}
+                    let enviro = 2;
+                    if(buildingCodes.includes(grid[i-1][j])){enviro = 0;}
+                    if(caveKeys.includes(grid[i-1][j])){enviro = 1;}
 
-                const newMonster = {
-                    name: nameLists[parseInt(monsterStr.charAt(0), 10)][Math.floor(Math.random() * 10)],
-                    environment: enviro,
-                    rank: parseInt(monsterStr.charAt(0), 10),
-                    str: parseInt(monsterStr.charAt(1), 10),
-                    dex: parseInt(monsterStr.charAt(2), 10),
-                    con: parseInt(monsterStr.charAt(3), 10),
-                    int: parseInt(monsterStr.charAt(4), 10),
-                    x: j - 0.5,
-                    y: i - 0.5,
-                };
-
-                cordList.push(newMonster);
+                    if (monsterStr !== null && monsterStr.length >= 5) {
+                        const newMonster = {
+                          name: nameLists[parseInt(monsterStr.charAt(0), 10) - 1][enviro],
+                          environment: enviro,
+                          rank: parseInt(monsterStr.charAt(0), 10),
+                          str: parseInt(monsterStr.charAt(1), 10),
+                          dex: parseInt(monsterStr.charAt(2), 10),
+                          con: parseInt(monsterStr.charAt(3), 10),
+                          int: parseInt(monsterStr.charAt(4), 10),
+                          x: j - 0.5,
+                          y: i - 0.5,
+                        };
+                      
+                        cordList.push(newMonster);
+                      } else {
+                        // Handle the case where monsterStr is not in the expected format
+                        console.error("Invalid monster string:", monsterStr);
+                      }
+                    
+                }
+                
             }
 
         }
