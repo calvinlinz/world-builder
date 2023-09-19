@@ -88,10 +88,10 @@ public class MonsterGenerator {
             }
             // If there are at least 2 natural features within the fairies range, spawn a fairy!
             if(numberNatural >= 3){
-                int chances = rand.nextInt(16);
+                int chances = rand.nextInt(18);
                 if(chances == 2){
                     return makeFairy();
-                    // return 1234567; // Draw monkeys
+                    //return 1234567; // Draw monkeys
                 }
                 else return cellValue;
             }
@@ -195,13 +195,17 @@ public class MonsterGenerator {
      * @return An integer representing the fairy.
      */
     private int makeFairy(){
-        int str = getSkill(3);
-        int dex = getSkill(3);
-        int con = getSkill(3);
-        int intel = getSkill(3);
-        int wis = getSkill(3);
-        int cha = getSkill(3);
-        String fairy = "4" + String.valueOf(str) + String.valueOf(dex) + String.valueOf(con) + 
+        int rank = 3;
+        int randomNumber = rand.nextInt(4) + 1;
+        if(randomNumber == 1) rank = 2;
+
+        int str = getSkill(rank);
+        int dex = getSkill(rank);
+        int con = getSkill(rank);
+        int intel = getSkill(rank);
+        int wis = getSkill(rank);
+        int cha = getSkill(rank);
+        String fairy = String.valueOf(rank + 1) + String.valueOf(str) + String.valueOf(dex) + String.valueOf(con) + 
                         String.valueOf(intel) + String.valueOf(wis) + String.valueOf(cha);
 
         int input = Integer.parseInt(fairy);
