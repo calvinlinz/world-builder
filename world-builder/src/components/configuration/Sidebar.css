@@ -22,6 +22,16 @@
     transition: left 0.3s ease-in-out;
 }
 
+.config-toggle {
+    position: absolute;
+    right: -60px;
+    height: 60px;
+    top: 60px;
+    width: 60px;
+    z-index: 1001;
+    transition: left 0.3s ease-in-out;
+}
+
 .content {
     position: absolute;
     z-index: 1003;
@@ -84,11 +94,10 @@
 
 .config {
     position: absolute;
-    width: 200px;
-    left: -80px;
+    width: 300px;
+    left: -300px;
     top: 0px;
     height: 100vh;
-    width: 80px;
     z-index: 1002;
     background-color: white;
     transition: left 0.3s ease-in-out;
@@ -97,16 +106,4 @@
 .config.open {
     left: 80px;
     width: 300px;
-}
-
-.sidebar-toggle.hide {
-    display: none;
-}
-
-.sidebar-toggle.configOpen {
-    left: 300px;
-}
-
-.sidebar-toggle2 {
-    display: none;
 }

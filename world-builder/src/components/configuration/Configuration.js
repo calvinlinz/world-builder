@@ -180,13 +180,13 @@ const ConfigDropdown = ({
       }),
     })
       .then((response) => response.json())
-      .then((data) => setWorldData(data,false))
+      .then((data) => setWorldData(data))
       .catch((error) => console.log(error));
   };
 
   return (
     <div className="body">
-      {showContent && (
+      
         <div className="configContent">
           <div className="slider-component">
             <p>GRID SIZE</p>
@@ -340,8 +340,8 @@ const ConfigDropdown = ({
             </div>
           </div>
         </div>
-      )}
-      {showContent && contentToRender}
+      
+      {contentToRender}
     </div>
   );
 };
