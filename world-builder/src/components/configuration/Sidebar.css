@@ -22,6 +22,10 @@
     transition: left 0.3s ease-in-out;
 }
 
+.sidebar-toggle:hover {
+    color: #bababa;
+}
+
 .config-toggle {
     position: absolute;
     right: -60px;
@@ -30,6 +34,10 @@
     width: 60px;
     z-index: 1001;
     transition: left 0.3s ease-in-out;
+}
+
+.config-toggle:hover {
+    color: #bababa;
 }
 
 .content {
@@ -78,18 +86,28 @@
     z-index: 1001;
 }
 
+.hamburger:hover {
+    transition: .4s ease-in-out;
+    cursor: pointer;
+    background-color: #a9a9a9;
+}
+
 .hamburger:active {
     background-color: #e9e9e0;
 }
 
 .large-icon {
     font-size: 60px;
-    padding-top: 40px;
+    margin-top: 20px;
+    padding: 10px 10px 10px;
     color: var(--frame-color);
+    transition: .4s ease-in-out;
 }
 
 .large-icon:hover {
+    transition: .4s ease-in-out;
     cursor: pointer;
+    color: #a9a9a9;
 }
 
 .config {

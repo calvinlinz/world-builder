@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import "./Sidebar.css";
-import ThreeDRotation from "@mui/icons-material/ThreeDRotation";
-import DeleteIcon from "@mui/icons-material/Delete";
-import SettingsIcon from "@mui/icons-material/Settings";
-import DownloadIcon from "@mui/icons-material/Download";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
-import ShareIcon from "@mui/icons-material/Share";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import DownloadOutlinedIcon from '@mui/icons-material/DownloadOutlined';
+import ContentCopyOutlinedIcon from '@mui/icons-material/ContentCopyOutlined';
+import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
+import PlayArrowOutlinedIcon from '@mui/icons-material/PlayArrowOutlined';
 import ConfigDropdown from "./Configuration";
 import { useContext } from "react";
 import { WorldDataContext } from "../../context/worldDataContext";
@@ -21,6 +19,7 @@ const SideBar = ({ opacityToggle }) => {
 
   const configuration = configOpen && isOpen ? "config open" : "config";
   const buttonClass = isOpen && configOpen ? "config-toggle" : "sidebar-toggle";
+
 
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
 
@@ -83,16 +82,16 @@ const SideBar = ({ opacityToggle }) => {
         )}
       </div>
       <div className={sidebarClass}>
-        <SettingsIcon
+        <SettingsOutlinedIcon
           className="large-icon"
           fontSize=""
           color=""
           onClick={configHandler}
         />
-        <DownloadIcon className="large-icon" fontSize="" color="" />
-        <ContentCopyIcon className="large-icon" fontSize="" color="" />
-        <ShareIcon className="large-icon" fontSize="" />
-        <PlayArrowIcon
+        <DownloadOutlinedIcon className="large-icon" fontSize="" color="" />
+        <ContentCopyOutlinedIcon className="large-icon" fontSize="" color="" />
+        <ShareOutlinedIcon className="large-icon" fontSize="" color=""/>
+        <PlayArrowOutlinedIcon
           className="large-icon"
           fontSize=""
           color=""
