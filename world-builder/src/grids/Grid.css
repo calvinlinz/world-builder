@@ -54,6 +54,13 @@
     z-index: 4;
 }
 
+.grid-container-monsters {
+    position: absolute;
+    top: 2vw;
+    left: 7vw;
+    z-index: 4;
+}
+
 
 .grid-container-caves {
     position: absolute;
