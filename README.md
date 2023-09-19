@@ -74,7 +74,7 @@ The controller configures endpoints with responses and HTTP methods. We have imp
 
 #### 2.5.1 Monster Names
 
-| **BOSS MONSTER x10**  | **HARD MONSTER x10**  | **MEDIUM MONSTER x10**  | **EASY MONSTER x10**  |
+| **BOSS MONSTER**  | **HARD MONSTER**  | **MEDIUM MONSTER**  | **EASY MONSTER**  |
 |-----------------------|-----------------------|-------------------------|-----------------------|
 | Barbie                | Morgaloth             | Melissa                 | Greb                  |
 | Vorluk                | Vorgrak               | Perceptron              | Morph                 |
@@ -86,6 +86,22 @@ The controller configures endpoints with responses and HTTP methods. We have imp
 | Milandroth            | Drexthul              | Genprog                 | Beebir                |
 | Calvorr               | Azrakarm              | Genalg                  | Mothie                |
 | Amirax                | Thal’gulon            | Deebeescan              | Ken                   |
+
+#### 2.5.2 Monster Stats
+The monsters are passed from the backend to the front end as 7 digit integers, inserted into their position in the 2D grid, e.g. 1673837. From there, they can be interpreted by the graphics team and displayed accordingly. Below are what each digit in the monster integer represents.
+
+##### First Digit
+This represents the rank of the monster. Harder monsters will spawn in larger rooms, whereas easier monsters can be found in smaller rooms.
+| 1    | 2      | 3      | 4    |
+| ---- | ------ | ------ | ---- |
+| BOSS | HARD   | MEDIUM | EASY |
+
+##### Second to Seventh Digit
+These six digits represent the six primary attributes, often referred to as "stats" or "ability scores," that define a monster's basic capabilities and characteristics. In order, they are: Strength (STR), Dexterity (DEX), Constitution (CON), Intelligence (INT), Wisdom (WIS), and Charisma (CHA). These values are likely to be higher, the greater the rank of the monster. The digits can the values 0-9, which represent:
+
+| 0  | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   |
+| -- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 100% | 10% | 20% | 30% | 40% | 50% | 60% | 70% | 80% | 90% |
 
 
 ## 3.0 Front End
