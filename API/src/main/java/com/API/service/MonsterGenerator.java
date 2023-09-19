@@ -69,6 +69,13 @@ public class MonsterGenerator {
         return corner;
     }
 
+    /**
+     * Decide if a fairy should be spawned at given location based on surrounding natural features.
+     * @param cellValue The value of the current cell.
+     * @param i The row on the map.
+     * @param j The column on the map.
+     * @return The fairy value.
+     */
     public int spawnFairy(int cellValue, int i, int j){
         if(i > 1 && i < map.length - 2 && j > 1 && j < map[i].length - 2){
             List<Integer> zone = new ArrayList<>(List.of(
@@ -82,7 +89,10 @@ public class MonsterGenerator {
             // If there are at least 2 natural features within the fairies range, spawn a fairy!
             if(numberNatural >= 3){
                 int chances = rand.nextInt(16);
-                if(chances == 2) return 1234567;
+                if(chances == 2){
+                    return makeFairy();
+                    // return 1234567; // Draw monkeys
+                }
                 else return cellValue;
             }
         }
@@ -178,6 +188,24 @@ public class MonsterGenerator {
         int skillLevel = rand.nextInt(upperLimit - lowerLimit + 1) + lowerLimit;
         if(skillLevel == 10) skillLevel = 0;
         return skillLevel;
+    }
+
+    /**
+     * Create a random fairy with stats.
+     * @return An integer representing the fairy.
+     */
+    private int makeFairy(){
+        int str = getSkill(3);
+        int dex = getSkill(3);
+        int con = getSkill(3);
+        int intel = getSkill(3);
+        int wis = getSkill(3);
+        int cha = getSkill(3);
+        String fairy = "4" + String.valueOf(str) + String.valueOf(dex) + String.valueOf(con) + 
+                        String.valueOf(intel) + String.valueOf(wis) + String.valueOf(cha);
+
+        int input = Integer.parseInt(fairy);
+        return input;
     }
     
 }
