@@ -13,6 +13,7 @@ import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 import Loading from "../loading/loading";
 import ImportExport from "../importExport/importExport";
 import emailjs from "@emailjs/browser";
+import RefreshIcon from '@mui/icons-material/Refresh';
 import {
   Menu,
   Button,
@@ -185,14 +186,13 @@ const SideBar = ({ opacityToggle }) => {
             slideHandler(<Configuration/>);
           }}
         />
-        <ImportExportOutlinedIcon className="large-icon" fontSize="" color=""onClick={() => {
+        <CloudUploadOutlinedIcon className="large-icon" fontSize="" color=""onClick={() => {
             handleSlideContent("import");
             slideHandler(<ImportExport/>);
           }} />
-        <CloudUploadOutlinedIcon className="large-icon" fontSize="" color="" />
         <ContentCopyOutlinedIcon className="large-icon" fontSize="" color="" />
         <ShareOutlinedIcon className="large-icon" fontSize="" color="" onClick={shareFile}/>
-        <PlayArrowOutlinedIcon
+        <RefreshIcon
           className="large-icon"
           fontSize=""
           color=""
