@@ -69,7 +69,7 @@ function App() {
   >
       <div className="App">
         {gameStarted ? (
-          <Display/>
+          <Display worldData={worldData} loading={loading} setLoading={setLoading}/>
         ) : (
           <HomePage startGame={startGame} />
         )}

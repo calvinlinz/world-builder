@@ -13,8 +13,7 @@ import Loading from "../../components/loading/loading";
 import { useContext } from "react";
 import { WorldDataContext } from "../../context/worldDataContext";
 
-const Display = () => {
-  const { worldData, loading, setWorldData } = useContext(WorldDataContext);
+const Display = ({worldData, loading,setLoading}) => {
   const [opacityValue, setOpacity] = useState(1);
   const [scaleFactor, setScaleFactor] = useState(0.25);
   const [renderTimeout, setRenderTimeout] = useState(true);
@@ -32,11 +31,9 @@ const Display = () => {
     console.log(scaleFactor);
   };
 
-  useEffect(() => {
-    if (!loading) {
-      setRenderTimeout(false);
-    }
-  }, [loading]);
+  useEffect(()=>{
+    setRenderTimeout(false)
+  },[])
 
   return (
     <>
