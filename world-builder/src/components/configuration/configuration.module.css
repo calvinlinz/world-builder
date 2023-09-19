@@ -1,10 +1,21 @@
+* {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
 :root {
     --frame-color: #f7f7f2;
     --background-color: #575f39;
 }
 
-h1 {
-    font-size: 1rem;
+.configContent h2 {
+    background-color: #1f1f1f;
+    color: var(--frame-color);
+    display: flex;
+    padding: 25px;
+    justify-content: center;
+    font-size: 1.5rem;
+    border: 1px solid #1f1f1f;
+    margin: 0;
 }
 
 #generate:active {
@@ -31,6 +42,7 @@ h1 {
 }
 
 .slider-component {
+    margin-top: 25px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -38,7 +50,6 @@ h1 {
 
 .slider-component p {
     width: 125px;
-    padding-top: 25px;
     justify-content: left;
     font-size: 1rem;
     display: flex;
