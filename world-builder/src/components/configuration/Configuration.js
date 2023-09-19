@@ -109,9 +109,9 @@ const ConfigDropdown = ({
   return (
     <div className={styles.body}>
       <div className={styles.configContent}>
-      <h2>CONFIGURATION</h2>
+      <h2><b>CONFIGURATION</b></h2>
         <div className={styles.sliderComponent}>
-          <p>GRID SIZE</p>
+          <p><b>GRID SIZE</b></p>
           <div className={styles.slider}>
             <Slider
               defaultValue={gridSize}
@@ -143,7 +143,7 @@ const ConfigDropdown = ({
           </FormGroup>
         </div>
         <FormControl>
-          <p>VIEW MONSTER STATS</p>
+          <p><b>VIEW MONSTER STATS</b></p>
           <Select
             value={selectedMonsterOption}
             onChange={handleSelectChange}
