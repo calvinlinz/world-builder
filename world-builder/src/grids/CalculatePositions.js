@@ -668,6 +668,57 @@ function getRightPathEdge(grid) {
     return cordList;
 }
 
+// -- MONSTER FUNCS ----------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+
+const bossMonsterNames = ["Barbie", "Vorluk", "Sylvaria", "Dendrogram", "Ellaquora", "Annihilith", "Haydron", "Milandroth", "Calvorr", "Amirax"];
+const hardMonsterNames = ["Morgaloth", "Vorgrak", "Azrakarn", "Cynariel", "PP-poo’oo", "Dread", "Maymeens", "Drexthul", "Azrakarm", "Thal’gulon"];
+const mediumMonsterNames = ["Melissa", "Perceptron", "Neuralnet", "Graboost", "Stochastion", "Sloth", "Kayenen", "Genprog", "Genalg", "Deebeescan"];
+const easyMonsterNames = ["Greb", "Morph", "Crinkle", "Crawler", "Bloblin", "Bunny", "Ratling", "Beebir", "Mothie", "Ken"];
+const nameLists = [easyMonsterNames, mediumMonsterNames, hardMonsterNames, bossMonsterNames];
+
+function getMonsterCords(grid) {
+    const cordList = [];
+
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+            if(grid[i][j] > 100){ // it is a monster
+                if(i > 1){
+                    const monsterStr = grid[i][j].toString();
+
+                    let enviro = 2;
+                    if(buildingCodes.includes(grid[i-1][j])){enviro = 0;}
+                    if(caveKeys.includes(grid[i-1][j])){enviro = 1;}
+
+                    if (monsterStr !== null && monsterStr.length >= 5) {
+                        const newMonster = {
+                          name: nameLists[parseInt(monsterStr.charAt(0), 10) - 1][enviro],
+                          environment: enviro,
+                          rank: parseInt(monsterStr.charAt(0), 10),
+                          str: parseInt(monsterStr.charAt(1), 10),
+                          dex: parseInt(monsterStr.charAt(2), 10),
+                          con: parseInt(monsterStr.charAt(3), 10),
+                          int: parseInt(monsterStr.charAt(4), 10),
+                          x: j - 0.5,
+                          y: i - 0.5,
+                        };
+                      
+                        cordList.push(newMonster);
+                      } else {
+                        // Handle the case where monsterStr is not in the expected format
+                        console.error("Invalid monster string:", monsterStr);
+                      }
+                    
+                }
+                
+            }
+
+        }
+    }
+
+    return cordList;
+}
+
 
 
 
@@ -684,4 +735,5 @@ export {
     getBelowPathEdge,
     getLeftPathEdge,
     getRightPathEdge,
+    getMonsterCords,
 };

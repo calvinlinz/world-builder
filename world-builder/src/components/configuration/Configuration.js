@@ -19,6 +19,7 @@ import "../../grids/Grid.css";
 import html2canvas from "html2canvas";
 import MonstersOverlay from "../monstersOverlay/MonstersOverlay";
 import { WorldDataContext } from "../../context/worldDataContext";
+import { getMonsterCords } from "../../grids/CalculatePositions";
 import emailjs from "@emailjs/browser";
 emailjs.init("VDupAfE4CYPyVT2Ry");
 
@@ -148,25 +149,43 @@ const Configuration = ({
     }, 0);
   };
 
+  // -- Handle Monster Change -------
   const handleSelectChange = (e) => {
     setSelectedMonsterOption(e.target.value);
   };
 
   let contentToRender;
+  const allMonsterCords = getMonsterCords(worldData);
 
   if (selectedMonsterOption === "none") {
     contentToRender = <div></div>;
-  } else if (selectedMonsterOption === "option2") {
+  } else {
+    let rankVal = "Boss Monster";
+
+    if(selectedMonsterOption.rank === 1){
+      rankVal = "Easy Monster";
+    }else if(selectedMonsterOption.rank === 2){
+      rankVal = "Medium Monster";
+    }else if(selectedMonsterOption.rank === 3){
+      rankVal = "Hard Monster"
+    }
+
     contentToRender = (
       <MonstersOverlay
-        className={"monsterContent"}
-        monsterName={"Fairy Test"}
-        monsterRank={"Fairy Rank"}
+        className="monsterContent"
+        monsterName={selectedMonsterOption.name}
+        monsterRank={rankVal}
+        monsterSTR={"0." + selectedMonsterOption.str}
+        monsterDEX={"0." + selectedMonsterOption.dex}
+        monsterCON={"0." + selectedMonsterOption.con}
+        monsterINT={"0." + selectedMonsterOption.int}
+        enviro={selectedMonsterOption.environment}
+        rankInt={selectedMonsterOption.rank}
       />
     );
-  } else if (selectedMonsterOption === "option3") {
-    contentToRender = <div></div>;
   }
+
+  // --------------------------------
 
   const handleGenerate = () => {
     setWorldData(worldData, true);
@@ -250,86 +269,115 @@ const Configuration = ({
                 marginLeft: "40px",
               }}
             >
-              Save
-            </Button>
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleDropdownClose}
-            >
-              <MenuItem onClick={() => handleOptionSelect("png")}>PNG</MenuItem>
-              <MenuItem onClick={() => handleOptionSelect("json")}>JSON</MenuItem>
-            </Menu>
-          </div>
-          <div className={styles.button}>
-            <Button
-              variant="outlined"
-              onClick={shareFile}
-              style={{
-                color: "#000000",
-                borderColor: "#000000",
-                borderWidth: "1px",
-                marginTop: "-35px",
-                marginLeft: "20px",
-              }}
-            >
-              Share
-            </Button>
-          </div>
-          <div className={styles.button}>
-            <Button
-              variant="outlined"
-              onClick={handleGenerate}
-              style={{
-                color: "#000000",
-                borderColor: "#000000",
-                borderWidth: "1px",
-                marginTop: "30px",
-                marginLeft: "-305px",
-              }}
-            >
-              GENERATE
-            </Button>
-            <Modal open={open} onClose={() => setOpen(false)}>
-              <Box sx={style}>
-                <Typography
-                  id="modal-modal-title"
-                  variant="h6"
-                  component="h2"
-                  sx={{
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {text}
-                </Typography>
-                <Input
-                  id="modal-modal-description"
-                  sx={{
-                    mt: 2,
-                    border: "1px solid #ccc",
-                    borderRadius: "4px",
-                    padding: "8px",
-                    width: "100%",
-                  }}
-                  onChange={(e) => setEmail(e.target.value)}
-                  value={email}
-                />
-                <Button
-                  variant="outlined"
-                  onClick={sendEmail}
-                  style={{
-                    color: "#000000",
-                    borderColor: "#000000",
-                    borderWidth: "1px",
-                    marginTop: "-185px",
-                    marginLeft: "300px",
-                  }}
-                >
-                  Submit
-                </Button>
-              </Box>
-            </Modal>
+              <MenuItem value="none">None</MenuItem>
+              {allMonsterCords.map((monsterCord, index) => (
+                <MenuItem key={index} value={monsterCord}>
+                  {monsterCord.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          <div className="button-container">
+            <div className="button">
+              <Button
+                variant="outlined"
+                onClick={(e) => handleDropdownOpen(e, setAnchorEl)}
+                style={{
+                  color: "#000000",
+                  borderColor: "#000000",
+                  borderWidth: "1px",
+                  marginTop: "-35px",
+                  marginLeft: "40px",
+                }}
+              >
+                Save
+              </Button>
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleDropdownClose}
+              >
+                <MenuItem onClick={() => handleOptionSelect("png")}>
+                  PNG
+                </MenuItem>
+                <MenuItem onClick={() => handleOptionSelect("json")}>
+                  JSON
+                </MenuItem>
+              </Menu>
+            </div>
+
+            <div className="button">
+              <Button
+                variant="outlined"
+                onClick={shareFile}
+                style={{
+                  color: "#000000",
+                  borderColor: "#000000",
+                  borderWidth: "1px",
+                  marginTop: "-35px",
+                  marginLeft: "20px",
+                }}
+              >
+                Share
+              </Button>
+            </div>
+
+            <div className="button">
+              <Button
+                variant="outlined"
+                onClick={handleGenerate}
+                style={{
+                  color: "#000000",
+                  borderColor: "#000000",
+                  borderWidth: "1px",
+                  marginTop: "30px",
+                  marginLeft: "-305px",
+                }}
+              >
+                GENERATE
+              </Button>
+              <Modal open={open} onClose={() => setOpen(false)}>
+                <Box sx={style}>
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                    sx={{
+                      fontSize: "20px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {text}
+                  </Typography>
+                  <Input
+                    id="modal-modal-description"
+                    sx={{
+                      mt: 2,
+                      border: "1px solid #ccc",
+                      borderRadius: "4px",
+                      padding: "8px",
+                      width: "100%",
+                    }}
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
+                  />
+                  <Button
+                    variant="outlined"
+                    onClick={sendEmail}
+                    style={{
+                      color: "#000000",
+                      borderColor: "#000000",
+                      borderWidth: "1px",
+                      marginTop: "-185px",
+                      marginLeft: "300px",
+                    }}
+                  >
+                    Submit
+                  </Button>
+                </Box>
+              </Modal>
+            </div>
           </div>
         </div>
       </div>

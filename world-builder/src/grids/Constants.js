@@ -106,11 +106,35 @@ import waterfall from '../assets/water/waterfall.png';
 // Monster Images:
 import fairy from '../assets/monsters/fairy.png';
 import shadow from '../assets/monsters/monster_shadow.png';
+import cat from '../assets/monsters/cat.png';
+import house1 from '../assets/monsters/house1.png';
+import house2 from '../assets/monsters/house2.png';
+import house3 from '../assets/monsters/house3.png';
+import house4 from '../assets/monsters/house4.png';
+import monkey from '../assets/monsters/monkey.png';
+import skeleton from '../assets/monsters/skeleton.png';
+import snake from '../assets/monsters/snake.png';
 
 const monsterImages = {
     fairy,
     shadow,
+    cat,
+    house1,
+    house2,
+    house3,
+    house4,
+    monkey,
+    skeleton,
+    snake,
 }
+
+const houseMonsterImages = {
+    house1,
+    house2,
+    house3,
+    house4,
+}
+
 
 const campImages = {
     tent_1x2, 
@@ -349,6 +373,7 @@ const allImages = {
     buildingImages,
     waterImages,
     monsterImages,
+    houseMonsterImages,
 }
 
 export{
