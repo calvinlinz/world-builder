@@ -23,20 +23,16 @@ public class MonsterGenerator {
     private List<Double> probabilities = new ArrayList<>();
 
     // The following map codes are based on Ella's graphic front-end codes.
-    // These have yet to be corrected by the back-end team in other areas of the algorithm.
-    // As such, the monster generation does not work perfectly and may miss some rooms.
-
-    // RANK SETS: BOSS, HARD, MEDIUM, AND EASY
     // The monsters will be ranked 0 = boss, 1 = hard, 2 = medium, 3 = easy
-    private Set<Integer> allCodes = new HashSet<>(Set.of(5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18));
-    private Set<Integer> bossCodes = new HashSet<>(Set.of(13, 18));
-    private Set<Integer> hardCodes = new HashSet<>(Set.of(10, 11, 12, 17));
-    private Set<Integer> medCodes = new HashSet<>(Set.of(7, 8, 9, 16));
-    private Set<Integer> easyCodes = new HashSet<>(Set.of(5, 6, 15));
+    private final Set<Integer> ALL_CODES = new HashSet<>(Set.of(5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18));
+    private final Set<Integer> BOSS_CODES = new HashSet<>(Set.of(13, 18));
+    private final Set<Integer> HARD_CODES = new HashSet<>(Set.of(10, 11, 12, 17));
+    private final Set<Integer> MED_CODES = new HashSet<>(Set.of(7, 8, 9, 16));
+    private final Set<Integer> EASY_CODES = new HashSet<>(Set.of(5, 6, 15));
 
-    // TYPE SETS: HOUSE, CAVE, NATURE (MAYBE)
-    private Set<Integer> houseCodes = new HashSet<>(Set.of(5, 6, 7, 8, 9, 10, 11, 12, 13));
-    private Set<Integer> caveCodes = new HashSet<>(Set.of(15, 16, 17, 18));
+
+    private final int GRASS_CODE = 0;
+    private final int TREE_CODE = 2;
 
     /**
      * Creates a MonsterGenerator object.
@@ -51,6 +47,9 @@ public class MonsterGenerator {
         initialiseProbs();
     }
 
+    /**
+     * Determine the probabilities of monsters spawning in each room.
+     */
     private void initialiseProbs(){
         probabilities.add(52.0); // boss rank prob
         probabilities.add(40.0); // hard rank prob
@@ -58,6 +57,9 @@ public class MonsterGenerator {
         probabilities.add(27.0); // easy rank prob
     }
 
+    /**
+     * Determines if the cell is by a wall in a house.
+     */
     private boolean byWall(int cellValue, int i, int j){
         boolean corner = false;
         if(map[i-1][j] != cellValue || map[i+1][j] != cellValue || map[i][j-1] != cellValue || map[i][j+1] != cellValue){
@@ -66,6 +68,9 @@ public class MonsterGenerator {
         return corner;
     }
 
+    /**
+     * Generate the monsters based on the cell it is sitting in.
+     */
     public int[][] generateMonsters(){
 
         // Iterate through all the cells in the map and determine which are rooms.
@@ -73,7 +78,7 @@ public class MonsterGenerator {
             for(int j = 0; j < map[i].length; j++){
                 
                 int cellValue = map[i][j]; // The current map cell.
-                if(!allCodes.contains(cellValue)) continue; // An invalid cell to place a monster in.
+                if(!ALL_CODES.contains(cellValue)) continue; // An invalid cell to place a monster in.
                 
                 // If the cell is not on the edge of the map, then we can check if by the wall.
                 if(i > 0 && i < map.length - 1 && j > 0 && j < map[i].length - 1){
@@ -99,12 +104,14 @@ public class MonsterGenerator {
                     int dex = getSkill(rank);
                     int con = getSkill(rank);
                     int intel = getSkill(rank);
+                    int wis = getSkill(rank);
+                    int cha = getSkill(rank);
                     String currMonster = String.valueOf(rankVal) + String.valueOf(str) + String.valueOf(dex) + String.valueOf(con) + String.valueOf(intel);
                     System.out.println(currMonster);
 
                     int input = Integer.parseInt(currMonster);
-
                     System.out.println("Adding monster: " + input + " at " + i + " " + j);
+                    System.out.println(rankVal + " " + str + " " + dex + " " + con + " " + intel);
                     this.map[i][j] = input;
                 } 
             }
@@ -118,24 +125,13 @@ public class MonsterGenerator {
      * @return A value corresponding to the rank of monster, e.g. boss, easy.
      */
     private int determineRank(int cell){
-        if(bossCodes.contains(cell)) return 0; // boss
-        else if(hardCodes.contains(cell)) return 1; // hard
-        else if(medCodes.contains(cell)) return 2; // med
-        else if(easyCodes.contains(cell)) return 3; // easy
+        if(BOSS_CODES.contains(cell)) return 0; // boss
+        else if(HARD_CODES.contains(cell)) return 1; // hard
+        else if(MED_CODES.contains(cell)) return 2; // med
+        else if(EASY_CODES.contains(cell)) return 3; // easy
         return 3;
     }
 
-    /**
-     * Based on a map code, determine what type the monster should be.
-     * @param value A map code that exists inside the allCodes set.
-     * @return A value corresponding to the type of monster, e.g. house, cave.
-     */
-    private int determineType(int cell){
-        if(houseCodes.contains(cell)) return 0;
-        else if(caveCodes.contains(cell)) return 1;
-        return 2; // Any other types we may include. Currently will not do anything.
-
-    }
 
     /**
      * Based on the rank of the monster (boss, hard, etc.), determine the skill strength.
@@ -146,7 +142,9 @@ public class MonsterGenerator {
     private int getSkill(int rank){
         List<Integer> lowerLimits = new ArrayList<>(List.of(7, 5, 2, 1));
         List<Integer> upperLimits = new ArrayList<>(List.of(10, 9, 8, 5));
-        int skillLevel = rand.nextInt(upperLimits.get(rank)) + lowerLimits.get(rank);
+        int lowerLimit = lowerLimits.get(rank);
+        int upperLimit = upperLimits.get(rank);
+        int skillLevel = rand.nextInt(upperLimit - lowerLimit + 1) + lowerLimit;
         if(skillLevel == 10) skillLevel = 0;
         return skillLevel;
     }
