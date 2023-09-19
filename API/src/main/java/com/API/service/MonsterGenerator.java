@@ -32,6 +32,7 @@ public class MonsterGenerator {
 
 
     private final int GRASS_CODE = 0;
+    private final int BUSH_CODE = 1;
     private final int TREE_CODE = 2;
 
     /**
@@ -68,6 +69,26 @@ public class MonsterGenerator {
         return corner;
     }
 
+    public int spawnFairy(int cellValue, int i, int j){
+        if(i > 1 && i < map.length - 2 && j > 1 && j < map[i].length - 2){
+            List<Integer> zone = new ArrayList<>(List.of(
+                map[i-2][j], map[i-1][j-1], map[i-1][j], map[i-1][j+1], map[i][j-2], map[i][j-1],
+                map[i][j+1], map[i][j+2], map[i+1][j-1], map[i+1][j], map[i+1][j+1], map[i+2][j]
+            ));
+            int numberNatural = 0;
+            for(int count = 0; count < zone.size(); count++){
+                if(zone.get(count) == TREE_CODE || zone.get(count) == BUSH_CODE) numberNatural += 1;
+            }
+            // If there are at least 2 natural features within the fairies range, spawn a fairy!
+            if(numberNatural >= 3){
+                int chances = rand.nextInt(16);
+                if(chances == 2) return 1234567;
+                else return cellValue;
+            }
+        }
+        return cellValue;
+    }
+
     /**
      * Generate the monsters based on the cell it is sitting in.
      */
@@ -78,23 +99,30 @@ public class MonsterGenerator {
             for(int j = 0; j < map[i].length; j++){
                 
                 int cellValue = map[i][j]; // The current map cell.
-                if(!ALL_CODES.contains(cellValue)) continue; // An invalid cell to place a monster in.
+
+                // If it is a grass block, then spawn fairy. If it is not a room block, then skip.
+                // Otherwise we can try spawn a monster.
+                if(cellValue == GRASS_CODE){
+                    int fairy = spawnFairy(cellValue, i, j);
+                    map[i][j] = fairy;
+                    continue;
+                } else if(!ALL_CODES.contains(cellValue)){
+                    continue; // An invalid cell to place a monster in.
+                }
                 
                 // If the cell is not on the edge of the map, then we can check if by the wall.
                 if(i > 0 && i < map.length - 1 && j > 0 && j < map[i].length - 1){
                     if(byWall(cellValue, i, j)){
                         continue;
                     }
-                } else{
-                    continue; // If it is by the edge of map, do not spawn.
-                }
+                } else continue; // If it is by the edge of map, do not spawn.
                 
+
                 // Determine the rank of the monster based on the room value.
                 int rank = determineRank(cellValue);
 
                 // Generate a random number in the bracket given.
                 // If it is the correct number, then generate a monster.
-
                 double maxValue = probabilities.get(rank);
                 int randomValue = (int)(rand.nextDouble() * maxValue);
                 if(randomValue == 1){
