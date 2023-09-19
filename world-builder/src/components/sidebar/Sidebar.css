@@ -9,7 +9,7 @@
     width: 80px;
     transition: left 0.3s ease-in-out;
     z-index: 1004;
-    background-color: #040D12;
+    background-color: #1f1f1f;
 }
 
 .sidebar-toggle {
@@ -97,9 +97,9 @@
 }
 
 .large-icon {
-    font-size: 60px;
+    font-size: 40px;
     margin-top: 20px;
-    padding: 10px 10px 10px;
+    padding: 20px 10px 10px;
     color: var(--frame-color);
     transition: .4s ease-in-out;
 }
