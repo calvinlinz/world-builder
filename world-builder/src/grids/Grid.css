@@ -58,7 +58,7 @@
     position: absolute;
     top: 2vw;
     left: 7vw;
-    z-index: 4;
+    z-index: 6;
 }
 
 
@@ -80,7 +80,7 @@
     position: absolute;
     top: 2vw;
     left: 7vw;
-    z-index: 6;
+    z-index: 7;
 }
   
 .grid-row {
