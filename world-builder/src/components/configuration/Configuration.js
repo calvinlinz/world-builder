@@ -100,6 +100,10 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
         className="monsterContent"
         monsterName={"Fairy Test"}
         monsterRank={"Fairy Rank"}
+        monsterSTR={0.6}
+        monsterDEX={0.3}
+        monsterCON={0.4}
+        monsterINT={0.7}
       />
     );
   } else if (selectedMonsterOption === "option3") {

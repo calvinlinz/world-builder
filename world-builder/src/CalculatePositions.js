@@ -436,7 +436,6 @@ function getMonsterCords(grid) {
                     dex: parseInt(monsterStr.charAt(2), 10),
                     con: parseInt(monsterStr.charAt(3), 10),
                     int: parseInt(monsterStr.charAt(4), 10),
-                    wis: parseInt(monsterStr.charAt(5), 10),
                     x: j - 0.5,
                     y: i - 0.5,
                 };

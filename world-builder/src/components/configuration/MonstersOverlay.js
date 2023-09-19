@@ -1,7 +1,7 @@
 import "./MonsterOverlay.css";
 import { allImages } from "../../Constants";
 
-const MonstersOverlay = ({monsterName, monsterRank}) => {
+const MonstersOverlay = ({monsterName, monsterRank, monsterSTR, monsterDEX, monsterCON, monsterINT}) => {
 
     return (
         <div className="body">
@@ -41,10 +41,10 @@ const MonstersOverlay = ({monsterName, monsterRank}) => {
                 <div style={{
                         margin: '0px 5px',
                         }}>
-                    <h4>0.8</h4>
-                    <h4>0.4</h4>
-                    <h4>0.6</h4>
-                    <h4>0.6</h4>
+                    <h4>{monsterSTR}</h4>
+                    <h4>{monsterDEX}</h4>
+                    <h4>{monsterCON}</h4>
+                    <h4>{monsterINT}</h4>
                     <h4>0.1</h4>
                     <h4>0.4</h4>
                 </div>
