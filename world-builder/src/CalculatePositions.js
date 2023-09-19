@@ -410,6 +410,12 @@ function getCaveCords(grid) {
 // -- MONSTER FUNCS ----------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
 
+const bossMonsterNames = ["Barbie", "Vorluk", "Sylvaria", "Dendrogram", "Ellaquora", "Annihilith", "Haydron", "Milandroth", "Calvorr", "Amirax"];
+const hardMonsterNames = ["Morgaloth", "Vorgrak", "Azrakarn", "Cynariel", "PP-poo’oo", "Dread", "Maymeens", "Drexthul", "Azrakarm", "Thal’gulon"];
+const mediumMonsterNames = ["Melissa", "Perceptron", "Neuralnet", "Graboost", "Stochastion", "Sloth", "Kayenen", "Genprog", "Genalg", "Deebeescan"];
+const easyMonsterNames = ["Greb", "Morph", "Crinkle", "Crawler", "Bloblin", "Bunny", "Ratling", "Beebir", "Mothie", "Ken"];
+const nameLists = [easyMonsterNames, mediumMonsterNames, hardMonsterNames, bossMonsterNames];
+
 function getMonsterCords(grid) {
     const cordList = [];
 
@@ -423,6 +429,7 @@ function getMonsterCords(grid) {
                 if(caveKeys.includes(grid[i-1][j])){enviro = 1;}
 
                 const newMonster = {
+                    name: nameLists[parseInt(monsterStr.charAt(0), 10)][Math.floor(Math.random() * 10)],
                     environment: enviro,
                     rank: parseInt(monsterStr.charAt(0), 10),
                     str: parseInt(monsterStr.charAt(1), 10),
