@@ -12,7 +12,7 @@ import { useContext } from "react";
 import { WorldDataContext } from "../../context/worldDataContext";
 
 const SideBar = ({opacityToggle}) => {
-    const {worldData, setWorldData} = useContext(WorldDataContext);
+    const {worldData,loading, setWorldData} = useContext(WorldDataContext);
     const [gridSize, setGridSize] = useState(27);
   const [isOpen, setIsOpen] = useState(false);
   const sidebarClass = isOpen ? "sidebar open" : "sidebar";
@@ -30,6 +30,7 @@ const SideBar = ({opacityToggle}) => {
 
 
   const handleGenerate = () => {
+    setWorldData(worldData,true);
     fetch(API_URL+"/world", {
       method:"POST",
       headers:{
@@ -38,7 +39,7 @@ const SideBar = ({opacityToggle}) => {
       body: JSON.stringify({
         size:gridSize
       })
-    }).then((response)=>response.json()).then((data)=>setWorldData(data)).catch((error)=>console.log(error));
+    }).then((response)=>response.json()).then((data)=>setWorldData(data,false)).catch((error)=>console.log(error));
   };
 
     const buttonHandler = () =>{

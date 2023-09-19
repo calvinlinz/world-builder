@@ -29,7 +29,7 @@ const ConfigDropdown = ({
   gridSize,
   setGridSize,
 }) => {
-  const { worldData, setWorldData } = useContext(WorldDataContext);
+  const { worldData, loading, setWorldData } = useContext(WorldDataContext);
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
   const [selectedMonsterOption, setSelectedMonsterOption] = useState("none");
@@ -169,6 +169,7 @@ const ConfigDropdown = ({
   }
 
   const handleGenerate = () => {
+    setWorldData(worldData, true);
     fetch(API_URL + "/world", {
       method: "POST",
       headers: {
@@ -179,7 +180,7 @@ const ConfigDropdown = ({
       }),
     })
       .then((response) => response.json())
-      .then((data) => setWorldData(data))
+      .then((data) => setWorldData(data,false))
       .catch((error) => console.log(error));
   };
 

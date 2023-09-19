@@ -8,13 +8,13 @@ import NaturalFeaturesGrid from "./NaturalFeaturesGrid";
 import CaveGrid from "./CaveGrid";
 import RoofGrid from "./RoofGrid";
 import CampGrid from "./CampGrid";
-import LoadingPage from "./LoadingPage";
 import PathGrid from "./PathGrid";
 import "./Grid.css";
 import "./Display.css";
 import SideBar from "./components/configuration/Sidebar";
+import Loading from "./components/loading/loading"
 
-const Display = ({ worldData }) => {
+const Display = ({ worldData, loading }) => {
   const [opacityValue, setOpacity] = useState(1);
   const [scaleFactor, setScaleFactor] = useState(0.25);
   const [sidebarOpen, setSideBarOpen] = useState(false);
@@ -33,24 +33,32 @@ const Display = ({ worldData }) => {
 
   return (
     <>
-      <SideBar opacityToggle={toggleOpactiy}/>
-      <BackgroundGrid worldData={worldData} />
-      <PathGrid worldData={worldData} />
-      <BuildingsGrid scaleFactor={scaleFactor} worldData={worldData} />
-      <NaturalFeaturesGrid scaleFactor={scaleFactor} worldData={worldData} />
-      <CaveGrid scaleFactor={scaleFactor} worldData={worldData} />
-      <RoofGrid
-        opacityValue={opacityValue}
-        scaleFactor={scaleFactor}
-        worldData={worldData}
-      />
-      <CampGrid scaleFactor={scaleFactor} worldData={worldData} />
-      <div className="frame"></div>
-      <div className="square-one"></div>
-      <div className="square-two"></div>
-      <div className="square-three"></div>
-      <div className="square-four"></div>
-      <LoadingPage />
+      <SideBar opacityToggle={toggleOpactiy} />
+      {loading ? (
+        <Loading/>
+      ) : (
+        <>
+          <BackgroundGrid worldData={worldData} />
+          <PathGrid worldData={worldData} />
+          <BuildingsGrid scaleFactor={scaleFactor} worldData={worldData} />
+          <NaturalFeaturesGrid
+            scaleFactor={scaleFactor}
+            worldData={worldData}
+          />
+          <CaveGrid scaleFactor={scaleFactor} worldData={worldData} />
+          <RoofGrid
+            opacityValue={opacityValue}
+            scaleFactor={scaleFactor}
+            worldData={worldData}
+          />
+          <CampGrid scaleFactor={scaleFactor} worldData={worldData} />
+          <div className="frame"></div>
+          <div className="square-one"></div>
+          <div className="square-two"></div>
+          <div className="square-three"></div>
+          <div className="square-four"></div>
+        </>
+      )}
     </>
   );
 };
