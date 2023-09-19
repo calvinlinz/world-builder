@@ -1,0 +1,84 @@
+* {
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+:root {
+    --frame-color: #f7f7f2;
+    --background-color: #575f39;
+}
+
+.configContent h2 {
+    background-color: #1f1f1f;
+    color: var(--frame-color);
+    display: flex;
+    padding: 25px;
+    justify-content: center;
+    font-size: 1.5rem;
+    border: 1px solid #1f1f1f;
+    margin: 0;
+}
+
+#generate:active {
+    background-color: #e9e9e0;
+}
+
+#generate {
+    background-color: #e1e0dc;
+    border: 1px solid black;
+    padding: 10px 10px 10px 10px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+}
+
+.configContent {
+    position: absolute;
+    background-color: inherit;
+    top: 0;
+    left: 0;
+    height: 600px;
+    width: 300px;
+    border-radius: 20px;
+    z-index: 1005;
+}
+
+.slider-component {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.slider-component p {
+    width: 125px;
+    justify-content: left;
+    font-size: 1rem;
+    display: flex;
+    padding-bottom: 0;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+}
+
+.slider {
+    width: 240px;
+    padding-left: 30px;
+}
+
+.formGroup {
+    display: flex;
+    justify-content: left;
+    padding: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
+.button {
+    padding: 20px;
+}
+
+.container {
+    display: inline-block;
+    cursor: pointer;
+    margin-top: 4.5px;
+}

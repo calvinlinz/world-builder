@@ -9,7 +9,7 @@ import PathGrid from "../../grids/PathGrid";
 import MonsterGrid from "../../grids/MonsterGrid";
 import "../../grids/Grid.css";
 import "./Display.css";
-import SideBar from "../..//components/sidebar/Sidebar";
+import SideBar from "../../components/sidebar/Sidebar";
 import Loading from "../../components/loading/loading";
 import { useContext } from "react";
 import { WorldDataContext } from "../../context/worldDataContext";
