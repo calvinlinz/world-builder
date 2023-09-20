@@ -1,12 +1,9 @@
-image: docker:19.03
-
-services:
-  - docker:19.03-dind
+image: docker:latest
 
 stages:
   - build_and_push
   - deploy
-  
+
 build_and_push:
   stage: build_and_push
   tags:
