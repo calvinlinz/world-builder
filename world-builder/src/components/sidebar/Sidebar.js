@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Sidebar.css";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import TuneIcon from '@mui/icons-material/Tune';
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
@@ -177,7 +177,7 @@ const SideBar = ({ opacityToggle }) => {
         )}
       </div>
       <div className={sidebarClass}>
-        <SettingsOutlinedIcon
+        <TuneIcon
           className="large-icon"
           fontSize=""
           color=""
