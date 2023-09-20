@@ -1,5 +1,3 @@
-image: docker:latest
-
 stages:
   - build_and_push
   - deploy
@@ -7,13 +5,13 @@ stages:
 build_and_push:
   stage: build_and_push
   tags:
-    - docker
+    - shell
   script:
     - docker login -u licalv -p dckr_pat_CHIGoNqOBzNOO0RSrPGSaKCagoo
     - echo "Logging in..."
     - docker build --platform=linux/amd64 -t api -f ./API/Dockerfile ./API
-    - docker tag api $DOCKERHUB_USERNAME/world-builder-api
-    - docker push $DOCKERHUB_USERNAME/world-builder-api
+    - docker tag api licalv/world-builder-api
+    - docker push licalv/world-builder-api
     - echo "Pushing to Docker Hub..."
 
 deploy_to_render:
