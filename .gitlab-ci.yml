@@ -2,12 +2,12 @@ stages:
   - build_and_push
   - deploy
 
-privileged: true
 
 build_and_push:
   stage: build_and_push
   tags:
     - shell
+  privileged: true
   script:
     - docker login -u licalv -p $DOCKER_KEY
     - echo "Logging in..."
