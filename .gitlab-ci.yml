@@ -10,6 +10,8 @@ build-docker:
   stage: build
   tags: 
     - shell
+  services:
+    - docker:dind
   script:
     - mvn --version
     - echo "This is a shell script command"
