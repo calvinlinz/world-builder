@@ -9,6 +9,7 @@ build_and_push:
   script:
     - docker login -u licalv -p dckr_pat_CHIGoNqOBzNOO0RSrPGSaKCagoo
     - echo "Logging in..."
+    - chown -R rootfs /local/docker/100000.100000/buildkit/executor/mhiv14n9uoarizci1bex5t5si/rootfs
     - docker build --platform=linux/amd64 -t api -f ./API/Dockerfile ./API
     - docker tag api licalv/world-builder-api
     - docker push licalv/world-builder-api
