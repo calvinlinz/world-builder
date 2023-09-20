@@ -9,6 +9,8 @@ variables:
 
 build_and_push:
   stage: build_and_push
+  services: 
+    - name: docker:20.10.7-dind
   tags:
     - docker
   script:
