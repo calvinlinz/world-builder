@@ -6,18 +6,13 @@ services:
 stages:
   - build_and_push
   - deploy
-
-variables:
-  DOCKERHUB_USERNAME: licalv
-  DOCKERHUB_TOKEN: dckr_pat_CHIGoNqOBzNOO0RSrPGSaKCagoo
-  RENDER_API_KEY: P4KGtUpQ_gw
-
+  
 build_and_push:
   stage: build_and_push
   tags:
     - docker
   script:
-    - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
+    - docker login -u licalv -p dckr_pat_CHIGoNqOBzNOO0RSrPGSaKCagoo
     - echo "Logging in..."
     - docker build --platform=linux/amd64 -t api -f ./API/Dockerfile ./API
     - docker tag api $DOCKERHUB_USERNAME/world-builder-api
@@ -29,5 +24,5 @@ deploy_to_render:
   tags:
     - shell
   script:
-    - curl https://api.render.com/deploy/srv-ck0i3fm3ktkc73edlj8g?key=$RENDER_API_KEY
+    - curl https://api.render.com/deploy/srv-ck0i3fm3ktkc73edlj8g?key=P4KGtUpQ_gw
     - echo "Sent deploy request to Render."
