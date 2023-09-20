@@ -7,9 +7,8 @@ build_and_push:
   tags:
     - shell
   script:
-    - docker login -u licalv -p dckr_pat_CHIGoNqOBzNOO0RSrPGSaKCagoo
+    - docker login -u licalv -p $DOCKER_KEY
     - echo "Logging in..."
-    - chown -R licalv /local/docker/100000.100000/buildkit/executor/mhiv14n9uoarizci1bex5t5si/rootfs
     - docker build --platform=linux/amd64 -t api -f ./API/Dockerfile ./API
     - docker tag api licalv/world-builder-api
     - docker push licalv/world-builder-api
