@@ -2,6 +2,8 @@ stages:
   - build_and_push
   - deploy
 
+privileged: true
+
 build_and_push:
   stage: build_and_push
   tags:
