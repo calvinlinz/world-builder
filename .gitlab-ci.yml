@@ -3,7 +3,7 @@ stages:
 
 build-docker:
   stage: build
-  tag: shell
+  tags: shell
   script:
     - echo "This is a shell script command"
     - ./deploy.sh
