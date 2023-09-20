@@ -1,19 +1,24 @@
-variables:
-  MAVEN_OPTS: -Dmaven.repo.local=.m2/repository
-
-image: maven:latest
-
 stages:
-  - build
+  - build_and_push
+  - deploy
 
-build-docker:
-  stage: build
-  tags: 
-    - shell
-  services:
-    - docker:dind
+variables:
+  DOCKERHUB_USERNAME: licalv
+  DOCKERHUB_TOKEN: dckr_pat_CHIGoNqOBzNOO0RSrPGSaKCagoo
+  RENDER_API_KEY: P4KGtUpQ_gw
+
+build_and_push:
+  stage: build_and_push
   script:
-    - mvn --version
-    - sudo chmod +x /local/docker/100000.100000/buildkit/executor/mhiv14n9uoarizci1bex5t5si/rootfs
-    - echo "This is a shell script command"
-    - ./deploy.sh
+    - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
+    - echo "Logging in..."
+    - docker build --platform=linux/amd64 -t api -f ./API/Dockerfile ./API
+    - docker tag api $DOCKERHUB_USERNAME/world-builder-api
+    - docker push $DOCKERHUB_USERNAME/world-builder-api
+    - echo "Pushing to Docker Hub..."
+
+deploy_to_render:
+  stage: deploy
+  script:
+    - curl https://api.render.com/deploy/srv-ck0i3fm3ktkc73edlj8g?key=$RENDER_API_KEY
+    - echo "Sent deploy request to Render."
