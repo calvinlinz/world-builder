@@ -147,7 +147,7 @@ const SideBar = ({ opacityToggle }) => {
       setTimeout(() => {
         setSlideButtonOpen(!slideButtonOpen);
         timeoutActive = false; 
-      }, 50);
+      }, 40);
     } else {
       setTimeout(() => {
         setSlideButtonOpen(!slideButtonOpen);
@@ -157,7 +157,7 @@ const SideBar = ({ opacityToggle }) => {
     setTimeout(() => {
       setSlideButtonOpen(!slideButtonOpen);
       timeoutActive = false; 
-    }, 50);
+    }, 40);
   };
 
   return (
