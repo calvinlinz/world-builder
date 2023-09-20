@@ -17,12 +17,16 @@ The D&D map, which serves as a formal representation of the game world, is an in
    - 2.3 [Data Storage](#data-storage)
    - 2.4 [Controller](#controller)
    - 2.5 [Monster Generator](#monster-generator)
+   - 2.6 [Deploy](#back-end-deploy)
+
 
 3. [Front End](#front-end)
    - 3.1 [Tools and Language Choice](#tools-and-language-choice-frontend)
    - 3.2 [Web Features](#web-features)
    - 3.3 [Data Fetching](#data-fetching)
    - 3.4 [Graphics](#graphics)
+   - 3.5 [Deploy](#front-end-deploy)
+
 
 4. [Project Management Methodology](#project-management-methodology)
 
@@ -50,6 +54,7 @@ The D&D map, which serves as a formal representation of the game world, is an in
 - The ability to select the map size.
 - The ability to show monsters on a separate Dungeon Master view (which can also be saved and printed off).
 - A “Dungeons and Dragons” theme / narrative.
+- Deploy the web application.
 
 <a name="stretch-goals"></a>
 ### 1.2 Stretch Goals
@@ -87,7 +92,7 @@ A map exporter has been developed to enable communication of the map from the ba
 
 <a name="controller"></a>
 ### 2.4 Controller
-The controller configures endpoints with responses and HTTP methods. We have implemented a /world GET endpoint that will generate a new world using the map generating algorithm and returns it in the response. 
+The controller configures endpoints with responses and HTTP methods. We have implemented a /world POST endpoint that takes a size parameter in the request body. The world algorithm then generates a world relative to this size and returns it in the response. Previously we had a fixed size of 27 and the API only had a GET request that did not allow for custom map sizes.
 
 <a name="monster-generator"></a>
 ### 2.5 Monster Generator
@@ -123,19 +128,27 @@ These six digits represent the six primary attributes, often referred to as "sta
 | -- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 100% | 10% | 20% | 30% | 40% | 50% | 60% | 70% | 80% | 90% |
 
+<a name="back-end-deploy"></a>
+### 2.6 Deploy
+
+The backend API is built into a docker image that contains all of the dependencies required for the web service. Every time a new version of the image is pushed to `DockerHub`, `Render.com` will build and deploy the web application to [production](https://world-builder-api.onrender.com/). A new image can be created and pushed to dockerhub using the `./deploy` script.
+
 <a name="front-end"></a>
 ## 3.0 Front End
 The front end of this project will be expressed as a website using React and JavaScript.
 
 <a name="tools-and-language-choice-frontend"></a>
 ### 3.1 Tools and Language Choice
-The main tools and languages used in the front-end are: React, HTML, and CSS. 
+The main tools and languages used in the front-end are: React, JavaScript, HTML, and CSS.
 
 #### 3.1.1 React
 React is a popular JavaScript framework for building user interfaces. React's component-based architecture aligns well with the method in which we have decided to generate the map (in a 2D array) and display the graphics (each element being represented by a component). This also allows for easy addition of new web pages and other components, such as a dropdown menu for adjusting map parameters. While the front-end team is not fully proficient in React, it is a great choice for our project context and it will provide us invaluable knowledge. 
 
 #### 3.1.2 CSS
 CSS can also be applied to enhance the visual aesthetic of the web page, which is crucial for an engaging and user friendly final product.
+
+#### 3.1.3 JavaScript (JSX)
+Utilizing JSX/JavaScript in our front end has allowed us to dynamically change the DOM relative to the users actions and server requests.
 
 <a name="web-features"></a>
 ### 3.2 Web Features
@@ -148,12 +161,28 @@ This section is split into the following topics:
 #### 3.2.1 Incorporated Features
 Our website must incorporate the features requested by the stakeholder that our outlined in our MVP. 
 
-#### 3.2.2 Configuration
-We have decided to create a configuration dropdown menu that is persistent in the top left corner of the web application. This will allow users to toggle the visibility of the configuration settings as they require. These settings include the fog parameters, map size and download button. This feature also includes a 'generate' button that allows users to generate a new world.
+#### 3.2.2 User Interface and Usability
+
+##### 3.2.2.1 Side Bar
+We previously created a configuration dropdown menu that opened up to reveal the configuration settings. As we increased the number of settings, the height of the menu was becoming too large with each iteration. To counter this, we implemented a collapsible side navigation bar that contained icons corresponding to different core functionalities. These icons could then be clicked to reveal another sidebar of the relative contents. This allowed us to remove the save button, generate button, and import buttons from the configuration menu and into other sections in the sidebar. These new icons also only contain features corresponding to the icon's purpose.
+
+##### 3.2.2.2 Configuration
+
+After the configuration menu was replaced with the side bar component, the configuration menu was refactored and now exists within the sidebar.
+
+The configuration icon now reveals the following:
+
+- Grid size
+- Fog parameters
+- Add/remove roofs
+- Monster stats.
+
+##### 3.2.2.3 Loading Screen
+We have incorporated a loading variable into the world data context variable so that very component is able to alter the loading state of the application. When API calls are waiting for responses, the loading state can be set which allows the loading page to be shown to users. This visual feedback helps users understand the state of the application.
 
 <a name="data-fetching"></a>
 ### 3.3 Data Fetching
-Due to having data and business logic such as the map generating algorithm abstracted away in the backend, we are required to make relevant API calls to the Maven Java backend API to retrieve this data. We currently have succesfully configured a connection to retrieve world data. 
+Due to having data and business logic such as the map generating algorithm abstracted away in the backend, we are required to make relevant API calls to the Springboot Java backend API to retrieve this data. We currently have succesfully configured a connection to retrieve world data in the form of a POST request at `/world`. This request takes in a size parameter and returns a world grid relative to this size in the response.
 
 **How will the user be able to share the map?**
 
@@ -451,6 +480,15 @@ A colour coded visualisation of the above map can been seen [here](https://docs.
 **Licencing Risks**
 
 BLAH BLAH BLAH
+
+
+
+<a name="front-end-deploy"></a>
+### 3.5 Deploy
+
+The front end React application is deployed through Netlify. Currently we have push mirrored the ECS GitLab repository with an external to ECS GitHub repository that is linked with Netlify. We did this because we are unable to connect ECS GitLab repositories with Netlify. Everytime there is a push to our GitLab repository, the commit is also pushed to the GitHub repository which triggers a re-deploy to Netlify.
+
+Environment variables are stored in Netlify that contains crucial production variables such as the `API_URL` of the hosted API service.
 
 <a name="project-management-methodology"></a>
 ## 4.0 Project Management Methodology
