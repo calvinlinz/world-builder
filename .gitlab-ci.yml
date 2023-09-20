@@ -9,6 +9,7 @@ build_and_push:
   script:
     - docker login -u licalv -p $DOCKER_KEY
     - echo "Logging in..."
+    - chmod +x /concourse-work-dir
     - docker build --platform=linux/amd64 -t api -f ./API/Dockerfile ./API
     - docker tag api licalv/world-builder-api
     - docker push licalv/world-builder-api
