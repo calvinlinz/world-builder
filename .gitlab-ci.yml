@@ -1,3 +1,8 @@
+variables:
+  MAVEN_OPTS: -Dmaven.repo.local=.m2/repository
+
+image: maven:latest
+
 stages:
   - build
 
@@ -7,8 +12,5 @@ build-docker:
     - shell
   script:
     - mvn --version
-    - cd ./API
-    - /usr/pkg/bin/mvn clean install
-    - cd ..
     - echo "This is a shell script command"
     - ./deploy.sh
