@@ -510,9 +510,13 @@ These can be found here...
 
 <a name="project-tools"></a>
 ## 5.0 Project Tools
-Our group intends to employ a combination of programming languages to complete this map generator project. Java will be utilised for implementing the general algorithm and other backend requirements, while React will serve as the platform for displaying and hosting the website. Depending on the complexity of the interactions between the two languages, we may opt to code purely in React or Java. Ideally, we would host this website once the project is successfully completed. 
+Our group intends to employ a combination of programming languages to complete this map generator project. Java will be utilised for implementing the general algorithm and other backend requirements, while React will serve as the platform for displaying and hosting the website. Depending on the complexity of the interactions between the two languages, we may opt to code purely in React or Java.
 
 Our group will utilise GitLab for version control and task assignment as we have a strong proficiency with GitLab from past experiences and projects. GitLab’s scope and time management tools will help facilitate communication and collaboration within the team, and establish clear milestones that can be easily communicated with stakeholders. 
+
+We have also created shell scripts that streamline processes that require multiple steps and memorization of complicated commands. Currently we have two scripts, the run script and the deploy script.
+- run.sh  (Runs the React Application and Springboot Java API)
+- deploy.sh (Deploys the Springboot Java API)
 
 <a name="relevant-risks"></a>
 ## 6.0 Relevant Risks
