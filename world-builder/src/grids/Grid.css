@@ -1,0 +1,123 @@
+/* Grid.css - Used for Grid.js and displaying the map on the website */
+
+/* Variables */
+:root {
+    --scale-factor: 0.25;
+  }
+
+.grid-container {
+    /* Add any styles for the container div here */
+    position: absolute;
+    top: 0vw;
+    left: 0vw;
+}
+
+.grid-container-background {
+    position: absolute;
+    top: 2vw;
+    left: 7vw;
+    z-index: 1;
+}
+
+.grid-container-path {
+    position: absolute;
+    top: 2vw;
+    left: 7vw;
+    z-index: 2;
+}
+.grid-container-path-edge {
+    position: absolute;
+    top: 2vw;
+    left: 7vw;
+    z-index: 3;
+    width: 10%;
+}
+
+.grid-container-buildings {
+    position: absolute;
+    top: 2vw;
+    left: 7vw;
+    z-index: 3;
+}
+
+.grid-container-camp{
+    position: absolute;
+    top: 2vw;
+    left: 7vw;
+    z-index: 3;
+}
+
+.grid-container-natural {
+    position: absolute;
+    top: 2vw;
+    left: 7vw;
+    z-index: 4;
+}
+
+.grid-container-monsters {
+    position: absolute;
+    top: 2vw;
+    left: 7vw;
+    z-index: 6;
+}
+
+
+.grid-container-caves {
+    position: absolute;
+    top: 2vw;
+    left: 7vw;
+    z-index: 5;
+}
+
+.grid-container-test {
+    position: absolute;
+    top: 2vw;
+    left: 7vw;
+    z-index: 2;
+}
+
+.grid-container-roof{
+    position: absolute;
+    top: 2vw;
+    left: 7vw;
+    z-index: 7;
+}
+  
+.grid-row {
+    /* Add any styles for the row div here */
+    width: calc(340vw * var(--scale-factor));
+    height: calc(3.9vw* var(--scale-factor));
+}
+  
+.grid-cell {
+    display: inline-block; 
+    width: calc(4.1vw * var(--scale-factor));
+    height: calc(4.1w * var(--scale-factor));
+    overflow: hidden;
+}
+
+.grid-cell img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.opactity-button {
+    background-color: #a8a8a8;
+    color: white;
+    width: 10px;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .rounded-div {
+    width: 90vw;
+    height: 90vh;
+    background-color: #ffffff;
+    border-radius: 3vw; /* Adjust the radius value to your preference */
+    padding: 0px; /* Optional: Add padding to provide some spacing between content and rounded corners */
+    box-shadow: 0px 0px 30px rgba(0, 0, 0, 1);
+    position: absolute;
+}

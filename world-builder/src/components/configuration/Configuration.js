@@ -1,59 +1,50 @@
-import React, { useState,useContext } from "react";
-import "./Configuration.css";
+import React, { useState, useContext } from "react";
+import styles from "./configuration.module.css"; // Import your CSS module
 import Slider from "@mui/material/Slider";
 import FormGroup from "@mui/material/FormGroup";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { Menu, Button, MenuItem, FormControl, Select } from "@mui/material";
-import "../../Grid.css";
+import {
+  Menu,
+  Button,
+  MenuItem,
+  FormControl,
+  Select,
+  Modal,
+  Typography,
+  Box,
+  Input,
+} from "@mui/material";
+import "../../grids/Grid.css";
 import html2canvas from "html2canvas";
-import MonstersOverlay from "./MonstersOverlay";
+import MonstersOverlay from "../monstersOverlay/MonstersOverlay";
 import { WorldDataContext } from "../../context/worldDataContext";
+import { getMonsterCords } from "../../grids/CalculatePositions";
+import emailjs from "@emailjs/browser";
+emailjs.init("VDupAfE4CYPyVT2Ry");
 
-const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
-  const {worldData, setWorldData} = useContext(WorldDataContext);
-  const [showInputs, setShowInputs] = useState(false);
+const ConfigDropdown = ({
+  opacityToggle,
+  showContent,
+  setShowContent,
+  gridSize,
+  setGridSize,
+}) => {
+  const { worldData, loading, setWorldData } = useContext(WorldDataContext);
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
   const [selectedMonsterOption, setSelectedMonsterOption] = useState("none");
   const [anchorEl, setAnchorEl] = useState(null);
-  const [gridSize, setGridSize] = useState(27);
   const [selectedOption, setSelectedOption] = useState(null);
-  const [showContent, setShowContent] = useState(true);
-  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080"
+  const [text, setButtonText] = useState("Insert your Email");
 
-  const handleDropdownOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [screenshot, setScreenshot] = useState(null);
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
 
-  const handleDropdownClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleOptionSelect = (option) => {
-    setSelectedOption(option);
-    handleDropdownClose();
-    if (option == "png") {
-      downloadPNG();
-    } else if (option == "json") {
-      downloadJSON();
-    }
-  };
-
-  const downloadJSON = () => {
-    if (worldData) {
-      const jsonData = JSON.stringify(worldData);
-      const blob = new Blob([jsonData], { type: "application/json" });
-      const url = window.URL.createObjectURL(blob);
-      const date = new Date().toISOString();
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "worldData-" + date + ".json";
-      a.click();
-      window.URL.revokeObjectURL(url);
-    }
-  };
   const downloadPNG = () => {
+    console.log("PNG");
     setShowContent(false);
     const currentMonster = selectedMonsterOption;
     setSelectedMonsterOption("none");
@@ -71,7 +62,7 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
         const downloadLink = document.createElement("a");
         downloadLink.href = dataURL;
         const date = new Date().toISOString();
-        downloadLink.download = "map-"+date+".png"; // Set the filename
+        downloadLink.download = "map-" + date + ".png"; // Set the filename
         downloadLink.click();
         setShowContent(true);
         setSelectedMonsterOption(currentMonster);
@@ -79,167 +70,102 @@ const ConfigDropdown = ({ opacityToggle, setScaleFactorImages}) => {
     }, 0);
   };
 
-  const handleMenuClick = () => {
-    setShowInputs(!showInputs);
-  };
-
-
+  // -- Handle Monster Change -------
   const handleSelectChange = (e) => {
     setSelectedMonsterOption(e.target.value);
   };
 
   let contentToRender;
+  const allMonsterCords = getMonsterCords(worldData);
 
   if (selectedMonsterOption === "none") {
-    contentToRender = <div>None selected</div>;
-  } else if (selectedMonsterOption === "option2") {
+    contentToRender = <div></div>;
+  } else {
+    let rankVal = "Boss Monster";
+
+    if (selectedMonsterOption.rank === 1) {
+      rankVal = "Easy Monster";
+    } else if (selectedMonsterOption.rank === 2) {
+      rankVal = "Medium Monster";
+    } else if (selectedMonsterOption.rank === 3) {
+      rankVal = "Hard Monster";
+    }
+
     contentToRender = (
       <MonstersOverlay
-        className="monsterContent"
-        monsterName={"Fairy Test"}
-        monsterRank={"Fairy Rank"}
+        className={styles.monsterContent} 
+        monsterName={selectedMonsterOption.name}
+        monsterRank={rankVal}
+        monsterSTR={"0." + selectedMonsterOption.str}
+        monsterDEX={"0." + selectedMonsterOption.dex}
+        monsterCON={"0." + selectedMonsterOption.con}
+        monsterINT={"0." + selectedMonsterOption.int}
+        enviro={selectedMonsterOption.environment}
+        rankInt={selectedMonsterOption.rank}
       />
     );
-  } else if (selectedMonsterOption === "option3") {
-    contentToRender = <div>Option 3 selected</div>;
   }
 
-  const handleGenerate = () => {
-    fetch(API_URL+"/world", {
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json",
-      },
-      body: JSON.stringify({
-        size:gridSize
-      })
-    }).then((response)=>response.json()).then((data)=>setWorldData(data)).catch((error)=>console.log(error));
-  };
-
   return (
-    <div className="body">
-      {showContent && (
-        <div className="dropDown">
-          <div id="hamburger" onClick={handleMenuClick}>
-            <div className={`container ${showInputs ? "change" : ""}`}>
-              <div className="bar1"></div>
-              <div className="bar2"></div>
-              <div className="bar3"></div>
-            </div>
+    <div className={styles.body}>
+      <div className={styles.configContent}>
+      <h2><b>CONFIGURATION</b></h2>
+        <div className={styles.sliderComponent}>
+          <p><b>GRID SIZE</b></p>
+          <div className={styles.slider}>
+            <Slider
+              defaultValue={gridSize}
+              aria-label="Small"
+              valueLabelDisplay="auto"
+              min={27}
+              max={50}
+              onChange={(e) => setGridSize(e.target.value)}
+            />
           </div>
         </div>
-      )}
-
-      {showContent && showInputs && (
-        <div className="content">
-          <div className="slider-component">
-            <p>GRID ZOOM</p>
-            <div className="slider">
-              <Slider
-                defaultValue={0.25}
-                aria-label="Small"
-                valueLabelDisplay="auto"
-                min={3}
-                max={7}
-                onChange={(e) => setScaleFactorImages(e.target.value)} // You need to implement setScaleFactorImages
-              />
-            </div>
-          </div>
-          <div className="slider-component">
-            <p>GRID SIZE</p>
-            <div className="slider">
-              <Slider
-                defaultValue={gridSize}
-                aria-label="Small"
-                valueLabelDisplay="auto"
-                min={27}
-                max={50}
-                onChange={(e) => setGridSize(e.target.value)} 
-              />
-            </div>
-          </div>
-          <div className="formGroup">
-            <FormGroup>
-              <FormControlLabel
-                control={<Checkbox defaultChecked />}
-                onChange={() => setShowFog(!showFog)} // Implement setShowFog
-                label="SHOW FOG"
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                onChange={() => setAddRemoveFog(!addRemoveFog)} // Implement setAddRemoveFog
-                label="ADD/REMOVE FOG"
-              />
-              <FormControlLabel
-                control={<Checkbox />}
-                onChange={opacityToggle} // Implement opacityToggle
-                label="ADD/REMOVE ROOFS"
-              />
-            </FormGroup>
-          </div>
-          <FormControl>
-            <p>VIEW MONSTER STATS</p>
-            <Select
-              value={selectedMonsterOption}
-              onChange={handleSelectChange}
-              style={{
-                color: "#000000",
-                borderColor: "#000000",
-                borderWidth: "1px",
-                margin: "0px 0px 30px 0px",
-              }}
-            >
-              <MenuItem value="none">None</MenuItem>
-              <MenuItem value="option2">Option 2</MenuItem>
-              <MenuItem value="option3">Option 3</MenuItem>
-            </Select>
-          </FormControl>
-
-          <div className="button-container">
-            <div className="button">
-              <Button
-                variant="outlined"
-                onClick={handleDropdownOpen}
-                style={{
-                  color: "#000000",
-                  borderColor: "#000000",
-                  borderWidth: "1px",
-                }}
-              >
-                Save
-              </Button>
-              <Menu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleDropdownClose}
-              >
-                <MenuItem onClick={() => handleOptionSelect("png")}>
-                  PNG
-                </MenuItem>
-                <MenuItem onClick={() => handleOptionSelect("json")}>
-                  JSON
-                </MenuItem>
-              </Menu>
-            </div>
-
-            <div className="button">
-              <Button
-                variant="outlined"
-                onClick={handleGenerate}
-                style={{
-                  color: "#000000",
-                  borderColor: "#000000",
-                  borderWidth: "1px",
-                }}
-              >
-                GENERATE
-              </Button>
-            </div>
-          </div>
+        <div className={styles.formGroup}>
+          <FormGroup>
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              onChange={() => setShowFog(!showFog)} // Implement setShowFog
+              label="SHOW FOG"
+            />
+            <FormControlLabel
+              control={<Checkbox />}
+              onChange={() => setAddRemoveFog(!addRemoveFog)} // Implement setAddRemoveFog
+              label="ADD/REMOVE FOG"
+            />
+            <FormControlLabel
+              control={<Checkbox />}
+              label="ADD/REMOVE ROOFS"
+              onChange={opacityToggle}
+            />
+          </FormGroup>
         </div>
-      )}
-      {showContent && contentToRender}
+        <FormControl>
+          <p><b>VIEW MONSTER STATS</b></p>
+          <Select
+            value={selectedMonsterOption}
+            onChange={handleSelectChange}
+            style={{
+              color: "#000000",
+              borderColor: "#000000",
+              borderWidth: "1px",
+              margin: "0px 0px 30px 0px",
+            }}
+          >
+            <MenuItem value="none">None</MenuItem>
+            {allMonsterCords.map((monsterCord, index) => (
+              <MenuItem key={index} value={monsterCord}>
+                {monsterCord.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </div>
+      {contentToRender}
     </div>
   );
 };
+
 export default ConfigDropdown;
