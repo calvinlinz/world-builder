@@ -1,5 +1,5 @@
 FROM eclipse-temurin:17-jdk-jammy
-WORKDIR /API
+WORKDIR ./API
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
 RUN ./mvnw dependency:resolve
