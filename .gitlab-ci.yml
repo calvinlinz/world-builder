@@ -6,5 +6,6 @@ build-docker:
   tags: 
     - shell
   script:
+    - mvn --version
     - echo "This is a shell script command"
     - ./deploy.sh
