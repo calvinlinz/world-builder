@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Sidebar.css";
-import TuneIcon from '@mui/icons-material/Tune';
+import TuneIcon from "@mui/icons-material/Tune";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
@@ -13,7 +13,9 @@ import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 import Loading from "../loading/loading";
 import ImportExport from "../importExport/importExport";
 import emailjs from "@emailjs/browser";
-import RefreshIcon from '@mui/icons-material/Refresh';
+import RefreshIcon from "@mui/icons-material/Refresh";
+import debounce from "lodash/debounce";
+
 import {
   Menu,
   Button,
@@ -27,7 +29,6 @@ import {
 } from "@mui/material";
 import html2canvas from "html2canvas";
 emailjs.init("VDupAfE4CYPyVT2Ry");
-
 
 const SideBar = ({ opacityToggle }) => {
   const [open, setOpen] = useState(false);
@@ -43,8 +44,7 @@ const SideBar = ({ opacityToggle }) => {
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   const [text, setButtonText] = useState("Insert your Email");
   const [email, setEmail] = useState("");
-  const [screenshot,setScreenshot] = useState(null);
-
+  const [screenshot, setScreenshot] = useState(null);
 
   const shareFile = () => {
     setIsOpen(false);
@@ -57,13 +57,12 @@ const SideBar = ({ opacityToggle }) => {
         y: 0,
       }).then((canvas) => {
         setOpen(true);
-        const dataURL = canvas.toDataURL('image/jpeg', 0.2);
+        const dataURL = canvas.toDataURL("image/jpeg", 0.2);
         setScreenshot(dataURL);
         setIsOpen(true);
       });
     }, 0);
   };
-
 
   const sendEmail = () => {
     const emailParams = {
@@ -116,11 +115,7 @@ const SideBar = ({ opacityToggle }) => {
         />
       );
     } else if (type == "import") {
-      setSlideContent(
-        <ImportExport
-
-        />
-      );
+      setSlideContent(<ImportExport />);
     }
   };
 
@@ -132,32 +127,25 @@ const SideBar = ({ opacityToggle }) => {
     }, 300);
   };
 
-
   const slideHandler = (type) => {
-    if(slideOpen && type.type != slideContent.type){
+    if ((slideOpen && type.type != slideContent.type) || timeoutActive) {
       return;
     }
-    if (timeoutActive) {
-      return; 
-    }
     timeoutActive = true;
-    setSlideOpen(!slideOpen);
-
     if (!slideOpen) {
+      setSlideOpen(true);
       setTimeout(() => {
-        setSlideButtonOpen(!slideButtonOpen);
-        timeoutActive = false; 
+        setSlideButtonOpen(true);
+        timeoutActive = false;
       }, 50);
     } else {
+      setSlideOpen(false);
       setTimeout(() => {
-        setSlideButtonOpen(!slideButtonOpen);
-        timeoutActive = false; 
+        setSlideButtonOpen(false);
+        timeoutActive = false;
       }, 150);
     }
-    setTimeout(() => {
-      setSlideButtonOpen(!slideButtonOpen);
-      timeoutActive = false; 
-    }, 50);
+
   };
 
   return (
@@ -181,17 +169,27 @@ const SideBar = ({ opacityToggle }) => {
           className="large-icon"
           fontSize=""
           color=""
-          onClick={() => {
+          onClick={()=>{
             handleSlideContent("settings");
-            slideHandler(<Configuration/>);
-          }}
+            slideHandler(<Configuration />);
+          }} // Adjust the delay (300 milliseconds in this example)
         />
-        <CloudUploadOutlinedIcon className="large-icon" fontSize="" color=""onClick={() => {
+        <CloudUploadOutlinedIcon
+          className="large-icon"
+          fontSize=""
+          color=""
+          onClick={() => {
             handleSlideContent("import");
-            slideHandler(<ImportExport/>);
-          }} />
+            slideHandler(<ImportExport />);
+          }} // Adjust the delay (300 milliseconds in this example)
+        />
         <ContentCopyOutlinedIcon className="large-icon" fontSize="" color="" />
-        <ShareOutlinedIcon className="large-icon" fontSize="" color="" onClick={shareFile}/>
+        <ShareOutlinedIcon
+          className="large-icon"
+          fontSize=""
+          color=""
+          onClick={shareFile}
+        />
         <RefreshIcon
           className="large-icon"
           fontSize=""
@@ -210,46 +208,45 @@ const SideBar = ({ opacityToggle }) => {
           </div>
         )}
         <Modal open={open} onClose={() => setOpen(false)}>
-              <Box sx={style}>
-                <Typography
-                  id="modal-modal-title"
-                  variant="h6"
-                  component="h2"
-                  sx={{
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {text}
-                </Typography>
-                <Input
-                  id="modal-modal-description"
-                  sx={{
-                    mt: 2,
-                    border: "1px solid #ccc",
-                    borderRadius: "4px",
-                    padding: "8px",
-                    width: "100%",
-                  }}
-                  onChange={(e) => setEmail(e.target.value)}
-                  value={email}
-                />
-                <Button
-                  variant="outlined"
-                  onClick={sendEmail}
-                  style={{
-                    color: "#000000",
-                    borderColor: "#000000",
-                    borderWidth: "1px",
-                    marginTop: "-185px",
-                    marginLeft: "300px",
-                  }}
-                >
-                  Submit
-                </Button>
-              </Box>
-            </Modal>
-
+          <Box sx={style}>
+            <Typography
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+              sx={{
+                fontSize: "20px",
+                fontWeight: "bold",
+              }}
+            >
+              {text}
+            </Typography>
+            <Input
+              id="modal-modal-description"
+              sx={{
+                mt: 2,
+                border: "1px solid #ccc",
+                borderRadius: "4px",
+                padding: "8px",
+                width: "100%",
+              }}
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+            />
+            <Button
+              variant="outlined"
+              onClick={sendEmail}
+              style={{
+                color: "#000000",
+                borderColor: "#000000",
+                borderWidth: "1px",
+                marginTop: "-185px",
+                marginLeft: "300px",
+              }}
+            >
+              Submit
+            </Button>
+          </Box>
+        </Modal>
       </div>
     </div>
   );
