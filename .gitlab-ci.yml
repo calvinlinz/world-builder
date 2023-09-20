@@ -7,6 +7,6 @@ build-docker:
     - shell
   script:
     - mvn --version
-    - ./mvn clean install
+    - /usr/pkg/mvn clean install
     - echo "This is a shell script command"
     - ./deploy.sh
