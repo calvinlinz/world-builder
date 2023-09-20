@@ -9,6 +9,8 @@ variables:
 
 build_and_push:
   stage: build_and_push
+  tags:
+    - docker
   script:
     - docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_TOKEN
     - echo "Logging in..."
@@ -19,6 +21,8 @@ build_and_push:
 
 deploy_to_render:
   stage: deploy
+  tags:
+    - shell
   script:
     - curl https://api.render.com/deploy/srv-ck0i3fm3ktkc73edlj8g?key=$RENDER_API_KEY
     - echo "Sent deploy request to Render."
