@@ -6,28 +6,41 @@ Dungeon & Dragons (D&D) is an iconic tabletop role-playing game that combines st
 The D&D map, which serves as a formal representation of the game world, is an indispensable element of a successful and immersive game. Maps are often "dungeons", which are perilous enclosed spaces, such as underground labyrinths, haunted mansions, and complex cave systems. Dungeons are teeming with dangerous monsters and traps, and are designed to challenge adventurers with substantial risk, while offering significant rewards should the players successfully complete their quest. Furthermore, dungeons consist of multiple layers that progressively escalate in danger as they delve deeper. While the DM who facilitates the game possesses knowledge of the entire map, adventurers have limited visibility, meaning they can view only a certain radius of the dungeon. At its core, a rich map — detailed, logical, and open-ended — is a crucial tool that drives the success of the gameplay.
 
 ## Document Contents
-### 1.0 Project Description
-- 1.1 Scope
-- 1.2 Stretch Goals
-- 1.3 Out of Scope
-### 2.0 Back End
-- 2.1 Tools and Language Choice
-- 2.2 Algorithm
-- 2.3 Data Storage
-### 3.0 Front End
-- 3.1 Tools and Language Choice
-- 3.2 Web Features
-- 3.3 Graphics
-### 4.0 Project Management Methodology
-### 5.0 Project Tools
-### 6.0 Relevant Risks
-### 7.0 Group Roles
-- 7.1 Group Contact
-- 7.2 Group Responsibilities
+1. [Project Description](#project-description)
+   - 1.1 [Scope](#scope)
+   - 1.2 [Stretch Goals](#stretch-goals)
+   - 1.3 [Out of Scope](#out-of-scope)
+
+2. [Back End](#back-end)
+   - 2.1 [Tools and Language Choice](#tools-and-language-choice-backend)
+   - 2.2 [Algorithm](#algorithm)
+   - 2.3 [Data Storage](#data-storage)
+   - 2.4 [Controller](#controller)
+   - 2.5 [Monster Generator](#monster-generator)
+
+3. [Front End](#front-end)
+   - 3.1 [Tools and Language Choice](#tools-and-language-choice-frontend)
+   - 3.2 [Web Features](#web-features)
+   - 3.3 [Data Fetching](#data-fetching)
+   - 3.4 [Graphics](#graphics)
+
+4. [Project Management Methodology](#project-management-methodology)
+
+5. [Project Tools](#project-tools)
+
+6. [Relevant Risks](#relevant-risks)
+   - 6.1 [Tools and Techniques Risk](#tools-and-techniques-risks)
+   - 6.2 [Group Member Risks](#group-member-risks)
+   - 6.3 [Time Management Risks](#time-management-risks)
+   - 6.4 [Functionality Risks](#functionality-risks)
+
+7. [Group Roles](#group-roles)
 
 
 
+<a name="project-description"></a>
 ## 1.0 Project Description
+<a name="scope"></a>
 ### 1.1 Scope
 
 - An algorithm to randomly generate maps.
@@ -38,21 +51,25 @@ The D&D map, which serves as a formal representation of the game world, is an in
 - The ability to show monsters on a separate Dungeon Master view (which can also be saved and printed off).
 - A “Dungeons and Dragons” theme / narrative.
 
-
+<a name="stretch-goals"></a>
 ### 1.2 Stretch Goals
 
 - Ability to overlay a fog-of-war over a map.
 - Set parameters e.g. the number of rooms.
 - User accounts to store their own saved worlds.
 
+<a name="out-of-scope"></a>
 ### 1.3 Out of Scope
 
 - A multiplayer web-based game.
 
+<a name="back-end"></a>
 ## 2.0 Back End
+<a name="tools-and-language-choice-backend"></a>
 ### 2.1 Tools and Language Choice
 This backend application is a Maven project that was generated through Springboot with several web/API specific dependencys. These dependencies such as 'spring-boot-starter-web' gives the application the ability to act as an API to our front end React application. Code is written in Java.
 
+<a name="algorithm"></a>
 ### 2.2 Algorithm
 Our Map will consist of 6 different quadrants. In each of the quadrants we will randomly generate predefined rooms, natural features and backgrounds. Once we have randomly generated these elements we will ensure they are spaced out and not overlapping. Once this has been achieved we will ensure all elements are accessible by linking them with paths. Every element on the map will have a unique id and this is to ensure the graphics team can determine how to render each tile on the map.
 
@@ -62,14 +79,17 @@ The algorithm works by selecting a random building or natural feature, there is 
 
 We then generate 6 random quadrants and stitch them together into one array which represents the whole map.
 
+<a name="data-storage"></a>
 ### 2.3 Data Storage
 We have decided to use local files such as .csv and .json files to store our data. This is because we are not requring the complexity and features a full fledged database offers and local files allows us to consistently share the latest version of the database within the repository when commiting and pushing.
 
 A map exporter has been developed to enable communication of the map from the back-end to the front-end. The MapExporter class serves as a channel for retrieving data from the MapBuilder, which is responsible for generating the 2D array. By parsing through each element within the map, the MapExporter then proceeds to compile and store this data within a .csv file, which can then be read by the graphics team to determine image placements. The data is written in the same order and dimensions as the map, allowing for easy translation into the graphics which also utilises identical formats and keycodes. Furthermore, this class can be extended to accommodate other map types, such as Monster or Furniture maps, should we decide to integrate them later on. Minor adjustments would allow it to export to different file formats if the need arises.
 
+<a name="controller"></a>
 ### 2.4 Controller
 The controller configures endpoints with responses and HTTP methods. We have implemented a /world GET endpoint that will generate a new world using the map generating algorithm and returns it in the response. 
 
+<a name="monster-generator"></a>
 ### 2.5 Monster Generator
 
 #### 2.5.1 Monster Names
@@ -103,10 +123,11 @@ These six digits represent the six primary attributes, often referred to as "sta
 | -- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 100% | 10% | 20% | 30% | 40% | 50% | 60% | 70% | 80% | 90% |
 
-
+<a name="front-end"></a>
 ## 3.0 Front End
 The front end of this project will be expressed as a website using React and JavaScript.
 
+<a name="tools-and-language-choice-frontend"></a>
 ### 3.1 Tools and Language Choice
 The main tools and languages used in the front-end are: React, HTML, and CSS. 
 
@@ -116,6 +137,7 @@ React is a popular JavaScript framework for building user interfaces. React's co
 #### 3.1.2 CSS
 CSS can also be applied to enhance the visual aesthetic of the web page, which is crucial for an engaging and user friendly final product.
 
+<a name="web-features"></a>
 ### 3.2 Web Features
 Our Dungeons and Dragons random map generator website will incorporate an array of essential features that seamlessly interact with the generated maps. The user interface should prioritize user-friendliness, allowing both novice and seasoned players to effortlessly navigate and manipulate the maps.
 
@@ -129,8 +151,8 @@ Our website must incorporate the features requested by the stakeholder that our 
 #### 3.2.2 Configuration
 We have decided to create a configuration dropdown menu that is persistent in the top left corner of the web application. This will allow users to toggle the visibility of the configuration settings as they require. These settings include the fog parameters, map size and download button. This feature also includes a 'generate' button that allows users to generate a new world.
 
-
-#### 3.3 Data Fetching
+<a name="data-fetching"></a>
+### 3.3 Data Fetching
 Due to having data and business logic such as the map generating algorithm abstracted away in the backend, we are required to make relevant API calls to the Maven Java backend API to retrieve this data. We currently have succesfully configured a connection to retrieve world data. 
 
 **How will the user be able to share the map?**
@@ -139,7 +161,8 @@ Due to having data and business logic such as the map generating algorithm abstr
 
 #### 3.2.2 User Interface and Usability
 
-### 3.3 Graphics
+<a name="graphics"></a>
+### 3.4 Graphics
 For the graphical elements in the map, a mixture of texture packs and elements created on photoshop will be used. The majority of the texture packs will be sourced from 2MinuteTableTop.com, which provides a range of relevant materials. We will need to ensure that we have licensed these resources accordingly.
 
 This graphics section is split into the following topics:
@@ -150,7 +173,7 @@ This graphics section is split into the following topics:
 - 3.3.5 Relevant Graphics Risk
 
 
-#### 3.3.1 Texture Elements Licencing 
+#### 3.4.1 Texture Elements Licencing 
 As mentioned above, free texutre packs will be sourced from 2MinuteTableTop.com. The below table shows the used textures and the relevant links to their source. 
 
 
@@ -158,7 +181,7 @@ The relevant licence.....
 
 
 
-#### 3.3.2 Texture Element Coding System
+#### 3.4.2 Texture Element Coding System
 Due to the nature of the project, there will be a large number of image assets to properly display the map. A image naming convention/system is essential for file organisation and communication between the team. 
 
 **Camp Images:**
@@ -262,7 +285,7 @@ Due to the nature of the project, there will be a large number of image assets t
 |<img src="world-builder/src/assets/water/water.jpg" alt="Alt Text" height="60"/> | Water          | water.jpg      | 1x1            | https://2minutetabletop.com/product/river-and-water-assets/ |
 |<img src="world-builder/src/assets/water/waterfall.png" alt="Alt Text" height="60"/> | Waterfall      | waterfall.jpg  | 2x1            | https://2minutetabletop.com/product/river-and-water-assets/ |
 
-#### 3.3.3 Graphics Algorithm
+#### 3.4.3 Graphics Algorithm
 
 Our React code will receive the map layout from the Java algorithm in the form of a 2D array. We will need to create a method that will interpret the array codes into the relevant images and React components. 
 
@@ -350,7 +373,7 @@ To do this, there should be a range of different tree images that can be selecte
 
 The link for this relevant issue can be seen [here](https://gitlab.ecs.vuw.ac.nz/richeshayd/world-builder/-/issues/9).
 
-##### 3.3.3.1 Image Codes and Ids
+##### 3.4.3.1 Image Codes and Ids
 
 | **Code** | **Image Desc** | **Image Dims** |
 |----------|----------------|----------------|
@@ -390,11 +413,11 @@ In the below table, a zero represents not a cave, and a one represents cave.
 | 18        | Massive       | [[0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 1, 1, 1, 1, 0, 0, 0, 11, 1, 1, 1, 1, 1, 0, 0, 0], [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0] ]            |
 
 
-#### 3.3.4 Hero Animation
+#### 3.4.4 Hero Animation
 For the Home/Welcome page of the website, a simple animation will play as the background. We will need to design a simple animation of a map for this section that helps capture the users attention. This will simply be done by iterating through an array of images in the background. Title text and relevant buttons should be incorporated into this design. 
 
 
-#### 3.3.5 Relevant Graphics Risk
+#### 3.4.5 Relevant Graphics Risk
 
 **Time Risks**
 
@@ -429,7 +452,7 @@ A colour coded visualisation of the above map can been seen [here](https://docs.
 
 BLAH BLAH BLAH
 
-
+<a name="project-management-methodology"></a>
 ## 4.0 Project Management Methodology
 Our group will work under an Agile project management methodology. This will involve two-week long sprints whereby each team member will work independently on an Issue. We will structure our meetings around Sprints, with each Sprint involving a Sprint Planning, Sprint Retro, and Stand-Ups.
 
@@ -447,14 +470,16 @@ Yes....
 
 These can be found here... 
 
+<a name="project-tools"></a>
 ## 5.0 Project Tools
 Our group intends to employ a combination of programming languages to complete this map generator project. Java will be utilised for implementing the general algorithm and other backend requirements, while React will serve as the platform for displaying and hosting the website. Depending on the complexity of the interactions between the two languages, we may opt to code purely in React or Java. Ideally, we would host this website once the project is successfully completed. 
 
 Our group will utilise GitLab for version control and task assignment as we have a strong proficiency with GitLab from past experiences and projects. GitLab’s scope and time management tools will help facilitate communication and collaboration within the team, and establish clear milestones that can be easily communicated with stakeholders. 
 
+<a name="relevant-risks"></a>
+## 6.0 Relevant Risks
 
-## 6.0 Relevant Risk
-
+<a name="tools-and-techniques-risks"></a>
 ### 6.1 Tools and Techniques Risks
 Throughout the project, we will assess the performance of each of the tools chossen. If we are having problems with any of them, we will need to evaluate as a group if the benefits of changing outweigh the cost and risk. There may also be extensions and practices we can incorporate to minimise these limitations. 
 
@@ -464,8 +489,8 @@ Some examples of questions we should reflect on include:
 - If no to the above, how can we change our workflow in the ‘current tool’ to improve our efficiency?
 - How can we change how we are using ‘current tool’ to minimise its limitations?
 
-
-### 6.2 Group Memeber Risks
+<a name="group-member-risks"></a>
+### 6.2 Group Member Risks
 
 #### 6.2.1 Group Role Assignment Risks
 
@@ -486,6 +511,7 @@ To mitigate this risk, we should the consider the following:
 - Have detailed comments and javadocs in our code so that members who missed coding sessions will be able to easily interpret it. 
 - If group members repeatably miss sessions, reach out to them and ask if there is anything we can do to help them attend meetings.
 
+<a name="time-management-risks"></a>
 ### 6.3 Time Management Risks
 As a group, we will reflect on our current time management strategy to assess its effectiveness. This involves our experiences with the time sprints, frequency of meeting with the stakeholder, and the agile manifesto as a whole. 
 
@@ -496,7 +522,8 @@ Some examples of questions we could reflect on include:
 - Overall, does the agile project management methodology work for us as a group? Are there other management methodologies that could be more effective?
 - Is GitLab an adequate tool for us to manage our time and tasks? 
 
-### 6.4 Functionality Risk
+<a name="functionality-risks"></a>
+### 6.4 Functionality Risks
 
 We will also need to review the overall functionality and progress with the algorithm and website. If we are behind schedule, we will need to prioritise requirements based on stakeholder feedback. Whereas if we are ahead, additional features mentioned above can be chosen to incorporate. 
 
@@ -505,7 +532,7 @@ Some examples of questions we could reflect on include:
 - If yes, what are some new features associated with the ‘current section’ that we can work on once it is completed?
 - If no, then as a group, what is preventing us from timely completing our goals and what do we need to prioritise moving forward?
 
-
+<a name="group-roles"></a>
 ## 7.0 Group Roles
 | Name            | Contact                  | Role      |
 |-----------------|--------------------------|-----------|
