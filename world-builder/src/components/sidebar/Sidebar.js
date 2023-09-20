@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState , useEffect} from "react";
 import "./Sidebar.css";
 import TuneIcon from "@mui/icons-material/Tune";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
@@ -14,19 +14,7 @@ import Loading from "../loading/loading";
 import ImportExport from "../importExport/importExport";
 import emailjs from "@emailjs/browser";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import debounce from "lodash/debounce";
-
-import {
-  Menu,
-  Button,
-  MenuItem,
-  FormControl,
-  Select,
-  Modal,
-  Typography,
-  Box,
-  Input,
-} from "@mui/material";
+import { Button, Modal, Typography, Box, Input } from "@mui/material";
 import html2canvas from "html2canvas";
 emailjs.init("VDupAfE4CYPyVT2Ry");
 
@@ -35,16 +23,34 @@ const SideBar = ({ opacityToggle }) => {
   const { worldData, loading, setWorldData } = useContext(WorldDataContext);
   const [gridSize, setGridSize] = useState(27);
   const [isOpen, setIsOpen] = useState(false);
-  const sidebarClass = isOpen ? "sidebar open" : "sidebar";
   const [slideOpen, setSlideOpen] = useState(false);
   const [slideContent, setSlideContent] = useState(null);
   const [slideButtonOpen, setSlideButtonOpen] = useState(false);
-  const configuration = slideOpen && isOpen ? "config open" : "config";
-  const buttonClass = isOpen && slideOpen ? "config-toggle" : "sidebar-toggle";
-  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   const [text, setButtonText] = useState("Insert your Email");
   const [email, setEmail] = useState("");
   const [screenshot, setScreenshot] = useState(null);
+  const sideBarRef = useRef();
+
+  const configuration = slideOpen && isOpen ? "config open" : "config";
+  const buttonClass = isOpen && slideOpen ? "config-toggle" : "sidebar-toggle";
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
+  const sidebarClass = isOpen ? "sidebar open" : "sidebar";
+
+  const handleClickOutside = (event) => {
+    if (sideBarRef.current && !sideBarRef.current.contains(event.target)) {
+      setIsOpen(false);
+      setSlideOpen(false);
+      setTimeout(() => {
+        setSlideButtonOpen(false);
+      }, 300);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   const shareFile = () => {
     setIsOpen(false);
@@ -145,11 +151,10 @@ const SideBar = ({ opacityToggle }) => {
         timeoutActive = false;
       }, 150);
     }
-
   };
 
   return (
-    <div className="sidebar-container">
+    <div className="sidebar-container" ref={sideBarRef}>
       <div className={configuration}>
         {slideContent}
         {slideButtonOpen && (
@@ -169,7 +174,7 @@ const SideBar = ({ opacityToggle }) => {
           className="large-icon"
           fontSize=""
           color=""
-          onClick={()=>{
+          onClick={() => {
             handleSlideContent("settings");
             slideHandler(<Configuration />);
           }} // Adjust the delay (300 milliseconds in this example)

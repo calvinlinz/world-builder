@@ -34,17 +34,8 @@ const ConfigDropdown = ({
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
   const [selectedMonsterOption, setSelectedMonsterOption] = useState("none");
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [text, setButtonText] = useState("Insert your Email");
-
-  const [open, setOpen] = useState(false);
-  const [email, setEmail] = useState("");
-  const [screenshot, setScreenshot] = useState(null);
-  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
 
   const downloadPNG = () => {
-    console.log("PNG");
     setShowContent(false);
     const currentMonster = selectedMonsterOption;
     setSelectedMonsterOption("none");
