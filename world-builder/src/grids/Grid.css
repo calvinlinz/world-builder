@@ -99,7 +99,7 @@
 .grid-cell {
     display: inline-block; 
     width: calc(4.1vw * var(--scale-factor));
-    height: calc(4.1w * var(--scale-factor));
+    height: calc(4.1vw * var(--scale-factor));
     overflow: hidden;
 }
 
