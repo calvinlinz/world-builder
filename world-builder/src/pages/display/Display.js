@@ -3,6 +3,7 @@ import BackgroundGrid from "../../grids/BackgroundGrid";
 import BuildingsGrid from "../../grids/BuildingsGrid";
 import NaturalFeaturesGrid from "../../grids/NaturalFeaturesGrid";
 import CaveGrid from "../../grids/CaveGrid";
+import CaveCoverGrid from "../../grids/CaveCoverGrid";
 import RoofGrid from "../../grids/RoofGrid";
 import CampGrid from "../..//grids/CampGrid";
 import PathGrid from "../../grids/PathGrid";
@@ -60,6 +61,7 @@ const Display = ({worldData, loading,setLoading}) => {
           />
           <CampGrid scaleFactor={scaleFactor} worldData={worldData} />
           <MonsterGrid worldData={worldData} scaleFactor={scaleFactor}/>
+          <CaveCoverGrid worldData={worldData} scaleFactor={scaleFactor}/>
           <div className="frame"></div>
           <div className="square-one"></div>
           <div className="square-two"></div>

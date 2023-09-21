@@ -21,7 +21,7 @@ import lrg_cave_1 from '../assets/caves/lrg_cave.png';
 import lrg_cave_2 from '../assets/caves/large_cave_2.png';
 import massive_cave from '../assets/caves/massive_cave.png';
 
-import sml_cave_cover from '../assets/caves/sml_cave_cover.png';
+import sml_cave_cover from '../assets/caves/small_cave_cover.png';
 import lrg_cave_1_cover from '../assets/caves/lrg_cave_cover.png';
 import lrg_cave_2_cover from '../assets/caves/large_cave_2_cover.png';
 import massive_cave_cover from '../assets/caves/massive_cave_cover.png';

@@ -76,6 +76,13 @@
     z-index: 5;
 }
 
+.grid-container-caves-cover{
+    position: absolute;
+    top: 2vw;
+    left: 7vw;
+    z-index: 6;
+}
+
 .grid-container-test {
     position: absolute;
     top: 2vw;
