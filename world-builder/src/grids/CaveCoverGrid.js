@@ -2,7 +2,7 @@ import "./Grid.css";
 import { allImages } from "./Constants";
 import { getCaveCords } from "./CalculatePositions";
 
-const CaveCoverGrid = ({ scaleFactor, worldData }) => {
+const CaveCoverGrid = ({ scaleFactor, worldData, caveOpacityValue}) => {
   const caveCords = getCaveCords(worldData);
   const imageMapping = {
     15: allImages.caveCoverImages.sml_cave_cover,
@@ -12,7 +12,7 @@ const CaveCoverGrid = ({ scaleFactor, worldData }) => {
   };
 
   return (
-    <div className="grid-container-caves-cover">
+    <div className="grid-container-caves-cover" style={{ opacity: caveOpacityValue }}>
       {caveCords.map((image, index) => (
         <img
           key={index}

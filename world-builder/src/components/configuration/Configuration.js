@@ -25,6 +25,7 @@ emailjs.init("VDupAfE4CYPyVT2Ry");
 
 const ConfigDropdown = ({
   opacityToggle,
+  opacityCaveToggle,
   showContent,
   setShowContent,
   gridSize,
@@ -130,6 +131,11 @@ const ConfigDropdown = ({
               control={<Checkbox />}
               label="ADD/REMOVE ROOFS"
               onChange={opacityToggle}
+            />
+            <FormControlLabel
+              control={<Checkbox />}
+              label="SHOW/HIDE CAVES"
+              onChange={opacityCaveToggle}
             />
           </FormGroup>
         </div>

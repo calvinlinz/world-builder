@@ -17,6 +17,7 @@ import { WorldDataContext } from "../../context/worldDataContext";
 
 const Display = ({worldData, loading,setLoading}) => {
   const [opacityValue, setOpacity] = useState(1);
+  const [opacityCaveValue, setCaveOpacity] = useState(1);
   const [scaleFactor, setScaleFactor] = useState(0.25);
   const [renderTimeout, setRenderTimeout] = useState(true);
   const [sidebarOpen, setSideBarOpen] = useState(false);
@@ -25,6 +26,12 @@ const Display = ({worldData, loading,setLoading}) => {
   };
   const toggleOpactiy = () => {
     setOpacity(opacityValue === 1 ? 0 : 1);
+    console.log("TOGGLE ROOF");
+  };
+
+  const toggleCaveOpactiy = () => {
+    setCaveOpacity(opacityCaveValue === 1 ? 0 : 1);
+    console.log("TOGGLE");
   };
 
   const setScaleFactorImages = (e) => {
@@ -39,7 +46,7 @@ const Display = ({worldData, loading,setLoading}) => {
 
   return (
     <>
-      <SideBar opacityToggle={toggleOpactiy} />
+      <SideBar opacityToggle={toggleOpactiy} opacityCaveToggle={toggleCaveOpactiy}/>
       {loading ? (
         <Loading />
       ) : renderTimeout ? (
@@ -61,7 +68,11 @@ const Display = ({worldData, loading,setLoading}) => {
           />
           <CampGrid scaleFactor={scaleFactor} worldData={worldData} />
           <MonsterGrid worldData={worldData} scaleFactor={scaleFactor}/>
-          <CaveCoverGrid worldData={worldData} scaleFactor={scaleFactor}/>
+          <CaveCoverGrid 
+            worldData={worldData} 
+            scaleFactor={scaleFactor}
+            caveOpacityValue={opacityCaveValue}
+          />
           <div className="frame"></div>
           <div className="square-one"></div>
           <div className="square-two"></div>
