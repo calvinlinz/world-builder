@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import BackgroundGrid from "../../grids/BackgroundGrid";
 import BuildingsGrid from "../../grids/BuildingsGrid";
 import NaturalFeaturesGrid from "../../grids/NaturalFeaturesGrid";
@@ -11,30 +11,49 @@ import "../../grids/Grid.css";
 import "./Display.css";
 import SideBar from "../../components/sidebar/Sidebar";
 import Loading from "../../components/loading/loading";
-import { useContext } from "react";
-import { WorldDataContext } from "../../context/worldDataContext";
 
-const Display = ({worldData, loading,setLoading}) => {
+const Display = ({ worldData, loading, setLoading }) => {
   const [opacityValue, setOpacity] = useState(1);
-  const [scaleFactor, setScaleFactor] = useState(0.25);
+  let scaleFactor = 0.25;
   const [renderTimeout, setRenderTimeout] = useState(true);
-  const [sidebarOpen, setSideBarOpen] = useState(false);
-  const handleViewSidebar = () => {
-    setSideBarOpen(!sidebarOpen);
+  const dragRef = useRef();
+  let isDragging = false;
+  const startX = useRef(0);
+  const startY = useRef(0);
+
+  const handleMouseDown = (e) => {
+    e.preventDefault();
+    isDragging = true;
+    startX.current = e.clientX;
+    startY.current = e.clientY;
+    // set cursor to grabbing
+    dragRef.current.classList.add("dragging");
+    };
+
+  const handleMouseMove = (e) => {
+    e.preventDefault();
+    if (!isDragging) return;
+    const deltaX = e.clientX - startX.current;
+    const deltaY = e.clientY - startY.current;
+    window.scrollBy(-deltaX, -deltaY);
+    startX.current = e.clientX;
+    startY.current = e.clientY;
+    
+    
   };
+
+  const handleMouseUp = () => {
+    isDragging = false;
+    dragRef.current.classList.remove("dragging");
+  };
+
   const toggleOpactiy = () => {
     setOpacity(opacityValue === 1 ? 0 : 1);
   };
 
-  const setScaleFactorImages = (e) => {
-    setScaleFactor(e / 10);
-    document.documentElement.style.setProperty("--scale-factor", scaleFactor);
-    console.log(scaleFactor);
-  };
-
-  useEffect(()=>{
-    setRenderTimeout(false)
-  },[])
+  useEffect(() => {
+    setRenderTimeout(false);
+  }, []);
 
   return (
     <>
@@ -44,7 +63,7 @@ const Display = ({worldData, loading,setLoading}) => {
       ) : renderTimeout ? (
         <Loading />
       ) : (
-        <>
+        <div className="world">
           <BackgroundGrid worldData={worldData} />
           <PathGrid worldData={worldData} />
           <BuildingsGrid scaleFactor={scaleFactor} worldData={worldData} />
@@ -59,13 +78,19 @@ const Display = ({worldData, loading,setLoading}) => {
             worldData={worldData}
           />
           <CampGrid scaleFactor={scaleFactor} worldData={worldData} />
-          <MonsterGrid worldData={worldData} scaleFactor={scaleFactor}/>
-          <div className="frame"></div>
+          <MonsterGrid worldData={worldData} scaleFactor={scaleFactor} />
+          <div
+            className="frame"
+            ref={dragRef}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+          ></div>
           <div className="square-one"></div>
           <div className="square-two"></div>
           <div className="square-three"></div>
           <div className="square-four"></div>
-        </>
+        </div>
       )}
     </>
   );
