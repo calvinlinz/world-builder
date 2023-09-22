@@ -14,23 +14,10 @@ import Loading from "../../components/loading/loading";
 import { useContext } from "react";
 import { WorldDataContext } from "../../context/worldDataContext";
 
-const Display = ({worldData, loading,setLoading}) => {
-  const [opacityValue, setOpacity] = useState(1);
+const Display = () => {
+  const { worldData, loading} = useContext(WorldDataContext);
   const [scaleFactor, setScaleFactor] = useState(0.25);
   const [renderTimeout, setRenderTimeout] = useState(true);
-  const [sidebarOpen, setSideBarOpen] = useState(false);
-  const handleViewSidebar = () => {
-    setSideBarOpen(!sidebarOpen);
-  };
-  const toggleOpactiy = () => {
-    setOpacity(opacityValue === 1 ? 0 : 1);
-  };
-
-  const setScaleFactorImages = (e) => {
-    setScaleFactor(e / 10);
-    document.documentElement.style.setProperty("--scale-factor", scaleFactor);
-    console.log(scaleFactor);
-  };
 
   useEffect(()=>{
     setRenderTimeout(false)
@@ -38,7 +25,7 @@ const Display = ({worldData, loading,setLoading}) => {
 
   return (
     <>
-      <SideBar opacityToggle={toggleOpactiy} />
+      <SideBar/>
       {loading ? (
         <Loading />
       ) : renderTimeout ? (
@@ -54,7 +41,6 @@ const Display = ({worldData, loading,setLoading}) => {
           />
           <CaveGrid scaleFactor={scaleFactor} worldData={worldData} />
           <RoofGrid
-            opacityValue={opacityValue}
             scaleFactor={scaleFactor}
             worldData={worldData}
           />
