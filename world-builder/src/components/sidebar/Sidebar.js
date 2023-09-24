@@ -1,16 +1,12 @@
 import React, { useRef, useState , useEffect} from "react";
 import "./Sidebar.css";
 import TuneIcon from "@mui/icons-material/Tune";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
-import PlayArrowOutlinedIcon from "@mui/icons-material/PlayArrowOutlined";
 import Configuration from "../configuration/Configuration";
-import ImportExportOutlinedIcon from "@mui/icons-material/ImportExportOutlined";
 import { useContext } from "react";
 import { WorldDataContext } from "../../context/worldDataContext";
 import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
-import Loading from "../loading/loading";
 import ImportExport from "../importExport/importExport";
 import emailjs from "@emailjs/browser";
 import RefreshIcon from "@mui/icons-material/Refresh";
@@ -18,9 +14,9 @@ import { Button, Modal, Typography, Box, Input } from "@mui/material";
 import html2canvas from "html2canvas";
 emailjs.init("VDupAfE4CYPyVT2Ry");
 
-const SideBar = ({ opacityToggle }) => {
+const SideBar = () => {
   const [open, setOpen] = useState(false);
-  const { worldData, loading, setWorldData } = useContext(WorldDataContext);
+  const { worldData, setWorldData} = useContext(WorldDataContext);
   const [gridSize, setGridSize] = useState(27);
   const [isOpen, setIsOpen] = useState(false);
   const [slideOpen, setSlideOpen] = useState(false);
@@ -30,6 +26,13 @@ const SideBar = ({ opacityToggle }) => {
   const [email, setEmail] = useState("");
   const [screenshot, setScreenshot] = useState(null);
   const sideBarRef = useRef();
+
+  const settingsComponent =  <Configuration
+  showContent={slideOpen}
+  setShowContent={setSlideOpen}
+  gridSize={gridSize}
+  setGridSize={setGridSize}
+/>
 
   const configuration = slideOpen && isOpen ? "config open" : "config";
   const buttonClass = isOpen && slideOpen ? "config-toggle" : "sidebar-toggle";
@@ -112,13 +115,7 @@ const SideBar = ({ opacityToggle }) => {
   const handleSlideContent = (type) => {
     if (type == "settings") {
       setSlideContent(
-        <Configuration
-          opacityToggle={opacityToggle}
-          showContent={slideOpen}
-          setShowContent={setSlideOpen}
-          gridSize={gridSize}
-          setGridSize={setGridSize}
-        />
+        settingsComponent
       );
     } else if (type == "import") {
       setSlideContent(<ImportExport />);
@@ -188,7 +185,7 @@ const SideBar = ({ opacityToggle }) => {
             slideHandler(<ImportExport />);
           }} // Adjust the delay (300 milliseconds in this example)
         />
-        <ContentCopyOutlinedIcon className="large-icon" fontSize="" color="" />
+        <ContentCopyOutlinedIcon className="large-icon" fontSize="" color=""/>
         <ShareOutlinedIcon
           className="large-icon"
           fontSize=""

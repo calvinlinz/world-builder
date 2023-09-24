@@ -1,16 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useContext} from "react";
 import "./Grid.css";
 import { allImages } from "./Constants";
 import { getBuildingCords } from "./CalculatePositions";
-
-const RoofGrid = ({ opacityValue, scaleFactor, worldData }) => {
-  /* const [opacityValue, setOpacity] = useState(1); 
-
-    const handleClick = () => {
-        setOpacity(opacityValue === 1 ? 0 : 1);
-    };
- */
-
+import { WorldDataContext } from "../context/worldDataContext";
+const RoofGrid = ({scaleFactor}) => {
+  const { worldData, opacityValue} = useContext(WorldDataContext);
   const buildingCords = getBuildingCords(worldData);
 
   const imageMapping = {
@@ -24,6 +18,10 @@ const RoofGrid = ({ opacityValue, scaleFactor, worldData }) => {
     12: allImages.buildingImages.roof_red_6x8,
     13: allImages.buildingImages.roof_red_7x8,
   };
+
+  useEffect(() => {
+    console.log(opacityValue);
+  }, [opacityValue]);
 
   return (
     <div>

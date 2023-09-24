@@ -12,7 +12,9 @@ import "./Display.css";
 import SideBar from "../../components/sidebar/Sidebar";
 import Loading from "../../components/loading/loading";
 
-const Display = ({ worldData, loading, setLoading }) => {
+
+const Display = () => {
+  const { worldData, loading} = useContext(WorldDataContext);
   const [opacityValue, setOpacity] = useState(1);
   let scaleFactor = 0.25;
   const [renderTimeout, setRenderTimeout] = useState(true);
@@ -54,10 +56,11 @@ const Display = ({ worldData, loading, setLoading }) => {
   useEffect(() => {
     setRenderTimeout(false);
   }, []);
+>>>>>>> world-builder/src/pages/display/Display.js
 
   return (
     <>
-      <SideBar opacityToggle={toggleOpactiy} />
+      <SideBar/>
       {loading ? (
         <Loading />
       ) : renderTimeout ? (
@@ -73,7 +76,6 @@ const Display = ({ worldData, loading, setLoading }) => {
           />
           <CaveGrid scaleFactor={scaleFactor} worldData={worldData} />
           <RoofGrid
-            opacityValue={opacityValue}
             scaleFactor={scaleFactor}
             worldData={worldData}
           />
