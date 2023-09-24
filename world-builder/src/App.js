@@ -11,6 +11,14 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
 
+
+  const setWorld = (world) =>{
+    const baseSize = 27;
+    const mapSizeFactor = (world.length/2)/baseSize;
+    document.documentElement.style.setProperty("--map_size_factor", mapSizeFactor);
+    setWorldData(world);
+  }
+
   useEffect(() => {
     setLoading(true);
     fetch(API_URL + "/world", {
