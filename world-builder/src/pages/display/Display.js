@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef,useContext } from "react";
 import BackgroundGrid from "../../grids/BackgroundGrid";
 import BuildingsGrid from "../../grids/BuildingsGrid";
 import NaturalFeaturesGrid from "../../grids/NaturalFeaturesGrid";
@@ -11,6 +11,7 @@ import "../../grids/Grid.css";
 import "./Display.css";
 import SideBar from "../../components/sidebar/Sidebar";
 import Loading from "../../components/loading/loading";
+import { WorldDataContext } from "../../context/worldDataContext";
 
 
 const Display = () => {
@@ -56,7 +57,6 @@ const Display = () => {
   useEffect(() => {
     setRenderTimeout(false);
   }, []);
->>>>>>> world-builder/src/pages/display/Display.js
 
   return (
     <>

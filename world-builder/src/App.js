@@ -45,7 +45,7 @@ function App() {
         opacityValue,
         opacityValue,
         setWorldData: (worldData, loading) => {
-          setWorldData(worldData);
+          setWorld(worldData);
           setLoading(loading);
         },
         setOpacityValue: () => {
