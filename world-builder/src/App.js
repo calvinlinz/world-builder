@@ -2,46 +2,24 @@ import React, { useEffect, useState, useRef } from "react";
 import "./App.css";
 import HomePage from "./pages/homePage/HomePage";
 import Display from "./pages/display/Display";
-import { setGrid } from "./grids/CalculatePositions";
 import { WorldDataContext } from "./context/worldDataContext";
-import Loading from './components/loading/loading'
 
-
-
-function rotateMatrix(matrix) {
-  const rows = matrix.length;
-  const cols = matrix[0].length;
-
-
-  // Create a new empty matrix with swapped dimensions
-  const rotatedMatrix = new Array(cols)
-    .fill(null)
-    .map(() => new Array(rows).fill(null));
-
-  // Transpose the matrix (swap rows and columns)
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      rotatedMatrix[j][i] = matrix[i][j];
-    }
-  }
-
-  // Reverse the order of the columns
-  for (let i = 0; i < cols; i++) {
-    rotatedMatrix[i] = rotatedMatrix[i].reverse();
-  }
-
-  return rotatedMatrix;
-}
 
 function App() {
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080"
-
   const [worldData, setWorldData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
 
+
+  const setWorld = (world) =>{
+    const baseSize = 27;
+    const mapSizeFactor = (world.length/2)/baseSize;
+    document.documentElement.style.setProperty("--map_size_factor", mapSizeFactor);
+    setWorldData(world);
+  }
+
   useEffect(() => {
-    // Fetch the data from your backend endpoint
     setLoading(true);
     fetch(API_URL+"/world", {
       method:"POST",
@@ -64,7 +42,7 @@ function App() {
     <WorldDataContext.Provider value={{
       worldData: worldData,
       setWorldData: (worldData, loading) => {
-        setWorldData(worldData);
+        setWorld(worldData);
         setLoading(loading);
       },
     }}
