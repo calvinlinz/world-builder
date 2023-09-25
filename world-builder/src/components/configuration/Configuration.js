@@ -34,32 +34,6 @@ const ConfigDropdown = ({
   const [addRemoveFog, setAddRemoveFog] = useState(false);
   const [selectedMonsterOption, setSelectedMonsterOption] = useState("none");
 
-  const downloadPNG = () => {
-    setShowContent(false);
-    const currentMonster = selectedMonsterOption;
-    setSelectedMonsterOption("none");
-    setTimeout(() => {
-      const targetElement = document.documentElement;
-      html2canvas(targetElement, {
-        width: window.innerWidth, // Set the width of the screenshot
-        height: window.innerHeight, // Set the height of the screenshot
-        x: 0, // X-coordinate of the top-left corner of the screenshot
-        y: 0, // Y-coordinate of the top-left corner of the screenshot
-      }).then((canvas) => {
-        // Convert the canvas content to a data URL (PNG image)
-        const dataURL = canvas.toDataURL("image/png;");
-        // Create a download link
-        const downloadLink = document.createElement("a");
-        downloadLink.href = dataURL;
-        const date = new Date().toISOString();
-        downloadLink.download = "map-" + date + ".png"; // Set the filename
-        downloadLink.click();
-        setShowContent(true);
-        setSelectedMonsterOption(currentMonster);
-      });
-    }, 0);
-  };
-
   // -- Handle Monster Change -------
   const handleSelectChange = (e) => {
     setSelectedMonsterOption(e.target.value);

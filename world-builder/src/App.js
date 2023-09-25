@@ -10,13 +10,23 @@ function App() {
   const [worldData, setWorldData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
-
+  const [history, setHistory] = useState(JSON.parse(localStorage.getItem("history")) || []);
 
   const setWorld = (world) =>{
     const baseSize = 27;
     const mapSizeFactor = (world.length/2)/baseSize;
     document.documentElement.style.setProperty("--map_size_factor", mapSizeFactor);
     setWorldData(world);
+  }
+
+  const handleHistory = (world) => {
+    const newHistory = history;
+    if(newHistory.length === 20){
+      newHistory.pop();
+    }
+    newHistory.unshift(world);
+    setHistory(newHistory);
+    localStorage.setItem("history", JSON.stringify(history));
   }
 
   useEffect(() => {
@@ -34,6 +44,8 @@ function App() {
       .then((data) => {
         setWorldData(data);
         setLoading(false);
+        handleHistory(data);
+        console.log(localStorage.getItem("history"))
       })
       .catch((error) => console.log(error));
   }, []);
@@ -43,7 +55,7 @@ function App() {
       value={{
         worldData: worldData,
         opacityValue,
-        opacityValue,
+        history,
         setWorldData: (worldData, loading) => {
           setWorld(worldData);
           setLoading(loading);
@@ -51,6 +63,9 @@ function App() {
         setOpacityValue: () => {
           setOpacity(opacityValue === 1 ? 0 : 1);
         },
+        setHistory: (data) => {
+          handleHistory(data);
+        }
       }}
     >
       <div className="App">

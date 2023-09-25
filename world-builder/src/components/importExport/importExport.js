@@ -47,7 +47,7 @@ const ImportExport = () => {
       <div className={styles.configContent}>
       <ToastContainer autoClose={2000}/>
 
-        <h2>IMPORT / EXPORT</h2>
+        <h2><b>IMPORT / EXPORT</b></h2>
         <div className={styles["button-container"]}>
           <div className={styles.button}>
             <Button variant="outlined" onClick={downloadJSON}>
