@@ -1,8 +1,11 @@
 import "./Grid.css";
 import { allImages } from "./Constants";
 import { getCaveCords } from "./CalculatePositions";
+import { useContext } from "react";
+import { WorldDataContext } from "../context/worldDataContext";
 
-const CaveCoverGrid = ({ scaleFactor, worldData, caveOpacityValue}) => {
+const CaveCoverGrid = () => {
+  const { worldData, opacityCaveValue } = useContext(WorldDataContext);
   const caveCords = getCaveCords(worldData);
   const imageMapping = {
     15: allImages.caveCoverImages.sml_cave_cover,
@@ -10,9 +13,10 @@ const CaveCoverGrid = ({ scaleFactor, worldData, caveOpacityValue}) => {
     17: allImages.caveCoverImages.lrg_cave_1_cover,
     18: allImages.caveCoverImages.massive_cave_cover,
   };
+  let scaleFactor = 0.25;
 
   return (
-    <div className="grid-container-caves-cover" style={{ opacity: caveOpacityValue }}>
+    <div className="grid-container-caves-cover" style={{ opacity: opacityCaveValue }}>
       {caveCords.map((image, index) => (
         <img
           key={index}

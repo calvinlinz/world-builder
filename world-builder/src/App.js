@@ -7,6 +7,8 @@ import { WorldDataContext } from "./context/worldDataContext";
 function App() {
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   const [opacityValue, setOpacity] = useState(1);
+  const [opacityCaveValue, setOpacityCaveValue] = useState(1);
+
   const [worldData, setWorldData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
@@ -45,7 +47,6 @@ function App() {
         setWorldData(data);
         setLoading(false);
         handleHistory(data);
-        console.log(localStorage.getItem("history"))
       })
       .catch((error) => console.log(error));
   }, []);
@@ -56,6 +57,7 @@ function App() {
         worldData: worldData,
         opacityValue,
         history,
+        opacityCaveValue,
         setWorldData: (worldData, loading) => {
           setWorld(worldData);
           setLoading(loading);
@@ -65,6 +67,9 @@ function App() {
         },
         setHistory: (data) => {
           handleHistory(data);
+        },
+        setOpacityCaveValue: () => {
+          setOpacityCaveValue(opacityCaveValue === 1 ? 0 : 1);
         }
       }}
     >

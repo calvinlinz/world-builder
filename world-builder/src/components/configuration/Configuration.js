@@ -24,12 +24,10 @@ import emailjs from "@emailjs/browser";
 emailjs.init("VDupAfE4CYPyVT2Ry");
 
 const ConfigDropdown = ({
-  showContent,
-  setShowContent,
   gridSize,
   setGridSize,
 }) => {
-  const { worldData, loading, setWorldData , opacityValue, setOpacityValue} = useContext(WorldDataContext);
+  const { worldData, loading, setWorldData , opacityValue, setOpacityValue, opacityCaveValue, setOpacityCaveValue} = useContext(WorldDataContext);
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
   const [selectedMonsterOption, setSelectedMonsterOption] = useState("none");
@@ -107,7 +105,7 @@ const ConfigDropdown = ({
             <FormControlLabel
               control={<Checkbox />}
               label="SHOW/HIDE CAVES"
-              onChange={opacityCaveToggle}
+              onChange={()=>{setOpacityCaveValue()}}
             />
           </FormGroup>
         </div>
