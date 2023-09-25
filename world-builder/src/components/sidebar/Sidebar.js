@@ -1,4 +1,4 @@
-import React, { useRef, useState , useEffect} from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./Sidebar.css";
 import TuneIcon from "@mui/icons-material/Tune";
 import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
@@ -24,15 +24,7 @@ const SideBar = () => {
   const [slideButtonOpen, setSlideButtonOpen] = useState(false);
   const [text, setButtonText] = useState("Insert your Email");
   const [email, setEmail] = useState("");
-  const [screenshot, setScreenshot] = useState(null);
   const sideBarRef = useRef();
-
-  const settingsComponent =  <Configuration
-  showContent={slideOpen}
-  setShowContent={setSlideOpen}
-  gridSize={gridSize}
-  setGridSize={setGridSize}
-/>
 
   const configuration = slideOpen && isOpen ? "config open" : "config";
   const buttonClass = isOpen && slideOpen ? "config-toggle" : "sidebar-toggle";
@@ -48,6 +40,7 @@ const SideBar = () => {
       }, 300);
     }
   };
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -55,44 +48,48 @@ const SideBar = () => {
     };
   }, []);
 
-  const shareFile = () => {
-    setIsOpen(false);
-    setTimeout(() => {
-      const targetElement = document.documentElement;
-      html2canvas(targetElement, {
-        width: window.innerWidth,
-        height: window.innerHeight,
-        x: 0,
-        y: 0,
-      }).then((canvas) => {
-        setOpen(true);
-        const dataURL = canvas.toDataURL("image/jpeg", 0.2);
-        setScreenshot(dataURL);
-        setIsOpen(true);
-      });
-    }, 0);
-  };
-
-  const sendEmail = () => {
-    const emailParams = {
-      to_email: email,
-      message: "Attached file are your world data as PNG format and raw data!",
-      file: btoa(JSON.stringify(worldData)),
-      image: screenshot,
-    };
-    emailjs
-      .send("service_123456789", "template_mv7apne", emailParams)
-      .then((response) => {
-        console.log("Email sent successfully!", response);
-        setOpen(false);
-        setEmail("");
-      })
-      .catch((error) => {
-        setButtonText("Error! Please try again.");
-        setEmail("");
-        console.log("Email failed to send:", error);
-        setOpen(true);
-      });
+  const sendEmail = async () => {
+    setButtonText("Sending...");
+    const world = document.querySelector("#render");
+    const worldBackground = document.querySelector(
+      ".grid-container-background"
+    );
+    const cell = document.querySelector(".grid-cell");
+    const cellWidth = cell.clientWidth;
+    const cellHeight = cell.clientHeight;
+    const height = worldBackground.clientHeight - cellHeight / 2;
+    const width = worldBackground.clientWidth - cellWidth * 2;
+    const x = worldBackground.offsetLeft + cellWidth;
+    const y = worldBackground.offsetTop + cellHeight / 2;
+    html2canvas(world, {
+      width: width,
+      height: height,
+      x: x,
+      y: y,
+    }).then((canvas) => {
+      const dataURL = canvas.toDataURL("image/jpeg", 0.5);
+      const emailParams = {
+        to_email: email,
+        message:
+          "Attached file are your world data as PNG format and raw data!",
+        file: btoa(JSON.stringify(worldData)),
+        image: dataURL,
+      };
+      emailjs
+        .send("service_123456789", "template_mv7apne", emailParams)
+        .then((response) => {
+          console.log("Email sent successfully!", response);
+          setOpen(false);
+          setEmail("");
+          setButtonText("Insert your Email");
+        })
+        .catch((error) => {
+          setButtonText("Error! Please try again.");
+          setEmail("");
+          console.log("Email failed to send:", error);
+          setOpen(true);
+        });
+    });
   };
 
   let timeoutActive = false;
@@ -115,7 +112,12 @@ const SideBar = () => {
   const handleSlideContent = (type) => {
     if (type == "settings") {
       setSlideContent(
-        settingsComponent
+        <Configuration
+          showContent={slideOpen}
+          setShowContent={setSlideOpen}
+          gridSize={gridSize}
+          setGridSize={setGridSize}
+        />
       );
     } else if (type == "import") {
       setSlideContent(<ImportExport />);
@@ -174,7 +176,7 @@ const SideBar = () => {
           onClick={() => {
             handleSlideContent("settings");
             slideHandler(<Configuration />);
-          }} // Adjust the delay (300 milliseconds in this example)
+          }}
         />
         <CloudUploadOutlinedIcon
           className="large-icon"
@@ -183,14 +185,16 @@ const SideBar = () => {
           onClick={() => {
             handleSlideContent("import");
             slideHandler(<ImportExport />);
-          }} // Adjust the delay (300 milliseconds in this example)
+          }} 
         />
-        <ContentCopyOutlinedIcon className="large-icon" fontSize="" color=""/>
+        <ContentCopyOutlinedIcon className="large-icon" fontSize="" color="" />
         <ShareOutlinedIcon
           className="large-icon"
           fontSize=""
           color=""
-          onClick={shareFile}
+          onClick={() => {
+            setOpen(true);
+          }}
         />
         <RefreshIcon
           className="large-icon"

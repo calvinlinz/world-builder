@@ -29,7 +29,6 @@ const Display = () => {
     isDragging = true;
     startX.current = e.clientX;
     startY.current = e.clientY;
-    // set cursor to grabbing
     dragRef.current.classList.add("dragging");
     };
 
@@ -42,16 +41,11 @@ const Display = () => {
     startX.current = e.clientX;
     startY.current = e.clientY;
     
-    
   };
 
   const handleMouseUp = () => {
     isDragging = false;
     dragRef.current.classList.remove("dragging");
-  };
-
-  const toggleOpactiy = () => {
-    setOpacity(opacityValue === 1 ? 0 : 1);
   };
 
   useEffect(() => {
@@ -67,6 +61,7 @@ const Display = () => {
         <Loading />
       ) : (
         <div className="world">
+          <div id = "render">
           <BackgroundGrid worldData={worldData} />
           <PathGrid worldData={worldData} />
           <BuildingsGrid scaleFactor={scaleFactor} worldData={worldData} />
@@ -81,6 +76,7 @@ const Display = () => {
           />
           <CampGrid scaleFactor={scaleFactor} worldData={worldData} />
           <MonsterGrid worldData={worldData} scaleFactor={scaleFactor} />
+          </div>
           <div
             className="frame"
             ref={dragRef}
