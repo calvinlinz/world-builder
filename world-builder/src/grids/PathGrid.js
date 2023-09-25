@@ -3,7 +3,7 @@ import './Grid.css';
 import { allImages } from './Constants';
 import { getAbovePathEdge, getBelowPathEdge, getLeftPathEdge, getRightPathEdge} from './CalculatePositions';
 
-const PathGrid = ({scaleFactor, worldData}) => {
+const PathGrid = ({worldData}) => {
     const grid = worldData;
 
     const abovePathEdges = getAbovePathEdge(worldData);

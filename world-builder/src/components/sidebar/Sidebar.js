@@ -13,12 +13,15 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import { Button, Modal, Typography, Box, Input } from "@mui/material";
 import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
 import html2canvas from "html2canvas";
+import History from "../history/history";
+import HistoryIcon from '@mui/icons-material/History';
 import jsPDF from "jspdf";
 emailjs.init("VDupAfE4CYPyVT2Ry");
 
 const SideBar = () => {
   const [open, setOpen] = useState(false);
-  const { worldData, setWorldData} = useContext(WorldDataContext);
+  const { worldData, setWorldData, setHistory ,loading} =
+    useContext(WorldDataContext);
   const [gridSize, setGridSize] = useState(27);
   const [isOpen, setIsOpen] = useState(false);
   const [slideOpen, setSlideOpen] = useState(false);
@@ -114,6 +117,9 @@ const SideBar = () => {
   };
 
   const handleGenerate = () => {
+    if(loading){
+      return;
+    }
     setWorldData(worldData, true);
     fetch(API_URL + "/world", {
       method: "POST",
@@ -125,7 +131,10 @@ const SideBar = () => {
       }),
     })
       .then((response) => response.json())
-      .then((data) => setWorldData(data, false))
+      .then((data) => {
+        setWorldData(data, false);
+        setHistory(data);
+      })
       .catch((error) => console.log(error));
   };
 
@@ -139,8 +148,13 @@ const SideBar = () => {
           setGridSize={setGridSize}
         />
       );
+      slideHandler(<Configuration />);
     } else if (type == "import") {
       setSlideContent(<ImportExport />);
+      slideHandler(<ImportExport />);
+    } else if (type == "history") {
+      setSlideContent(<History />);
+      slideHandler(<History />);
     }
   };
 
@@ -193,28 +207,26 @@ const SideBar = () => {
           className="large-icon"
           fontSize=""
           color=""
-          onClick={() => {
-            handleSlideContent("settings");
-            slideHandler(<Configuration />);
-          }}
+          onClick={() => handleSlideContent("settings")}
         />
         <CloudUploadOutlinedIcon
           className="large-icon"
           fontSize=""
           color=""
-          onClick={() => {
-            handleSlideContent("import");
-            slideHandler(<ImportExport />);
-          }} 
+          onClick={() => handleSlideContent("import")}
+        />
+        <HistoryIcon
+          className="large-icon"
+          fontSize=""
+          color=""
+          onClick={() => handleSlideContent("history")}
         />
         <LocalPrintshopOutlinedIcon className="large-icon" fontSize="" color="" onClick={handlePrint} />
         <ShareOutlinedIcon
           className="large-icon"
           fontSize=""
           color=""
-          onClick={() => {
-            setOpen(true);
-          }}
+          onClick={() => setOpen(true)}
         />
         <RefreshIcon
           className="large-icon"
