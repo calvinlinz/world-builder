@@ -57,6 +57,13 @@
     z-index: 4;
 }
 
+.grid-container-furniture {
+    position: absolute;
+    top: 2vw;
+    left: 7vw;
+    z-index: 4;
+}
+
 .grid-container-monsters {
     position: absolute;
     top: 2vw;
@@ -69,6 +76,13 @@
     top: 2vw;
     left: 7vw;
     z-index: 5;
+}
+
+.grid-container-caves-cover {
+    position: absolute;
+    top: 2vw;
+    left: 7vw;
+    z-index: 6;
 }
 
 .grid-container-test {

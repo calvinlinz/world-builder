@@ -5,7 +5,9 @@ export const WorldDataContext = createContext({
     loading: false,
     opacityValue: 1,
     history: [],
+    opacityCaveValue: 1,
     setAuthentication: () => {},
     setOpacityValue: () => {},
     setHistory: () => {},
+    setOpacityCaveValue: () => {}
 });

@@ -1,8 +1,9 @@
-import React, { useEffect, useState, useRef,useContext } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import BackgroundGrid from "../../grids/BackgroundGrid";
 import BuildingsGrid from "../../grids/BuildingsGrid";
 import NaturalFeaturesGrid from "../../grids/NaturalFeaturesGrid";
 import CaveGrid from "../../grids/CaveGrid";
+import CaveCoverGrid from "../../grids/CaveCoverGrid";
 import RoofGrid from "../../grids/RoofGrid";
 import CampGrid from "../..//grids/CampGrid";
 import PathGrid from "../../grids/PathGrid";
@@ -13,9 +14,8 @@ import SideBar from "../../components/sidebar/Sidebar";
 import Loading from "../../components/loading/loading";
 import { WorldDataContext } from "../../context/worldDataContext";
 
-
 const Display = () => {
-  const { worldData, loading} = useContext(WorldDataContext);
+  const { worldData, loading } = useContext(WorldDataContext);
   const [opacityValue, setOpacity] = useState(1);
   let scaleFactor = 0.25;
   const [renderTimeout, setRenderTimeout] = useState(true);
@@ -30,7 +30,7 @@ const Display = () => {
     startX.current = e.clientX;
     startY.current = e.clientY;
     dragRef.current.classList.add("dragging");
-    };
+  };
 
   const handleMouseMove = (e) => {
     e.preventDefault();
@@ -40,7 +40,6 @@ const Display = () => {
     window.scrollBy(-deltaX, -deltaY);
     startX.current = e.clientX;
     startY.current = e.clientY;
-    
   };
 
   const handleMouseUp = () => {
@@ -54,28 +53,27 @@ const Display = () => {
 
   return (
     <>
-      <SideBar/>
+      <SideBar />
       {loading ? (
         <Loading />
       ) : renderTimeout ? (
         <Loading />
       ) : (
         <div className="world">
-          <div id = "render">
-          <BackgroundGrid worldData={worldData} />
-          <PathGrid worldData={worldData} />
-          <BuildingsGrid scaleFactor={scaleFactor} worldData={worldData} />
-          <NaturalFeaturesGrid
-            scaleFactor={scaleFactor}
-            worldData={worldData}
-          />
-          <CaveGrid scaleFactor={scaleFactor} worldData={worldData} />
-          <RoofGrid
-            scaleFactor={scaleFactor}
-            worldData={worldData}
-          />
-          <CampGrid scaleFactor={scaleFactor} worldData={worldData} />
-          <MonsterGrid worldData={worldData} scaleFactor={scaleFactor} />
+          <div id="render">
+            <BackgroundGrid worldData={worldData} />
+            <PathGrid worldData={worldData} />
+
+            <CaveCoverGrid />
+            <BuildingsGrid scaleFactor={scaleFactor} worldData={worldData} />
+            <NaturalFeaturesGrid
+              scaleFactor={scaleFactor}
+              worldData={worldData}
+            />
+            <CaveGrid scaleFactor={scaleFactor} worldData={worldData} />
+            <RoofGrid scaleFactor={scaleFactor} worldData={worldData} />
+            <CampGrid scaleFactor={scaleFactor} worldData={worldData} />
+            <MonsterGrid worldData={worldData} scaleFactor={scaleFactor} />
           </div>
           <div
             className="frame"
