@@ -3,7 +3,7 @@
 }
 
 .sidebar {
-    position: absolute;
+    position: fixed;
     left: -80px;
     height: 100%;
     width: 80px;
@@ -29,7 +29,7 @@
 }
 
 .content {
-    position: absolute;
+    position: fixed;
     z-index: 1003;
     top: 60px;
     left: 0;
@@ -102,7 +102,7 @@
 }
 
 .config {
-    position: absolute;
+    position: fixed;
     width: 300px;
     left: -300px;
     top: 0px;

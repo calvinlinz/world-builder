@@ -2,78 +2,81 @@ import React, { useEffect, useState, useRef } from "react";
 import "./App.css";
 import HomePage from "./pages/homePage/HomePage";
 import Display from "./pages/display/Display";
-import { setGrid } from "./grids/CalculatePositions";
 import { WorldDataContext } from "./context/worldDataContext";
-import Loading from './components/loading/loading'
-
-
-
-function rotateMatrix(matrix) {
-  const rows = matrix.length;
-  const cols = matrix[0].length;
-
-
-  // Create a new empty matrix with swapped dimensions
-  const rotatedMatrix = new Array(cols)
-    .fill(null)
-    .map(() => new Array(rows).fill(null));
-
-  // Transpose the matrix (swap rows and columns)
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      rotatedMatrix[j][i] = matrix[i][j];
-    }
-  }
-
-  // Reverse the order of the columns
-  for (let i = 0; i < cols; i++) {
-    rotatedMatrix[i] = rotatedMatrix[i].reverse();
-  }
-
-  return rotatedMatrix;
-}
 
 function App() {
-  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080"
-
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
+  const [opacityValue, setOpacity] = useState(1);
   const [worldData, setWorldData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
+  const [history, setHistory] = useState(JSON.parse(localStorage.getItem("history")) || []);
+
+  const setWorld = (world) =>{
+    const baseSize = 27;
+    const mapSizeFactor = (world.length/2)/baseSize;
+    document.documentElement.style.setProperty("--map_size_factor", mapSizeFactor);
+    setWorldData(world);
+  }
+
+  const handleHistory = (world) => {
+    const newHistory = history;
+    if(newHistory.length === 20){
+      newHistory.pop();
+    }
+    newHistory.unshift(world);
+    setHistory(newHistory);
+    localStorage.setItem("history", JSON.stringify(history));
+  }
 
   useEffect(() => {
-    // Fetch the data from your backend endpoint
     setLoading(true);
-    fetch(API_URL+"/world", {
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json",
+    fetch(API_URL + "/world", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        size:27
+        size: 27,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setWorldData(data);
+        setLoading(false);
+        handleHistory(data);
+        console.log(localStorage.getItem("history"))
       })
-    }).then((response)=>response.json())
-    .then((data)=>{setWorldData(data);setLoading(false)})
-    .catch((error)=>console.log(error));
+      .catch((error) => console.log(error));
   }, []);
 
-  const startGame = () => {
-    setGameStarted(true);
-  };
-
   return (
-    <WorldDataContext.Provider value={{
-      worldData: worldData,
-      setWorldData: (worldData, loading) => {
-        setWorldData(worldData);
-        setLoading(loading);
-      },
-    }}
-  >
+    <WorldDataContext.Provider
+      value={{
+        worldData: worldData,
+        opacityValue,
+        history,
+        setWorldData: (worldData, loading) => {
+          setWorld(worldData);
+          setLoading(loading);
+        },
+        setOpacityValue: () => {
+          setOpacity(opacityValue === 1 ? 0 : 1);
+        },
+        setHistory: (data) => {
+          handleHistory(data);
+        }
+      }}
+    >
       <div className="App">
         {gameStarted ? (
-          <Display worldData={worldData} loading={loading} setLoading={setLoading}/>
+          <Display
+            worldData={worldData}
+            loading={loading}
+            setLoading={setLoading}
+          />
         ) : (
-          <HomePage startGame={startGame} />
+          <HomePage startGame={() => setGameStarted(true)} />
         )}
       </div>
     </WorldDataContext.Provider>

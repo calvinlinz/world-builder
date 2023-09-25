@@ -3,7 +3,7 @@ import './Grid.css';
 import { allImages } from './Constants';
 import { getAbovePathEdge, getBelowPathEdge, getLeftPathEdge, getRightPathEdge} from './CalculatePositions';
 
-const PathGrid = ({scaleFactor, worldData}) => {
+const PathGrid = ({worldData}) => {
     const grid = worldData;
 
     const abovePathEdges = getAbovePathEdge(worldData);
@@ -110,7 +110,7 @@ const PathGrid = ({scaleFactor, worldData}) => {
             <div key={rowIndex} className="grid-row">
                 {row.map((cell, columnIndex) => (
                 <span key={columnIndex} className="grid-cell">
-                    {cell == 40 ? <img key={columnIndex} className="grid-cell" src={allImages.pathImages.path_light} alt={`Image ${cell}`} /> : <img key={columnIndex} className="grid-cell" src={allImages.transparent} alt={`Image ${cell}`} />}
+                    {cell == 40 ? <img key={columnIndex} className="grid-cell" src={allImages.pathImages.path_light} alt={`Image ${cell}`}/> : <img key={columnIndex} className="grid-cell" src={allImages.transparent} alt={`Image ${cell}`} />}
                 </span>
                 ))}
             </div>

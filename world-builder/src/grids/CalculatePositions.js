@@ -109,7 +109,6 @@ const symetricalCodes = [5, 7, 8, 10];
 // Will return the degree that the building is orientated at 
 function findOrientation(startY, startX, value, grid) {
     const width = imageDims[value][0];
-    console.log(grid[startY][startX]);
     const widthCheck = grid[startY][startX + width];
     if (widthCheck === value) {
         if (value === grid[startY][startX + width + 1]) {
