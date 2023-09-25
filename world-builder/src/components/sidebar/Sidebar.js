@@ -11,10 +11,11 @@ import ImportExport from "../importExport/importExport";
 import emailjs from "@emailjs/browser";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { Button, Modal, Typography, Box, Input } from "@mui/material";
+import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
 import html2canvas from "html2canvas";
 import History from "../history/history";
 import HistoryIcon from '@mui/icons-material/History';
-import {debounce} from "@mui/material";
+import jsPDF from "jspdf";
 emailjs.init("VDupAfE4CYPyVT2Ry");
 
 const SideBar = () => {
@@ -34,6 +35,7 @@ const SideBar = () => {
   const buttonClass = isOpen && slideOpen ? "config-toggle" : "sidebar-toggle";
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   const sidebarClass = isOpen ? "sidebar open" : "sidebar";
+  let timeoutActive = false;
 
   const handleClickOutside = (event) => {
     if (sideBarRef.current && !sideBarRef.current.contains(event.target)) {
@@ -52,8 +54,9 @@ const SideBar = () => {
     };
   }, []);
 
-  const sendEmail = async () => {
-    setButtonText("Sending...");
+
+
+  const handleHtml2Canvas = async () => {
     const world = document.querySelector("#render");
     const worldBackground = document.querySelector(
       ".grid-container-background"
@@ -65,38 +68,54 @@ const SideBar = () => {
     const width = worldBackground.clientWidth - cellWidth * 2;
     const x = worldBackground.offsetLeft + cellWidth;
     const y = worldBackground.offsetTop + cellHeight / 2;
-    html2canvas(world, {
+    const canvas = await html2canvas(world, {
       width: width,
       height: height,
       x: x,
       y: y,
-    }).then((canvas) => {
-      const dataURL = canvas.toDataURL("image/jpeg", 0.5);
-      const emailParams = {
-        to_email: email,
-        message:
-          "Attached file are your world data as PNG format and raw data!",
-        file: btoa(JSON.stringify(worldData)),
-        image: dataURL,
-      };
-      emailjs
-        .send("service_123456789", "template_mv7apne", emailParams)
-        .then((response) => {
-          console.log("Email sent successfully!", response);
-          setOpen(false);
-          setEmail("");
-          setButtonText("Insert your Email");
-        })
-        .catch((error) => {
-          setButtonText("Error! Please try again.");
-          setEmail("");
-          console.log("Email failed to send:", error);
-          setOpen(true);
-        });
+    })
+    return canvas;
+  }
+
+  const handlePrint = async () => {
+    const canvas = await handleHtml2Canvas();
+    const dataURL = canvas.toDataURL("image/jpeg", 0.4);
+    const pdf = new jsPDF({
+      orientation: 'landscape',
     });
+    const imgProps= pdf.getImageProperties(dataURL);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    pdf.addImage(dataURL, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    pdf.autoPrint();
+    window.open(pdf.output('bloburl'), '_blank');
+  }
+
+  const sendEmail = async () => {
+    setButtonText("Sending...");
+    const canvas = await handleHtml2Canvas();
+    const dataURL = canvas.toDataURL("image/jpeg", 0.4);
+    const emailParams = {
+      to_email: email,
+      message: "Attached file are your world data as PNG format and raw data!",
+      file: btoa(JSON.stringify(worldData)),
+      image: dataURL,
+    };
+    emailjs
+      .send("service_123456789", "template_mv7apne", emailParams)
+      .then((response) => {
+        setOpen(false);
+        setEmail("");
+        setButtonText("Insert your Email");
+      })
+      .catch((error) => {
+        setButtonText("Error! Please try again.");
+        console.log("Email failed to send:", error);
+        setOpen(true);
+        setEmail("");
+      });
   };
 
-  let timeoutActive = false;
   const handleGenerate = () => {
     if(loading){
       return;
@@ -202,6 +221,7 @@ const SideBar = () => {
           color=""
           onClick={() => handleSlideContent("history")}
         />
+        <LocalPrintshopOutlinedIcon className="large-icon" fontSize="" color="" onClick={handlePrint} />
         <ShareOutlinedIcon
           className="large-icon"
           fontSize=""
