@@ -51,41 +51,26 @@ public class ForestGenerator {
             // Pick a random spot in the 
             int randomX = rand.nextInt(forestSquare[0].length);
             int randomY = rand.nextInt(forestSquare.length);
+            failure++;
         }
                         
-                
-
-
-        
+    
 
         return forestSquare;
     }
     
 
-    /**
-     * Iterate through the entire map once, and place a forest where possible.
-     */
-    public void generateAForest(){
-        int currTrees = 0;
-        int rows = this.map.length;
-        int cols = this.map[0].length;
-
-
-
-
-        currForests++;
-    }
 
     public int[][] generateForests(){
+        System.out.println("\n\nCREATING FOREST SQUARE");
         int[][] forestSquare = createForestSquare(20);
         for (int i = 0; i < forestSquare.length; i++) {
             for (int j = 0; j < forestSquare[i].length; j++) {
                 System.out.print(forestSquare[i][j] + " ");
             }
-            // Print a new line after each row
             System.out.println();
         }
-
+        System.out.println("END OF FOREST SQUARE\n\n");
         return this.map;
     }
 }
