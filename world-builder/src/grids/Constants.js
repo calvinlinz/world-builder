@@ -102,6 +102,22 @@ import building_7x8 from '../assets/village/7x8_building.png';
 import roof_blue_7x8 from '../assets/village/7x8_roof_blue.png';
 import roof_red_7x8 from '../assets/village/7x8_roof_red.png';
 
+// Furniture Images: 
+import furniture_3x3_1 from '../assets/furniture/3x3_furniture_1.png';
+import furniture_3x3_2 from '../assets/furniture/3x3_furniture_2.png';
+import furniture_4x4_1 from '../assets/furniture/4x4_furniture_1.png';
+import furniture_4x4_2 from '../assets/furniture/4x4_furniture_2.png';
+import furniture_4x6_1 from '../assets/furniture/4x6_furniture_1.png';
+import furniture_4x6_2 from '../assets/furniture/4x6_furniture_2.png';
+import furniture_5x5_1 from '../assets/furniture/5x5_furniture_1.png';
+import furniture_5x5_2 from '../assets/furniture/5x5_furniture_2.png';
+import furniture_6x3_1 from '../assets/furniture/6x3_furniture_1.png';
+import furniture_6x3_2 from '../assets/furniture/6x3_furniture_2.png';
+import furniture_6x8_1 from '../assets/furniture/6x8_furniture_1.png';
+import furniture_6x8_2 from '../assets/furniture/6x8_furniture_2.png';
+import furniture_7x8_1 from '../assets/furniture/7x8_furniture_1.png';
+import furniture_7x8_2 from '../assets/furniture/7x8_furniture_2.png';
+
 // Water images:
 import bridge from '../assets/water/bridge.png';
 import water_rock from '../assets/water/water_rock.png';
@@ -362,6 +378,24 @@ const waterImages = {
     waterfall,
 }
 
+const furnitureImages = {
+    furniture_3x3_1,
+    furniture_3x3_2,
+    furniture_4x4_1,
+    furniture_4x4_2,
+    furniture_4x6_1,
+    furniture_4x6_2,
+    furniture_5x5_1,
+    furniture_5x5_2,
+    furniture_6x3_1,
+    furniture_6x3_2,
+    furniture_6x8_1,
+    furniture_6x8_2,
+    furniture_7x8_1,
+    furniture_7x8_2,
+}
+
+
 const allImages = {
     transparent,
     campImages,
@@ -391,6 +425,7 @@ const allImages = {
     waterImages,
     monsterImages,
     houseMonsterImages,
+    furnitureImages,
 }
 
 export{
