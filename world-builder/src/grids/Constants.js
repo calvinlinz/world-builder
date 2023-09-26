@@ -21,6 +21,11 @@ import lrg_cave_1 from '../assets/caves/lrg_cave.png';
 import lrg_cave_2 from '../assets/caves/large_cave_2.png';
 import massive_cave from '../assets/caves/massive_cave.png';
 
+import sml_cave_cover from '../assets/caves/small_cave_cover.png';
+import lrg_cave_1_cover from '../assets/caves/lrg_cave_cover.png';
+import lrg_cave_2_cover from '../assets/caves/large_cave_2_cover.png';
+import massive_cave_cover from '../assets/caves/massive_cave_cover.png';
+
 // Forest images:
 import bush1 from '../assets/forest/bush1.png';
 import bush2 from '../assets/forest/bush2.png';
@@ -193,6 +198,10 @@ const caveImages = {
     lrg_cave_1,
     lrg_cave_2,
     massive_cave,
+    sml_cave_cover,
+    lrg_cave_1_cover,
+    lrg_cave_2_cover,
+    massive_cave_cover,
 }
 
 const preMadeCaveImages = {
@@ -200,6 +209,13 @@ const preMadeCaveImages = {
     lrg_cave_1,
     lrg_cave_2,
     massive_cave,
+}
+
+const caveCoverImages = {
+    sml_cave_cover,
+    lrg_cave_1_cover,
+    lrg_cave_2_cover,
+    massive_cave_cover,
 }
 
 const forestImages = {
@@ -389,6 +405,7 @@ const allImages = {
     campAccessory,
     caveImages,
     preMadeCaveImages,
+    caveCoverImages,
     forestImages,
     forestTree,
     forestBushGreen,

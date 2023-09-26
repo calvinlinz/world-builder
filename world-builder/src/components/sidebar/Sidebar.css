@@ -3,7 +3,7 @@
 }
 
 .sidebar {
-    position: absolute;
+    position: fixed;
     left: -80px;
     height: 100%;
     width: 80px;
@@ -12,36 +12,24 @@
     background-color: #1f1f1f;
 }
 
-.sidebar-toggle {
-    position: absolute;
-    right: -60px;
-    height: 60px;
-    top: 60px;
-    width: 60px;
-    z-index: 1001;
-    transition: left 0.3s ease-in-out;
-}
-
-.sidebar-toggle:hover {
-    color: #bababa;
-}
-
+.sidebar-toggle,
 .config-toggle {
     position: absolute;
     right: -60px;
     height: 60px;
-    top: 60px;
+    top: 67px;
     width: 60px;
     z-index: 1001;
     transition: left 0.3s ease-in-out;
 }
 
+.sidebar-toggle:hover,
 .config-toggle:hover {
     color: #bababa;
 }
 
 .content {
-    position: absolute;
+    position: fixed;
     z-index: 1003;
     top: 60px;
     left: 0;
@@ -80,10 +68,13 @@
 
 .hamburger {
     background-color: var(--frame-color);
-    padding: 5px 10px 10px 10px;
+    padding: 5px 10px 5px 10px;
     width: 30px;
     height: 23.5px;
     z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .hamburger:hover {
@@ -111,13 +102,13 @@
 }
 
 .config {
-    position: absolute;
+    position: fixed;
     width: 300px;
     left: -300px;
     top: 0px;
     height: 100vh;
     z-index: 1002;
-    background-color: white;
+    background-color: #f7f7f1;
     transition: left 0.3s ease-in-out;
 }
 

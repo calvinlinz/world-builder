@@ -1,17 +1,22 @@
 :root {
-    --frame-color:  #f7f7f2;
+    --frame-color: #f7f7f2;
     --background-color: #1c1c1c;
 }
-  
 
-body{
-    width:100vw;
+body {
+    width: 100vw;
     height: 100vh;
     /* background: radial-gradient(circle, #13426e, #101860); */
     background-color: var(--background-color);
 }
 
-.dropShadow{
+.world {
+    position: absolute;
+    top: 0.7vw;
+    left: 2vw;
+}
+
+.dropShadow {
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 1);
     position: absolute;
     width: 79.2vw;
@@ -27,8 +32,10 @@ body{
     width: 81.8vw;
     height: 97vh;
     background-color: var(--frame-color);
-    border-radius: 3vw; /* Adjust the radius value to your preference */
-    padding: 0px; /* Optional: Add padding to provide some spacing between content and rounded corners */
+    border-radius: 3vw;
+    /* Adjust the radius value to your preference */
+    padding: 0px;
+    /* Optional: Add padding to provide some spacing between content and rounded corners */
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 1);
     position: absolute;
 }
@@ -38,51 +45,59 @@ body{
     left: 10vw;
     width: 80vw;
     height: 95vh;
-    border: 20px solid var(--frame-color); /* Border color for the frame */
-    border-radius: 3vw; /* Adjust the radius value for rounded corners */
-    background-color: transparent; /* Transparent inside */
-    box-sizing: border-box; /* Make sure the border width is included in the element's dimensions */
+    border: 20px solid var(--frame-color);
+    /* Border color for the frame */
+    border-radius: 3vw;
+    /* Adjust the radius value for rounded corners */
+    background-color: transparent;
+    /* Transparent inside */
+    box-sizing: border-box;
+    /* Make sure the border width is included in the element's dimensions */
     z-index: 1000;
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.8);
-    position: absolute;
+    position: fixed;
 }
 
-.square-one{
+.frame.dragging {
+    cursor: grabbing;
+}
+
+.square-one {
     top: 2vw;
-    left: 1vw;
-    width: 10.3vw;
-    height: 98vh; 
+    left: 0vw;
+    width: 11.1vw;
+    height: 98vh;
     background-color: var(--background-color);
     z-index: 999;
-    position: absolute;
+    position: fixed;
 }
 
-.square-two{
+.square-two {
     top: 2vw;
-    left: 88.6vw;
+    left: 88.8vw;
     width: 11.4vw;
-    height: 98vh; 
+    height: 98vh;
     background-color: var(--background-color);
     z-index: 999;
-    position: absolute;
+    position: fixed;
 }
 
-.square-three{
-    top: 95.2vh;
-    left: 88.5vw;
-    width: 1vw;
-    height: 1vw; 
+.square-three {
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 2vw;
     background-color: var(--background-color);
     z-index: 999;
-    position: absolute;
+    position: fixed;
 }
 
-.square-four{
-    top: 95.2vh;
+.square-four {
+    top: 96.2vh;
     left: 10.3vw;
     width: 89.7vw;
-    height: 4.8vh; 
+    height: 4.8vh;
     background-color: var(--background-color);
     z-index: 999;
-    position: absolute;
+    position: fixed;
 }
