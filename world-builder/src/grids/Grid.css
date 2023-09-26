@@ -40,6 +40,13 @@
     z-index: 3;
 }
 
+.grid-container-furniture {
+    position: absolute;
+    top: 2vw;
+    left: 7vw;
+    z-index: 4;
+}
+
 .grid-container-camp{
     position: absolute;
     top: 2vw;
