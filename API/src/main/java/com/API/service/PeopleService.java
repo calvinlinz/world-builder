@@ -121,4 +121,22 @@ public class PeopleService {
                 .orElse(0L);
         return maxId + 1;
     }
+
+    public void deletePersonById(Long id) {
+        readData();
+        personList.removeIf(person -> id.equals(person.getId()));
+        JSONArray peopleJSON = new JSONArray();
+        for (Person p : personList) {
+            JSONObject personJSON = new JSONObject();
+            personJSON.put("id", p.getId());
+            personJSON.put("host", p.isHost());
+            peopleJSON.add(personJSON);
+        }
+        try (FileWriter writer = new FileWriter("src/main/resources/db/users.json")) {
+            writer.write(peopleJSON.toJSONString());
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

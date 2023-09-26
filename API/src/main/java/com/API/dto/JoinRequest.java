@@ -1,6 +1,6 @@
 package com.API.dto;
 
-public class PersonRequest {
+public class JoinRequest{
     private boolean host;
 
     public boolean getHost() {

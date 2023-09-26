@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.API.dto.PersonRequest;
+import com.API.dto.JoinRequest;
+import com.API.dto.LeaveRequest;
 import com.API.dto.WorldRequest;
 import com.API.model.Person;
 import com.API.service.MapBuilder;
@@ -35,12 +36,22 @@ public class GameController {
     }
 
     @PutMapping("/join")
-    public ResponseEntity<int[][]> newPlayer(@RequestBody PersonRequest personRequest) {
+    public ResponseEntity<int[][]> newPlayer(@RequestBody JoinRequest joinRequest) {
+        boolean host = joinRequest.getHost();
         long id = peopleService.findNextId();
-        Person player = new Person(id,personRequest.getHost());
+        Person player = new Person(id,host);
         peopleService.newPlayer(player);
         return ResponseEntity.ok().build();
     }
+
+
+    @PutMapping("/leave")
+    public ResponseEntity<int[][]> deletePlayer(@RequestBody LeaveRequest leaveRequest) {
+        long id = leaveRequest.getId();
+        peopleService.deletePersonById(id);
+        return ResponseEntity.ok().build();
+    }
+
 
     @PostMapping("/generate")
     public ResponseEntity<int[][]> postWorld(@RequestBody WorldRequest worldRequest) {
