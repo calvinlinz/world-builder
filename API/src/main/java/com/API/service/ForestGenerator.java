@@ -37,6 +37,17 @@ public class ForestGenerator {
         this.map = this.mapBuilder.getMap();
     }
 
+    private Set<String> findSurroundingSquares(Set<String> placedPositions, int row, int col){
+        placedPositions.add((row - 1) + "," + (col - 1));
+        placedPositions.add((row - 1) + "," + (col));
+        placedPositions.add((row - 1) + "," + (col + 1));
+        placedPositions.add(row + "," + (col - 1));
+        placedPositions.add(row + "," + (col + 1));
+        placedPositions.add((row + 1) + "," + (col - 1));
+        placedPositions.add((row + 1) + "," + (col));
+        placedPositions.add((row + 1) + "," + (col + 1));
+        return placedPositions;
+    }
 
     public int[][] createForestSquare(int size){
         // Create a forest square that is 20x20 and fill it up with background.
@@ -47,10 +58,9 @@ public class ForestGenerator {
             }
         }
 
+        // Start creating the forest square.
         int squareSize = 2; // Size of the 2x2 square
-        int numSquaresToPlace = 10;
-
-        Random random = new Random();
+        int numSquaresToPlace = 30;
 
         Set<String> placedPositions = new HashSet<>();
 
@@ -60,8 +70,8 @@ public class ForestGenerator {
             String position;
             
             do {
-                randomRow = random.nextInt(forestSquare.length - squareSize + 1);
-                randomCol = random.nextInt(forestSquare[0].length - squareSize + 1);
+                randomRow = rand.nextInt(forestSquare.length - squareSize + 1);
+                randomCol = rand.nextInt(forestSquare[0].length - squareSize + 1);
                 position = randomRow + "," + randomCol;
             } while (placedPositions.contains(position));
 
@@ -74,6 +84,7 @@ public class ForestGenerator {
 
             // Store the placed position.
             placedPositions.add(position);
+            placedPositions = findSurroundingSquares(placedPositions, randomRow, randomCol);
 
         } 
                         
