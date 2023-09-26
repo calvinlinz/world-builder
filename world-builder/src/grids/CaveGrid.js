@@ -21,8 +21,8 @@ const CaveGrid = ({ scaleFactor, worldData }) => {
           style={{
             transform: `rotate(${image.angle}deg)`,
             position: "absolute",
-            left: `${(image.x * 4 + 10 - image.angle / 15) * scaleFactor}vw`,
-            top: `${image.y * 4 * scaleFactor - 2}vw`,
+            left: `${(image.x * 4 + 6 - image.angle / 15) * scaleFactor}vw`,
+            top: `${image.y * 4 * scaleFactor - 2 + 2}vw`,
             width: `${image.width * 4 * scaleFactor}vw`,
             height: `${image.height * 4 * scaleFactor}vw`,
           }}
