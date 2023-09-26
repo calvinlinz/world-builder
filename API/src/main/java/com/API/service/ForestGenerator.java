@@ -1,8 +1,10 @@
 package com.API.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class ForestGenerator {
 
@@ -35,6 +37,7 @@ public class ForestGenerator {
         this.map = this.mapBuilder.getMap();
     }
 
+
     public int[][] createForestSquare(int size){
         // Create a forest square that is 20x20 and fill it up with background.
         int[][] forestSquare = new int[size][size];
@@ -44,18 +47,36 @@ public class ForestGenerator {
             }
         }
 
-        // Iterate through the forest square and start making 2x2 trees inside it.
-        // If we fail to place a tree five times, then we give up and our forest is complete.
-        int failure = 0;
-        while(failure < 5){
-            // Pick a random spot in the 
-            int randomX = rand.nextInt(forestSquare[0].length);
-            int randomY = rand.nextInt(forestSquare.length);
-            failure++;
-        }
-                        
-    
+        int squareSize = 2; // Size of the 2x2 square
+        int numSquaresToPlace = 10;
 
+        Random random = new Random();
+
+        Set<String> placedPositions = new HashSet<>();
+
+        for (int i = 0; i < numSquaresToPlace; i++) {
+            // Generate random row and column indices within bounds
+            int randomRow, randomCol;
+            String position;
+            
+            do {
+                randomRow = random.nextInt(forestSquare.length - squareSize + 1);
+                randomCol = random.nextInt(forestSquare[0].length - squareSize + 1);
+                position = randomRow + "," + randomCol;
+            } while (placedPositions.contains(position));
+
+            // Place the '2' values in the selected 2x2 square
+            for (int row = randomRow; row < randomRow + squareSize; row++) {
+                for (int col = randomCol; col < randomCol + squareSize; col++) {
+                    forestSquare[row][col] = 2;
+                }
+            }
+
+            // Store the placed position.
+            placedPositions.add(position);
+
+        } 
+                        
         return forestSquare;
     }
     
