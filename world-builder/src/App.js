@@ -7,6 +7,8 @@ import SockJsClient from "react-stomp";
 import client from "react-stomp";
 
 function App() {
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
+
   const [opacityRoofValue, setOpacityRoofValue] = useState(1);
   const [opacityCaveValue, setOpacityCaveValue] = useState(1);
   const [host, setHost] = useState(false);
@@ -89,7 +91,7 @@ function App() {
         {gameStarted ? (
           <>
             <SockJsClient
-              url="http://localhost:8080/game/"
+              url= {API_URL + "/game/"}
               topics={["/session/" + gameId]}
               onConnect={() => {
                 console.log("connected: " + gameId);
