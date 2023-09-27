@@ -78,11 +78,14 @@ public class GameController {
         boolean host = joinRequest.getHost();
         String gameId = joinRequest.getGameId();
         if(host){
+            if(!GameRepository.games.containsKey(gameId)){
+                return ResponseEntity.ok().build();
+            }
             if(GameRepository.games.get(gameId).stream().anyMatch(p -> p.isHost())){
                 return ResponseEntity.badRequest().build();
             }
         }else{
-            if(gameId == null || !GameRepository.games.containsKey(gameId)){
+            if(!GameRepository.games.containsKey(gameId)){
                 return ResponseEntity.badRequest().build();
             }
         }

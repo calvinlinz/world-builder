@@ -5,6 +5,7 @@ import Display from "./pages/display/Display";
 import { WorldDataContext } from "./context/worldDataContext";
 import SockJsClient from "react-stomp";
 import ShareOutlined from "@mui/icons-material/ShareOutlined";
+import { ToastContainer, toast } from "react-toastify";
 
 function App() {
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
@@ -53,6 +54,16 @@ function App() {
     }
   };
 
+  const notifySuccess = (message) => toast.success(message);
+  const notifyInfo = (message) => toast.success(message);
+
+
+  useEffect(()=>{
+    if(gameStarted){
+      notifySuccess((host ? "Created " : "Joined ") + "Game " + gameId);
+    }
+
+  },[gameStarted]);
   useEffect(() => {
     setLoading(true);
     window.addEventListener("beforeunload", handleTabClose);
@@ -124,6 +135,7 @@ function App() {
       }}
     >
       <div className="App">
+      <ToastContainer autoClose={2000}  position="top-center" theme="dark" toastStyle={{backgroundColor:"#1f1f1f"}}/>
         {gameStarted ? (
           <>
             <SockJsClient
@@ -163,7 +175,7 @@ function App() {
                 fetch(API_URL + "/game/leave", options);
               }}
               onMessage={(msg) => {
-                console.log(msg);
+                const previousPlayers = currentPlayersInGame;
                 if (!host) {
                   if(msg.id !=-1){
                     setWorld(JSON.parse(msg.world));
@@ -173,6 +185,11 @@ function App() {
                     currentScrollX.current = msg.x;
                     currentScrollY.current = msg.y;
                   }
+                }
+                if(msg.id == -1 && previousPlayers != msg.players){
+                  notifyInfo("A player has joined the game");
+                }else if (previousPlayers != msg.players){
+                  notifyInfo("A player has left the game");
                 }
                 setCurrentPlayersInGame(msg.players);
               }}

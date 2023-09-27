@@ -14,8 +14,14 @@ const HomePage = ({ startGame }) => {
     setInputValue(e.target.value.toUpperCase());
   };
 
+  const notifyError = (message) => toast.error(message);
+
   const handleKeyPress = (e) => {
-    if (e.key === "Enter" || e.target.type === "button") {
+    if (e == null || e.key === "Enter") {
+      if (inputValue.length == 0) {
+        alert("Please enter a game ID");
+        return;
+      }
       const options = {
         method: "POST",
         headers: {
@@ -33,9 +39,9 @@ const HomePage = ({ startGame }) => {
             startGame();
           } else {
             if (host) {
-              alert("Game ID already exists");
+              notifyError("Game ID already exists")
             } else {
-              alert("Game ID does not exist");
+              notifyError("Game ID does not exist")
             }
           }
         })
@@ -78,20 +84,19 @@ const HomePage = ({ startGame }) => {
           </header>
         ) : (
           <div className={styles.gameIdBody}>
-          <h1>{host ? "HOST" : "PLAYER"}</h1>
-          <div className={styles.gameIdContainer}>
-                  <ToastContainer autoClose={2000}/>
-            <div className={styles.gameIdInput}>
-              <input
-                type="text"
-                placeholder={host ? "Create Game ID" : "Enter Game ID"}
-                value={inputValue}
-                onKeyPress={handleKeyPress}
-                onChange={handleInputChange}
-              ></input>
+            <h1>{host ? "HOST" : "PLAYER"}</h1>
+            <div className={styles.gameIdContainer}>
+              <div className={styles.gameIdInput}>
+                <input
+                  type="text"
+                  placeholder={host ? "Create Game ID" : "Enter Game ID"}
+                  value={inputValue}
+                  onKeyPress={handleKeyPress}
+                  onChange={handleInputChange}
+                ></input>
+              </div>
+              <button onClick={() => handleKeyPress(null)}>PLAY</button>
             </div>
-            <button onClick={handleInputChange}>PLAY</button>
-          </div>
           </div>
         )}
       </div>
