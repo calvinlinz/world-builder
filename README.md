@@ -17,7 +17,8 @@ The D&D map, which serves as a formal representation of the game world, is an in
    - 2.3 [Data Storage](#data-storage)
    - 2.4 [Controller](#controller)
    - 2.5 [Monster Generator](#monster-generator)
-   - 2.6 [Deploy](#back-end-deploy)
+   - 2.6 [Forest Generator](#forest-generator)
+   - 2.7 [Deploy](#back-end-deploy)
 
 
 3. [Front End](#front-end)
@@ -98,7 +99,7 @@ The controller configures endpoints with responses and HTTP methods. We have imp
 ### 2.5 Monster Generator
 
 #### 2.5.1 Monster Generator Algorithm
-This monster generator algorithm is an extension of the existing MapBuilder class which creates a 2D array representing the map. It creates and the 7 digit integers monsters into the map and returns the new map.
+The monster generator algorithm is an extension of the existing MapBuilder class which creates a 2D array representing the map. It creates and the 7 digit integers monsters into the map and returns the new map.
 
 ##### Creating Monsters
 Monsters are created randomly. This is done by parsing through each cell in the map, determining if the current cell is a valid house/cave code, and generating a rank based on the size of room. For example, a boss monster will spawn in a massive cave, or a large room, and will not be found in a mere 2x2 village house.
@@ -149,9 +150,24 @@ These six digits represent the six primary attributes, often referred to as "sta
 #### 2.5.4 Monster Descriptions
 Similar to the monster names, the monster descriptions are also randomly generated. They follow a simple template which has been written to accommodate all the monsters. Inside the template contain missing passages/words which can be substituted according to the monsters rank, stats, etc. Each missing passage/word can take up to five options, which provides some randomness without needing to write several descriptions.
 
+<a name="forest-generator"></a>
+### 2.6 Forest Generator
+Similar to the Monster Generator, the forest generator algorithm is an extension of the existing MapBuilder class which creates a 2D array representing the map. 
+
+#### 2.6.1 Forest Generator algorithm
+1. Given a 2D array map and the size of the map, the Forest Generator determines the number of forests to spawn. Currently, a larger map (greater than size 45) will produce 3 forests, a medium map (greater than size 30 upto 45) will produce 2 forests, and any smaller will produce one singular forest.
+2. Each forest is made as a "forest square" which is a smaller 2D array that contains only natural features, such as trees and bushes. A method called findSurroundingSquares ensures that trees can not be placed overlapping. A random lottery provides further randomisation of tree placement, so "lines" of trees are half as frequent.
+3. Trees are placed until we reach the number of trees as specified. This parameter can be tuned to alter the density of the forests.
+4. Bushes are placed by iterating through every cell and placing a bush (on blank space) with a specified probability.
+5. This produces one singular completed forest square. We then follow a similar algorithm to determine the placement of the forest inside the bigger map.
+6. The forest cannot be placed in an area where any structures or paths will be obstructed.
+7. The algorithm will continue to attempt to place the forest for a certain number of attempts before terminating; this prevents infinite loops and lag which can be imposed by the initially generated map, e.g. if there is simply not enough space.
+8. This is repeated for every forest.
+9. The final map is then finally returned with the forests placed inside the empty spaces.
+
 
 <a name="back-end-deploy"></a>
-### 2.6 Deploy
+### 2.7 Deploy
 
 The backend API is built into a docker image that contains all of the dependencies required for the web service. Every time a new version of the image is pushed to `DockerHub`, `Render.com` will build and deploy the web application to [production](https://world-builder-api.onrender.com/). A new image can be created and pushed to dockerhub using the `./deploy` script.
 
