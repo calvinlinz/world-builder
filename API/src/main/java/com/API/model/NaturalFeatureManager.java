@@ -13,8 +13,8 @@ public class NaturalFeatureManager {
     int maxFeatures;
 
     public NaturalFeatureManager() {
-        minFeatures = 1;
-        maxFeatures = 3;
+        minFeatures = 2;
+        maxFeatures = 4;
         naturalFeatures = new ArrayList<>();
         initializeNaturalFeatures();
 
