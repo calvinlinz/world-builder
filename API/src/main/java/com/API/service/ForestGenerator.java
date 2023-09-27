@@ -199,7 +199,7 @@ public class ForestGenerator {
         int mapHeight = this.map[0].length;
 
         int attempt = 0;
-        while (true) {
+        while (attempt < 100) {
             int randomRow = random.nextInt(mapWidth - forestWidth + 1);
             int randomCol = random.nextInt(mapHeight - forestHeight + 1);
 
