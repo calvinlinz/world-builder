@@ -186,7 +186,7 @@ function App() {
                     currentScrollY.current = msg.y;
                   }
                 }
-                if(msg.id == -1 && previousPlayers != msg.players){
+                if(msg.id == -1 && (previousPlayers != msg.players && previousPlayers!=0)){
                   notifyInfo("A player has joined the game");
                 }else if (previousPlayers != msg.players){
                   notifyInfo("A player has left the game");
