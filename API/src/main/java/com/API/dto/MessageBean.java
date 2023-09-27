@@ -9,6 +9,16 @@ public class MessageBean {
     private double x;
     private double y;
 
+    public MessageBean(long id, String world, boolean roofs, boolean caves, int players, double x, double y) {
+        this.id = id;
+        this.world = world;
+        this.roofs = roofs;
+        this.caves = caves;
+        this.players = players;
+        this.x = x;
+        this.y = y;
+    }
+
     public long getId() {
         return id;
     }
@@ -64,5 +74,5 @@ public class MessageBean {
     public double getY(){
         return y;
     }
-    
+
 }

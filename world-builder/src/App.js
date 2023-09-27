@@ -16,7 +16,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [gameId, setGameId] = useState("test");
-  const [currentPlayersInGame, setCurrentPlayersInGame] = useState(1);
+  const [currentPlayersInGame, setCurrentPlayersInGame] = useState(0);
   const currentScrollX = useRef(0);
   const currentScrollY = useRef(0);
 
@@ -109,7 +109,7 @@ function App() {
             "/app/send/" + gameId,
             JSON.stringify({
               id: id,
-              world: JSON.stringify(worldData),
+              worldData: JSON.stringify(worldData),
               roofs: opacityRoofValue === 1 ? true : false,
               caves: opacityCaveValue === 1 ? true : false,
               players: currentPlayersInGame,
@@ -141,7 +141,9 @@ function App() {
                   .then((response) => response.json())
                   .then((data) => {
                     setId(data.id);
+                    setCurrentPlayersInGame(data.players);
                   });
+
               }}
               onDisconnect={() => {
                 const options = {
@@ -149,30 +151,29 @@ function App() {
                   headers: {
                     "Content-Type": "application/json",
                   },
-                  body: JSON.stringify({ id: id }),
+                  body: JSON.stringify({
+                    id: id,
+                    worldData: JSON.stringify(worldData),
+                    x: currentScrollX.current,
+                    y: currentScrollY.current,
+                    roofs: opacityRoofValue === 1 ? true : false,
+                    caves: opacityCaveValue === 1 ? true : false
+                  }),
                 };
-                fetch(API_URL + "/game/leave", options).then((response) => {
-                  const newCurrentPlayersInGame = currentPlayersInGame - 1;
-                  clientRef.current.sendMessage(
-                    "/app/send/" + gameId,
-                    JSON.stringify({
-                      id: id,
-                      world: JSON.stringify(worldData),
-                      roofs: opacityRoofValue === 1 ? true : false,
-                      caves: opacityCaveValue === 1 ? true : false,
-                      players: newCurrentPlayersInGame,
-                    })
-                  );
-                });
+                fetch(API_URL + "/game/leave", options);
               }}
               onMessage={(msg) => {
+                console.log(msg);
                 if (!host) {
-                  setWorld(JSON.parse(msg.world));
-                  setOpacityRoofValue(msg.roofs ? 1 : 0);
-                  setOpacityCaveValue(msg.caves ? 1 : 0);
-                  currentScrollX.current = msg.x;
-                  currentScrollY.current = msg.y;
+                  if(msg.id !=-1){
+                    setWorld(JSON.parse(msg.world));
+                    setOpacityRoofValue(msg.roofs ? 1 : 0);
+                    setOpacityCaveValue(msg.caves ? 1 : 0);
+                    currentScrollX.current = msg.x;
+                    currentScrollY.current = msg.y;
+                  }
                 }
+                setCurrentPlayersInGame(msg.players);
               }}
               ref={(client) => {
                 clientRef.current = client;

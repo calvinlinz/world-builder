@@ -15,10 +15,8 @@ import Loading from "../../components/loading/loading";
 import { WorldDataContext } from "../../context/worldDataContext";
 import PlayerCount from "../../components/playerCount/playerCount";
 import { send } from "@emailjs/browser";
-import { set } from "lodash";
 const Display = () => {
   const {
-    id,
     worldData,
     loading,
     host,
@@ -29,8 +27,6 @@ const Display = () => {
     gameId,
     sendMessage,
     currentPlayersInGame,
-    currentScrollX,
-    currentScrollY,
   } = useContext(WorldDataContext);
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   let scaleFactor = 0.25;
@@ -39,6 +35,8 @@ const Display = () => {
   let isDragging = false;
   const startX = useRef(0);
   const startY = useRef(0);
+  const currentX = useRef(0);
+  const currentY = useRef(0);
 
   const handleMouseDown = (e) => {
     e.preventDefault();
@@ -62,9 +60,9 @@ const Display = () => {
     isDragging = false;
     dragRef.current.classList.remove("dragging");
     if(host){
-      const currentX = window.scrollX || window.pageXOffset;
-      const currentY = window.scrollY || window.pageYOffset;
-      sendMessage(worldData, opacityRoofValue, opacityCaveValue, currentPlayersInGame, currentX, currentY);
+      currentX.current = window.scrollX || window.pageXOffset;
+      currentY.current = window.scrollY || window.pageYOffset;
+      sendMessage(worldData, opacityRoofValue, opacityCaveValue, currentPlayersInGame, currentX.current, currentY.current);
     }
   };
 

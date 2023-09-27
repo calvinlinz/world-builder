@@ -1,12 +1,15 @@
 package com.API.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.API.dto.JoinRequest;
 import com.API.dto.LeaveRequest;
+import com.API.dto.MessageBean;
 import com.API.dto.HostRequest;
 import com.API.dto.ViewRequest;
 import com.API.model.Person;
@@ -30,15 +34,23 @@ import com.API.service.WorldService;
 @RequestMapping("/game")
 public class GameController {
 
-
     private final PeopleService peopleService;
     private final WorldService worldService;
-
+    private final SimpMessagingTemplate messagingTemplate;
 
     @Autowired
-    public GameController(WorldService worldService, PeopleService peopleService) {
+    public GameController(WorldService worldService, PeopleService peopleService,
+            SimpMessagingTemplate messagingTemplate) {
         this.worldService = worldService;
         this.peopleService = peopleService;
+        this.messagingTemplate = messagingTemplate;
+    }
+
+    @PostMapping("/send/{dynamicVar}")
+    public ResponseEntity<String> sendMessageToClient(@RequestBody MessageBean message,
+            @PathVariable String dynamicVar) {
+        messagingTemplate.convertAndSend("/session/" + dynamicVar, message);
+        return ResponseEntity.ok("Message sent to clients.");
     }
 
     @PutMapping("/join")
@@ -48,21 +60,34 @@ public class GameController {
         String gameId = joinRequest.getGameId();
         Person player = new Person(id, host, gameId);
         peopleService.newPlayer(player);
+        List<Person> players = GameRepository.games.get(gameId);
         System.out.println(
-                "Added ID: " + id + " to gameId " + gameId + ":  " + GameRepository.games.get(gameId).toString());
+                "Added ID: " + id + " to gameId " + gameId + ":  " + players.toString());
         System.out.println("Added ID: " + id + " to " + UserRepository.users.toString());
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("id", id);
+        responseMap.put("players", players.size());
+        MessageBean mbean = new MessageBean(-1, "", true, true, players.size(), (double)-1,(double)-1);
+        sendMessageToClient(mbean, gameId);
         return ResponseEntity.ok(responseMap);
     }
 
     @DeleteMapping("/leave")
     public ResponseEntity<int[][]> deletePlayer(@RequestBody LeaveRequest leaveRequest) {
         long id = leaveRequest.getId();
-        System.out.println("ID: "+id);
-
+        String world = leaveRequest.getWorldData();
+        boolean caves = leaveRequest.getCaves();
+        boolean roofs = leaveRequest.getRoofs();
+        double x = leaveRequest.getX();
+        double y = leaveRequest.getY();
+        Person person = peopleService.getPersonById(id).get();
+        String gameId = person.getGameId();
         peopleService.deletePersonById(id);
+        int players = GameRepository.games.get(gameId).size();
+        MessageBean mbean = new MessageBean(id, world, roofs, caves, players, x, y);
+        System.out.println(caves);
         System.out.println("Deleted ID: " + id + " from " + UserRepository.users.toString());
+        sendMessageToClient(mbean, gameId);
         return ResponseEntity.ok().build();
     }
 
