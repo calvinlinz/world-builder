@@ -97,7 +97,25 @@ The controller configures endpoints with responses and HTTP methods. We have imp
 <a name="monster-generator"></a>
 ### 2.5 Monster Generator
 
-#### 2.5.1 Monster Names
+#### 2.5.1 Monster Generator Algorithm
+This monster generator algorithm is an extension of the existing MapBuilder class which creates a 2D array representing the map. It creates and the 7 digit integers monsters into the map and returns the new map.
+
+##### Creating Monsters
+Monsters are created randomly. This is done by parsing through each cell in the map, determining if the current cell is a valid house/cave code, and generating a rank based on the size of room. For example, a boss monster will spawn in a massive cave, or a large room, and will not be found in a mere 2x2 village house.
+
+A method is called before placing a monster to ensure that monsters are not spawned by the walls of buildings; this not only interferes with displaying the graphics but also the front-end generation of furniture.
+
+The skills are generated using a semi-random number generator. A higher rank monster is more likely to have stronger skills, whereas an easy monster will have middling values.
+
+##### Creating Fairies
+Similar to monsters, fairies are created by parsing through each cell in the map, determining if the current cell is a grass code, and generating a fairy based on fixed probabilities and the count of surrounding natural features. 
+
+A diamond "zone" is assigned to each potential fairy cell. If the number of natural features within this zone exceeds a given number (currently 3), then a lottery with a given probability occurs (currently 1/16 chance). On the chance that the lottery is a success, then a fairy is generated in that cell. 
+
+The skills are generated using a semi-random number generator. There is a 50/50 chance that a fairy can either be an easy or medium monster, and no higher. This ensures that fairies remain as more peaceful and weaker entities in the world.
+
+#### 2.5.2 Monster Names
+As the monsters are randomly generated, random names have been created for each rank. This is selected by the front-end React application, and depends on the rank (first digit) of the monster's integer code. Below are the lists of potential names a monster can take:
 
 | **BOSS MONSTER**  | **HARD MONSTER**  | **MEDIUM MONSTER**  | **EASY MONSTER**  |
 |-----------------------|-----------------------|-------------------------|-----------------------|
@@ -112,7 +130,7 @@ The controller configures endpoints with responses and HTTP methods. We have imp
 | Calvorr               | Azrakarm              | Genalg                  | Mothie                |
 | Amirax                | Thal’gulon            | Deebeescan              | Ken                   |
 
-#### 2.5.2 Monster Stats
+#### 2.5.3 Monster Stats
 The monsters are passed from the backend to the front end as 7 digit integers, inserted into their position in the 2D grid, e.g. 1673837. From there, they can be interpreted by the graphics team and displayed accordingly. Below are what each digit in the monster integer represents.
 
 ##### First Digit
@@ -122,11 +140,15 @@ This represents the rank of the monster. Harder monsters will spawn in larger ro
 | BOSS | HARD   | MEDIUM | EASY |
 
 ##### Second to Seventh Digit
-These six digits represent the six primary attributes, often referred to as "stats" or "ability scores," that define a monster's basic capabilities and characteristics. In order, they are: Strength (STR), Dexterity (DEX), Constitution (CON), Intelligence (INT), Wisdom (WIS), and Charisma (CHA). These values are likely to be higher, the greater the rank of the monster. The digits can the values 0-9, which represent:
+These six digits represent the six primary attributes, often referred to as "stats" or "ability scores," that define a monster's basic capabilities and characteristics. In order, they are: Strength (STR), Dexterity (DEX), Constitution (CON), Intelligence (INT), Wisdom (WIS), and Charisma (CHA). These values are likely to be higher the greater the rank of the monster. The digits can the values 0-9, which represent:
 
 | 0  | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   |
 | -- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 100% | 10% | 20% | 30% | 40% | 50% | 60% | 70% | 80% | 90% |
+
+#### 2.5.4 Monster Descriptions
+Similar to the monster names, the monster descriptions are also randomly generated. They follow a simple template which has been written to accommodate all the monsters. Inside the template contain missing passages/words which can be substituted according to the monsters rank, stats, etc. Each missing passage/word can take up to five options, which provides some randomness without needing to write several descriptions.
+
 
 <a name="back-end-deploy"></a>
 ### 2.6 Deploy
