@@ -55,6 +55,10 @@ public class SectionBuilder {
     }
 
     public int[][] getSection(int arrayS, int secNumber) {
+        int [][] completeSection = null;
+
+
+        while(completeSection == null){
         double random = Math.random();
 
         int totalFeatures = 0;
@@ -66,48 +70,40 @@ public class SectionBuilder {
         	
         	if (woodsBuilt <= maxWoods) {
 	            totalFeatures = calcFeatures.nextInt(wm.getMaxFeatures()-wm.getMinFeatures()) + wm.getMinFeatures();
-	            return generateWoodland(totalFeatures, secNumber,arrayS);
-        	} else {
-        		random += 0.20; // move to next possible section type
-        	}
+	            completeSection = generateWoodland(totalFeatures, secNumber,arrayS);
+        	} 
         }
 
-        if (random < 0.3) {
+        else if (random < 0.3) {
         	villagesBuilt++;
         	
         	if (villagesBuilt <= maxVillages) {
 	            totalFeatures = calcFeatures.nextInt(rm.getMaxFeatures()-rm.getMinFeatures()) + rm.getMinFeatures();
-	            return generateVillage(totalFeatures, secNumber,arrayS);
-        	} else {
-        		random += 0.25; // move to next possible section type
-        	}
+	            completeSection = generateVillage(totalFeatures, secNumber,arrayS);
+        	} 
         }
         
-        if (random < 0.55) {
+        else if (random < 0.55) {
         	natureBuilt++;
         	
         	if (natureBuilt <= maxNature) {
         		totalFeatures = calcFeatures.nextInt(nfm.getMaxFeatures()-nfm.getMinFeatures()) + nfm.getMinFeatures();
-        		return generateNaturalFeature(totalFeatures, secNumber,arrayS);
-        	} else {
-        		random += 0.25; // move to next possible section type
-        	}
+        		completeSection = generateNaturalFeature(totalFeatures, secNumber,arrayS);
+        	} 
         }
         
-        if (random < 0.80) {
+        else if (random < 0.80) {
         	campsBuilt++;
         	
         	if (campsBuilt <= maxCamps) {
         		totalFeatures = calcFeatures.nextInt(csm.getMaxFeatures()-csm.getMinFeatures()) + csm.getMinFeatures();
-        		return generateCamp(totalFeatures, secNumber,arrayS);
-        	} else {
-        		random += 0.25; // move to default section type
-        	}
+        		completeSection = generateCamp(totalFeatures, secNumber,arrayS);
+        	} 
         } 
+
+    }
         
-        // Default to village
-    	totalFeatures = calcFeatures.nextInt(rm.getMaxFeatures()-rm.getMinFeatures()) + rm.getMinFeatures();
-        return generateVillage(totalFeatures, secNumber,arrayS);
+        return completeSection;
     }
 
     /**
