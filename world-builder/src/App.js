@@ -109,7 +109,7 @@ function App() {
             "/app/send/" + gameId,
             JSON.stringify({
               id: id,
-              worldData: JSON.stringify(worldData),
+              world: JSON.stringify(worldData),
               roofs: opacityRoofValue === 1 ? true : false,
               caves: opacityCaveValue === 1 ? true : false,
               players: currentPlayersInGame,
