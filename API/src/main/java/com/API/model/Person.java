@@ -1,26 +1,20 @@
 package com.API.model;
 
 public class Person {
-
     private Long id;
+    private boolean host;
 
-    private String name;
-    private String email;
-    
-    public Person(Long id, String name, String email){
-        this.name = name;
-        this.email = email;
+    public Person(Long id, boolean host) {
         this.id = id;
+        this.host = host;
     }
 
-
-    public Long getId(){
+    public Long getId() {
         return this.id;
     }
-    public String getName(){
-        return this.name;
+
+    public boolean isHost() {
+        return host;
     }
-    public String getEmail(){
-        return this.email;
-    }
+
 }

@@ -14,9 +14,9 @@ import SideBar from "../../components/sidebar/Sidebar";
 import Loading from "../../components/loading/loading";
 import { WorldDataContext } from "../../context/worldDataContext";
 
-const Display = () => {
-  const { worldData, loading } = useContext(WorldDataContext);
-  const [opacityValue, setOpacity] = useState(1);
+const Display = ({clientRef}) => {
+  const { worldData, loading, host ,setLoading, setWorldData, setHistory, gameId, opacityRoofValue, opacityCaveValue, sendMessage} = useContext(WorldDataContext);
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   let scaleFactor = 0.25;
   const [renderTimeout, setRenderTimeout] = useState(true);
   const dragRef = useRef();
@@ -47,13 +47,43 @@ const Display = () => {
     dragRef.current.classList.remove("dragging");
   };
 
+
   useEffect(() => {
     setRenderTimeout(false);
+    if(host){
+      fetch(API_URL + "/game/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          size: 27,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setWorldData(data);
+          setLoading(false);
+          setHistory(data);
+          sendMessage(data, opacityRoofValue === 1 ? true : false, opacityCaveValue === 1 ? true : false);
+        })
+        .catch((error) => console.log(error));
+    }else{
+      fetch(API_URL + "/game/view")
+        .then((response) => response.json())
+        .then((data) => {
+          setWorldData(data);
+          setLoading(false);
+          setHistory(data);
+        })
+        .catch((error) => console.log(error));
+    }
+
   }, []);
 
   return (
     <>
-      <SideBar />
+      {host ? <SideBar/> : null}
       {loading ? (
         <Loading />
       ) : renderTimeout ? (
