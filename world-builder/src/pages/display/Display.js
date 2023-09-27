@@ -15,7 +15,7 @@ import Loading from "../../components/loading/loading";
 import { WorldDataContext } from "../../context/worldDataContext";
 
 const Display = ({clientRef}) => {
-  const { worldData, loading, host ,setLoading, setWorldData, setHistory, gameId} = useContext(WorldDataContext);
+  const { worldData, loading, host ,setLoading, setWorldData, setHistory, gameId, opacityRoofValue, opacityCaveValue, sendMessage} = useContext(WorldDataContext);
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   let scaleFactor = 0.25;
   const [renderTimeout, setRenderTimeout] = useState(true);
@@ -47,12 +47,6 @@ const Display = ({clientRef}) => {
     dragRef.current.classList.remove("dragging");
   };
 
-  const sendMessage = () => {
-    clientRef.current.sendMessage('/app/send/'+gameId, JSON.stringify({
-        name: "ID",
-        message: "hey guys"
-    }));
-};
 
   useEffect(() => {
     setRenderTimeout(false);
@@ -71,6 +65,7 @@ const Display = ({clientRef}) => {
           setWorldData(data);
           setLoading(false);
           setHistory(data);
+          sendMessage(data, opacityRoofValue === 1 ? true : false, opacityCaveValue === 1 ? true : false);
         })
         .catch((error) => console.log(error));
     }else{
@@ -83,12 +78,12 @@ const Display = ({clientRef}) => {
         })
         .catch((error) => console.log(error));
     }
-  
+
   }, []);
 
   return (
     <>
-      {host ? <SideBar /> : null}
+      {host ? <SideBar/> : null}
       {loading ? (
         <Loading />
       ) : renderTimeout ? (
@@ -96,7 +91,6 @@ const Display = ({clientRef}) => {
       ) : (
         <div className="world">
           <div id="render">
-            <button style={{position:"fixed", zIndex:2000, width:"100px", height:"50px"}} onClick={sendMessage}>HELLO</button>
             <BackgroundGrid worldData={worldData} />
             <PathGrid worldData={worldData} />
 

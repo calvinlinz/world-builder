@@ -7,7 +7,7 @@ import SockJsClient from "react-stomp";
 import client from "react-stomp";
 
 function App() {
-  const [opacityValue, setOpacity] = useState(1);
+  const [opacityRoofValue, setOpacityRoofValue] = useState(1);
   const [opacityCaveValue, setOpacityCaveValue] = useState(1);
   const [host, setHost] = useState(false);
   const [worldData, setWorldData] = useState([]);
@@ -47,23 +47,24 @@ function App() {
     <WorldDataContext.Provider
       value={{
         worldData: worldData,
-        opacityValue,
+        opacityRoofValue,
         history,
         opacityCaveValue,
         host,
         gameId,
+        clientRef: clientRef,
         setWorldData: (worldData, loading) => {
           setWorld(worldData);
           setLoading(loading);
         },
-        setOpacityValue: () => {
-          setOpacity(opacityValue === 1 ? 0 : 1);
+        setOpacityRoofValue: (bool) => {
+          setOpacityRoofValue(bool? 1 : 0);
         },
         setHistory: (data) => {
           handleHistory(data);
         },
-        setOpacityCaveValue: () => {
-          setOpacityCaveValue(opacityCaveValue === 1 ? 0 : 1);
+        setOpacityCaveValue: (bool) => {
+          setOpacityCaveValue(bool? 1 : 0);
         },
         setHost: (host) => {
           setHost(host);
@@ -71,6 +72,17 @@ function App() {
         setGameId: (gameId) => {
           setGameId(gameId);
         },
+        sendMessage: (data, roofs , caves) => {
+          clientRef.current.sendMessage(
+            "/app/send/" + gameId,
+            JSON.stringify({
+              id:0,
+              world: JSON.stringify(data),
+              roofs: roofs,
+              caves: caves
+            })
+          );
+        }
       }}
     >
       <div className="App">
@@ -86,7 +98,9 @@ function App() {
                 console.log("Disconnected");
               }}
               onMessage={(msg) => {
-                console.log(msg);
+                setWorldData(JSON.parse(msg.world));
+                setOpacityRoofValue(msg.roofs ? 1 : 0);
+                setOpacityCaveValue(msg.caves ? 1 : 0);
               }}
               ref={(client) => {
                 clientRef.current = client;

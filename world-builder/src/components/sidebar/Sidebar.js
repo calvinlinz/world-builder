@@ -11,16 +11,16 @@ import ImportExport from "../importExport/importExport";
 import emailjs from "@emailjs/browser";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { Button, Modal, Typography, Box, Input } from "@mui/material";
-import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
+import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
 import html2canvas from "html2canvas";
 import History from "../history/history";
-import HistoryIcon from '@mui/icons-material/History';
+import HistoryIcon from "@mui/icons-material/History";
 import jsPDF from "jspdf";
 emailjs.init("VDupAfE4CYPyVT2Ry");
 
 const SideBar = () => {
   const [open, setOpen] = useState(false);
-  const { worldData, setWorldData, setHistory ,loading} =
+  const { worldData, setWorldData, setHistory, loading, opacityCaveValue, opacityRoofValue, sendMessage} =
     useContext(WorldDataContext);
   const [gridSize, setGridSize] = useState(27);
   const [isOpen, setIsOpen] = useState(false);
@@ -55,7 +55,6 @@ const SideBar = () => {
   }, []);
 
 
-
   const handleHtml2Canvas = async () => {
     const world = document.querySelector("#render");
     const worldBackground = document.querySelector(
@@ -73,23 +72,23 @@ const SideBar = () => {
       height: height,
       x: x,
       y: y,
-    })
+    });
     return canvas;
-  }
+  };
 
   const handlePrint = async () => {
     const canvas = await handleHtml2Canvas();
     const dataURL = canvas.toDataURL("image/jpeg", 0.4);
     const pdf = new jsPDF({
-      orientation: 'landscape',
+      orientation: "landscape",
     });
-    const imgProps= pdf.getImageProperties(dataURL);
+    const imgProps = pdf.getImageProperties(dataURL);
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-    pdf.addImage(dataURL, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    pdf.addImage(dataURL, "PNG", 0, 0, pdfWidth, pdfHeight);
     pdf.autoPrint();
-    window.open(pdf.output('bloburl'), '_blank');
-  }
+    window.open(pdf.output("bloburl"), "_blank");
+  };
 
   const sendEmail = async () => {
     setButtonText("Sending...");
@@ -117,7 +116,7 @@ const SideBar = () => {
   };
 
   const handleGenerate = () => {
-    if(loading){
+    if (loading) {
       return;
     }
     setWorldData(worldData, true);
@@ -134,6 +133,8 @@ const SideBar = () => {
       .then((data) => {
         setWorldData(data, false);
         setHistory(data);
+        sendMessage(data, opacityRoofValue === 1 ? true : false, opacityCaveValue === 1 ? true : false);
+        console.log("world generated" + data)
       })
       .catch((error) => console.log(error));
   };
@@ -221,7 +222,12 @@ const SideBar = () => {
           color=""
           onClick={() => handleSlideContent("history")}
         />
-        <LocalPrintshopOutlinedIcon className="large-icon" fontSize="" color="" onClick={handlePrint} />
+        <LocalPrintshopOutlinedIcon
+          className="large-icon"
+          fontSize=""
+          color=""
+          onClick={handlePrint}
+        />
         <ShareOutlinedIcon
           className="large-icon"
           fontSize=""
