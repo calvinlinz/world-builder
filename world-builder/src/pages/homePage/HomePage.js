@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import "./HomePage.css";
 import { WorldDataContext } from "../../context/worldDataContext";
 import { useContext } from "react";
+import styles from "./homePage.module.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const HomePage = ({ startGame }) => {
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
@@ -10,44 +11,44 @@ const HomePage = ({ startGame }) => {
   const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (e) => {
-    setInputValue(e.target.value);
+    setInputValue(e.target.value.toUpperCase());
   };
 
   const handleKeyPress = (e) => {
-
-    if (e.key === "Enter") {
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        gameId: inputValue,
-        host: host,
-      }),
-    };
-    fetch(API_URL + "/game/check", options)
-      .then((response) => {
-        if(response.status === 200){
-          setGameId(inputValue);
-          startGame();
-        }else{
-          if(host){
-            alert("Game ID already exists");
-          }else{
-            alert("Game ID does not exist");
+    if (e.key === "Enter" || e.target.type === "button") {
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          gameId: inputValue,
+          host: host,
+        }),
+      };
+      fetch(API_URL + "/game/check", options)
+        .then((response) => {
+          if (response.status === 200) {
+            setGameId(inputValue);
+            startGame();
+          } else {
+            if (host) {
+              alert("Game ID already exists");
+            } else {
+              alert("Game ID does not exist");
+            }
           }
-        }
-      }).catch((error) => {
-        console.log(error);
-      });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
   return (
     <>
-      <div className="homepage">
+      <div className={styles.homepage}>
         {!buttonClicked ? (
-          <header className="hero">
+          <header className={styles.hero}>
             <h1>
               DUNGEONS AND DRAGONS<br></br>MAP GENERATOR
             </h1>
@@ -76,15 +77,21 @@ const HomePage = ({ startGame }) => {
             </button>
           </header>
         ) : (
-          <div>
-            <input
-              type="text"
-              placeholder={!host ? "Enter Game Id" : "Create Game Id"}
-              style={{ width: "200px", height: "50px" }}
-              value={inputValue}
-              onKeyPress={handleKeyPress}
-              onChange={handleInputChange}
-            ></input>
+          <div className={styles.gameIdBody}>
+          <h1>{host ? "HOST" : "PLAYER"}</h1>
+          <div className={styles.gameIdContainer}>
+                  <ToastContainer autoClose={2000}/>
+            <div className={styles.gameIdInput}>
+              <input
+                type="text"
+                placeholder={host ? "Create Game ID" : "Enter Game ID"}
+                value={inputValue}
+                onKeyPress={handleKeyPress}
+                onChange={handleInputChange}
+              ></input>
+            </div>
+            <button onClick={handleInputChange}>PLAY</button>
+          </div>
           </div>
         )}
       </div>
