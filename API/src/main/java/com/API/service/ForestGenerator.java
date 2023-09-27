@@ -81,7 +81,7 @@ public class ForestGenerator {
      * @param chance The probability that a bush will appear in a tile.
      * @return The new 2D array with bushes inside it.
      */
-    public int[][] addBushes(int[][] forestSquare, int chance){
+    private int[][] addBushes(int[][] forestSquare, int chance){
         for(int i = 0; i < forestSquare.length; i++){
             for(int j = 0; j < forestSquare[0].length; j++){
                 if(forestSquare[i][j] != backgroundCode) continue;
@@ -104,7 +104,7 @@ public class ForestGenerator {
      * @param numTrees The number of trees inside a given forest.
      * @return A forest square 2D array which can be placed inside bigger map.
      */
-    public int[][] createForestSquare(int size, int numTrees){
+    private int[][] createForestSquare(int size, int numTrees){
 
         // Create a blank forest square that is 20x20 and fill it up with background.
         int[][] forestSquare = new int[size][size];
@@ -139,6 +139,48 @@ public class ForestGenerator {
         }              
         return forestSquare;
     }
+
+
+    private boolean isPositionValid(int[][] forestSquare, int row, int col, int[][] map) {
+        // Check if the position is within bounds
+        if (row < 0 || col < 0 || row + forestSquare.length > map.length || col + forestSquare[0].length > map[0].length) {
+            return false;
+        }
+        
+        // Check if any position within the square contains an invalid code
+        for (int i = row; i < row + forestSquare.length; i++) {
+            for (int j = col; j < col + forestSquare[0].length; j++) {
+                if (invalidCodes.contains(map[i][j])) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public void placeForestSquare(int[][] forestSquare) {
+        Random random = new Random();
+
+        int forestWidth = forestSquare.length;
+        int forestHeight = forestSquare[0].length;
+        int mapWidth = this.map.length;
+        int mapHeight = this.map[0].length;
+
+        while (true) {
+            int randomRow = random.nextInt(mapWidth - forestWidth + 1);
+            int randomCol = random.nextInt(mapHeight - forestHeight + 1);
+
+            if (isPositionValid(forestSquare, randomRow, randomCol, this.map)) {
+                // Place the forestSquare in this.map
+                for (int i = 0; i < forestWidth; i++) {
+                    for (int j = 0; j < forestHeight; j++) {
+                        this.map[randomRow + i][randomCol + j] = forestSquare[i][j];
+                    }
+                }
+                break; // Exit the loop once the forestSquare is placed
+            }
+        }
+    }
     
 
     /**
@@ -168,6 +210,8 @@ public class ForestGenerator {
             System.out.println();
         }
         System.out.println("\n\nDONE PUTTING BUSHES INSIDE FOREST SQUARE");
+
+        placeForestSquare(finalForestSquare);
 
         return this.map;
     }
