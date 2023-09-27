@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./Sidebar.css";
 import TuneIcon from "@mui/icons-material/Tune";
-import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import Configuration from "../configuration/Configuration";
 import { useContext } from "react";

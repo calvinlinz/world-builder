@@ -16,19 +16,17 @@ import {
   Input,
 } from "@mui/material";
 import "../../grids/Grid.css";
-import html2canvas from "html2canvas";
 import MonstersOverlay from "../monstersOverlay/MonstersOverlay";
 import { WorldDataContext } from "../../context/worldDataContext";
 import { getMonsterCords } from "../../grids/CalculatePositions";
 import emailjs, { send } from "@emailjs/browser";
-import client from "react-stomp";
 emailjs.init("VDupAfE4CYPyVT2Ry");
 
 const ConfigDropdown = ({
   gridSize,
   setGridSize,
 }) => {
-  const { worldData, loading, setWorldData, opacityCaveValue, setOpacityCaveValue, opacityRoofValue, setOpacityRoofValue, sendMessage} = useContext(WorldDataContext);
+  const { worldData, opacityCaveValue, setOpacityCaveValue, opacityRoofValue, setOpacityRoofValue, sendMessage} = useContext(WorldDataContext);
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
   const [selectedMonsterOption, setSelectedMonsterOption] = useState("none");
