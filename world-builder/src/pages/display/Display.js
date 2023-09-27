@@ -98,7 +98,7 @@ const Display = () => {
 
   return (
     <>
-      {host ? <SideBar /> : null}
+      <SideBar />
       {loading ? (
         <Loading />
       ) : renderTimeout ? (

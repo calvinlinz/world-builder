@@ -21,7 +21,7 @@ function App() {
   const currentScrollY = useRef(0);
 
   const clientRef = useRef();
-  const [history, setHistory] = useState(
+  const [history, setHistory] = useState( 
     JSON.parse(localStorage.getItem("history")) || []
   );
 
@@ -167,6 +167,7 @@ function App() {
                 if (!host) {
                   if(msg.id !=-1){
                     setWorld(JSON.parse(msg.world));
+                    handleHistory(JSON.parse(msg.world));
                     setOpacityRoofValue(msg.roofs ? 1 : 0);
                     setOpacityCaveValue(msg.caves ? 1 : 0);
                     currentScrollX.current = msg.x;

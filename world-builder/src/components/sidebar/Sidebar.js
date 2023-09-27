@@ -30,7 +30,8 @@ const SideBar = () => {
     gameId,
     currentPlayersInGame,
     currentScrollX,
-    currentScrollY
+    currentScrollY,
+    host,
   } = useContext(WorldDataContext);
   const [gridSize, setGridSize] = useState(27);
   const [isOpen, setIsOpen] = useState(false);
@@ -143,8 +144,14 @@ const SideBar = () => {
       const data = await response.json();
       setWorldData(data, false);
       setHistory(data);
-      sendMessage(data, opacityRoofValue, opacityCaveValue, currentPlayersInGame, currentScrollX, currentScrollY);
-
+      sendMessage(
+        data,
+        opacityRoofValue,
+        opacityCaveValue,
+        currentPlayersInGame,
+        currentScrollX,
+        currentScrollY
+      );
     }
     await fetchWorld();
   };
@@ -214,12 +221,14 @@ const SideBar = () => {
         )}
       </div>
       <div className={sidebarClass}>
-        <TuneIcon
-          className="large-icon"
-          fontSize=""
-          color=""
-          onClick={() => handleSlideContent("settings")}
-        />
+        {host && (
+          <TuneIcon
+            className="large-icon"
+            fontSize=""
+            color=""
+            onClick={() => handleSlideContent("settings")}
+          />
+        )}
         <CloudUploadOutlinedIcon
           className="large-icon"
           fontSize=""
@@ -244,12 +253,14 @@ const SideBar = () => {
           color=""
           onClick={() => setOpen(true)}
         />
+        {host && (
         <RefreshIcon
           className="large-icon"
           fontSize=""
           color=""
           onClick={handleGenerate}
         />
+        )}
         {!slideButtonOpen && (
           <div className={buttonClass}>
             <div className="hamburger" onClick={buttonHandler}>
