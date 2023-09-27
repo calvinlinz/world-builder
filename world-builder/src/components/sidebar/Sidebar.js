@@ -94,7 +94,11 @@ const SideBar = () => {
   const sendEmail = async () => {
     setButtonText("Sending...");
     const canvas = await handleHtml2Canvas();
-    const dataURL = canvas.toDataURL("image/jpeg", 0.4);
+    var dataURL = canvas.toDataURL("image/jpeg", 0.4);
+    if(dataURL.length/1024 > 500){
+      dataURL = canvas.toDataURL("image/jpeg", 0.1);
+    }
+    console.log(dataURL.length/1024);
     const emailParams = {
       to_email: email,
       message: "Attached file are your world data as PNG format and raw data!",

@@ -16,8 +16,10 @@
 
 .grid-container-background {
     position: absolute;
-    top: 2vw;
-    left: 7vw;
+    scale: 1.22;
+    top: 0vw;
+    left: 5vw;
+    width: max-content;
     z-index: 1;
 }
 

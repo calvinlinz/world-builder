@@ -16,88 +16,20 @@ body {
     left: 2vw;
 }
 
-.dropShadow {
-    box-shadow: 0px 0px 30px rgba(0, 0, 0, 1);
-    position: absolute;
-    width: 79.2vw;
-    height: 93.3vh;
-    top: 3vw;
-    left: 10.3vw;
-    z-index: 0;
-}
-
-.rounded-div {
-    top: 1vw;
-    left: 9vw;
-    width: 81.8vw;
-    height: 97vh;
-    background-color: var(--frame-color);
-    border-radius: 3vw;
-    /* Adjust the radius value to your preference */
-    padding: 0px;
-    /* Optional: Add padding to provide some spacing between content and rounded corners */
-    box-shadow: 0px 0px 30px rgba(0, 0, 0, 1);
-    position: absolute;
-}
-
-.frame {
-    top: 1.5vw;
-    left: 10vw;
-    width: 80vw;
-    height: 95vh;
-    border: 20px solid var(--frame-color);
-    /* Border color for the frame */
-    border-radius: 3vw;
+.scroll {
+    top: 0vw;
+    left: 0vw;
+    width: 100vw;
+    height: 100vh;
     /* Adjust the radius value for rounded corners */
     background-color: transparent;
     /* Transparent inside */
     box-sizing: border-box;
     /* Make sure the border width is included in the element's dimensions */
     z-index: 1000;
-    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.8);
     position: fixed;
 }
 
-.frame.dragging {
+.scroll.dragging {
     cursor: grabbing;
-}
-
-.square-one {
-    top: 2vw;
-    left: 0vw;
-    width: 11.1vw;
-    height: 98vh;
-    background-color: var(--background-color);
-    z-index: 999;
-    position: fixed;
-}
-
-.square-two {
-    top: 2vw;
-    left: 88.8vw;
-    width: 11.4vw;
-    height: 98vh;
-    background-color: var(--background-color);
-    z-index: 999;
-    position: fixed;
-}
-
-.square-three {
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 2vw;
-    background-color: var(--background-color);
-    z-index: 999;
-    position: fixed;
-}
-
-.square-four {
-    top: 96.2vh;
-    left: 10.3vw;
-    width: 89.7vw;
-    height: 4.8vh;
-    background-color: var(--background-color);
-    z-index: 999;
-    position: fixed;
 }

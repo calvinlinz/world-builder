@@ -76,16 +76,12 @@ const Display = () => {
             <MonsterGrid worldData={worldData} scaleFactor={scaleFactor} />
           </div>
           <div
-            className="frame"
+            className="scroll"
             ref={dragRef}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
           ></div>
-          <div className="square-one"></div>
-          <div className="square-two"></div>
-          <div className="square-three"></div>
-          <div className="square-four"></div>
         </div>
       )}
     </>
