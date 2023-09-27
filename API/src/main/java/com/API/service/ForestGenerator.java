@@ -18,29 +18,50 @@ public class ForestGenerator {
      */
     private int[][] map;
 
+    /**
+     * Random object used to generate random numbers/
+     */
     private Random rand = new Random();
 
-    private int radius = 10;
-    private int currForests = 0;
-    private int numForests = 2;
-    private int minimumTrees = 8;
+    /**
+     * List of invalid codes which a forest cannot overlap.
+     */
     private ArrayList<Integer> invalidCodes = new ArrayList<>(List.of(5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23));
 
+    /**
+     * Code for background tile in map.
+     */
     private int backgroundCode = 0;
+
+    /**
+     * Code for bush tile in map.
+     */
     private int bushCode = 1;
+
+    /**
+     * Code for tree tile in map. Tree is a 2x2 object.
+     */
     private int treeCode = 2; 
     
     
-
     /**
-     * 
-     * @param mapBuilder
+     * Creates a ForestGenerator object which observes base map and places forests in empty space.
+     * @param mapBuilder MapBuilder object which has map containing houses/paths/trees, etc.
      */
     public ForestGenerator(MapBuilder mapBuilder){
         this.mapBuilder = mapBuilder;
         this.map = this.mapBuilder.getMap();
     }
 
+
+    /**
+     * Finds the surrounding squares of a given coordinate and ensures no trees can be placed next to it.
+     * This helps prevent overlapping trees when generating forests.
+     * @param placedPositions Set containing all tiles a tree cannot be placed.
+     * @param row Row position of the current tile.
+     * @param col Col position of the current tile.
+     * @return The new set with the surrounding squares added inside it.
+     */
     private Set<String> findSurroundingSquares(Set<String> placedPositions, int row, int col){
         placedPositions.add((row - 1) + "," + (col - 1));
         placedPositions.add((row - 1) + "," + (col));
@@ -53,6 +74,13 @@ public class ForestGenerator {
         return placedPositions;
     }
 
+
+    /**
+     * Adds bushes into a forest square.
+     * @param forestSquare The 2D array forest already made.
+     * @param chance The probability that a bush will appear in a tile.
+     * @return The new 2D array with bushes inside it.
+     */
     public int[][] addBushes(int[][] forestSquare, int chance){
         for(int i = 0; i < forestSquare.length; i++){
             for(int j = 0; j < forestSquare[0].length; j++){
@@ -69,6 +97,13 @@ public class ForestGenerator {
     }
 
 
+    /**
+     * Creates a big 2D array "tile" which is a forest. Can be placed inside the bigger map.
+     * Creates trees randomly and places inside, ensuring no overlaps using a placedPositions set.
+     * @param size The size of the 2D array, e.g. size of 20 will make a 20x20 forest.
+     * @param numTrees The number of trees inside a given forest.
+     * @return A forest square 2D array which can be placed inside bigger map.
+     */
     public int[][] createForestSquare(int size, int numTrees){
 
         // Create a blank forest square that is 20x20 and fill it up with background.
@@ -106,7 +141,10 @@ public class ForestGenerator {
     }
     
 
-
+    /**
+     * Generates forest and returns the final big map, which can then be manipulated further or displayed on site.
+     * @return
+     */
     public int[][] generateForests(){
         // Create the forest square
         System.out.println("\n\nCREATING FOREST SQUARE");
