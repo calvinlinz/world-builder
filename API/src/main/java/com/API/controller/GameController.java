@@ -2,6 +2,7 @@ package com.API.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -45,7 +46,7 @@ public class GameController {
     }
 
 
-    @PutMapping("/leave")
+    @DeleteMapping("/leave")
     public ResponseEntity<int[][]> deletePlayer(@RequestBody LeaveRequest leaveRequest) {
         long id = leaveRequest.getId();
         peopleService.deletePersonById(id);
@@ -67,7 +68,7 @@ public class GameController {
     }
 
     @GetMapping("/view")
-    public ResponseEntity<int[][]> getWorld(@RequestBody WorldRequest worldRequest) {
+    public ResponseEntity<int[][]> getWorld() {
         if (currentMap != null) {
             return ResponseEntity.ok(currentMap);
         }
