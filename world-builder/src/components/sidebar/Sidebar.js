@@ -19,7 +19,7 @@ emailjs.init("VDupAfE4CYPyVT2Ry");
 
 const SideBar = () => {
   const [open, setOpen] = useState(false);
-  const { worldData, setWorldData, setHistory, loading, opacityCaveValue, opacityRoofValue, sendMessage} =
+  const { worldData, setWorldData, setHistory, loading, opacityCaveValue, opacityRoofValue, sendMessage ,gameId} =
     useContext(WorldDataContext);
   const [gridSize, setGridSize] = useState(27);
   const [isOpen, setIsOpen] = useState(false);
@@ -32,7 +32,7 @@ const SideBar = () => {
 
   const configuration = slideOpen && isOpen ? "config open" : "config";
   const buttonClass = isOpen && slideOpen ? "config-toggle" : "sidebar-toggle";
-  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://10.140.45.67:8080";
   const sidebarClass = isOpen ? "sidebar open" : "sidebar";
   let timeoutActive = false;
 
@@ -119,13 +119,14 @@ const SideBar = () => {
       return;
     }
     setWorldData(worldData, true);
-    fetch(API_URL + "/world", {
+    fetch(API_URL + "/game/generate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         size: gridSize,
+        gameId:gameId,
       }),
     })
       .then((response) => response.json())

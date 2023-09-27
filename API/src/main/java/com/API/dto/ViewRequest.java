@@ -1,15 +1,7 @@
 package com.API.dto;
 
-public class JoinRequest{
-    private boolean host;
+public class ViewRequest {
     private String gameId;
-
-    public boolean getHost() {
-        return this.host;
-    }
-    public void setHost(boolean host) {
-        this.host = host;
-    }
 
     public String getGameId() {
         return this.gameId;

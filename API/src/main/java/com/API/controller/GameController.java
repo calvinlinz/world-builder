@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.API.dto.JoinRequest;
 import com.API.dto.LeaveRequest;
-import com.API.dto.WorldRequest;
+import com.API.dto.HostRequest;
+import com.API.dto.ViewRequest;
 import com.API.model.Person;
+import com.API.repository.GameRepository;
+import com.API.repository.UserRepository;
 import com.API.service.MapBuilder;
 import com.API.service.MapExporter;
 import com.API.service.MonsterGenerator;
@@ -28,7 +31,6 @@ public class GameController {
 
     private final PeopleService peopleService;
 
-    private int[][] currentMap;
 
     @Autowired
     public GameController(WorldService worldService, PeopleService peopleService) {
@@ -40,35 +42,41 @@ public class GameController {
     public ResponseEntity<int[][]> newPlayer(@RequestBody JoinRequest joinRequest) {
         boolean host = joinRequest.getHost();
         long id = peopleService.findNextId();
-        Person player = new Person(id,host);
+        String gameId = joinRequest.getGameId();
+        Person player = new Person(id, host, gameId);
         peopleService.newPlayer(player);
+        System.out.println(
+                "Added ID: " + id + " to gameId " + gameId + ":  " + GameRepository.games.get(gameId).toString());
+        System.out.println("Added ID: " + id + " to " + UserRepository.users.toString());
         return ResponseEntity.ok().build();
     }
-
 
     @DeleteMapping("/leave")
     public ResponseEntity<int[][]> deletePlayer(@RequestBody LeaveRequest leaveRequest) {
         long id = leaveRequest.getId();
         peopleService.deletePersonById(id);
+        System.out.println("Deleted ID: " + id + " from " + UserRepository.users.toString());
         return ResponseEntity.ok().build();
     }
 
-
     @PostMapping("/generate")
-    public ResponseEntity<int[][]> postWorld(@RequestBody WorldRequest worldRequest) {
-        int size = worldRequest.getSize();
+    public ResponseEntity<int[][]> postWorld(@RequestBody HostRequest hostRequest) {
+        int size = hostRequest.getSize();
+        String gameId = hostRequest.getGameId();
         MapBuilder mb = new MapBuilder(size);
         mb.createMap();
         MonsterGenerator mg = new MonsterGenerator(mb);
         mb.setMap(mg.generateMonsters());
         MapExporter me = new MapExporter(mb);
         int[][] jsonContent = me.exportMap();
-        this.currentMap = jsonContent;
+        GameRepository.currentMap.put(gameId, jsonContent);
         return ResponseEntity.ok(jsonContent);
     }
 
-    @GetMapping("/view")
-    public ResponseEntity<int[][]> getWorld() {
+    @PostMapping("/view")
+    public ResponseEntity<int[][]> getWorld(@RequestBody ViewRequest viewRequest) {
+        String gameId = viewRequest.getGameId();
+        int[][] currentMap = GameRepository.currentMap.get(gameId);
         if (currentMap != null) {
             return ResponseEntity.ok(currentMap);
         }

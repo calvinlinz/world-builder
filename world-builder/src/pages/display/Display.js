@@ -14,9 +14,19 @@ import SideBar from "../../components/sidebar/Sidebar";
 import Loading from "../../components/loading/loading";
 import { WorldDataContext } from "../../context/worldDataContext";
 
-const Display = ({clientRef}) => {
-  const { worldData, loading, host ,setLoading, setWorldData, setHistory, gameId, opacityRoofValue, opacityCaveValue, sendMessage} = useContext(WorldDataContext);
-  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
+const Display = () => {
+  const {
+    worldData,
+    loading,
+    host,
+    setWorldData,
+    setHistory,
+    gameId,
+    opacityRoofValue,
+    opacityCaveValue,
+    sendMessage,
+  } = useContext(WorldDataContext);
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://10.140.45.67:8080";
   let scaleFactor = 0.25;
   const [renderTimeout, setRenderTimeout] = useState(true);
   const dragRef = useRef();
@@ -47,43 +57,44 @@ const Display = ({clientRef}) => {
     dragRef.current.classList.remove("dragging");
   };
 
-
   useEffect(() => {
     setRenderTimeout(false);
-    if(host){
-      fetch(API_URL + "/game/generate", {
+    async function fetchWorld() {
+      const options = {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          size: 27,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          setWorldData(data);
-          setLoading(false);
-          setHistory(data);
-          sendMessage(data, opacityRoofValue === 1 ? true : false, opacityCaveValue === 1 ? true : false);
-        })
-        .catch((error) => console.log(error));
-    }else{
-      fetch(API_URL + "/game/view")
-        .then((response) => response.json())
-        .then((data) => {
-          setWorldData(data);
-          setLoading(false);
-          setHistory(data);
-        })
-        .catch((error) => console.log(error));
-    }
+        body:JSON.stringify({
+          gameId: gameId,
+        })};
 
+      const response = await fetch(API_URL + "/game/view", options);
+      if (response.status === 200) {
+        const data = await response.json();
+        setWorldData(data, false);
+        setHistory(data);
+        return;
+      }
+      const newBody = JSON.parse(options.body);
+      newBody.size = 27;
+      options.body = JSON.stringify(newBody);
+      const responseGenerate = await fetch(API_URL + "/game/generate", options);
+      const data = await responseGenerate.json();
+      setWorldData(data, false);
+      setHistory(data);
+      sendMessage(
+        data,
+        opacityRoofValue === 1 ? true : false,
+        opacityCaveValue === 1 ? true : false
+      );
+    }
+    fetchWorld();
   }, []);
 
   return (
     <>
-      {host ? <SideBar/> : null}
+      {host ? <SideBar /> : null}
       {loading ? (
         <Loading />
       ) : renderTimeout ? (

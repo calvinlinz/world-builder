@@ -6,7 +6,7 @@ import { WorldDataContext } from "./context/worldDataContext";
 import SockJsClient from "react-stomp";
 
 function App() {
-  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://10.140.45.67:8080";
   const [opacityRoofValue, setOpacityRoofValue] = useState(1);
   const [opacityCaveValue, setOpacityCaveValue] = useState(1);
   const [host, setHost] = useState(false);
@@ -98,7 +98,7 @@ function App() {
                 console.log("Disconnected");
               }}
               onMessage={(msg) => {
-                setWorldData(JSON.parse(msg.world));
+                setWorld(JSON.parse(msg.world));
                 setOpacityRoofValue(msg.roofs ? 1 : 0);
                 setOpacityCaveValue(msg.caves ? 1 : 0);
               }}
