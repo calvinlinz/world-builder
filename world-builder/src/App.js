@@ -4,18 +4,25 @@ import HomePage from "./pages/homePage/HomePage";
 import Display from "./pages/display/Display";
 import { WorldDataContext } from "./context/worldDataContext";
 import SockJsClient from "react-stomp";
+import ShareOutlined from "@mui/icons-material/ShareOutlined";
+import { ToastContainer, toast } from "react-toastify";
 
 function App() {
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   const [opacityRoofValue, setOpacityRoofValue] = useState(1);
   const [opacityCaveValue, setOpacityCaveValue] = useState(1);
+  const [id, setId] = useState(null);
   const [host, setHost] = useState(false);
   const [worldData, setWorldData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [gameId, setGameId] = useState("test");
+  const [currentPlayersInGame, setCurrentPlayersInGame] = useState(0);
+  const currentScrollX = useRef(0);
+  const currentScrollY = useRef(0);
+
   const clientRef = useRef();
-  const [history, setHistory] = useState(
+  const [history, setHistory] = useState( 
     JSON.parse(localStorage.getItem("history")) || []
   );
 
@@ -39,9 +46,37 @@ function App() {
     localStorage.setItem("history", JSON.stringify(history));
   };
 
+  const handleTabClose = () => {
+    try {
+      clientRef.current.disconnect();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const notifySuccess = (message) => toast.success(message);
+  const notifyInfo = (message) => toast.success(message);
+
+
+  useEffect(()=>{
+    if(gameStarted){
+      notifySuccess((host ? "Created " : "Joined ") + "Game " + gameId);
+    }
+
+  },[gameStarted]);
   useEffect(() => {
     setLoading(true);
-  }, []);
+    window.addEventListener("beforeunload", handleTabClose);
+    return () => {
+      window.removeEventListener("beforeunload", handleTabClose);
+    };
+  }, [clientRef.current]);
+
+  useEffect(() => {
+    if (!host) {
+      window.scroll(currentScrollX.current, currentScrollY.current);
+    }
+  }, [currentScrollX.current, currentScrollY.current]);
 
   return (
     <WorldDataContext.Provider
@@ -53,18 +88,19 @@ function App() {
         host,
         gameId,
         clientRef: clientRef,
+        currentPlayersInGame,
         setWorldData: (worldData, loading) => {
           setWorld(worldData);
           setLoading(loading);
         },
         setOpacityRoofValue: (bool) => {
-          setOpacityRoofValue(bool? 1 : 0);
+          setOpacityRoofValue(bool ? 1 : 0);
         },
         setHistory: (data) => {
           handleHistory(data);
         },
         setOpacityCaveValue: (bool) => {
-          setOpacityCaveValue(bool? 1 : 0);
+          setOpacityCaveValue(bool ? 1 : 0);
         },
         setHost: (host) => {
           setHost(host);
@@ -72,35 +108,90 @@ function App() {
         setGameId: (gameId) => {
           setGameId(gameId);
         },
-        sendMessage: (data, roofs , caves) => {
+        sendMessage: (
+          worldData,
+          opacityRoofValue,
+          opacityCaveValue,
+          currentPlayersInGame,
+          currentScrollX,
+          currentScrollY
+        ) => {
           clientRef.current.sendMessage(
             "/app/send/" + gameId,
             JSON.stringify({
-              id:0,
-              world: JSON.stringify(data),
-              roofs: roofs,
-              caves: caves
+              id: id,
+              world: JSON.stringify(worldData),
+              roofs: opacityRoofValue === 1 ? true : false,
+              caves: opacityCaveValue === 1 ? true : false,
+              players: currentPlayersInGame,
+              x: currentScrollX,
+              y: currentScrollY,
             })
           );
-        }
+        },
+        setCurrentPlayersInGame: (num) => {
+          setCurrentPlayersInGame(num);
+        },
       }}
     >
       <div className="App">
+      <ToastContainer autoClose={2000}  position="top-center" theme="dark" toastStyle={{backgroundColor:"#1f1f1f"}}/>
         {gameStarted ? (
           <>
             <SockJsClient
-              url={API_URL +"/game/"}
+              url={API_URL + "/game/"}
               topics={["/session/" + gameId]}
               onConnect={() => {
-                console.log("connected: " + gameId);
+                const options = {
+                  method: "PUT",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ gameId: gameId, host: host }),
+                };
+                fetch(API_URL + "/game/join", options)
+                  .then((response) => response.json())
+                  .then((data) => {
+                    setId(data.id);
+                    setCurrentPlayersInGame(data.players);
+                  });
+
               }}
               onDisconnect={() => {
-                console.log("Disconnected");
+                const options = {
+                  method: "DELETE",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    id: id,
+                    worldData: JSON.stringify(worldData),
+                    x: currentScrollX.current,
+                    y: currentScrollY.current,
+                    roofs: opacityRoofValue === 1 ? true : false,
+                    caves: opacityCaveValue === 1 ? true : false
+                  }),
+                };
+                fetch(API_URL + "/game/leave", options);
               }}
               onMessage={(msg) => {
-                setWorldData(JSON.parse(msg.world));
-                setOpacityRoofValue(msg.roofs ? 1 : 0);
-                setOpacityCaveValue(msg.caves ? 1 : 0);
+                const previousPlayers = currentPlayersInGame;
+                if (!host) {
+                  if(msg.id !=-1){
+                    setWorld(JSON.parse(msg.world));
+                    handleHistory(JSON.parse(msg.world));
+                    setOpacityRoofValue(msg.roofs ? 1 : 0);
+                    setOpacityCaveValue(msg.caves ? 1 : 0);
+                    currentScrollX.current = msg.x;
+                    currentScrollY.current = msg.y;
+                  }
+                }
+                if(msg.id == -1 && (previousPlayers != msg.players && previousPlayers!=0)){
+                  notifyInfo("A player has joined the game");
+                }else if (previousPlayers != msg.players){
+                  notifyInfo("A player has left the game");
+                }
+                setCurrentPlayersInGame(msg.players);
               }}
               ref={(client) => {
                 clientRef.current = client;
@@ -114,7 +205,7 @@ function App() {
             />
           </>
         ) : (
-          <HomePage startGame={() => setGameStarted(true)} setHost={setHost} />
+          <HomePage startGame={() => setGameStarted(true)} />
         )}
       </div>
     </WorldDataContext.Provider>

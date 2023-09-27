@@ -19,8 +19,20 @@ emailjs.init("VDupAfE4CYPyVT2Ry");
 
 const SideBar = () => {
   const [open, setOpen] = useState(false);
-  const { worldData, setWorldData, setHistory, loading, opacityCaveValue, opacityRoofValue, sendMessage} =
-    useContext(WorldDataContext);
+  const {
+    worldData,
+    setWorldData,
+    setHistory,
+    loading,
+    opacityCaveValue,
+    opacityRoofValue,
+    sendMessage,
+    gameId,
+    currentPlayersInGame,
+    currentScrollX,
+    currentScrollY,
+    host,
+  } = useContext(WorldDataContext);
   const [gridSize, setGridSize] = useState(27);
   const [isOpen, setIsOpen] = useState(false);
   const [slideOpen, setSlideOpen] = useState(false);
@@ -52,7 +64,6 @@ const SideBar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
 
   const handleHtml2Canvas = async () => {
     const world = document.querySelector("#render");
@@ -114,28 +125,35 @@ const SideBar = () => {
       });
   };
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     if (loading) {
       return;
     }
     setWorldData(worldData, true);
-    fetch(API_URL + "/world", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        size: gridSize,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setWorldData(data, false);
-        setHistory(data);
-        sendMessage(data, opacityRoofValue === 1 ? true : false, opacityCaveValue === 1 ? true : false);
-        console.log("world generated" + data)
-      })
-      .catch((error) => console.log(error));
+    async function fetchWorld() {
+      const response = await fetch(API_URL + "/game/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          size: gridSize,
+          gameId: gameId,
+        }),
+      });
+      const data = await response.json();
+      setWorldData(data, false);
+      setHistory(data);
+      sendMessage(
+        data,
+        opacityRoofValue,
+        opacityCaveValue,
+        currentPlayersInGame,
+        currentScrollX,
+        currentScrollY
+      );
+    }
+    await fetchWorld();
   };
 
   const handleSlideContent = (type) => {
@@ -203,12 +221,14 @@ const SideBar = () => {
         )}
       </div>
       <div className={sidebarClass}>
-        <TuneIcon
-          className="large-icon"
-          fontSize=""
-          color=""
-          onClick={() => handleSlideContent("settings")}
-        />
+        {host && (
+          <TuneIcon
+            className="large-icon"
+            fontSize=""
+            color=""
+            onClick={() => handleSlideContent("settings")}
+          />
+        )}
         <CloudUploadOutlinedIcon
           className="large-icon"
           fontSize=""
@@ -233,12 +253,14 @@ const SideBar = () => {
           color=""
           onClick={() => setOpen(true)}
         />
+        {host && (
         <RefreshIcon
           className="large-icon"
           fontSize=""
           color=""
           onClick={handleGenerate}
         />
+        )}
         {!slideButtonOpen && (
           <div className={buttonClass}>
             <div className="hamburger" onClick={buttonHandler}>
