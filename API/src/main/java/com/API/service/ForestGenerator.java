@@ -36,7 +36,7 @@ public class ForestGenerator {
     /**
      * Code for path tile in map.
      */
-    private char pathCode = '#';
+    private int pathCode = 40;
 
     /**
      * Code for background tile in map.
