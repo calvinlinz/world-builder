@@ -4,18 +4,22 @@ import HomePage from "./pages/homePage/HomePage";
 import Display from "./pages/display/Display";
 import { WorldDataContext } from "./context/worldDataContext";
 import SockJsClient from "react-stomp";
+import ShareOutlined from "@mui/icons-material/ShareOutlined";
 
 function App() {
-  const API_URL = process.env.REACT_APP_API_URL ?? "http://10.140.45.67:8080";
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   const [opacityRoofValue, setOpacityRoofValue] = useState(1);
   const [opacityCaveValue, setOpacityCaveValue] = useState(1);
-  const [id,setId] = useState(null);
+  const [id, setId] = useState(null);
   const [host, setHost] = useState(false);
   const [worldData, setWorldData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [gameId, setGameId] = useState("test");
-  const [currentPlayersInGame,setCurrentPlayersInGame] = useState(1);
+  const [currentPlayersInGame, setCurrentPlayersInGame] = useState(1);
+  const currentScrollX = useRef(0);
+  const currentScrollY = useRef(0);
+
   const clientRef = useRef();
   const [history, setHistory] = useState(
     JSON.parse(localStorage.getItem("history")) || []
@@ -41,18 +45,27 @@ function App() {
     localStorage.setItem("history", JSON.stringify(history));
   };
 
-
   const handleTabClose = () => {
-    clientRef.current.disconnect();
-  }
-  
+    try {
+      clientRef.current.disconnect();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     setLoading(true);
-    window.addEventListener('beforeunload', handleTabClose);
-    return () =>{
-      window.removeEventListener('beforeunload', handleTabClose);
-    }
+    window.addEventListener("beforeunload", handleTabClose);
+    return () => {
+      window.removeEventListener("beforeunload", handleTabClose);
+    };
   }, [clientRef.current]);
+
+  useEffect(() => {
+    if (!host) {
+      window.scroll(currentScrollX.current, currentScrollY.current);
+    }
+  }, [currentScrollX.current, currentScrollY.current]);
 
   return (
     <WorldDataContext.Provider
@@ -70,13 +83,13 @@ function App() {
           setLoading(loading);
         },
         setOpacityRoofValue: (bool) => {
-          setOpacityRoofValue(bool? 1 : 0);
+          setOpacityRoofValue(bool ? 1 : 0);
         },
         setHistory: (data) => {
           handleHistory(data);
         },
         setOpacityCaveValue: (bool) => {
-          setOpacityCaveValue(bool? 1 : 0);
+          setOpacityCaveValue(bool ? 1 : 0);
         },
         setHost: (host) => {
           setHost(host);
@@ -84,28 +97,37 @@ function App() {
         setGameId: (gameId) => {
           setGameId(gameId);
         },
-        sendMessage: (data,roofs,caves) => {
+        sendMessage: (
+          worldData,
+          opacityRoofValue,
+          opacityCaveValue,
+          currentPlayersInGame,
+          currentScrollX,
+          currentScrollY
+        ) => {
           clientRef.current.sendMessage(
             "/app/send/" + gameId,
             JSON.stringify({
-              id:id,
-              world: JSON.stringify(data),
-              roofs: roofs,
-              caves: caves,
+              id: id,
+              world: JSON.stringify(worldData),
+              roofs: opacityRoofValue === 1 ? true : false,
+              caves: opacityCaveValue === 1 ? true : false,
               players: currentPlayersInGame,
+              x: currentScrollX,
+              y: currentScrollY,
             })
           );
         },
         setCurrentPlayersInGame: (num) => {
           setCurrentPlayersInGame(num);
-        }
+        },
       }}
     >
       <div className="App">
         {gameStarted ? (
           <>
             <SockJsClient
-              url={API_URL +"/game/"}
+              url={API_URL + "/game/"}
               topics={["/session/" + gameId]}
               onConnect={() => {
                 const options = {
@@ -117,7 +139,9 @@ function App() {
                 };
                 fetch(API_URL + "/game/join", options)
                   .then((response) => response.json())
-                  .then((data) => {setId(data.id)});
+                  .then((data) => {
+                    setId(data.id);
+                  });
               }}
               onDisconnect={() => {
                 const options = {
@@ -125,26 +149,30 @@ function App() {
                   headers: {
                     "Content-Type": "application/json",
                   },
-                  body: JSON.stringify({ id: id}),
+                  body: JSON.stringify({ id: id }),
                 };
                 fetch(API_URL + "/game/leave", options).then((response) => {
                   const newCurrentPlayersInGame = currentPlayersInGame - 1;
                   clientRef.current.sendMessage(
                     "/app/send/" + gameId,
                     JSON.stringify({
-                      id:id,
+                      id: id,
                       world: JSON.stringify(worldData),
                       roofs: opacityRoofValue === 1 ? true : false,
-                      caves:  opacityCaveValue === 1 ? true : false,
+                      caves: opacityCaveValue === 1 ? true : false,
                       players: newCurrentPlayersInGame,
                     })
                   );
                 });
               }}
               onMessage={(msg) => {
-                setWorld(JSON.parse(msg.world));
-                setOpacityRoofValue(msg.roofs ? 1 : 0);
-                setOpacityCaveValue(msg.caves ? 1 : 0);
+                if (!host) {
+                  setWorld(JSON.parse(msg.world));
+                  setOpacityRoofValue(msg.roofs ? 1 : 0);
+                  setOpacityCaveValue(msg.caves ? 1 : 0);
+                  currentScrollX.current = msg.x;
+                  currentScrollY.current = msg.y;
+                }
               }}
               ref={(client) => {
                 clientRef.current = client;

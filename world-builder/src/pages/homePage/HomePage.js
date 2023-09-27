@@ -4,7 +4,7 @@ import { WorldDataContext } from "../../context/worldDataContext";
 import { useContext } from "react";
 
 const HomePage = ({ startGame}) => {
-  const API_URL = process.env.REACT_APP_API_URL ?? "http://10.140.45.67:8080";
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   const { setHost, host, setGameId } = useContext(WorldDataContext);
   const [buttonClicked, setButtonClicked] = useState(false);
   const [inputValue, setInputValue] = useState("");

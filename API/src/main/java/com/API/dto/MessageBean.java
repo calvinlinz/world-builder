@@ -6,6 +6,8 @@ public class MessageBean {
     private boolean roofs;
     private boolean caves;
     private int players;
+    private double x;
+    private double y;
 
     public long getId() {
         return id;
@@ -46,4 +48,21 @@ public class MessageBean {
     public int getPlayers() {
         return players;
     }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public double getY(){
+        return y;
+    }
+    
 }

@@ -19,8 +19,19 @@ emailjs.init("VDupAfE4CYPyVT2Ry");
 
 const SideBar = () => {
   const [open, setOpen] = useState(false);
-  const { worldData, setWorldData, setHistory, loading, opacityCaveValue, opacityRoofValue, sendMessage ,gameId, currentPlayersInGame} =
-    useContext(WorldDataContext);
+  const {
+    worldData,
+    setWorldData,
+    setHistory,
+    loading,
+    opacityCaveValue,
+    opacityRoofValue,
+    sendMessage,
+    gameId,
+    currentPlayersInGame,
+    currentScrollX,
+    currentScrollY
+  } = useContext(WorldDataContext);
   const [gridSize, setGridSize] = useState(27);
   const [isOpen, setIsOpen] = useState(false);
   const [slideOpen, setSlideOpen] = useState(false);
@@ -32,7 +43,7 @@ const SideBar = () => {
 
   const configuration = slideOpen && isOpen ? "config open" : "config";
   const buttonClass = isOpen && slideOpen ? "config-toggle" : "sidebar-toggle";
-  const API_URL = process.env.REACT_APP_API_URL ?? "http://10.140.45.67:8080";
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   const sidebarClass = isOpen ? "sidebar open" : "sidebar";
   let timeoutActive = false;
 
@@ -52,7 +63,6 @@ const SideBar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
 
   const handleHtml2Canvas = async () => {
     const world = document.querySelector("#render");
@@ -114,29 +124,29 @@ const SideBar = () => {
       });
   };
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     if (loading) {
       return;
     }
     setWorldData(worldData, true);
-    fetch(API_URL + "/game/generate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        size: gridSize,
-        gameId:gameId,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setWorldData(data, false);
-        setHistory(data);
-        sendMessage(data, opacityRoofValue === 1 ? true : false, opacityCaveValue === 1 ? true : false, currentPlayersInGame);
-        console.log("world generated" + data)
-      })
-      .catch((error) => console.log(error));
+    async function fetchWorld() {
+      const response = await fetch(API_URL + "/game/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          size: gridSize,
+          gameId: gameId,
+        }),
+      });
+      const data = await response.json();
+      setWorldData(data, false);
+      setHistory(data);
+      sendMessage(data, opacityRoofValue, opacityCaveValue, currentPlayersInGame, currentScrollX, currentScrollY);
+
+    }
+    await fetchWorld();
   };
 
   const handleSlideContent = (type) => {

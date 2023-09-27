@@ -19,5 +19,5 @@ export const WorldDataContext = createContext({
     setGameId: ()=>{},
     setClientRef: ()=>{},
     sendMessage: ()=>{},
-    setCurrentPlayersInGame: ()=>{},
+    setCurrentPlayersInGame: ()=>{}
 });

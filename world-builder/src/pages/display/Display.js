@@ -14,20 +14,25 @@ import SideBar from "../../components/sidebar/Sidebar";
 import Loading from "../../components/loading/loading";
 import { WorldDataContext } from "../../context/worldDataContext";
 import PlayerCount from "../../components/playerCount/playerCount";
+import { send } from "@emailjs/browser";
+import { set } from "lodash";
 const Display = () => {
   const {
+    id,
     worldData,
     loading,
     host,
+    opacityCaveValue,
+    opacityRoofValue,
     setWorldData,
     setHistory,
     gameId,
-    opacityRoofValue,
-    opacityCaveValue,
     sendMessage,
-    currentPlayersInGame
+    currentPlayersInGame,
+    currentScrollX,
+    currentScrollY,
   } = useContext(WorldDataContext);
-  const API_URL = process.env.REACT_APP_API_URL ?? "http://10.140.45.67:8080";
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   let scaleFactor = 0.25;
   const [renderTimeout, setRenderTimeout] = useState(true);
   const dragRef = useRef();
@@ -53,9 +58,14 @@ const Display = () => {
     startY.current = e.clientY;
   };
 
-  const handleMouseUp = () => {
+  const handleMouseUp = (e) => {
     isDragging = false;
     dragRef.current.classList.remove("dragging");
+    if(host){
+      const currentX = window.scrollX || window.pageXOffset;
+      const currentY = window.scrollY || window.pageYOffset;
+      sendMessage(worldData, opacityRoofValue, opacityCaveValue, currentPlayersInGame, currentX, currentY);
+    }
   };
 
   useEffect(() => {
