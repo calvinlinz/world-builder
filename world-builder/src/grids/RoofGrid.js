@@ -6,6 +6,10 @@ import { WorldDataContext } from "../context/worldDataContext";
 const RoofGrid = ({scaleFactor}) => {
   const { worldData, opacityValue} = useContext(WorldDataContext);
   const buildingCords = getBuildingCords(worldData);
+  let roofOpacityValues =  buildingCords.map((building) => ({
+                            id: building.id,
+                            showing: 1,
+                          }));
 
   const imageMapping = {
     5: allImages.buildingImages.roof_red_2x2,
@@ -21,6 +25,7 @@ const RoofGrid = ({scaleFactor}) => {
 
   useEffect(() => {
     console.log(opacityValue);
+    console.log(roofOpacityValues);
   }, [opacityValue]);
 
   return (
@@ -34,6 +39,7 @@ const RoofGrid = ({scaleFactor}) => {
             style={{
               transform: `rotate(${image.angle}deg)`,
               position: "absolute",
+              opacity: roofOpacityValues.find((item) => item.id === image.id).showing,
               left: `${
                 (image.x * 4.1 + 4 - image.angle / 15 + image.xShift) * scaleFactor
               }vw`,
