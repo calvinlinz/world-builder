@@ -15,10 +15,8 @@ import Loading from "../../components/loading/loading";
 import { WorldDataContext } from "../../context/worldDataContext";
 
 const Display = ({clientRef}) => {
-  const { worldData, loading, host ,setLoading, setWorldData, setHistory} = useContext(WorldDataContext);
-  const [opacityValue, setOpacity] = useState(1);
+  const { worldData, loading, host ,setLoading, setWorldData, setHistory, gameId} = useContext(WorldDataContext);
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
-
   let scaleFactor = 0.25;
   const [renderTimeout, setRenderTimeout] = useState(true);
   const dragRef = useRef();
@@ -50,7 +48,7 @@ const Display = ({clientRef}) => {
   };
 
   const sendMessage = () => {
-    clientRef.current.sendMessage('/app/user-all', JSON.stringify({
+    clientRef.current.sendMessage('/app/send/'+gameId, JSON.stringify({
         name: "ID",
         message: "hey guys"
     }));

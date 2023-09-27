@@ -13,8 +13,8 @@ import com.API.dto.MessageBean;
 @Controller
 public class SocketController {
 
-    @MessageMapping("/user-all/{dynamicVar}")
-    @SendTo("/topic/{dynamicVar}")
+    @MessageMapping("/send/{dynamicVar}")
+    @SendTo("/session/{dynamicVar}")
     public MessageBean send(@Payload MessageBean message, @DestinationVariable String dynamicVar) {
         return message;
     }

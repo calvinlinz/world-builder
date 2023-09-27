@@ -13,6 +13,7 @@ function App() {
   const [worldData, setWorldData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
+  const [gameId, setGameId] = useState("test");
   const clientRef = useRef();
   const [history, setHistory] = useState(
     JSON.parse(localStorage.getItem("history")) || []
@@ -50,6 +51,7 @@ function App() {
         history,
         opacityCaveValue,
         host,
+        gameId,
         setWorldData: (worldData, loading) => {
           setWorld(worldData);
           setLoading(loading);
@@ -66,32 +68,37 @@ function App() {
         setHost: (host) => {
           setHost(host);
         },
+        setGameId: (gameId) => {
+          setGameId(gameId);
+        },
       }}
     >
       <div className="App">
-        <SockJsClient
-          url="http://localhost:8080/game/"
-          topics={["/topic/user"]}
-          onConnect={() => {
-            console.log("connected");
-          }}
-          onDisconnect={() => {
-            console.log("Disconnected");
-          }}
-          onMessage={(msg) => {
-            console.log(msg);
-          }}
-          ref={(client) => {
-            clientRef.current = client;
-          }}
-        />
         {gameStarted ? (
-          <Display
-            worldData={worldData}
-            loading={loading}
-            setLoading={setLoading}
-            clientRef={clientRef}
-          />
+          <>
+            <SockJsClient
+              url="http://localhost:8080/game/"
+              topics={["/session/" + gameId]}
+              onConnect={() => {
+                console.log("connected: " + gameId);
+              }}
+              onDisconnect={() => {
+                console.log("Disconnected");
+              }}
+              onMessage={(msg) => {
+                console.log(msg);
+              }}
+              ref={(client) => {
+                clientRef.current = client;
+              }}
+            />
+            <Display
+              worldData={worldData}
+              loading={loading}
+              setLoading={setLoading}
+              clientRef={clientRef}
+            />
+          </>
         ) : (
           <HomePage startGame={() => setGameStarted(true)} setHost={setHost} />
         )}
