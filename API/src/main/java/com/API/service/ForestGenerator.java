@@ -29,6 +29,11 @@ public class ForestGenerator {
     private ArrayList<Integer> invalidCodes = new ArrayList<>(List.of(5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23));
 
     /**
+     * Code for path tile in map.
+     */
+    private char pathCode = '#';
+
+    /**
      * Code for background tile in map.
      */
     private int backgroundCode = 0;
@@ -141,6 +146,14 @@ public class ForestGenerator {
     }
 
 
+    /**
+     * Checks if the position is a valid place to put a forest.
+     * @param forestSquare
+     * @param row
+     * @param col
+     * @param map
+     * @return
+     */
     private boolean isPositionValid(int[][] forestSquare, int row, int col, int[][] map) {
         // Check if the position is within bounds
         if (row < 0 || col < 0 || row + forestSquare.length > map.length || col + forestSquare[0].length > map[0].length) {
@@ -150,7 +163,7 @@ public class ForestGenerator {
         // Check if any position within the square contains an invalid code
         for (int i = row; i < row + forestSquare.length; i++) {
             for (int j = col; j < col + forestSquare[0].length; j++) {
-                if (invalidCodes.contains(map[i][j])) {
+                if (invalidCodes.contains(map[i][j]) || map[i][j] == pathCode) {
                     return false;
                 }
             }
@@ -188,29 +201,13 @@ public class ForestGenerator {
      * @return
      */
     public int[][] generateForests(){
-        // Create the forest square
-        System.out.println("\n\nCREATING FOREST SQUARE");
+        // Create the forest square, with a given size and number of trees.
         int[][] forestSquare = createForestSquare(20, 20);
-        for (int i = 0; i < forestSquare.length; i++) {
-            for (int j = 0; j < forestSquare[i].length; j++) {
-                System.out.print(forestSquare[i][j] + " ");
-            }
-            System.out.println();
-        }
-        System.out.println("END OF FOREST SQUARE\n\n");
 
-
-        // Add bushes and more into the forest square
-        System.out.println("\n\nPUTTING BUSHES INSIDE FOREST SQUARE");
+        // Add bushes and more into the forest square, with a given chance.
         int[][] finalForestSquare = addBushes(forestSquare, 15);
-        for (int i = 0; i < finalForestSquare.length; i++) {
-            for (int j = 0; j < finalForestSquare[i].length; j++) {
-                System.out.print(finalForestSquare[i][j] + " ");
-            }
-            System.out.println();
-        }
-        System.out.println("\n\nDONE PUTTING BUSHES INSIDE FOREST SQUARE");
 
+        // Place the forest square into the final map.
         placeForestSquare(finalForestSquare);
 
         return this.map;
