@@ -5,6 +5,7 @@ public class MessageBean {
     private String world;
     private boolean roofs;
     private boolean caves;
+    private int players;
 
     public long getId() {
         return id;
@@ -36,5 +37,13 @@ public class MessageBean {
 
     public void setCaves(boolean caves) {
         this.caves = caves;
+    }
+
+    public void setPlayers(int players) {
+        this.players = players;
+    }
+
+    public int getPlayers() {
+        return players;
     }
 }

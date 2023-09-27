@@ -28,31 +28,36 @@ public class PeopleService {
     }
 
     // public void deleteAndCreateBlankJson() {
-    //     File jsonFile = new File("src/main/resources/db/users.json");
+    // File jsonFile = new File("src/main/resources/db/users.json");
 
-    //     if (jsonFile.exists()) {
-    //         if (jsonFile.delete()) {
-    //             System.out.println("Existing users.json file deleted successfully.");
-    //         } else {
-    //             System.err.println("Failed to delete existing users.json file.");
-    //             return;
-    //         }
-    //     }
-    //     JSONArray emptyArray = new JSONArray();
-    //     try (FileWriter writer = new FileWriter(jsonFile)) {
-    //         writer.write(emptyArray.toJSONString());
-    //         writer.flush();
-    //         System.out.println("Blank users.json file created successfully.");
-    //     } catch (IOException e) {
-    //         System.err.println("Failed to create blank users.json file: " + e.getMessage());
-    //     }
+    // if (jsonFile.exists()) {
+    // if (jsonFile.delete()) {
+    // System.out.println("Existing users.json file deleted successfully.");
+    // } else {
+    // System.err.println("Failed to delete existing users.json file.");
+    // return;
     // }
-
+    // }
+    // JSONArray emptyArray = new JSONArray();
+    // try (FileWriter writer = new FileWriter(jsonFile)) {
+    // writer.write(emptyArray.toJSONString());
+    // writer.flush();
+    // System.out.println("Blank users.json file created successfully.");
+    // } catch (IOException e) {
+    // System.err.println("Failed to create blank users.json file: " +
+    // e.getMessage());
+    // }
+    // }
 
     public void newPlayer(Person person) {
         UserRepository.users.add(person);
-        GameRepository.games.get(person.getGameId()).add(person);
-        GameRepository.games.put(person.getGameId(), GameRepository.games.get(person.getGameId()));       
+        List<Person> newArray = new ArrayList<>();
+        if (GameRepository.games.containsKey(person.getGameId())) {
+            newArray = GameRepository.games.get(person.getGameId());
+        }
+        newArray.add(person);
+        GameRepository.games.put(person.getGameId(), newArray);
+
     }
 
     public Optional<Person> getPersonById(Long id) {

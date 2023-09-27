@@ -1,5 +1,8 @@
 package com.API.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,9 +30,9 @@ import com.API.service.WorldService;
 @RequestMapping("/game")
 public class GameController {
 
-    private final WorldService worldService;
 
     private final PeopleService peopleService;
+    private final WorldService worldService;
 
 
     @Autowired
@@ -39,7 +42,7 @@ public class GameController {
     }
 
     @PutMapping("/join")
-    public ResponseEntity<int[][]> newPlayer(@RequestBody JoinRequest joinRequest) {
+    public ResponseEntity<Map<String, Object>> newPlayer(@RequestBody JoinRequest joinRequest) {
         boolean host = joinRequest.getHost();
         long id = peopleService.findNextId();
         String gameId = joinRequest.getGameId();
@@ -48,12 +51,16 @@ public class GameController {
         System.out.println(
                 "Added ID: " + id + " to gameId " + gameId + ":  " + GameRepository.games.get(gameId).toString());
         System.out.println("Added ID: " + id + " to " + UserRepository.users.toString());
-        return ResponseEntity.ok().build();
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("id", id);
+        return ResponseEntity.ok(responseMap);
     }
 
     @DeleteMapping("/leave")
     public ResponseEntity<int[][]> deletePlayer(@RequestBody LeaveRequest leaveRequest) {
         long id = leaveRequest.getId();
+        System.out.println("ID: "+id);
+
         peopleService.deletePersonById(id);
         System.out.println("Deleted ID: " + id + " from " + UserRepository.users.toString());
         return ResponseEntity.ok().build();

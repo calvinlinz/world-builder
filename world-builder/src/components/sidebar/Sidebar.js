@@ -19,7 +19,7 @@ emailjs.init("VDupAfE4CYPyVT2Ry");
 
 const SideBar = () => {
   const [open, setOpen] = useState(false);
-  const { worldData, setWorldData, setHistory, loading, opacityCaveValue, opacityRoofValue, sendMessage ,gameId} =
+  const { worldData, setWorldData, setHistory, loading, opacityCaveValue, opacityRoofValue, sendMessage ,gameId, currentPlayersInGame} =
     useContext(WorldDataContext);
   const [gridSize, setGridSize] = useState(27);
   const [isOpen, setIsOpen] = useState(false);
@@ -133,7 +133,7 @@ const SideBar = () => {
       .then((data) => {
         setWorldData(data, false);
         setHistory(data);
-        sendMessage(data, opacityRoofValue === 1 ? true : false, opacityCaveValue === 1 ? true : false);
+        sendMessage(data, opacityRoofValue === 1 ? true : false, opacityCaveValue === 1 ? true : false, currentPlayersInGame);
         console.log("world generated" + data)
       })
       .catch((error) => console.log(error));

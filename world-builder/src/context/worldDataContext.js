@@ -9,6 +9,7 @@ export const WorldDataContext = createContext({
     host: false,
     gameId: "",
     clientRef: null,
+    currentPlayersInGame: 0,
     setWorldData: () => {},
     setAuthentication: () => {},
     setOpacityRoofValue: () => {},
@@ -17,5 +18,6 @@ export const WorldDataContext = createContext({
     setHost: ()=>{},
     setGameId: ()=>{},
     setClientRef: ()=>{},
-    sendMessage: ()=>{}
+    sendMessage: ()=>{},
+    setCurrentPlayersInGame: ()=>{},
 });

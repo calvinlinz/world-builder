@@ -13,7 +13,7 @@ import "./Display.css";
 import SideBar from "../../components/sidebar/Sidebar";
 import Loading from "../../components/loading/loading";
 import { WorldDataContext } from "../../context/worldDataContext";
-
+import PlayerCount from "../../components/playerCount/playerCount";
 const Display = () => {
   const {
     worldData,
@@ -25,6 +25,7 @@ const Display = () => {
     opacityRoofValue,
     opacityCaveValue,
     sendMessage,
+    currentPlayersInGame
   } = useContext(WorldDataContext);
   const API_URL = process.env.REACT_APP_API_URL ?? "http://10.140.45.67:8080";
   let scaleFactor = 0.25;
@@ -65,10 +66,10 @@ const Display = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body:JSON.stringify({
+        body: JSON.stringify({
           gameId: gameId,
-        })};
-
+        }),
+      };
       const response = await fetch(API_URL + "/game/view", options);
       if (response.status === 200) {
         const data = await response.json();
@@ -83,11 +84,6 @@ const Display = () => {
       const data = await responseGenerate.json();
       setWorldData(data, false);
       setHistory(data);
-      sendMessage(
-        data,
-        opacityRoofValue === 1 ? true : false,
-        opacityCaveValue === 1 ? true : false
-      );
     }
     fetchWorld();
   }, []);
@@ -101,6 +97,7 @@ const Display = () => {
         <Loading />
       ) : (
         <div className="world">
+          <PlayerCount />
           <div id="render">
             <BackgroundGrid worldData={worldData} />
             <PathGrid worldData={worldData} />

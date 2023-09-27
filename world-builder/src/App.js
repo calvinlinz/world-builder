@@ -9,11 +9,13 @@ function App() {
   const API_URL = process.env.REACT_APP_API_URL ?? "http://10.140.45.67:8080";
   const [opacityRoofValue, setOpacityRoofValue] = useState(1);
   const [opacityCaveValue, setOpacityCaveValue] = useState(1);
+  const [id,setId] = useState(null);
   const [host, setHost] = useState(false);
   const [worldData, setWorldData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [gameId, setGameId] = useState("test");
+  const [currentPlayersInGame,setCurrentPlayersInGame] = useState(1);
   const clientRef = useRef();
   const [history, setHistory] = useState(
     JSON.parse(localStorage.getItem("history")) || []
@@ -39,9 +41,18 @@ function App() {
     localStorage.setItem("history", JSON.stringify(history));
   };
 
+
+  const handleTabClose = () => {
+    clientRef.current.disconnect();
+  }
+  
   useEffect(() => {
     setLoading(true);
-  }, []);
+    window.addEventListener('beforeunload', handleTabClose);
+    return () =>{
+      window.removeEventListener('beforeunload', handleTabClose);
+    }
+  }, [clientRef.current]);
 
   return (
     <WorldDataContext.Provider
@@ -53,6 +64,7 @@ function App() {
         host,
         gameId,
         clientRef: clientRef,
+        currentPlayersInGame,
         setWorldData: (worldData, loading) => {
           setWorld(worldData);
           setLoading(loading);
@@ -72,16 +84,20 @@ function App() {
         setGameId: (gameId) => {
           setGameId(gameId);
         },
-        sendMessage: (data, roofs , caves) => {
+        sendMessage: (data,roofs,caves) => {
           clientRef.current.sendMessage(
             "/app/send/" + gameId,
             JSON.stringify({
-              id:0,
+              id:id,
               world: JSON.stringify(data),
               roofs: roofs,
-              caves: caves
+              caves: caves,
+              players: currentPlayersInGame,
             })
           );
+        },
+        setCurrentPlayersInGame: (num) => {
+          setCurrentPlayersInGame(num);
         }
       }}
     >
@@ -92,10 +108,38 @@ function App() {
               url={API_URL +"/game/"}
               topics={["/session/" + gameId]}
               onConnect={() => {
-                console.log("connected: " + gameId);
+                const options = {
+                  method: "PUT",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ gameId: gameId, host: host }),
+                };
+                fetch(API_URL + "/game/join", options)
+                  .then((response) => response.json())
+                  .then((data) => {setId(data.id)});
               }}
               onDisconnect={() => {
-                console.log("Disconnected");
+                const options = {
+                  method: "DELETE",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ id: id}),
+                };
+                fetch(API_URL + "/game/leave", options).then((response) => {
+                  const newCurrentPlayersInGame = currentPlayersInGame - 1;
+                  clientRef.current.sendMessage(
+                    "/app/send/" + gameId,
+                    JSON.stringify({
+                      id:id,
+                      world: JSON.stringify(worldData),
+                      roofs: opacityRoofValue === 1 ? true : false,
+                      caves:  opacityCaveValue === 1 ? true : false,
+                      players: newCurrentPlayersInGame,
+                    })
+                  );
+                });
               }}
               onMessage={(msg) => {
                 setWorld(JSON.parse(msg.world));
@@ -114,7 +158,7 @@ function App() {
             />
           </>
         ) : (
-          <HomePage startGame={() => setGameStarted(true)} setHost={setHost} />
+          <HomePage startGame={() => setGameStarted(true)} />
         )}
       </div>
     </WorldDataContext.Provider>
