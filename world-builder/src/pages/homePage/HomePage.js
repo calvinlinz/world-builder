@@ -3,7 +3,7 @@ import "./HomePage.css";
 import { WorldDataContext } from "../../context/worldDataContext";
 import { useContext } from "react";
 
-const HomePage = ({ startGame}) => {
+const HomePage = ({ startGame }) => {
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   const { setHost, host, setGameId } = useContext(WorldDataContext);
   const [buttonClicked, setButtonClicked] = useState(false);
@@ -14,15 +14,33 @@ const HomePage = ({ startGame}) => {
   };
 
   const handleKeyPress = (e) => {
+
     if (e.key === "Enter") {
-      if (host) {
-        console.log("Creating game with ID:", inputValue);
-        setGameId(inputValue);
-      } else {
-        console.log("Joining game with ID:", inputValue);
-        setGameId(inputValue);
-      }
-      startGame();
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        gameId: inputValue,
+        host: host,
+      }),
+    };
+    fetch(API_URL + "/game/check", options)
+      .then((response) => {
+        if(response.status === 200){
+          setGameId(inputValue);
+          startGame();
+        }else{
+          if(host){
+            alert("Game ID already exists");
+          }else{
+            alert("Game ID does not exist");
+          }
+        }
+      }).catch((error) => {
+        console.log(error);
+      });
     }
   };
   return (

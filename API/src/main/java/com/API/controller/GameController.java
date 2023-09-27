@@ -58,11 +58,12 @@ public class GameController {
         boolean host = joinRequest.getHost();
         long id = peopleService.findNextId();
         String gameId = joinRequest.getGameId();
-        Person player = new Person(id, host, gameId);
+  
+        Person  player = new Person(id, host, gameId); 
         peopleService.newPlayer(player);
         List<Person> players = GameRepository.games.get(gameId);
         System.out.println(
-                "Added ID: " + id + " to gameId " + gameId + ":  " + players.toString());
+                 "Added ID: " + id + " to gameId " + gameId + ":  " + players.toString());
         System.out.println("Added ID: " + id + " to " + UserRepository.users.toString());
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("id", id);
@@ -71,6 +72,24 @@ public class GameController {
         sendMessageToClient(mbean, gameId);
         return ResponseEntity.ok(responseMap);
     }
+
+    @PostMapping("/check")
+    public ResponseEntity<Map<String, Object>> checkGameId(@RequestBody JoinRequest joinRequest) {
+        boolean host = joinRequest.getHost();
+        String gameId = joinRequest.getGameId();
+        if(host){
+            if(GameRepository.games.get(gameId).stream().anyMatch(p -> p.isHost())){
+                return ResponseEntity.badRequest().build();
+            }
+        }else{
+            if(gameId == null || !GameRepository.games.containsKey(gameId)){
+                return ResponseEntity.badRequest().build();
+            }
+        }
+        return ResponseEntity.ok().build();
+    }
+
+    
 
     @DeleteMapping("/leave")
     public ResponseEntity<int[][]> deletePlayer(@RequestBody LeaveRequest leaveRequest) {
