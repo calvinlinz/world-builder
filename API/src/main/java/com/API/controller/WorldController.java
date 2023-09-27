@@ -40,7 +40,7 @@ public class WorldController {
         MapBuilder mb = new MapBuilder(size);
 		mb.createMap();
         mb.setMap(new MonsterGenerator(mb).generateMonsters());
-        mb.setMap(new ForestGenerator(mb).generateForests());
+        mb.setMap(new ForestGenerator(mb, size).generateForests());
         MapExporter me = new MapExporter(mb);
         int[][] jsonContent = me.exportMap();
         return ResponseEntity.ok(jsonContent);
