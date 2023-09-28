@@ -670,11 +670,11 @@ function getRightPathEdge(grid) {
 // -- MONSTER FUNCS ----------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
 
-const bossMonsterNames = ["Barbie", "Vorluk", "Sylvaria", "Dendrogram", "Ellaquora", "Annihilith", "Haydron", "Milandroth", "Calvorr", "Amirax"];
+const bossMonsterNames = ["Sylvaria", "Barbie", "Vorluk", "Ellaquora", "Dendrogram", "Annihilith", "Haydron", "Milandroth", "Calvorr", "Amirax"];
 const hardMonsterNames = ["Morgaloth", "Vorgrak", "Azrakarn", "Cynariel", "PP-poo’oo", "Dread", "Maymeens", "Drexthul", "Azrakarm", "Thal’gulon"];
-const mediumMonsterNames = ["Melissa", "Perceptron", "Neuralnet", "Graboost", "Stochastion", "Sloth", "Kayenen", "Genprog", "Genalg", "Deebeescan"];
-const easyMonsterNames = ["Greb", "Morph", "Crinkle", "Crawler", "Bloblin", "Bunny", "Ratling", "Beebir", "Mothie", "Ken"];
-const nameLists = [easyMonsterNames, mediumMonsterNames, hardMonsterNames, bossMonsterNames];
+const mediumMonsterNames = ["Melissa", "Perceptron", "Genprog", "Neuralnet", "Graboost", "Stochastion", "Sloth", "Kayenen",  "Genalg", "Deebeescan"];
+const easyMonsterNames = ["Greb", "Morph", "Beebir", "Crinkle", "Crawler", "Bloblin", "Bunny", "Ratling",  "Mothie", "Ken"];
+const nameLists = [bossMonsterNames, hardMonsterNames,  mediumMonsterNames, easyMonsterNames ];
 
 function getMonsterCords(grid) {
     const cordList = [];
@@ -698,6 +698,8 @@ function getMonsterCords(grid) {
                           dex: parseInt(monsterStr.charAt(2), 10),
                           con: parseInt(monsterStr.charAt(3), 10),
                           int: parseInt(monsterStr.charAt(4), 10),
+                          wis: Math.floor(Math.random() * 10),
+                          cha: Math.floor(Math.random() * 10),
                           x: j - 0.5,
                           y: i - 0.5,
                         };

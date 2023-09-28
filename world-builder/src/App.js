@@ -8,7 +8,7 @@ import ShareOutlined from "@mui/icons-material/ShareOutlined";
 import { ToastContainer, toast } from "react-toastify";
 
 function App() {
-  const API_URL = process.env.REACT_APP_API_URL ?? "http://10.140.45.67:8080";
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   const [opacityRoofValue, setOpacityRoofValue] = useState(1);
   const [opacityCaveValue, setOpacityCaveValue] = useState(1);
   const [id, setId] = useState(null);
