@@ -5,7 +5,7 @@ import { useContext ,useEffect,useState} from "react";
 import { WorldDataContext } from "../context/worldDataContext";
 
 const CaveCoverGrid = () => {
-  const { worldData,caveCords,setCaveCords,buildingCords,currentPlayersInGame,sendMessage,host} = useContext(WorldDataContext);
+  const { worldData,caveCords,setCaveCords,buildingCords,currentPlayersInGame,sendMessage,host, caveOpacity} = useContext(WorldDataContext);
 
 
   const imageMapping = {
@@ -45,7 +45,7 @@ const CaveCoverGrid = () => {
 
 
   return (
-    <div className="grid-container-caves-cover">
+    <div className="grid-container-caves-cover" style={{opacity: caveOpacity}}>
       {caveCords.map((image, index) => (
         <img
           key={index}

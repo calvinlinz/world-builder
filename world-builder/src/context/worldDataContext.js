@@ -10,6 +10,8 @@ export const WorldDataContext = createContext({
     currentPlayersInGame: 0,
     caveCords: [],
     buildingCords: [],
+    roofOpacity: 1,
+    caveOpacity: 1,
     setWorldData: () => {},
     setAuthentication: () => {},
     setHistory: () => {},
@@ -20,4 +22,6 @@ export const WorldDataContext = createContext({
     setCurrentPlayersInGame: ()=>{},
     setCaveCords: ()=>{},
     setBuildingCords: ()=>{},
+    setRoofOpacity: ()=>{},
+    setCaveOpacity: ()=>{},
 });

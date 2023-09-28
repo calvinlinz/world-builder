@@ -15,6 +15,8 @@ function App() {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameId, setGameId] = useState("test");
   const [currentPlayersInGame, setCurrentPlayersInGame] = useState(0);
+  const [roofOpacity, setRoofOpacity] = useState(1);
+  const [caveOpacity, setCaveOpacity] = useState(1);
   const currentScrollX = useRef(0);
   const currentScrollY = useRef(0);
   const [caveCords, setCaveCords] = useState([]);
@@ -82,6 +84,8 @@ function App() {
         currentPlayersInGame,
         caveCords,
         buildingCords,
+        roofOpacity: roofOpacity,
+        caveOpacity: caveOpacity,
         setWorldData: (worldData, loading) => {
           setWorld(worldData);
           setLoading(loading);
@@ -94,6 +98,12 @@ function App() {
         },
         setGameId: (gameId) => {
           setGameId(gameId);
+        },
+        setRoofOpacity: (opacity) => {
+          setRoofOpacity(opacity);
+        }
+        ,setCaveOpacity: (opacity) => {
+          setCaveOpacity(opacity);
         },
         sendMessage: (
           worldData,
