@@ -27,6 +27,8 @@ const Display = () => {
     gameId,
     sendMessage,
     currentPlayersInGame,
+    setOpacityCaveValue,
+    setOpacityRoofValue,
   } = useContext(WorldDataContext);
   const API_URL = process.env.REACT_APP_API_URL ?? "http://10.140.45.67:8080";
   let scaleFactor = 0.25;
@@ -81,8 +83,13 @@ const Display = () => {
       const response = await fetch(API_URL + "/game/view", options);
       if (response.status === 200) {
         const data = await response.json();
-        setWorldData(data, false);
-        setHistory(data);
+        setWorldData(data.world, false);
+        setHistory(data.world);
+        currentX.current = data.x;
+        currentY.current = data.y;
+        window.scroll(currentX.current, currentY.current);
+        setOpacityCaveValue(data.caves == true ? 1 : 0);
+        setOpacityRoofValue(data.roofs == true ? 1 : 0);
         return;
       }
       const newBody = JSON.parse(options.body);
