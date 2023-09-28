@@ -54,6 +54,11 @@ const Display = ({currentScrollX, currentScrollY}) => {
     const deltaX = e.clientX - startX.current;
     const deltaY = e.clientY - startY.current;
     window.scrollBy(-deltaX, -deltaY);
+    if(host){
+      currentX.current = window.scrollX || window.pageXOffset;
+      currentY.current = window.scrollY || window.pageYOffset;
+      sendMessage(worldData, opacityRoofValue, opacityCaveValue, currentPlayersInGame, currentX.current, currentY.current);
+    }
     startX.current = e.clientX;
     startY.current = e.clientY;
   };
@@ -61,11 +66,7 @@ const Display = ({currentScrollX, currentScrollY}) => {
   const handleMouseUp = (e) => {
     isDragging = false;
     dragRef.current.classList.remove("dragging");
-    if(host){
-      currentX.current = window.scrollX || window.pageXOffset;
-      currentY.current = window.scrollY || window.pageYOffset;
-      sendMessage(worldData, opacityRoofValue, opacityCaveValue, currentPlayersInGame, currentX.current, currentY.current);
-    }
+   
   };
 
   useEffect(() => {

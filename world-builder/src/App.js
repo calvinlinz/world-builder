@@ -72,12 +72,6 @@ function App() {
     };
   }, [clientRef.current]);
 
-  useEffect(() => {
-    if (!host) {
-      window.scroll(currentScrollX.current, currentScrollY.current);
-    }
-  }, [currentScrollX.current, currentScrollY.current]);
-
   return (
     <WorldDataContext.Provider
       value={{
@@ -179,12 +173,16 @@ function App() {
                 console.log(msg);
                 if (!host) {
                   if(msg.id !=-1){
-                    setWorld(JSON.parse(msg.world));
-                    handleHistory(JSON.parse(msg.world));
-                    setOpacityRoofValue(msg.roofs ? 1 : 0);
-                    setOpacityCaveValue(msg.caves ? 1 : 0);
-                    currentScrollX.current = msg.x;
-                    currentScrollY.current = msg.y;
+                    if(msg.world != JSON.stringify(worldData)){
+                      setWorld(JSON.parse(msg.world));
+                    }
+                    if((msg.roofs ? 1 : 0) != opacityRoofValue) {
+                      setOpacityRoofValue(msg.roofs ? 1 : 0);
+                    }
+                    if((msg.caves ? 1 : 0) != opacityCaveValue){
+                      setOpacityCaveValue(msg.caves ? 1 : 0);
+                    }
+                    window.scroll(msg.x, msg.y);
                   }
                 }
                 if(msg.id == -1 && (previousPlayers != msg.players && previousPlayers!=0) && msg.join){
