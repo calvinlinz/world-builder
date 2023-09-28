@@ -1,11 +1,19 @@
-import React, { useEffect, useState ,useContext} from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./Grid.css";
 import { allImages } from "./Constants";
 import { getBuildingCords } from "./CalculatePositions";
 import { WorldDataContext } from "../context/worldDataContext";
-const RoofGrid = ({scaleFactor}) => {
-  const { worldData, opacityRoofValue} = useContext(WorldDataContext);
-  const buildingCords = getBuildingCords(worldData);
+const RoofGrid = ({ scaleFactor }) => {
+  const {
+    worldData,
+    currentPlayersInGame,
+    buildingCords,
+    setBuildingCords,
+    sendMessage,
+    caveCords,
+    host,
+    roofOpacity,
+  } = useContext(WorldDataContext);
 
   const imageMapping = {
     5: allImages.buildingImages.roof_red_2x2,
@@ -19,19 +27,43 @@ const RoofGrid = ({scaleFactor}) => {
     13: allImages.buildingImages.roof_red_7x8,
   };
 
+  const handleFog = (index) => {
+    if (host) {
+      const newRoofs = [...buildingCords];
+      newRoofs[index] = {
+        ...newRoofs[index],
+        opacity: newRoofs[index].opacity == 1 ? 0 : 1,
+      };
+      setBuildingCords(newRoofs);
+      sendMessage(
+        worldData,
+        newRoofs,
+        caveCords,
+        currentPlayersInGame,
+        window.scrollX,
+        window.scrollY
+      );
+
+    }
+  };
   return (
     <div>
-      <div className="grid-container-roof" style={{ opacity: opacityRoofValue }}>
+      <div className="grid-container-roof" style={{opacity: roofOpacity}}>
         {buildingCords.map((image, index) => (
           <img
             key={index}
             src={imageMapping[image.src]}
             alt={`Image ${index + 1}`}
+            onClick={() => {
+              handleFog(index);
+            }}
             style={{
+              opacity: buildingCords[index].opacity,
               transform: `rotate(${image.angle}deg)`,
               position: "absolute",
               left: `${
-                (image.x * 4.1 + 4 - image.angle / 15 + image.xShift) * scaleFactor
+                (image.x * 4.1 + 4 - image.angle / 15 + image.xShift) *
+                scaleFactor
               }vw`,
               top: `${(image.y * 4 - 4 + image.yShift) * scaleFactor}vw`,
               width: `${image.width * 4 * scaleFactor}vw`,

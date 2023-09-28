@@ -3,13 +3,13 @@ package com.API.model;
 public class Game {
 
     private int[][] world;
-    private boolean roofs;
-    private boolean caves;
+    private String roofs;
+    private String caves;
     private double x;
     private double y;
     private boolean join;
 
-    public Game(int[][] world, boolean roofs, boolean caves, double x, double y, boolean join) {
+    public Game(int[][] world, String roofs, String caves, double x, double y, boolean join) {
         this.world = world;
         this.roofs = roofs;
         this.caves = caves;
@@ -17,6 +17,7 @@ public class Game {
         this.y = y;
         this.join = join;
     }
+    
 
     public int[][] getWorld() {
         return world;
@@ -26,19 +27,19 @@ public class Game {
         this.world = world;
     }
 
-    public boolean isRoofs() {
+    public String getRoofs() {
         return roofs;
     }
 
-    public void setRoofs(boolean roofs) {
+    public void setRoofs(String roofs) {
         this.roofs = roofs;
     }
 
-    public boolean isCaves() {
+    public String getCaves() {
         return caves;
     }
 
-    public void setCaves(boolean caves) {
+    public void setCaves(String caves) {
         this.caves = caves;
     }
 
