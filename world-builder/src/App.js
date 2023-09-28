@@ -18,6 +18,7 @@ function App() {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameId, setGameId] = useState("test");
   const [currentPlayersInGame, setCurrentPlayersInGame] = useState(0);
+  const [frameValue, setFrameState] = useState(false);
   const currentScrollX = useRef(0);
   const currentScrollY = useRef(0);
 
@@ -89,6 +90,7 @@ function App() {
         gameId,
         clientRef: clientRef,
         currentPlayersInGame,
+        frameValue,
         setWorldData: (worldData, loading) => {
           setWorld(worldData);
           setLoading(loading);
@@ -107,6 +109,9 @@ function App() {
         },
         setGameId: (gameId) => {
           setGameId(gameId);
+        },
+        setFrameState: (frameValue) => {
+          setFrameState(frameValue);
         },
         sendMessage: (
           worldData,
