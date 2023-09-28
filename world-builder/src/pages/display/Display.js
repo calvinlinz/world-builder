@@ -17,7 +17,7 @@ import PlayerCount from "../../components/playerCount/playerCount";
 import { send } from "@emailjs/browser";
 import { getBuildingCords, getCaveCords } from "../../grids/CalculatePositions";
 
-const Display = ({currentScrollX, currentScrollY}) => {
+const Display = ({ currentScrollX, currentScrollY }) => {
   const {
     worldData,
     loading,
@@ -58,10 +58,10 @@ const Display = ({currentScrollX, currentScrollY}) => {
     const deltaX = e.clientX - startX.current;
     const deltaY = e.clientY - startY.current;
     window.scrollBy(-deltaX, -deltaY);
-    if(host){
+    if (host) {
       currentX.current = window.scrollX || window.pageXOffset;
       currentY.current = window.scrollY || window.pageYOffset;
-      sendMessage(worldData,buildingCords , caveCords, currentPlayersInGame, currentX.current, currentY.current);
+      sendMessage(worldData, buildingCords, caveCords, currentPlayersInGame, currentX.current, currentY.current);
     }
     startX.current = e.clientX;
     startY.current = e.clientY;
@@ -70,7 +70,7 @@ const Display = ({currentScrollX, currentScrollY}) => {
   const handleMouseUp = (e) => {
     isDragging = false;
     dragRef.current.classList.remove("dragging");
-   
+
   };
 
   useEffect(() => {
@@ -133,7 +133,7 @@ const Display = ({currentScrollX, currentScrollY}) => {
             <BackgroundGrid worldData={worldData} />
             <PathGrid worldData={worldData} />
 
-            <CaveCoverGrid worldData={worldData}  />
+            <CaveCoverGrid worldData={worldData} />
             <BuildingsGrid scaleFactor={scaleFactor} worldData={worldData} />
             <NaturalFeaturesGrid
               scaleFactor={scaleFactor}
@@ -146,6 +146,10 @@ const Display = ({currentScrollX, currentScrollY}) => {
           </div>
           <div
             className={frameValue ? "full-screen" : "frame"}
+            ref={dragRef}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
           ></div>
           {frameValue ? null : (
             <>

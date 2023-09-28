@@ -9,7 +9,6 @@ import { set } from "lodash";
 
 function App() {
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
-  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   const [id, setId] = useState(null);
   const [host, setHost] = useState(false);
   const [worldData, setWorldData] = useState([]);
@@ -22,8 +21,6 @@ function App() {
   const [frameValue, setFrameState] = useState(false);
   const currentScrollX = useRef(0);
   const currentScrollY = useRef(0);
-  const [caveCords, setCaveCords] = useState([]);
-  const [buildingCords, setBuildingCords] = useState([]);
   const [caveCords, setCaveCords] = useState([]);
   const [buildingCords, setBuildingCords] = useState([]);
 
@@ -110,6 +107,9 @@ function App() {
         }
         ,setCaveOpacity: (opacity) => {
           setCaveOpacity(opacity);
+        },
+        setFrameState: (frameValue) => {
+          setFrameState(frameValue);
         },
         sendMessage: (
           worldData,
