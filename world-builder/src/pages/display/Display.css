@@ -79,3 +79,43 @@ body {
 .frame.dragging {
     cursor: grabbing;
 }
+
+.square-one {
+    top: 2vw;
+    left: 0vw;
+    width: 11.1vw;
+    height: 98vh;
+    background-color: var(--background-color);
+    z-index: 999;
+    position: fixed;
+}
+
+.square-two {
+    top: 2vw;
+    left: 88.8vw;
+    width: 11.4vw;
+    height: 98vh;
+    background-color: var(--background-color);
+    z-index: 999;
+    position: fixed;
+}
+
+.square-three {
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 2vw;
+    background-color: var(--background-color);
+    z-index: 999;
+    position: fixed;
+}
+
+.square-four {
+    top: 96.2vh;
+    left: 10.3vw;
+    width: 89.7vw;
+    height: 4.8vh;
+    background-color: var(--background-color);
+    z-index: 999;
+    position: fixed;
+}
