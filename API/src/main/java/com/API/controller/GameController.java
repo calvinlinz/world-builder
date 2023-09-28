@@ -68,7 +68,7 @@ public class GameController {
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("id", id);
         responseMap.put("players", players.size());
-        MessageBean mbean = new MessageBean(-1, "", true, true, players.size(), (double)-1,(double)-1);
+        MessageBean mbean = new MessageBean(-1, "", true, true, players.size(), (double)0,(double)0, true);
         sendMessageToClient(mbean, gameId);
         return ResponseEntity.ok(responseMap);
     }
@@ -106,7 +106,7 @@ public class GameController {
         String gameId = person.getGameId();
         peopleService.deletePersonById(id);
         int players = GameRepository.games.get(gameId).size();
-        MessageBean mbean = new MessageBean(id, world, roofs, caves, players, x, y);
+        MessageBean mbean = new MessageBean(-1, world, roofs, caves, players, x, y, false);
         System.out.println(caves);
         System.out.println("Deleted ID: " + id + " from " + UserRepository.users.toString());
         sendMessageToClient(mbean, gameId);

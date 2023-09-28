@@ -8,8 +8,9 @@ public class MessageBean {
     private int players;
     private double x;
     private double y;
+    private boolean join;
 
-    public MessageBean(long id, String world, boolean roofs, boolean caves, int players, double x, double y) {
+    public MessageBean(long id, String world, boolean roofs, boolean caves, int players, double x, double y, boolean join) {
         this.id = id;
         this.world = world;
         this.roofs = roofs;
@@ -17,6 +18,15 @@ public class MessageBean {
         this.players = players;
         this.x = x;
         this.y = y;
+        this.join = join;
+    }
+
+    public boolean getJoin() {
+        return join;
+    }
+
+    public void setJoin(boolean join) {
+        this.join = join;
     }
 
     public long getId() {
