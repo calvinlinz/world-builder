@@ -16,6 +16,13 @@
 
 .grid-container-background {
     position: absolute;
+    top: 2vw;
+    left: 7vw;
+    z-index: 1;
+}
+
+.grid-container-background-stretched {
+    position: absolute;
     scale: 1.22;
     top: 0vw;
     left: 5vw;
