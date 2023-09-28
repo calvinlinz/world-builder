@@ -39,13 +39,13 @@ const ConfigDropdown = ({
   const handleRoofs = (e) =>{
     const newValue = !opacityRoofValue;
     setOpacityRoofValue(newValue)
-    sendMessage(worldData, opacityRoofValue, opacityCaveValue, currentPlayersInGame, currentScrollX, currentScrollY);
+    sendMessage(worldData, newValue, opacityCaveValue, currentPlayersInGame, currentScrollX, currentScrollY);
   }
 
   const handleCaves = (e) =>{
     const newValue = !opacityCaveValue;
     setOpacityCaveValue(newValue);
-    sendMessage(worldData, opacityRoofValue, opacityCaveValue, currentPlayersInGame, currentScrollX, currentScrollY);
+    sendMessage(worldData, opacityRoofValue, newValue, currentPlayersInGame, currentScrollX, currentScrollY);
   }
 
   let contentToRender;
