@@ -19,7 +19,6 @@ import HistoryIcon from "@mui/icons-material/History";
 import jsPDF from "jspdf";
 import { getBuildingCords, getCaveCords } from "../../grids/CalculatePositions";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 emailjs.init("VDupAfE4CYPyVT2Ry");
 
 const SideBar = () => {
@@ -54,7 +53,7 @@ const SideBar = () => {
   const buttonClass = isOpen && slideOpen ? "config-toggle" : "sidebar-toggle";
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   const sidebarClass = isOpen ? "sidebar open" : "sidebar";
-  const notifySuccess = (message) => toast.success(message);
+  const notification = (message) => toast.success(message);
 
   let timeoutActive = false;
 
@@ -135,8 +134,10 @@ const SideBar = () => {
         setOpen(false);
         setEmail("");
         setButtonText("Insert your Email");
+        notification("Email sent successfully!");
       })
       .catch((error) => {
+        notification("Email failed to send!");
         setButtonText("Error! Please try again.");
         console.log("Email failed to send:", error);
         setOpen(true);
