@@ -60,7 +60,6 @@ const RoofGrid = ({ scaleFactor }) => {
               opacity: buildingCords[index].opacity,
               transform: `rotate(${image.angle}deg)`,
               position: "absolute",
-              opacity: roofOpacityValues.find((item) => item.id === image.id).showing,
               left: `${
                 (image.x * 4.1 + 4 - image.angle / 15 + image.xShift) *
                 scaleFactor
