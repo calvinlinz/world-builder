@@ -17,6 +17,7 @@ import html2canvas from "html2canvas";
 import History from "../history/history";
 import HistoryIcon from "@mui/icons-material/History";
 import jsPDF from "jspdf";
+import { getBuildingCords, getCaveCords } from "../../grids/CalculatePositions";
 emailjs.init("VDupAfE4CYPyVT2Ry");
 
 const SideBar = () => {
@@ -26,8 +27,10 @@ const SideBar = () => {
     setWorldData,
     setHistory,
     loading,
-    opacityCaveValue,
-    opacityRoofValue,
+    buildingCords,
+    caveCords,
+    setBuildingCords,
+    setCaveCords,
     sendMessage,
     gameId,
     currentPlayersInGame,
@@ -157,10 +160,14 @@ const SideBar = () => {
       const data = await response.json();
       setWorldData(data, false);
       setHistory(data);
+      const buildingCords = getBuildingCords(data);
+      const caveCords = getCaveCords(data);
+      setBuildingCords(buildingCords);
+      setCaveCords(caveCords);
       sendMessage(
         data,
-        opacityRoofValue,
-        opacityCaveValue,
+        buildingCords,
+        caveCords,
         currentPlayersInGame,
         currentScrollX,
         currentScrollY

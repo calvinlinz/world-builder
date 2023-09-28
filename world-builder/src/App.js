@@ -6,11 +6,10 @@ import { WorldDataContext } from "./context/worldDataContext";
 import SockJsClient from "react-stomp";
 import ShareOutlined from "@mui/icons-material/ShareOutlined";
 import { ToastContainer, toast } from "react-toastify";
+import { set } from "lodash";
 
 function App() {
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
-  const [opacityRoofValue, setOpacityRoofValue] = useState(1);
-  const [opacityCaveValue, setOpacityCaveValue] = useState(1);
   const [id, setId] = useState(null);
   const [host, setHost] = useState(false);
   const [worldData, setWorldData] = useState([]);
@@ -21,6 +20,8 @@ function App() {
   const [frameValue, setFrameState] = useState(false);
   const currentScrollX = useRef(0);
   const currentScrollY = useRef(0);
+  const [caveCords, setCaveCords] = useState([]);
+  const [buildingCords, setBuildingCords] = useState([]);
 
   const clientRef = useRef();
   const [history, setHistory] = useState( 
@@ -73,36 +74,24 @@ function App() {
     };
   }, [clientRef.current]);
 
-  useEffect(() => {
-    if (!host) {
-      window.scroll(currentScrollX.current, currentScrollY.current);
-    }
-  }, [currentScrollX.current, currentScrollY.current]);
-
   return (
     <WorldDataContext.Provider
       value={{
         worldData: worldData,
-        opacityRoofValue,
         history,
-        opacityCaveValue,
         host,
         gameId,
         clientRef: clientRef,
         currentPlayersInGame,
+        caveCords,
+        buildingCords,
         frameValue,
         setWorldData: (worldData, loading) => {
           setWorld(worldData);
           setLoading(loading);
         },
-        setOpacityRoofValue: (bool) => {
-          setOpacityRoofValue(bool ? 1 : 0);
-        },
         setHistory: (data) => {
           handleHistory(data);
-        },
-        setOpacityCaveValue: (bool) => {
-          setOpacityCaveValue(bool ? 1 : 0);
         },
         setHost: (host) => {
           setHost(host);
@@ -115,8 +104,8 @@ function App() {
         },
         sendMessage: (
           worldData,
-          opacityRoofValue,
-          opacityCaveValue,
+          buildingCords,
+          caveCords,
           currentPlayersInGame,
           currentScrollX,
           currentScrollY
@@ -126,8 +115,8 @@ function App() {
             JSON.stringify({
               id: id,
               world: JSON.stringify(worldData),
-              roofs: opacityRoofValue === 1 ? true : false,
-              caves: opacityCaveValue === 1 ? true : false,
+              roofs: JSON.stringify(buildingCords),
+              caves: JSON.stringify(caveCords),
               players: currentPlayersInGame,
               x: currentScrollX,
               y: currentScrollY,
@@ -137,6 +126,12 @@ function App() {
         setCurrentPlayersInGame: (num) => {
           setCurrentPlayersInGame(num);
         },
+        setCaveCords: (cords) => {
+          setCaveCords(cords);
+        },
+        setBuildingCords: (cords) => {
+          setBuildingCords(cords);
+        }
       }}
     >
       <div className="App">
@@ -173,23 +168,31 @@ function App() {
                     worldData: JSON.stringify(worldData),
                     x: currentScrollX.current,
                     y: currentScrollY.current,
-                    roofs: opacityRoofValue === 1 ? true : false,
-                    caves: opacityCaveValue === 1 ? true : false
+                    roofs: JSON.stringify(buildingCords),
+                    caves: JSON.stringify(caveCords)
                   }),
                 };
                 fetch(API_URL + "/game/leave", options);
               }}
               onMessage={(msg) => {
                 const previousPlayers = currentPlayersInGame;
-                console.log(msg);
                 if (!host) {
                   if(msg.id !=-1){
-                    setWorld(JSON.parse(msg.world));
-                    handleHistory(JSON.parse(msg.world));
-                    setOpacityRoofValue(msg.roofs ? 1 : 0);
-                    setOpacityCaveValue(msg.caves ? 1 : 0);
-                    currentScrollX.current = msg.x;
-                    currentScrollY.current = msg.y;
+                    if(msg.caves == null || msg.roofs == null || msg.world == null ){
+                      return;
+                    }
+                    if(msg.world != JSON.stringify(worldData)){
+                      setWorld(JSON.parse(msg.world));
+                    }
+                    if(msg.roofs != JSON.stringify(buildingCords)) {
+                      const roofs = JSON.parse(msg.roofs);
+                      setBuildingCords(roofs);
+                    }
+                    if(msg.caves != JSON.stringify(caveCords)) {
+                      const caves = JSON.parse(msg.caves);
+                      setCaveCords(caves);
+                    }
+                    window.scroll(msg.x, msg.y);
                   }
                 }
                 if(msg.id == -1 && (previousPlayers != msg.players && previousPlayers!=0) && msg.join){
@@ -205,10 +208,8 @@ function App() {
               }}
             />
             <Display
-              worldData={worldData}
-              loading={loading}
-              setLoading={setLoading}
-              clientRef={clientRef}
+              currentScrollX = {currentScrollX}
+              currentScrollY = {currentScrollY}
             />
           </>
         ) : (

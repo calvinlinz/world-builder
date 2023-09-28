@@ -8,17 +8,17 @@ const MonsterGrid = ({worldData, scaleFactor}) => {
     const monsterCords = getMonsterCords(worldData);
 
     const houseMonsters = {
-        1: allImages.houseMonsterImages.house1,
-        2: allImages.houseMonsterImages.house2,
-        3: allImages.houseMonsterImages.house3,
-        4: allImages.houseMonsterImages.house4,
+        1: allImages.houseMonsterImages.house4,
+        2: allImages.houseMonsterImages.house3,
+        3: allImages.houseMonsterImages.house2,
+        4: allImages.houseMonsterImages.house1,
     };
 
     const forestMonsters = {
-        1: allImages.monsterImages.cat,
-        2: allImages.monsterImages.fairy,
-        3: allImages.monsterImages.monkey,
-        4: allImages.monsterImages.snake,
+        1: allImages.monsterImages.snake,
+        2: allImages.monsterImages.monkey,
+        3: allImages.monsterImages.cat,
+        4: allImages.monsterImages.fairy,
     };
 
     const caveMonsters = {

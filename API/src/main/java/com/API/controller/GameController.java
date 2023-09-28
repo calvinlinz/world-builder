@@ -21,6 +21,7 @@ import com.API.dto.LeaveRequest;
 import com.API.dto.MessageBean;
 import com.API.dto.HostRequest;
 import com.API.dto.ViewRequest;
+import com.API.model.Game;
 import com.API.model.Person;
 import com.API.repository.GameRepository;
 import com.API.repository.UserRepository;
@@ -69,7 +70,7 @@ public class GameController {
         Map<String, Object> responseMap = new HashMap<>();
         responseMap.put("id", id);
         responseMap.put("players", players.size());
-        MessageBean mbean = new MessageBean(-1, "", true, true, players.size(), (double)0,(double)0, true);
+        MessageBean mbean = new MessageBean(-1, "", "", "", players.size(), (double)0,(double)0, true);
         sendMessageToClient(mbean, gameId);
         return ResponseEntity.ok(responseMap);
     }
@@ -99,8 +100,8 @@ public class GameController {
     public ResponseEntity<int[][]> deletePlayer(@RequestBody LeaveRequest leaveRequest) {
         long id = leaveRequest.getId();
         String world = leaveRequest.getWorldData();
-        boolean caves = leaveRequest.getCaves();
-        boolean roofs = leaveRequest.getRoofs();
+        String caves = leaveRequest.getCaves();
+        String roofs = leaveRequest.getRoofs();
         double x = leaveRequest.getX();
         double y = leaveRequest.getY();
         Person person = peopleService.getPersonById(id).get();
@@ -124,16 +125,29 @@ public class GameController {
         mb.setMap(new MonsterGenerator(mb).generateMonsters());
         MapExporter me = new MapExporter(mb);
         int[][] jsonContent = me.exportMap();
-        GameRepository.currentMap.put(gameId, jsonContent);
+        Game currentGame = new Game(jsonContent, "", "", 0, 0, false);
+        if(!GameRepository.currentMap.containsKey(gameId)){
+            GameRepository.currentMap.put(gameId,currentGame);
+        }else{
+            currentGame = GameRepository.currentMap.get(gameId);
+            currentGame.setWorld(jsonContent);
+            GameRepository.currentMap.put(gameId, currentGame);
+        }
         return ResponseEntity.ok(jsonContent);
     }
 
     @PostMapping("/view")
-    public ResponseEntity<int[][]> getWorld(@RequestBody ViewRequest viewRequest) {
+    public ResponseEntity<Map<String, Object>>getWorld(@RequestBody ViewRequest viewRequest) {
         String gameId = viewRequest.getGameId();
-        int[][] currentMap = GameRepository.currentMap.get(gameId);
+        Game currentMap = GameRepository.currentMap.get(gameId);
         if (currentMap != null) {
-            return ResponseEntity.ok(currentMap);
+            Map<String, Object> responseMap = new HashMap<>();
+            responseMap.put("world", currentMap.getWorld());
+            responseMap.put("roofs", currentMap.getRoofs());
+            responseMap.put("caves", currentMap.getCaves());
+            responseMap.put("x", currentMap.getX());
+            responseMap.put("y", currentMap.getY());
+            return ResponseEntity.ok(responseMap);
         }
         return ResponseEntity.notFound().build();
     }

@@ -1,9 +1,12 @@
 import "./Grid.css";
 import { allImages } from "./Constants";
 import { getCaveCords } from "./CalculatePositions";
+import { useContext ,useEffect,useState} from "react";
+import { WorldDataContext } from "../context/worldDataContext";
 
-const CaveGrid = ({ scaleFactor, worldData }) => {
-  const caveCords = getCaveCords(worldData);
+
+const CaveGrid = ({ scaleFactor }) => {
+  const {caveCords} = useContext(WorldDataContext);
   const imageMapping = {
     15: allImages.caveImages.sml_cave,
     16: allImages.caveImages.lrg_cave_2,

@@ -3,14 +3,14 @@ package com.API.dto;
 public class MessageBean {
     private long id;
     private String world;
-    private boolean roofs;
-    private boolean caves;
+    private String roofs;
+    private String caves;
     private int players;
     private double x;
     private double y;
     private boolean join;
 
-    public MessageBean(long id, String world, boolean roofs, boolean caves, int players, double x, double y, boolean join) {
+    public MessageBean(long id, String world, String roofs, String caves, int players, double x, double y, boolean join) {
         this.id = id;
         this.world = world;
         this.roofs = roofs;
@@ -33,11 +33,11 @@ public class MessageBean {
         return id;
     }
 
-    public boolean getCaves() {
+    public String getCaves() {
         return caves;
     }
 
-    public boolean getRoofs() {
+    public String getRoofs() {
         return roofs;
     }
 
@@ -53,11 +53,11 @@ public class MessageBean {
         this.world = world;
     }
 
-    public void setRoofs(boolean roofs) {
+    public void setRoofs(String roofs) {
         this.roofs = roofs;
     }
 
-    public void setCaves(boolean caves) {
+    public void setCaves(String caves) {
         this.caves = caves;
     }
 
