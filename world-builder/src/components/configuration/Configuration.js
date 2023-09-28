@@ -39,6 +39,7 @@ const ConfigDropdown = ({
   const handleFrame = (e) => {
     const newValue = !frameValue;
     setFrameState(newValue);
+    console.log(newValue + "from Config.js");
   }
 
   const handleRoofs = (e) =>{

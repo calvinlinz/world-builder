@@ -27,6 +27,7 @@ const Display = () => {
     gameId,
     sendMessage,
     currentPlayersInGame,
+    frameValue,
   } = useContext(WorldDataContext);
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   let scaleFactor = 0.25;
@@ -39,6 +40,7 @@ const Display = () => {
   const currentY = useRef(0);
 
   const handleMouseDown = (e) => {
+    console.log(frameValue + " from display.js");
     e.preventDefault();
     isDragging = true;
     startX.current = e.clientX;
@@ -59,7 +61,7 @@ const Display = () => {
   const handleMouseUp = (e) => {
     isDragging = false;
     dragRef.current.classList.remove("dragging");
-    if(host){
+    if (host) {
       currentX.current = window.scrollX || window.pageXOffset;
       currentY.current = window.scrollY || window.pageYOffset;
       sendMessage(worldData, opacityRoofValue, opacityCaveValue, currentPlayersInGame, currentX.current, currentY.current);
@@ -128,7 +130,7 @@ const Display = () => {
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
           ></div>
-        </div>
+        </div >
       )}
     </>
   );
