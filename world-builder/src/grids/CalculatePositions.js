@@ -107,13 +107,12 @@ const symetricalCodes = [5, 7, 8, 10];
 
 
 // Will return the degree that the building is orientated at 
-function findOrientation(startY, startX, value, grid, iD) {
+function findOrientation(startY, startX, value, grid) {
     const width = imageDims[value][0];
     const widthCheck = grid[startY][startX + width];
     if (widthCheck === value) {
         if (value === grid[startY][startX + width + 1]) {
             const newValue = {
-                id: iD, 
                 src: value,
                 x: startX,
                 y: startY,
@@ -127,7 +126,6 @@ function findOrientation(startY, startX, value, grid, iD) {
             return newValue;
         } else {
             const newValue = {
-                id: iD, 
                 src: value,
                 x: startX,
                 y: startY,
@@ -143,7 +141,6 @@ function findOrientation(startY, startX, value, grid, iD) {
 
     }
     const newValue = {
-        id: iD,
         src: value,
         x: startX,
         y: startY,
@@ -160,7 +157,6 @@ function findOrientation(startY, startX, value, grid, iD) {
 // Find the locations and types of buildings inside the map
 function getBuildingCords(grid) {
     // console.log("Building Cords: " + grid);
-    let iD = 0;
     const cordList = [];
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
@@ -171,7 +167,6 @@ function getBuildingCords(grid) {
                             // Ensure that the buildings location is only recorded once
                             if (i === 0 && j === 0) { // If y = 0 and x = 0
                                 const newValue = {
-                                    id: iD,
                                     src: grid[i][j],
                                     x: j,
                                     y: i,
@@ -182,12 +177,10 @@ function getBuildingCords(grid) {
                                     yShift: imageShift[grid[i][j]][1],
                                     opacity: 1,
                                 };
-                                iD = iD + 1; 
                                 cordList.push(newValue);
                             } else if (i === 0) { // If y = 0
                                 if (grid[i][j] != grid[i][j - 1]) {
                                     const newValue = {
-                                        id: iD,
                                         src: grid[i][j],
                                         x: j,
                                         y: i,
@@ -198,13 +191,11 @@ function getBuildingCords(grid) {
                                         yShift: imageShift[grid[i][j]][1],
                                         opacity:1,
                                     };
-                                    iD = iD + 1; 
                                     cordList.push(newValue);
                                 }
                             } else if (j === 0) { // If x = 0 
                                 if (grid[i][j] != grid[i - 1][j]) {
                                     const newValue = {
-                                        id: iD,
                                         src: grid[i][j],
                                         x: j,
                                         y: i,
@@ -215,13 +206,11 @@ function getBuildingCords(grid) {
                                         yShift: imageShift[grid[i][j]][1],
                                         opacity:1,
                                     };
-                                    iD = iD + 1; 
                                     cordList.push(newValue);
                                 }
                             } else {
                                 if (grid[i][j] != grid[i - 1][j] && grid[i][j] != grid[i][j - 1]) {
                                     const newValue = {
-                                        id: iD,
                                         src: grid[i][j],
                                         x: j,
                                         y: i,
@@ -232,7 +221,6 @@ function getBuildingCords(grid) {
                                         yShift: imageShift[grid[i][j]][1],
                                         opacity:1,
                                     };
-                                    iD = iD + 1; 
                                     cordList.push(newValue);
                                 }
                             }
@@ -240,21 +228,17 @@ function getBuildingCords(grid) {
                             // Ensure that the buildings location is only recorded once
                             if (i === 0 && j === 0) {
                                 cordList.push(findOrientation(i, j, grid[i][j], grid, iD));
-                                iD = iD + 1; 
                             } else if (i === 0) { // If y = 0
                                 if (grid[i][j] != grid[i][j - 1]) {
                                     cordList.push(findOrientation(i, j, grid[i][j], grid, iD));
-                                    iD = iD + 1; 
                                 }
                             } else if (j === 0) { // If x = 0 
                                 if (grid[i][j] != grid[i - 1][j]) {
                                     cordList.push(findOrientation(i, j, grid[i][j], grid, iD));
-                                    iD = iD + 1; 
                                 }
                             } else {
                                 if (grid[i][j] != grid[i - 1][j] && grid[i][j] != grid[i][j - 1]) {
                                     cordList.push(findOrientation(i, j, grid[i][j], grid, iD));
-                                    iD = iD + 1; 
                                 }
                             }
                         }
