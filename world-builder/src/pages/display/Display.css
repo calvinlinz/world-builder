@@ -58,7 +58,7 @@ body {
     position: absolute;
 }
 
-.frame {
+.full-screen {
     top: 1.5vw;
     left: 10vw;
     width: 80vw;
@@ -76,7 +76,7 @@ body {
     position: fixed;
 }
 
-.frame.dragging {
+.full-screen.dragging {
     cursor: grabbing;
 }
 

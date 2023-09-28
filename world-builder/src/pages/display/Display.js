@@ -124,7 +124,7 @@ const Display = () => {
             <MonsterGrid worldData={worldData} scaleFactor={scaleFactor} />
           </div>
           <div
-            className="scroll"
+            className={frameValue ? "frame" : "full-screen"}
             ref={dragRef}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
