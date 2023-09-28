@@ -5,7 +5,6 @@ import com.API.model.Person;
 import com.API.service.MapBuilder;
 import com.API.service.MapExporter;
 import com.API.service.MonsterGenerator;
-import com.API.service.ForestGenerator;
 import com.API.service.PeopleService;
 import com.API.service.WorldService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +38,8 @@ public class WorldController {
         int size = worldRequest.getSize();
         MapBuilder mb = new MapBuilder(size);
 		mb.createMap();
-        mb.setMap(new MonsterGenerator(mb).generateMonsters());
-        mb.setMap(new ForestGenerator(mb, size).generateForests());
+        MonsterGenerator mg = new MonsterGenerator(mb);
+        mb.setMap(mg.generateMonsters());
         MapExporter me = new MapExporter(mb);
         int[][] jsonContent = me.exportMap();
         return ResponseEntity.ok(jsonContent);

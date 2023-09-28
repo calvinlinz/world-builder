@@ -91,7 +91,7 @@
     position: absolute;
     top: 2vw;
     left: 7vw;
-    z-index: 7;
+    z-index: 6;
 }
 
 .grid-container-test {
