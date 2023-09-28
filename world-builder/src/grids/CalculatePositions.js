@@ -227,18 +227,18 @@ function getBuildingCords(grid) {
                         } else {
                             // Ensure that the buildings location is only recorded once
                             if (i === 0 && j === 0) {
-                                cordList.push(findOrientation(i, j, grid[i][j], grid, iD));
+                                cordList.push(findOrientation(i, j, grid[i][j], grid));
                             } else if (i === 0) { // If y = 0
                                 if (grid[i][j] != grid[i][j - 1]) {
-                                    cordList.push(findOrientation(i, j, grid[i][j], grid, iD));
+                                    cordList.push(findOrientation(i, j, grid[i][j], grid));
                                 }
                             } else if (j === 0) { // If x = 0 
                                 if (grid[i][j] != grid[i - 1][j]) {
-                                    cordList.push(findOrientation(i, j, grid[i][j], grid, iD));
+                                    cordList.push(findOrientation(i, j, grid[i][j], grid));
                                 }
                             } else {
                                 if (grid[i][j] != grid[i - 1][j] && grid[i][j] != grid[i][j - 1]) {
-                                    cordList.push(findOrientation(i, j, grid[i][j], grid, iD));
+                                    cordList.push(findOrientation(i, j, grid[i][j], grid));
                                 }
                             }
                         }
