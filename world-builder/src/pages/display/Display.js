@@ -40,7 +40,7 @@ const Display = () => {
   const currentY = useRef(0);
 
   const handleMouseDown = (e) => {
-    console.log(frameValue + " from display.js");
+    console.log(frameValue + " from disply.js");
     e.preventDefault();
     isDragging = true;
     startX.current = e.clientX;
