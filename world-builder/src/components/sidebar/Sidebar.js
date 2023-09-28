@@ -351,6 +351,7 @@ const SideBar = () => {
             </Button>
           </Box>
         </Modal>
+        <ToastContainer autoClose={2000}  position="top-center" theme="dark" toastStyle={{backgroundColor:"#1f1f1f"}}/>
       </div>
     </div>
   );
