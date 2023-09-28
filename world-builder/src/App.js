@@ -9,7 +9,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { set } from "lodash";
 
 function App() {
-  const API_URL = process.env.REACT_APP_API_URL ?? "http://10.140.45.67:8080";
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   const [id, setId] = useState(null);
   const [host, setHost] = useState(false);
   const [worldData, setWorldData] = useState([]);
