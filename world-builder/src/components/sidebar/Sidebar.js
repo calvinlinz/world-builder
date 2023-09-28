@@ -32,6 +32,7 @@ const SideBar = () => {
     currentScrollX,
     currentScrollY,
     host,
+    frameValue,
   } = useContext(WorldDataContext);
   const [gridSize, setGridSize] = useState(27);
   const [isOpen, setIsOpen] = useState(false);
@@ -67,9 +68,8 @@ const SideBar = () => {
 
   const handleHtml2Canvas = async () => {
     const world = document.querySelector("#render");
-    const worldBackground = document.querySelector(
-      ".grid-container-background"
-    );
+    const worldBackground = frameValue ?
+      document.querySelector(".grid-container-background-stretched") : document.querySelector(".grid-container-background");
     const cell = document.querySelector(".grid-cell");
     const cellWidth = cell.clientWidth;
     const cellHeight = cell.clientHeight;
@@ -104,10 +104,10 @@ const SideBar = () => {
     setButtonText("Sending...");
     const canvas = await handleHtml2Canvas();
     var dataURL = canvas.toDataURL("image/jpeg", 0.4);
-    if(dataURL.length/1024 > 500){
+    if (dataURL.length / 1024 > 500) {
       dataURL = canvas.toDataURL("image/jpeg", 0.1);
     }
-    console.log(dataURL.length/1024);
+    console.log(dataURL.length / 1024);
     const emailParams = {
       to_email: email,
       message: "Attached file are your world data as PNG format and raw data!",
@@ -258,12 +258,12 @@ const SideBar = () => {
           onClick={() => setOpen(true)}
         />
         {host && (
-        <RefreshIcon
-          className="large-icon"
-          fontSize=""
-          color=""
-          onClick={handleGenerate}
-        />
+          <RefreshIcon
+            className="large-icon"
+            fontSize=""
+            color=""
+            onClick={handleGenerate}
+          />
         )}
         {!slideButtonOpen && (
           <div className={buttonClass}>

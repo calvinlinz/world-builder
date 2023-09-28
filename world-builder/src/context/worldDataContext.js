@@ -10,7 +10,7 @@ export const WorldDataContext = createContext({
     gameId: "",
     clientRef: null,
     currentPlayersInGame: 0,
-    frameValue: false,
+    frameValue: true,
     setWorldData: () => { },
     setAuthentication: () => { },
     setOpacityRoofValue: () => { },

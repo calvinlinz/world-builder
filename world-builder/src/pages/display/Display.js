@@ -124,21 +124,19 @@ const Display = () => {
             <MonsterGrid worldData={worldData} scaleFactor={scaleFactor} />
           </div>
           <div
-            className={frameValue ? "frame" : "full-screen"}
+            className={frameValue ? "full-screen" : "frame"}
             ref={dragRef}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
           ></div>
-          {frameValue ? (
+          {frameValue ? null : (
             <>
               <div className="square-one"></div>
               <div className="square-two"></div>
               <div className="square-three"></div>
               <div className="square-four"></div>
             </>
-          ) : (
-            null
           )}
         </div >
       )}

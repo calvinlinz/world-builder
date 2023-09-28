@@ -13,7 +13,7 @@ const BackgroundGrid = ({ worldData }) => {
     };
 
     return (
-        <div className="grid-container-background">
+        <div className={frameValue ? "grid-container-background-stretched" : "grid-container-background"}>
             {/* Render the grid */}
             {grid.map((row, rowIndex) => (
                 <div key={rowIndex} className="grid-row">

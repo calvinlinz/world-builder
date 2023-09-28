@@ -23,10 +23,9 @@
 
 .grid-container-background-stretched {
     position: absolute;
-    scale: 1.22;
+    scale: 1.215;
     top: 0vw;
     left: 5vw;
-    width: max-content;
     z-index: 1;
 }
 
