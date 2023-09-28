@@ -26,7 +26,7 @@ const ConfigDropdown = ({
   gridSize,
   setGridSize,
 }) => {
-  const { worldData, opacityCaveValue, setOpacityCaveValue, opacityRoofValue, setOpacityRoofValue, sendMessage, currentPlayersInGame, currentScrollX, currentScrollY} = useContext(WorldDataContext);
+  const { worldData, opacityCaveValue, setOpacityCaveValue, frameValue, setFrameState,opacityRoofValue, setOpacityRoofValue, sendMessage, currentPlayersInGame, currentScrollX, currentScrollY} = useContext(WorldDataContext);
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
   const [selectedMonsterOption, setSelectedMonsterOption] = useState("none");
@@ -35,6 +35,11 @@ const ConfigDropdown = ({
   const handleSelectChange = (e) => {
     setSelectedMonsterOption(e.target.value);
   };
+
+  const handleFrame = (e) => {
+    const newValue = !frameValue;
+    setFrameState(newValue);
+  }
 
   const handleRoofs = (e) =>{
     const newValue = !opacityRoofValue;
@@ -117,6 +122,11 @@ const ConfigDropdown = ({
               control={<Checkbox />}
               label="SHOW/HIDE CAVES"
               onChange={handleCaves}
+            />
+            <FormControlLabel
+              control={<Checkbox />}
+              label="FRAME/FULL SCREEN"
+              onChange={handleFrame}
             />
           </FormGroup>
         </div>
