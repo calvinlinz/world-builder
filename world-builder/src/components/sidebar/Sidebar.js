@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import "./Sidebar.css";
 import TuneIcon from "@mui/icons-material/Tune";
 import FullScreen from "@mui/icons-material/Fullscreen";
+import FullscreenExitIcon from '@mui/icons-material/FullscreenExit'; 
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import Configuration from "../configuration/Configuration";
 import { useContext } from "react";
@@ -241,12 +242,21 @@ const SideBar = () => {
             onClick={() => handleSlideContent("settings")}
           />
         )}
-        <FullScreen
+        {frameValue ? (
+          <FullscreenExitIcon
           className="large-icon"
           style={{ fontSize: "50px" }}
           fontSize=""
           color=""
           onClick={handleFrame} />
+        ) : (
+          <FullScreen
+          className="large-icon"
+          style={{ fontSize: "50px" }}
+          fontSize=""
+          color=""
+          onClick={handleFrame} />
+        )}
         <CloudUploadOutlinedIcon
           className="large-icon"
           fontSize=""
