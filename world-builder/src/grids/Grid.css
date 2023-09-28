@@ -92,6 +92,14 @@
     z-index: 7;
 }
 
+.grid-container-caves-cover:hover {
+    cursor: pointer;
+}
+
+.grid-container-caves-cover:active {
+    cursor: grab;
+}
+
 .grid-container-test {
     position: absolute;
     top: 2vw;
@@ -104,6 +112,14 @@
     top: 2vw;
     left: 7vw;
     z-index: 7;
+}
+
+.grid-container-roof:hover {
+    cursor: pointer;
+}
+
+.grid-container-roof:active {
+    cursor: grab;
 }
 
 .grid-row {

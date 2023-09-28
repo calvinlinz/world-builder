@@ -1,11 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect ,useContext} from "react";
 import "./Grid.css";
 
 import { allImages } from "./Constants";
 import { getBuildingCords } from "./CalculatePositions";
+import { WorldDataContext } from "../context/worldDataContext";
 
-const BuildingsGrid = ({ scaleFactor, worldData }) => {
-  const buildingCords = getBuildingCords(worldData);
+
+const BuildingsGrid = ({ scaleFactor}) => {
+  const {
+    worldData,
+    currentPlayersInGame,
+    buildingCords,
+    setBuildingCords,
+    sendMessage,
+    caveCords,
+    host,
+  } = useContext(WorldDataContext);
 
   const imageMapping = {
     5: allImages.buildingImages.building_2x2,

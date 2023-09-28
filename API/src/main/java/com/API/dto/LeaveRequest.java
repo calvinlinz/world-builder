@@ -12,17 +12,17 @@ public class LeaveRequest {
         this.worldData = worldData;
     }
 
-    private boolean roofs;
+    private String roofs;
 
-    public boolean getRoofs() {
+    public String getRoofs() {
         return roofs;
     }
 
-    public void setRoofs(boolean roofs) {
+    public void setRoofs(String roofs) {
         this.roofs = roofs;
     }
 
-    private boolean caves;
+    private String caves;
 
     private double x;
 
@@ -52,11 +52,11 @@ public class LeaveRequest {
         this.id = id;
     }
 
-    public boolean getCaves() {
+    public String getCaves() {
         return this.caves;
     }
 
-    public void setCaves(boolean caves) {
+    public void setCaves(String caves) {
         this.caves = caves;
     }
 

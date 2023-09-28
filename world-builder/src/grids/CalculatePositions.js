@@ -121,6 +121,7 @@ function findOrientation(startY, startX, value, grid) {
                 angle: 90,
                 xShift: imageShift[value][0],
                 yShift: imageShift[value][1],
+                opacity:1,
             };
             return newValue;
         } else {
@@ -133,6 +134,7 @@ function findOrientation(startY, startX, value, grid) {
                 angle: 0,
                 xShift: imageShift[value][0],
                 yShift: imageShift[value][1],
+                opacity:1,
             };
             return newValue;
         }
@@ -147,6 +149,7 @@ function findOrientation(startY, startX, value, grid) {
         angle: 90,
         xShift: imageShift[value][0],
         yShift: imageShift[value][1],
+        opacity:1,
     };
     return newValue;
 };
@@ -172,6 +175,7 @@ function getBuildingCords(grid) {
                                     angle: 0,
                                     xShift: imageShift[grid[i][j]][0],
                                     yShift: imageShift[grid[i][j]][1],
+                                    opacity: 1,
                                 };
                                 cordList.push(newValue);
                             } else if (i === 0) { // If y = 0
@@ -185,6 +189,7 @@ function getBuildingCords(grid) {
                                         angle: 0,
                                         xShift: imageShift[grid[i][j]][0],
                                         yShift: imageShift[grid[i][j]][1],
+                                        opacity:1,
                                     };
                                     cordList.push(newValue);
                                 }
@@ -199,6 +204,7 @@ function getBuildingCords(grid) {
                                         angle: 0,
                                         xShift: imageShift[grid[i][j]][0],
                                         yShift: imageShift[grid[i][j]][1],
+                                        opacity:1,
                                     };
                                     cordList.push(newValue);
                                 }
@@ -213,6 +219,7 @@ function getBuildingCords(grid) {
                                         angle: 0,
                                         xShift: imageShift[grid[i][j]][0],
                                         yShift: imageShift[grid[i][j]][1],
+                                        opacity:1,
                                     };
                                     cordList.push(newValue);
                                 }
@@ -265,6 +272,7 @@ function getSmallCaveCords(startY, startX, gridCopy) {
         width: caveDims[0][0],
         height: caveDims[0][1],
         angle: angle,
+        opacity:1,
     };
 
     return newValue;
@@ -280,6 +288,7 @@ function getMedCaveCords(startY, startX, gridCopy) {
         width: caveDims[1][0],
         height: caveDims[1][1],
         angle: angle,
+        opacity:1,
     };
 
     return newValue;
@@ -300,6 +309,7 @@ function getLargeCaveCords(startY, startX, gridCopy) {
                 width: imageDims[2][0],
                 height: imageDims[2][1],
                 angle: 90,
+                opacity:1,
             };
             return newValue;
         } else {
@@ -310,6 +320,7 @@ function getLargeCaveCords(startY, startX, gridCopy) {
                 width: imageDims[2][0],
                 height: imageDims[2][1],
                 angle: 0,
+                opacity:1,
             };
             return newValue;
         }
@@ -322,6 +333,7 @@ function getLargeCaveCords(startY, startX, gridCopy) {
         width: caveDims[2][0],
         height: caveDims[2][1],
         angle: angle,
+        opacity:1,
     };
 
     return newValue;
@@ -342,6 +354,7 @@ function getMassiveCaveCords(startY, startX, gridCopy) {
                 width: imageDims[3][0],
                 height: imageDims[3][1],
                 angle: 90,
+                opacity:1,
             };
             return newValue;
         } else {
@@ -352,6 +365,7 @@ function getMassiveCaveCords(startY, startX, gridCopy) {
                 width: imageDims[3][0],
                 height: imageDims[3][1],
                 angle: 0,
+                opacity:1,
             };
             return newValue;
         }
@@ -365,6 +379,7 @@ function getMassiveCaveCords(startY, startX, gridCopy) {
         width: caveDims[3][0],
         height: caveDims[3][1],
         angle: angle,
+        opacity:1,
     };
 
     return newValue;
