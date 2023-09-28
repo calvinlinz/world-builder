@@ -16,7 +16,7 @@ body {
     left: 2vw;
 }
 
-.scroll {
+.full-screen {
     top: 0vw;
     left: 0vw;
     width: 100vw;
@@ -30,7 +30,7 @@ body {
     position: fixed;
 }
 
-.scroll.dragging {
+.full-screen.dragging {
     cursor: grabbing;
 }
 
@@ -58,7 +58,7 @@ body {
     position: absolute;
 }
 
-.full-screen {
+.frame {
     top: 1.5vw;
     left: 10vw;
     width: 80vw;
@@ -76,7 +76,7 @@ body {
     position: fixed;
 }
 
-.full-screen.dragging {
+.frame.dragging {
     cursor: grabbing;
 }
 

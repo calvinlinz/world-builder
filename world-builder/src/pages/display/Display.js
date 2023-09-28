@@ -130,6 +130,16 @@ const Display = () => {
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
           ></div>
+          {frameValue ? (
+            <>
+              <div className="square-one"></div>
+              <div className="square-two"></div>
+              <div className="square-three"></div>
+              <div className="square-four"></div>
+            </>
+          ) : (
+            null
+          )}
         </div >
       )}
     </>
