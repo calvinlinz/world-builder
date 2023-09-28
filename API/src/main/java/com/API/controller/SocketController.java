@@ -22,9 +22,7 @@ public class SocketController {
         game.setRoofs(message.getRoofs());
         game.setX(message.getX());
         game.setY(message.getY());
-        System.out.println(game.getCaves());
-        System.out.println(game.getRoofs());
-
+        System.out.println(game.getX() + " " + game.getY() + " " + game.isCaves() + " " + game.isRoofs());
         GameRepository.currentMap.put(dynamicVar,game);
         return message;
     }

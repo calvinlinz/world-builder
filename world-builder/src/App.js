@@ -178,19 +178,14 @@ function App() {
                 const previousPlayers = currentPlayersInGame;
                 if (!host) {
                   if(msg.id !=-1){
-                    if(msg.caves == null || msg.roofs == null || msg.world == null ){
-                      return;
-                    }
                     if(msg.world != JSON.stringify(worldData)){
                       setWorld(JSON.parse(msg.world));
                     }
-                    if(msg.roofs != JSON.stringify(buildingCords)) {
-                      const roofs = JSON.parse(msg.roofs);
-                      setBuildingCords(roofs);
+                    if((msg.roofs ? 1 : 0) != opacityRoofValue) {
+                      setOpacityRoofValue(msg.roofs ? 1 : 0);
                     }
-                    if(msg.caves != JSON.stringify(caveCords)) {
-                      const caves = JSON.parse(msg.caves);
-                      setCaveCords(caves);
+                    if((msg.caves ? 1 : 0) != opacityCaveValue){
+                      setOpacityCaveValue(msg.caves ? 1 : 0);
                     }
                     window.scroll(msg.x, msg.y);
                   }

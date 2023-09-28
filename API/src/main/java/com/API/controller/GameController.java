@@ -125,7 +125,7 @@ public class GameController {
         mb.setMap(new MonsterGenerator(mb).generateMonsters());
         MapExporter me = new MapExporter(mb);
         int[][] jsonContent = me.exportMap();
-        Game currentGame = new Game(jsonContent, "", "", 0, 0, false);
+        Game currentGame = new Game(jsonContent, true, true, 0, 0, false);
         if(!GameRepository.currentMap.containsKey(gameId)){
             GameRepository.currentMap.put(gameId,currentGame);
         }else{
@@ -143,8 +143,8 @@ public class GameController {
         if (currentMap != null) {
             Map<String, Object> responseMap = new HashMap<>();
             responseMap.put("world", currentMap.getWorld());
-            responseMap.put("roofs", currentMap.getRoofs());
-            responseMap.put("caves", currentMap.getCaves());
+            responseMap.put("roofs", currentMap.isRoofs());
+            responseMap.put("caves", currentMap.isCaves());
             responseMap.put("x", currentMap.getX());
             responseMap.put("y", currentMap.getY());
             return ResponseEntity.ok(responseMap);
