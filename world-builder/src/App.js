@@ -200,10 +200,8 @@ function App() {
               }}
             />
             <Display
-              worldData={worldData}
-              loading={loading}
-              setLoading={setLoading}
-              clientRef={clientRef}
+              currentScrollX = {currentScrollX}
+              currentScrollY = {currentScrollY}
             />
           </>
         ) : (

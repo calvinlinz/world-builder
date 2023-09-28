@@ -15,7 +15,7 @@ import Loading from "../../components/loading/loading";
 import { WorldDataContext } from "../../context/worldDataContext";
 import PlayerCount from "../../components/playerCount/playerCount";
 import { send } from "@emailjs/browser";
-const Display = () => {
+const Display = ({currentScrollX, currentScrollY}) => {
   const {
     worldData,
     loading,
@@ -85,9 +85,8 @@ const Display = () => {
         const data = await response.json();
         setWorldData(data.world, false);
         setHistory(data.world);
-        currentX.current = data.x;
-        currentY.current = data.y;
-        window.scroll(currentX.current, currentY.current);
+        currentScrollX.current = data.x;
+        currentScrollY.current = data.y;
         setOpacityCaveValue(data.caves == true ? 1 : 0);
         setOpacityRoofValue(data.roofs == true ? 1 : 0);
         return;

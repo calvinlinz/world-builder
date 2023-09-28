@@ -26,7 +26,7 @@ const ConfigDropdown = ({
   gridSize,
   setGridSize,
 }) => {
-  const { worldData, opacityCaveValue, setOpacityCaveValue, opacityRoofValue, setOpacityRoofValue, sendMessage, currentPlayersInGame, currentScrollX, currentScrollY} = useContext(WorldDataContext);
+  const { worldData, opacityCaveValue, setOpacityCaveValue, opacityRoofValue, setOpacityRoofValue, sendMessage, currentPlayersInGame} = useContext(WorldDataContext);
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
   const [selectedMonsterOption, setSelectedMonsterOption] = useState("none");
@@ -37,15 +37,15 @@ const ConfigDropdown = ({
   };
 
   const handleRoofs = (e) =>{
-    const newValue = !opacityRoofValue;
+    const newValue = opacityRoofValue == 1 ? 0 : 1;
     setOpacityRoofValue(newValue)
-    sendMessage(worldData, newValue, opacityCaveValue, currentPlayersInGame, currentScrollX, currentScrollY);
+    sendMessage(worldData, newValue , opacityCaveValue, currentPlayersInGame, window.scrollX, window.scrollY);
   }
 
   const handleCaves = (e) =>{
-    const newValue = !opacityCaveValue;
+    const newValue = opacityCaveValue == 1 ? 0 : 1;
     setOpacityCaveValue(newValue);
-    sendMessage(worldData, opacityRoofValue, newValue, currentPlayersInGame, currentScrollX, currentScrollY);
+    sendMessage(worldData, opacityRoofValue, newValue, currentPlayersInGame, window.scrollX, window.scrollY);
   }
 
   let contentToRender;
