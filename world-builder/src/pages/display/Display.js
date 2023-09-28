@@ -17,7 +17,7 @@ import PlayerCount from "../../components/playerCount/playerCount";
 import { send } from "@emailjs/browser";
 import { getBuildingCords, getCaveCords } from "../../grids/CalculatePositions";
 
-const Display = ({currentScrollX, currentScrollY}) => {
+const Display = ({ currentScrollX, currentScrollY }) => {
   const {
     worldData,
     loading,
@@ -31,6 +31,7 @@ const Display = ({currentScrollX, currentScrollY}) => {
     currentPlayersInGame,
     setBuildingCords,
     setCaveCords,
+    frameValue,
   } = useContext(WorldDataContext);
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   let scaleFactor = 0.25;
@@ -43,6 +44,7 @@ const Display = ({currentScrollX, currentScrollY}) => {
   const currentY = useRef(0);
 
   const handleMouseDown = (e) => {
+    console.log(frameValue + " from disply.js");
     e.preventDefault();
     isDragging = true;
     startX.current = e.clientX;
@@ -56,10 +58,10 @@ const Display = ({currentScrollX, currentScrollY}) => {
     const deltaX = e.clientX - startX.current;
     const deltaY = e.clientY - startY.current;
     window.scrollBy(-deltaX, -deltaY);
-    if(host){
+    if (host) {
       currentX.current = window.scrollX || window.pageXOffset;
       currentY.current = window.scrollY || window.pageYOffset;
-      sendMessage(worldData,buildingCords , caveCords, currentPlayersInGame, currentX.current, currentY.current);
+      sendMessage(worldData, buildingCords, caveCords, currentPlayersInGame, currentX.current, currentY.current);
     }
     startX.current = e.clientX;
     startY.current = e.clientY;
@@ -68,7 +70,7 @@ const Display = ({currentScrollX, currentScrollY}) => {
   const handleMouseUp = (e) => {
     isDragging = false;
     dragRef.current.classList.remove("dragging");
-   
+
   };
 
   useEffect(() => {
@@ -131,7 +133,7 @@ const Display = ({currentScrollX, currentScrollY}) => {
             <BackgroundGrid worldData={worldData} />
             <PathGrid worldData={worldData} />
 
-            <CaveCoverGrid worldData={worldData}  />
+            <CaveCoverGrid worldData={worldData} />
             <BuildingsGrid scaleFactor={scaleFactor} worldData={worldData} />
             <NaturalFeaturesGrid
               scaleFactor={scaleFactor}
@@ -143,13 +145,21 @@ const Display = ({currentScrollX, currentScrollY}) => {
             <MonsterGrid worldData={worldData} scaleFactor={scaleFactor} />
           </div>
           <div
-            className="frame"
+            className={frameValue ? "full-screen" : "frame"}
+            ref={dragRef}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
           ></div>
-          <div className="square-one"></div>
-          <div className="square-two"></div>
-          <div className="square-three"></div>
-          <div className="square-four"></div>
-        </div>
+          {frameValue ? null : (
+            <>
+              <div className="square-one"></div>
+              <div className="square-two"></div>
+              <div className="square-three"></div>
+              <div className="square-four"></div>
+            </>
+          )}
+        </div >
       )}
     </>
   );

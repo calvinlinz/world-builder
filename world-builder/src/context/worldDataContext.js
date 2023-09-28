@@ -12,6 +12,7 @@ export const WorldDataContext = createContext({
     buildingCords: [],
     roofOpacity: 1,
     caveOpacity: 1,
+    frameValue: false,
     setWorldData: () => {},
     setAuthentication: () => {},
     setHistory: () => {},
@@ -24,4 +25,5 @@ export const WorldDataContext = createContext({
     setBuildingCords: ()=>{},
     setRoofOpacity: ()=>{},
     setCaveOpacity: ()=>{},
+    setFrameState: () => { }
 });

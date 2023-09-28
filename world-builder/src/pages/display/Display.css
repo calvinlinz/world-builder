@@ -16,6 +16,24 @@ body {
     left: 2vw;
 }
 
+.full-screen {
+    top: 0vw;
+    left: 0vw;
+    width: 100vw;
+    height: 100vh;
+    /* Adjust the radius value for rounded corners */
+    background-color: transparent;
+    /* Transparent inside */
+    box-sizing: border-box;
+    /* Make sure the border width is included in the element's dimensions */
+    z-index: 1000;
+    position: fixed;
+}
+
+.full-screen.dragging {
+    cursor: grabbing;
+}
+
 .dropShadow {
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 1);
     position: absolute;

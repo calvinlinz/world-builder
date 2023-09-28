@@ -21,6 +21,14 @@
     z-index: 1;
 }
 
+.grid-container-background-stretched {
+    position: absolute;
+    scale: 1.215;
+    top: 0vw;
+    left: 5vw;
+    z-index: 1;
+}
+
 .grid-container-path {
     position: absolute;
     top: 2vw;
@@ -89,7 +97,15 @@
     position: absolute;
     top: 2vw;
     left: 7vw;
-    z-index: 7;
+    z-index: 6;
+}
+
+.grid-container-caves-cover:hover {
+    cursor: pointer;
+}
+
+.grid-container-caves-cover:active {
+    cursor: grab;
 }
 
 .grid-container-caves-cover:hover {

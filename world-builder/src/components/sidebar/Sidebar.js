@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./Sidebar.css";
 import TuneIcon from "@mui/icons-material/Tune";
+import FullScreen from "@mui/icons-material/Fullscreen";
+import FullscreenExitIcon from '@mui/icons-material/FullscreenExit'; 
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import Configuration from "../configuration/Configuration";
 import { useContext } from "react";
@@ -35,6 +37,8 @@ const SideBar = () => {
     currentScrollX,
     currentScrollY,
     host,
+    frameValue,
+    setFrameState,
   } = useContext(WorldDataContext);
   const [gridSize, setGridSize] = useState(27);
   const [isOpen, setIsOpen] = useState(false);
@@ -68,11 +72,16 @@ const SideBar = () => {
     };
   }, []);
 
+  const handleFrame = (e) => {
+    const newValue = !frameValue;
+    setFrameState(newValue);
+    console.log(newValue + "from sideBar.js");
+  }
+
   const handleHtml2Canvas = async () => {
     const world = document.querySelector("#render");
-    const worldBackground = document.querySelector(
-      ".grid-container-background"
-    );
+    const worldBackground = frameValue ?
+      document.querySelector(".grid-container-background-stretched") : document.querySelector(".grid-container-background");
     const cell = document.querySelector(".grid-cell");
     const cellWidth = cell.clientWidth;
     const cellHeight = cell.clientHeight;
@@ -106,7 +115,11 @@ const SideBar = () => {
   const sendEmail = async () => {
     setButtonText("Sending...");
     const canvas = await handleHtml2Canvas();
-    const dataURL = canvas.toDataURL("image/jpeg", 0.4);
+    var dataURL = canvas.toDataURL("image/jpeg", 0.4);
+    if (dataURL.length / 1024 > 500) {
+      dataURL = canvas.toDataURL("image/jpeg", 0.1);
+    }
+    console.log(dataURL.length / 1024);
     const emailParams = {
       to_email: email,
       message: "Attached file are your world data as PNG format and raw data!",
@@ -236,6 +249,21 @@ const SideBar = () => {
             onClick={() => handleSlideContent("settings")}
           />
         )}
+        {frameValue ? (
+          <FullscreenExitIcon
+          className="large-icon"
+          style={{ fontSize: "50px" }}
+          fontSize=""
+          color=""
+          onClick={handleFrame} />
+        ) : (
+          <FullScreen
+          className="large-icon"
+          style={{ fontSize: "50px" }}
+          fontSize=""
+          color=""
+          onClick={handleFrame} />
+        )}
         <CloudUploadOutlinedIcon
           className="large-icon"
           fontSize=""
@@ -261,12 +289,12 @@ const SideBar = () => {
           onClick={() => setOpen(true)}
         />
         {host && (
-        <RefreshIcon
-          className="large-icon"
-          fontSize=""
-          color=""
-          onClick={handleGenerate}
-        />
+          <RefreshIcon
+            className="large-icon"
+            fontSize=""
+            color=""
+            onClick={handleGenerate}
+          />
         )}
         {!slideButtonOpen && (
           <div className={buttonClass}>

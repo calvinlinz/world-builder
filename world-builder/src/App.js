@@ -5,6 +5,7 @@ import Display from "./pages/display/Display";
 import { WorldDataContext } from "./context/worldDataContext";
 import SockJsClient from "react-stomp";
 import { ToastContainer, toast } from "react-toastify";
+import { set } from "lodash";
 
 function App() {
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
@@ -17,6 +18,7 @@ function App() {
   const [currentPlayersInGame, setCurrentPlayersInGame] = useState(0);
   const [roofOpacity, setRoofOpacity] = useState(1);
   const [caveOpacity, setCaveOpacity] = useState(1);
+  const [frameValue, setFrameState] = useState(false);
   const currentScrollX = useRef(0);
   const currentScrollY = useRef(0);
   const [caveCords, setCaveCords] = useState([]);
@@ -86,6 +88,7 @@ function App() {
         buildingCords,
         roofOpacity: roofOpacity,
         caveOpacity: caveOpacity,
+        frameValue,
         setWorldData: (worldData, loading) => {
           setWorld(worldData);
           setLoading(loading);
@@ -104,6 +107,9 @@ function App() {
         }
         ,setCaveOpacity: (opacity) => {
           setCaveOpacity(opacity);
+        },
+        setFrameState: (frameValue) => {
+          setFrameState(frameValue);
         },
         sendMessage: (
           worldData,

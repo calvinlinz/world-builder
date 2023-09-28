@@ -11,8 +11,8 @@ public class RoomManager {
     int maxFeatures;
 
     public RoomManager() {
-        minFeatures = 7;
-        maxFeatures = 14;
+        minFeatures = 5;
+        maxFeatures = 8;
         rooms = new ArrayList<>();
         initializeRooms();
     }
