@@ -44,7 +44,7 @@ const SideBar = () => {
 
   const configuration = slideOpen && isOpen ? "config open" : "config";
   const buttonClass = isOpen && slideOpen ? "config-toggle" : "sidebar-toggle";
-  const API_URL = process.env.REACT_APP_API_URL ?? "http://10.140.45.67:8080";
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   const sidebarClass = isOpen ? "sidebar open" : "sidebar";
   let timeoutActive = false;
 
