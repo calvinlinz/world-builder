@@ -12,6 +12,7 @@ const RoofGrid = ({ scaleFactor }) => {
     sendMessage,
     caveCords,
     host,
+    roofOpacity,
   } = useContext(WorldDataContext);
 
   const imageMapping = {
@@ -47,7 +48,7 @@ const RoofGrid = ({ scaleFactor }) => {
   };
   return (
     <div>
-      <div className="grid-container-roof">
+      <div className="grid-container-roof" style={{opacity: roofOpacity}}>
         {buildingCords.map((image, index) => (
           <img
             key={index}

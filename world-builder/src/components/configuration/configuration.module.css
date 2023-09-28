@@ -19,7 +19,7 @@
 }
 
 .configContent p {
-    padding-top: 25px;
+    padding: 25px;
     font-size: 1.1rem;
     display: flex;
     justify-content: left;

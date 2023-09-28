@@ -5,15 +5,9 @@ import FormGroup from "@mui/material/FormGroup";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import {
-  Menu,
-  Button,
   MenuItem,
   FormControl,
   Select,
-  Modal,
-  Typography,
-  Box,
-  Input,
 } from "@mui/material";
 import "../../grids/Grid.css";
 import MonstersOverlay from "../monstersOverlay/MonstersOverlay";
@@ -26,9 +20,7 @@ const ConfigDropdown = ({
   gridSize,
   setGridSize,
 }) => {
-  const { worldData, opacityCaveValue, setOpacityCaveValue, opacityRoofValue, setOpacityRoofValue, sendMessage, currentPlayersInGame} = useContext(WorldDataContext);
-  const [showFog, setShowFog] = useState(true);
-  const [addRemoveFog, setAddRemoveFog] = useState(false);
+  const { worldData, roofOpacity, caveOpacity, setRoofOpacity, setCaveOpacity} = useContext(WorldDataContext);
   const [selectedMonsterOption, setSelectedMonsterOption] = useState("none");
 
   // -- Handle Monster Change -------
@@ -37,15 +29,13 @@ const ConfigDropdown = ({
   };
 
   const handleRoofs = (e) =>{
-    const newValue = opacityRoofValue == 1 ? 0 : 1;
-    setOpacityRoofValue(newValue)
-    sendMessage(worldData, newValue , opacityCaveValue, currentPlayersInGame, window.scrollX, window.scrollY);
+    const newValue = roofOpacity == 1 ? 0 : 1;
+    setRoofOpacity(newValue)
   }
 
   const handleCaves = (e) =>{
-    const newValue = opacityCaveValue == 1 ? 0 : 1;
-    setOpacityCaveValue(newValue);
-    sendMessage(worldData, opacityRoofValue, newValue, currentPlayersInGame, window.scrollX, window.scrollY);
+    const newValue = caveOpacity == 1 ? 0 : 1;
+    setCaveOpacity(newValue);
   }
 
   let contentToRender;
@@ -411,18 +401,8 @@ const cha2Map = {
         <div className={styles.formGroup}>
           <FormGroup>
             <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              onChange={() => setShowFog(!showFog)} // Implement setShowFog
-              label="SHOW FOG"
-            />
-            <FormControlLabel
               control={<Checkbox />}
-              onChange={() => setAddRemoveFog(!addRemoveFog)} // Implement setAddRemoveFog
-              label="ADD/REMOVE FOG"
-            />
-            <FormControlLabel
-              control={<Checkbox />}
-              label="ADD/REMOVE ROOFS"
+              label="SHOW/HIDE ROOFS"
               onChange={handleRoofs}
             />
             <FormControlLabel

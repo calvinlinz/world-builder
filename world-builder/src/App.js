@@ -4,11 +4,11 @@ import HomePage from "./pages/homePage/HomePage";
 import Display from "./pages/display/Display";
 import { WorldDataContext } from "./context/worldDataContext";
 import SockJsClient from "react-stomp";
-import ShareOutlined from "@mui/icons-material/ShareOutlined";
 import { ToastContainer, toast } from "react-toastify";
 import { set } from "lodash";
 
 function App() {
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   const [id, setId] = useState(null);
   const [host, setHost] = useState(false);
@@ -17,9 +17,13 @@ function App() {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameId, setGameId] = useState("test");
   const [currentPlayersInGame, setCurrentPlayersInGame] = useState(0);
+  const [roofOpacity, setRoofOpacity] = useState(1);
+  const [caveOpacity, setCaveOpacity] = useState(1);
   const [frameValue, setFrameState] = useState(false);
   const currentScrollX = useRef(0);
   const currentScrollY = useRef(0);
+  const [caveCords, setCaveCords] = useState([]);
+  const [buildingCords, setBuildingCords] = useState([]);
   const [caveCords, setCaveCords] = useState([]);
   const [buildingCords, setBuildingCords] = useState([]);
 
@@ -85,6 +89,8 @@ function App() {
         currentPlayersInGame,
         caveCords,
         buildingCords,
+        roofOpacity: roofOpacity,
+        caveOpacity: caveOpacity,
         frameValue,
         setWorldData: (worldData, loading) => {
           setWorld(worldData);
@@ -99,8 +105,11 @@ function App() {
         setGameId: (gameId) => {
           setGameId(gameId);
         },
-        setFrameState: (frameValue) => {
-          setFrameState(frameValue);
+        setRoofOpacity: (opacity) => {
+          setRoofOpacity(opacity);
+        }
+        ,setCaveOpacity: (opacity) => {
+          setCaveOpacity(opacity);
         },
         sendMessage: (
           worldData,
@@ -178,14 +187,19 @@ function App() {
                 const previousPlayers = currentPlayersInGame;
                 if (!host) {
                   if(msg.id !=-1){
+                    if(msg.caves == null || msg.roofs == null || msg.world == null ){
+                      return;
+                    }
                     if(msg.world != JSON.stringify(worldData)){
                       setWorld(JSON.parse(msg.world));
                     }
-                    if((msg.roofs ? 1 : 0) != opacityRoofValue) {
-                      setOpacityRoofValue(msg.roofs ? 1 : 0);
+                    if(msg.roofs != JSON.stringify(buildingCords)) {
+                      const roofs = JSON.parse(msg.roofs);
+                      setBuildingCords(roofs);
                     }
-                    if((msg.caves ? 1 : 0) != opacityCaveValue){
-                      setOpacityCaveValue(msg.caves ? 1 : 0);
+                    if(msg.caves != JSON.stringify(caveCords)) {
+                      const caves = JSON.parse(msg.caves);
+                      setCaveCords(caves);
                     }
                     window.scroll(msg.x, msg.y);
                   }

@@ -10,6 +10,8 @@ export const WorldDataContext = createContext({
     currentPlayersInGame: 0,
     caveCords: [],
     buildingCords: [],
+    roofOpacity: 1,
+    caveOpacity: 1,
     frameValue: true,
     setWorldData: () => {},
     setAuthentication: () => {},
@@ -21,15 +23,8 @@ export const WorldDataContext = createContext({
     setCurrentPlayersInGame: ()=>{},
     setCaveCords: ()=>{},
     setBuildingCords: ()=>{},
-    setWorldData: () => { },
-    setAuthentication: () => { },
-    setOpacityRoofValue: () => { },
-    setHistory: () => { },
-    setOpacityCaveValue: () => { },
-    setHost: () => { },
-    setGameId: () => { },
-    setClientRef: () => { },
-    sendMessage: () => { },
-    setCurrentPlayersInGame: () => { },
+    setRoofOpacity: ()=>{},
+    setCaveOpacity: ()=>{},
     setFrameState: () => { }
+
 });

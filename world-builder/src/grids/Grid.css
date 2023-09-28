@@ -108,6 +108,14 @@
     cursor: grab;
 }
 
+.grid-container-caves-cover:hover {
+    cursor: pointer;
+}
+
+.grid-container-caves-cover:active {
+    cursor: grab;
+}
+
 .grid-container-test {
     position: absolute;
     top: 2vw;

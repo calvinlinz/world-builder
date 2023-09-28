@@ -15,6 +15,8 @@ import Loading from "../../components/loading/loading";
 import { WorldDataContext } from "../../context/worldDataContext";
 import PlayerCount from "../../components/playerCount/playerCount";
 import { send } from "@emailjs/browser";
+import { getBuildingCords, getCaveCords } from "../../grids/CalculatePositions";
+
 const Display = ({currentScrollX, currentScrollY}) => {
   const {
     worldData,
@@ -27,8 +29,8 @@ const Display = ({currentScrollX, currentScrollY}) => {
     gameId,
     sendMessage,
     currentPlayersInGame,
-    setOpacityCaveValue,
-    setOpacityRoofValue,
+    setBuildingCords,
+    setCaveCords,
     frameValue,
   } = useContext(WorldDataContext);
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
@@ -59,7 +61,7 @@ const Display = ({currentScrollX, currentScrollY}) => {
     if(host){
       currentX.current = window.scrollX || window.pageXOffset;
       currentY.current = window.scrollY || window.pageYOffset;
-      sendMessage(worldData, opacityRoofValue, opacityCaveValue, currentPlayersInGame, currentX.current, currentY.current);
+      sendMessage(worldData,buildingCords , caveCords, currentPlayersInGame, currentX.current, currentY.current);
     }
     startX.current = e.clientX;
     startY.current = e.clientY;
@@ -90,8 +92,11 @@ const Display = ({currentScrollX, currentScrollY}) => {
         setHistory(data.world);
         currentScrollX.current = data.x;
         currentScrollY.current = data.y;
-        setOpacityCaveValue(data.caves == true ? 1 : 0);
-        setOpacityRoofValue(data.roofs == true ? 1 : 0);
+        console.log(data)
+        const roofs = await JSON.parse(data.roofs);
+        const caves = await JSON.parse(data.caves);
+        setBuildingCords(roofs); // the current building cords will need to be stored in API.
+        setCaveCords(caves); // same as this
         return;
       }
       const newBody = JSON.parse(options.body);
