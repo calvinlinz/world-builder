@@ -4,7 +4,7 @@ import { allImages } from "./Constants";
 import { getBuildingCords } from "./CalculatePositions";
 import { WorldDataContext } from "../context/worldDataContext";
 const RoofGrid = ({scaleFactor}) => {
-  const { worldData, opacityValue} = useContext(WorldDataContext);
+  const { worldData, opacityRoofValue} = useContext(WorldDataContext);
   const buildingCords = getBuildingCords(worldData);
 
   const imageMapping = {
@@ -19,13 +19,9 @@ const RoofGrid = ({scaleFactor}) => {
     13: allImages.buildingImages.roof_red_7x8,
   };
 
-  useEffect(() => {
-    console.log(opacityValue);
-  }, [opacityValue]);
-
   return (
     <div>
-      <div className="grid-container-roof" style={{ opacity: opacityValue }}>
+      <div className="grid-container-roof" style={{ opacity: opacityRoofValue }}>
         {buildingCords.map((image, index) => (
           <img
             key={index}

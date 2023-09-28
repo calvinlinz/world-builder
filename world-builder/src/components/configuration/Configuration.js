@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext,useEffect } from "react";
 import styles from "./configuration.module.css"; // Import your CSS module
 import Slider from "@mui/material/Slider";
 import FormGroup from "@mui/material/FormGroup";
@@ -16,18 +16,17 @@ import {
   Input,
 } from "@mui/material";
 import "../../grids/Grid.css";
-import html2canvas from "html2canvas";
 import MonstersOverlay from "../monstersOverlay/MonstersOverlay";
 import { WorldDataContext } from "../../context/worldDataContext";
 import { getMonsterCords } from "../../grids/CalculatePositions";
-import emailjs from "@emailjs/browser";
+import emailjs, { send } from "@emailjs/browser";
 emailjs.init("VDupAfE4CYPyVT2Ry");
 
 const ConfigDropdown = ({
   gridSize,
   setGridSize,
 }) => {
-  const { worldData, loading, setWorldData , opacityValue, setOpacityValue, opacityCaveValue, setOpacityCaveValue} = useContext(WorldDataContext);
+  const { worldData, opacityCaveValue, setOpacityCaveValue, opacityRoofValue, setOpacityRoofValue, sendMessage, currentPlayersInGame, currentScrollX, currentScrollY} = useContext(WorldDataContext);
   const [showFog, setShowFog] = useState(true);
   const [addRemoveFog, setAddRemoveFog] = useState(false);
   const [selectedMonsterOption, setSelectedMonsterOption] = useState("none");
@@ -36,6 +35,18 @@ const ConfigDropdown = ({
   const handleSelectChange = (e) => {
     setSelectedMonsterOption(e.target.value);
   };
+
+  const handleRoofs = (e) =>{
+    const newValue = !opacityRoofValue;
+    setOpacityRoofValue(newValue)
+    sendMessage(worldData, newValue, opacityCaveValue, currentPlayersInGame, currentScrollX, currentScrollY);
+  }
+
+  const handleCaves = (e) =>{
+    const newValue = !opacityCaveValue;
+    setOpacityCaveValue(newValue);
+    sendMessage(worldData, opacityRoofValue, newValue, currentPlayersInGame, currentScrollX, currentScrollY);
+  }
 
   let contentToRender;
   const allMonsterCords = getMonsterCords(worldData);
@@ -100,12 +111,12 @@ const ConfigDropdown = ({
             <FormControlLabel
               control={<Checkbox />}
               label="ADD/REMOVE ROOFS"
-              onChange={()=> setOpacityValue()}
+              onChange={handleRoofs}
             />
             <FormControlLabel
               control={<Checkbox />}
               label="SHOW/HIDE CAVES"
-              onChange={()=>{setOpacityCaveValue()}}
+              onChange={handleCaves}
             />
           </FormGroup>
         </div>

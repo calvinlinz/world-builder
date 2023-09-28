@@ -13,16 +13,30 @@ import "./Display.css";
 import SideBar from "../../components/sidebar/Sidebar";
 import Loading from "../../components/loading/loading";
 import { WorldDataContext } from "../../context/worldDataContext";
-
+import PlayerCount from "../../components/playerCount/playerCount";
+import { send } from "@emailjs/browser";
 const Display = () => {
-  const { worldData, loading } = useContext(WorldDataContext);
-  const [opacityValue, setOpacity] = useState(1);
+  const {
+    worldData,
+    loading,
+    host,
+    opacityCaveValue,
+    opacityRoofValue,
+    setWorldData,
+    setHistory,
+    gameId,
+    sendMessage,
+    currentPlayersInGame,
+  } = useContext(WorldDataContext);
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://10.140.45.67:8080";
   let scaleFactor = 0.25;
   const [renderTimeout, setRenderTimeout] = useState(true);
   const dragRef = useRef();
   let isDragging = false;
   const startX = useRef(0);
   const startY = useRef(0);
+  const currentX = useRef(0);
+  const currentY = useRef(0);
 
   const handleMouseDown = (e) => {
     e.preventDefault();
@@ -42,13 +56,44 @@ const Display = () => {
     startY.current = e.clientY;
   };
 
-  const handleMouseUp = () => {
+  const handleMouseUp = (e) => {
     isDragging = false;
     dragRef.current.classList.remove("dragging");
+    if(host){
+      currentX.current = window.scrollX || window.pageXOffset;
+      currentY.current = window.scrollY || window.pageYOffset;
+      sendMessage(worldData, opacityRoofValue, opacityCaveValue, currentPlayersInGame, currentX.current, currentY.current);
+    }
   };
 
   useEffect(() => {
     setRenderTimeout(false);
+    async function fetchWorld() {
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          gameId: gameId,
+        }),
+      };
+      const response = await fetch(API_URL + "/game/view", options);
+      if (response.status === 200) {
+        const data = await response.json();
+        setWorldData(data, false);
+        setHistory(data);
+        return;
+      }
+      const newBody = JSON.parse(options.body);
+      newBody.size = 27;
+      options.body = JSON.stringify(newBody);
+      const responseGenerate = await fetch(API_URL + "/game/generate", options);
+      const data = await responseGenerate.json();
+      setWorldData(data, false);
+      setHistory(data);
+    }
+    fetchWorld();
   }, []);
 
   return (
@@ -60,6 +105,7 @@ const Display = () => {
         <Loading />
       ) : (
         <div className="world">
+          <PlayerCount />
           <div id="render">
             <BackgroundGrid worldData={worldData} />
             <PathGrid worldData={worldData} />

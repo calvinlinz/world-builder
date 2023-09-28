@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import "./Sidebar.css";
 import TuneIcon from "@mui/icons-material/Tune";
-import ContentCopyOutlinedIcon from "@mui/icons-material/ContentCopyOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import Configuration from "../configuration/Configuration";
 import { useContext } from "react";
@@ -11,17 +10,29 @@ import ImportExport from "../importExport/importExport";
 import emailjs from "@emailjs/browser";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { Button, Modal, Typography, Box, Input } from "@mui/material";
-import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
+import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
 import html2canvas from "html2canvas";
 import History from "../history/history";
-import HistoryIcon from '@mui/icons-material/History';
+import HistoryIcon from "@mui/icons-material/History";
 import jsPDF from "jspdf";
 emailjs.init("VDupAfE4CYPyVT2Ry");
 
 const SideBar = () => {
   const [open, setOpen] = useState(false);
-  const { worldData, setWorldData, setHistory ,loading} =
-    useContext(WorldDataContext);
+  const {
+    worldData,
+    setWorldData,
+    setHistory,
+    loading,
+    opacityCaveValue,
+    opacityRoofValue,
+    sendMessage,
+    gameId,
+    currentPlayersInGame,
+    currentScrollX,
+    currentScrollY,
+    host,
+  } = useContext(WorldDataContext);
   const [gridSize, setGridSize] = useState(27);
   const [isOpen, setIsOpen] = useState(false);
   const [slideOpen, setSlideOpen] = useState(false);
@@ -33,7 +44,7 @@ const SideBar = () => {
 
   const configuration = slideOpen && isOpen ? "config open" : "config";
   const buttonClass = isOpen && slideOpen ? "config-toggle" : "sidebar-toggle";
-  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://10.140.45.67:8080";
   const sidebarClass = isOpen ? "sidebar open" : "sidebar";
   let timeoutActive = false;
 
@@ -54,8 +65,6 @@ const SideBar = () => {
     };
   }, []);
 
-
-
   const handleHtml2Canvas = async () => {
     const world = document.querySelector("#render");
     const worldBackground = document.querySelector(
@@ -73,23 +82,23 @@ const SideBar = () => {
       height: height,
       x: x,
       y: y,
-    })
+    });
     return canvas;
-  }
+  };
 
   const handlePrint = async () => {
     const canvas = await handleHtml2Canvas();
     const dataURL = canvas.toDataURL("image/jpeg", 0.4);
     const pdf = new jsPDF({
-      orientation: 'landscape',
+      orientation: "landscape",
     });
-    const imgProps= pdf.getImageProperties(dataURL);
+    const imgProps = pdf.getImageProperties(dataURL);
     const pdfWidth = pdf.internal.pageSize.getWidth();
     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-    pdf.addImage(dataURL, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    pdf.addImage(dataURL, "PNG", 0, 0, pdfWidth, pdfHeight);
     pdf.autoPrint();
-    window.open(pdf.output('bloburl'), '_blank');
-  }
+    window.open(pdf.output("bloburl"), "_blank");
+  };
 
   const sendEmail = async () => {
     setButtonText("Sending...");
@@ -120,26 +129,35 @@ const SideBar = () => {
       });
   };
 
-  const handleGenerate = () => {
-    if(loading){
+  const handleGenerate = async () => {
+    if (loading) {
       return;
     }
     setWorldData(worldData, true);
-    fetch(API_URL + "/world", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        size: gridSize,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setWorldData(data, false);
-        setHistory(data);
-      })
-      .catch((error) => console.log(error));
+    async function fetchWorld() {
+      const response = await fetch(API_URL + "/game/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          size: gridSize,
+          gameId: gameId,
+        }),
+      });
+      const data = await response.json();
+      setWorldData(data, false);
+      setHistory(data);
+      sendMessage(
+        data,
+        opacityRoofValue,
+        opacityCaveValue,
+        currentPlayersInGame,
+        currentScrollX,
+        currentScrollY
+      );
+    }
+    await fetchWorld();
   };
 
   const handleSlideContent = (type) => {
@@ -207,12 +225,14 @@ const SideBar = () => {
         )}
       </div>
       <div className={sidebarClass}>
-        <TuneIcon
-          className="large-icon"
-          fontSize=""
-          color=""
-          onClick={() => handleSlideContent("settings")}
-        />
+        {host && (
+          <TuneIcon
+            className="large-icon"
+            fontSize=""
+            color=""
+            onClick={() => handleSlideContent("settings")}
+          />
+        )}
         <CloudUploadOutlinedIcon
           className="large-icon"
           fontSize=""
@@ -225,19 +245,26 @@ const SideBar = () => {
           color=""
           onClick={() => handleSlideContent("history")}
         />
-        <LocalPrintshopOutlinedIcon className="large-icon" fontSize="" color="" onClick={handlePrint} />
+        <LocalPrintshopOutlinedIcon
+          className="large-icon"
+          fontSize=""
+          color=""
+          onClick={handlePrint}
+        />
         <ShareOutlinedIcon
           className="large-icon"
           fontSize=""
           color=""
           onClick={() => setOpen(true)}
         />
+        {host && (
         <RefreshIcon
           className="large-icon"
           fontSize=""
           color=""
           onClick={handleGenerate}
         />
+        )}
         {!slideButtonOpen && (
           <div className={buttonClass}>
             <div className="hamburger" onClick={buttonHandler}>

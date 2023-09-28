@@ -7,55 +7,63 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.API.model.Person;
+import com.API.repository.GameRepository;
+import com.API.repository.UserRepository;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-import java.io.FileReader;
-import java.io.IOException;
+// import org.json.simple.JSONArray;
+// import org.json.simple.JSONObject;
+// import org.json.simple.parser.JSONParser;
+// import org.json.simple.parser.ParseException;
 
+// import java.io.File;
+// import java.io.FileReader;
+// import java.io.FileWriter;
+// import java.io.IOException;
 
 @Service
 public class PeopleService {
 
-    private List<Person> personList;
-
     public PeopleService() {
-        personList = new ArrayList<>();
-        readData();
+        // deleteAndCreateBlankJson();
     }
 
-    public void readData() {
-        JSONParser jsonParser = new JSONParser();
+    // public void deleteAndCreateBlankJson() {
+    // File jsonFile = new File("src/main/resources/db/users.json");
 
-        try (FileReader reader = new FileReader("src/main/resources/db/users.json")) {
-            // Parse the JSON file
-            Object obj = jsonParser.parse(reader);
-            JSONArray peopleJSON = (JSONArray) obj;
+    // if (jsonFile.exists()) {
+    // if (jsonFile.delete()) {
+    // System.out.println("Existing users.json file deleted successfully.");
+    // } else {
+    // System.err.println("Failed to delete existing users.json file.");
+    // return;
+    // }
+    // }
+    // JSONArray emptyArray = new JSONArray();
+    // try (FileWriter writer = new FileWriter(jsonFile)) {
+    // writer.write(emptyArray.toJSONString());
+    // writer.flush();
+    // System.out.println("Blank users.json file created successfully.");
+    // } catch (IOException e) {
+    // System.err.println("Failed to create blank users.json file: " +
+    // e.getMessage());
+    // }
+    // }
 
-            // Process each JSON object representing a person
-            for (Object personObj : peopleJSON) {
-                if (personObj instanceof JSONObject) {
-                    JSONObject personJSON = (JSONObject) personObj;
-                    Long id = (Long) personJSON.get("id");
-                    String name = (String) personJSON.get("name");
-                    String email = (String) personJSON.get("email");
-                    // Create a Person object and add it to the personList
-                    personList.add(new Person(id, name, email));
-                    System.out.println(personList.get(0).getId());
-                }
-            }
-
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
+    public void newPlayer(Person person) {
+        UserRepository.users.add(person);
+        List<Person> newArray = new ArrayList<>();
+        if (GameRepository.games.containsKey(person.getGameId())) {
+            newArray = GameRepository.games.get(person.getGameId());
         }
+        newArray.add(person);
+        GameRepository.games.put(person.getGameId(), newArray);
+
     }
 
     public Optional<Person> getPersonById(Long id) {
         Optional<Person> optional = Optional.empty();
-        for (Person person: personList) {
-            if(id == person.getId()){
+        for (Person person : UserRepository.users) {
+            if (id == person.getId()) {
                 optional = Optional.of(person);
                 return optional;
             }
@@ -63,9 +71,33 @@ public class PeopleService {
         return optional;
     }
 
-    public Optional<List<Person>> getPeople() {
-        Optional<List<Person>> optional = Optional.of(personList);
+    public Optional<Person> getHost(String gameId) {
+        Optional<Person> optional = Optional.empty();
+        for (Person person : GameRepository.games.get(gameId)) {
+            if (gameId.equals(person.getGameId()) && person.isHost()) {
+                optional = Optional.of(person);
+                return optional;
+            }
+        }
         return optional;
     }
-}
 
+    public Optional<List<Person>> getUsersInGame(String gameId) {
+        Optional<List<Person>> optional = Optional.of(GameRepository.games.get(gameId));
+        return optional;
+    }
+
+    public Long findNextId() {
+        Long maxId = UserRepository.users.stream()
+                .map(Person::getId)
+                .max(Long::compareTo)
+                .orElse(0L);
+        return maxId + 1;
+    }
+
+    public void deletePersonById(Long id) {
+        String gameId = getPersonById(id).get().getGameId();
+        UserRepository.users.removeIf(person -> id.equals(person.getId()));
+        GameRepository.games.get(gameId).removeIf(person -> id.equals(person.getId()));
+    }
+}

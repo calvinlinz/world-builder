@@ -10,7 +10,7 @@
 
 .homepage {
     background-color: #e1e0dc;
-    background-image: url('../../assets/homeBackground.jpg');
+    background-image: url("../../assets/homeBackground.jpg");
     background-size: cover;
     background-position: center;
     display: flex;
@@ -19,7 +19,7 @@
     align-items: center;
     min-height: 100vh;
     position: relative;
-    font-family: 'Helvetica', sans-serif;
+    font-family: "Helvetica", sans-serif;
 }
 
 .hero {
@@ -54,7 +54,7 @@
     border-radius: 5px;
     margin-top: 10px;
     transition: background-color 0.3s ease;
-    font-family: 'Helvetica', sans-serif;
+    font-family: "Helvetica", sans-serif;
     text-shadow: 1px 1px 2px rgba(215, 212, 212, 0);
     /* Add a drop shadow */
 }
@@ -63,4 +63,65 @@
     color: #000000;
     background-color: #e1e0dc;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.gameIdContainer {
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+.gameIdInput input {
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    font-size: 1rem;
+    background-color: rgb(43, 43, 43);
+    color: white;
+    border: 1px solid black;
+    font-weight: bold;
+}
+
+.gameIdInput input:focus {
+    border: 1px solid black;
+    outline: none;
+    background-color: #333;
+}
+
+.gameIdContainer button {
+    width: 56px;
+    height: 54px;
+    border: 1px solid black;
+    padding: 2px;
+    background-color: rgb(43, 43, 43);
+    border: 1px solid black;
+    color: rgb(116, 116, 116);
+    font-weight: bold;
+}
+
+.gameIdContainer button:hover {
+    cursor: pointer;
+}
+
+.gameIdContainer button:active {
+    background-color: #333;
+}
+
+.gameIdBody {
+    display: flex;
+    justify-content: center;
+    width: 250px;
+    align-items: baseline;
+    flex-direction: column;
+    padding: 5px;
+    height: 200px;
+    border-radius: 10px;
+}
+
+.gameIdBody h1 {
+    float: left;
+    padding-bottom: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: rgb(116, 116, 116);
 }

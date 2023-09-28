@@ -3,11 +3,21 @@ import { createContext } from "react";
 export const WorldDataContext = createContext({
     worldData: [],
     loading: false,
-    opacityValue: 1,
+    opacityRoofValue: 1,
     history: [],
     opacityCaveValue: 1,
+    host: false,
+    gameId: "",
+    clientRef: null,
+    currentPlayersInGame: 0,
+    setWorldData: () => {},
     setAuthentication: () => {},
-    setOpacityValue: () => {},
+    setOpacityRoofValue: () => {},
     setHistory: () => {},
-    setOpacityCaveValue: () => {}
+    setOpacityCaveValue: () => {},
+    setHost: ()=>{},
+    setGameId: ()=>{},
+    setClientRef: ()=>{},
+    sendMessage: ()=>{},
+    setCurrentPlayersInGame: ()=>{}
 });
