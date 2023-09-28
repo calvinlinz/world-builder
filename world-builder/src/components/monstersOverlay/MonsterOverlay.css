@@ -19,9 +19,9 @@
 
 .monster-container {
     background-color: var(--frame-color);
-    top: 9vh;
+    top: 7vh;
     left: 75.5vw;
-    height: 500px;
+    height: 700px;
     width: 300px;
     border-radius: 20px;
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5);
@@ -32,7 +32,7 @@
 
 p{
     margin: 15px 25px;
-    font-size: 14px;
+    font-size: 10px;
     line-height: 1.5;
 }
 

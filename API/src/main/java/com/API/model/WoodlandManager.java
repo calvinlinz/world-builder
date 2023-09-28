@@ -11,8 +11,8 @@ public class WoodlandManager {
     int maxFeatures;
 
     public WoodlandManager() {
-        minFeatures = 30;
-        maxFeatures = 50;
+        minFeatures = 60;
+        maxFeatures = 80;
         woodlands = new ArrayList<>();
         initializeWoodlands();
     }
@@ -27,6 +27,13 @@ public class WoodlandManager {
 
     public Woodland getRandomWoodland(){
         Random random = new Random();
+
+        int treeOrRock = random.nextInt(10);
+
+        // 70% chance of being a tree
+        if (treeOrRock > 2) {
+            int randomNumber = random.nextInt(woodlands.size()-2); // last two options are rocks
+        }
         
         //Generate a random number to pick a random camp item
         int randomNumber = random.nextInt(woodlands.size());

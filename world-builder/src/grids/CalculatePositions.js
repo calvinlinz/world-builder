@@ -122,6 +122,7 @@ function findOrientation(startY, startX, value, grid, iD) {
                 angle: 90,
                 xShift: imageShift[value][0],
                 yShift: imageShift[value][1],
+                opacity:1,
             };
             return newValue;
         } else {
@@ -135,6 +136,7 @@ function findOrientation(startY, startX, value, grid, iD) {
                 angle: 0,
                 xShift: imageShift[value][0],
                 yShift: imageShift[value][1],
+                opacity:1,
             };
             return newValue;
         }
@@ -150,6 +152,7 @@ function findOrientation(startY, startX, value, grid, iD) {
         angle: 90,
         xShift: imageShift[value][0],
         yShift: imageShift[value][1],
+        opacity:1,
     };
     return newValue;
 };
@@ -177,6 +180,7 @@ function getBuildingCords(grid) {
                                     angle: 0,
                                     xShift: imageShift[grid[i][j]][0],
                                     yShift: imageShift[grid[i][j]][1],
+                                    opacity: 1,
                                 };
                                 iD = iD + 1; 
                                 cordList.push(newValue);
@@ -192,6 +196,7 @@ function getBuildingCords(grid) {
                                         angle: 0,
                                         xShift: imageShift[grid[i][j]][0],
                                         yShift: imageShift[grid[i][j]][1],
+                                        opacity:1,
                                     };
                                     iD = iD + 1; 
                                     cordList.push(newValue);
@@ -208,6 +213,7 @@ function getBuildingCords(grid) {
                                         angle: 0,
                                         xShift: imageShift[grid[i][j]][0],
                                         yShift: imageShift[grid[i][j]][1],
+                                        opacity:1,
                                     };
                                     iD = iD + 1; 
                                     cordList.push(newValue);
@@ -224,6 +230,7 @@ function getBuildingCords(grid) {
                                         angle: 0,
                                         xShift: imageShift[grid[i][j]][0],
                                         yShift: imageShift[grid[i][j]][1],
+                                        opacity:1,
                                     };
                                     iD = iD + 1; 
                                     cordList.push(newValue);
@@ -281,6 +288,7 @@ function getSmallCaveCords(startY, startX, gridCopy) {
         width: caveDims[0][0],
         height: caveDims[0][1],
         angle: angle,
+        opacity:1,
     };
 
     return newValue;
@@ -296,6 +304,7 @@ function getMedCaveCords(startY, startX, gridCopy) {
         width: caveDims[1][0],
         height: caveDims[1][1],
         angle: angle,
+        opacity:1,
     };
 
     return newValue;
@@ -316,6 +325,7 @@ function getLargeCaveCords(startY, startX, gridCopy) {
                 width: imageDims[2][0],
                 height: imageDims[2][1],
                 angle: 90,
+                opacity:1,
             };
             return newValue;
         } else {
@@ -326,6 +336,7 @@ function getLargeCaveCords(startY, startX, gridCopy) {
                 width: imageDims[2][0],
                 height: imageDims[2][1],
                 angle: 0,
+                opacity:1,
             };
             return newValue;
         }
@@ -338,6 +349,7 @@ function getLargeCaveCords(startY, startX, gridCopy) {
         width: caveDims[2][0],
         height: caveDims[2][1],
         angle: angle,
+        opacity:1,
     };
 
     return newValue;
@@ -358,6 +370,7 @@ function getMassiveCaveCords(startY, startX, gridCopy) {
                 width: imageDims[3][0],
                 height: imageDims[3][1],
                 angle: 90,
+                opacity:1,
             };
             return newValue;
         } else {
@@ -368,6 +381,7 @@ function getMassiveCaveCords(startY, startX, gridCopy) {
                 width: imageDims[3][0],
                 height: imageDims[3][1],
                 angle: 0,
+                opacity:1,
             };
             return newValue;
         }
@@ -381,6 +395,7 @@ function getMassiveCaveCords(startY, startX, gridCopy) {
         width: caveDims[3][0],
         height: caveDims[3][1],
         angle: angle,
+        opacity:1,
     };
 
     return newValue;
@@ -686,11 +701,11 @@ function getRightPathEdge(grid) {
 // -- MONSTER FUNCS ----------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
 
-const bossMonsterNames = ["Barbie", "Vorluk", "Sylvaria", "Dendrogram", "Ellaquora", "Annihilith", "Haydron", "Milandroth", "Calvorr", "Amirax"];
+const bossMonsterNames = ["Sylvaria", "Barbie", "Vorluk", "Ellaquora", "Dendrogram", "Annihilith", "Haydron", "Milandroth", "Calvorr", "Amirax"];
 const hardMonsterNames = ["Morgaloth", "Vorgrak", "Azrakarn", "Cynariel", "PP-poo’oo", "Dread", "Maymeens", "Drexthul", "Azrakarm", "Thal’gulon"];
-const mediumMonsterNames = ["Melissa", "Perceptron", "Neuralnet", "Graboost", "Stochastion", "Sloth", "Kayenen", "Genprog", "Genalg", "Deebeescan"];
-const easyMonsterNames = ["Greb", "Morph", "Crinkle", "Crawler", "Bloblin", "Bunny", "Ratling", "Beebir", "Mothie", "Ken"];
-const nameLists = [easyMonsterNames, mediumMonsterNames, hardMonsterNames, bossMonsterNames];
+const mediumMonsterNames = ["Melissa", "Perceptron", "Genprog", "Neuralnet", "Graboost", "Stochastion", "Sloth", "Kayenen",  "Genalg", "Deebeescan"];
+const easyMonsterNames = ["Greb", "Morph", "Beebir", "Crinkle", "Crawler", "Bloblin", "Bunny", "Ratling",  "Mothie", "Ken"];
+const nameLists = [bossMonsterNames, hardMonsterNames,  mediumMonsterNames, easyMonsterNames ];
 
 function getMonsterCords(grid) {
     const cordList = [];
@@ -714,6 +729,8 @@ function getMonsterCords(grid) {
                           dex: parseInt(monsterStr.charAt(2), 10),
                           con: parseInt(monsterStr.charAt(3), 10),
                           int: parseInt(monsterStr.charAt(4), 10),
+                          wis: Math.floor(Math.random() * 10),
+                          cha: Math.floor(Math.random() * 10),
                           x: j - 0.5,
                           y: i - 0.5,
                         };

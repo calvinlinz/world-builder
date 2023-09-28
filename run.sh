@@ -47,7 +47,7 @@ cd API
 
 # Restart the server
 if [ "$server_flag" = true ]; then
-  kill_process_using_port $server_port
+  npx kill-port $server_port
   echo "Starting Java server..."
   mvn package
   java -jar target/api.jar &
@@ -55,7 +55,7 @@ fi
 
 # Start the Express server if -server flag is provided or no flags are provided
 if [ "$server_flag" = false ] && [ "$client_flag" = false ]  && [ "$test_flag" = false ]; then
-  kill_process_using_port $server_port
+  npx kill-port $server_port
   echo "Starting Java server..."
   mvn package
   java -jar target/api.jar &

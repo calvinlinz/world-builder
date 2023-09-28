@@ -13,16 +13,34 @@ import "./Display.css";
 import SideBar from "../../components/sidebar/Sidebar";
 import Loading from "../../components/loading/loading";
 import { WorldDataContext } from "../../context/worldDataContext";
+import PlayerCount from "../../components/playerCount/playerCount";
+import { send } from "@emailjs/browser";
+import { getBuildingCords, getCaveCords } from "../../grids/CalculatePositions";
 
-const Display = () => {
-  const { worldData, loading } = useContext(WorldDataContext);
-  const [opacityValue, setOpacity] = useState(1);
+const Display = ({currentScrollX, currentScrollY}) => {
+  const {
+    worldData,
+    loading,
+    host,
+    buildingCords,
+    caveCords,
+    setWorldData,
+    setHistory,
+    gameId,
+    sendMessage,
+    currentPlayersInGame,
+    setBuildingCords,
+    setCaveCords,
+  } = useContext(WorldDataContext);
+  const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   let scaleFactor = 0.25;
   const [renderTimeout, setRenderTimeout] = useState(true);
   const dragRef = useRef();
   let isDragging = false;
   const startX = useRef(0);
   const startY = useRef(0);
+  const currentX = useRef(0);
+  const currentY = useRef(0);
 
   const handleMouseDown = (e) => {
     e.preventDefault();
@@ -38,17 +56,61 @@ const Display = () => {
     const deltaX = e.clientX - startX.current;
     const deltaY = e.clientY - startY.current;
     window.scrollBy(-deltaX, -deltaY);
+    if(host){
+      currentX.current = window.scrollX || window.pageXOffset;
+      currentY.current = window.scrollY || window.pageYOffset;
+      sendMessage(worldData,buildingCords , caveCords, currentPlayersInGame, currentX.current, currentY.current);
+    }
     startX.current = e.clientX;
     startY.current = e.clientY;
   };
 
-  const handleMouseUp = () => {
+  const handleMouseUp = (e) => {
     isDragging = false;
     dragRef.current.classList.remove("dragging");
+   
   };
 
   useEffect(() => {
     setRenderTimeout(false);
+    async function fetchWorld() {
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          gameId: gameId,
+        }),
+      };
+      const response = await fetch(API_URL + "/game/view", options);
+      if (response.status === 200) {
+        const data = await response.json();
+        setWorldData(data.world, false);
+        setHistory(data.world);
+        currentScrollX.current = data.x;
+        currentScrollY.current = data.y;
+        console.log(data)
+        const roofs = await JSON.parse(data.roofs);
+        const caves = await JSON.parse(data.caves);
+        setBuildingCords(roofs); // the current building cords will need to be stored in API.
+        setCaveCords(caves); // same as this
+        return;
+      }
+      const newBody = JSON.parse(options.body);
+      newBody.size = 27;
+      options.body = JSON.stringify(newBody);
+      const responseGenerate = await fetch(API_URL + "/game/generate", options);
+      const data = await responseGenerate.json();
+      setWorldData(data, false);
+      setHistory(data);
+      const buildingCords = getBuildingCords(data);
+      const caveCords = getCaveCords(data);
+      setBuildingCords(buildingCords);
+      setCaveCords(caveCords);
+      sendMessage(data, buildingCords, caveCords, currentPlayersInGame, currentScrollX.current, currentScrollY.current)
+    }
+    fetchWorld();
   }, []);
 
   return (
@@ -60,11 +122,16 @@ const Display = () => {
         <Loading />
       ) : (
         <div className="world">
-          <div id="render">
+          <PlayerCount />
+          <div id="render"
+            ref={dragRef}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}>
             <BackgroundGrid worldData={worldData} />
             <PathGrid worldData={worldData} />
 
-            <CaveCoverGrid />
+            <CaveCoverGrid worldData={worldData}  />
             <BuildingsGrid scaleFactor={scaleFactor} worldData={worldData} />
             <NaturalFeaturesGrid
               scaleFactor={scaleFactor}
@@ -77,10 +144,6 @@ const Display = () => {
           </div>
           <div
             className="frame"
-            ref={dragRef}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
           ></div>
           <div className="square-one"></div>
           <div className="square-two"></div>
