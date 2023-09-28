@@ -24,6 +24,7 @@ import com.API.dto.ViewRequest;
 import com.API.model.Person;
 import com.API.repository.GameRepository;
 import com.API.repository.UserRepository;
+import com.API.service.ForestGenerator;
 import com.API.service.MapBuilder;
 import com.API.service.MapExporter;
 import com.API.service.MonsterGenerator;
@@ -119,8 +120,8 @@ public class GameController {
         String gameId = hostRequest.getGameId();
         MapBuilder mb = new MapBuilder(size);
         mb.createMap();
-        MonsterGenerator mg = new MonsterGenerator(mb);
-        mb.setMap(mg.generateMonsters());
+        mb.setMap(new ForestGenerator(mb, size).generateForests());
+        mb.setMap(new MonsterGenerator(mb).generateMonsters());
         MapExporter me = new MapExporter(mb);
         int[][] jsonContent = me.exportMap();
         GameRepository.currentMap.put(gameId, jsonContent);
