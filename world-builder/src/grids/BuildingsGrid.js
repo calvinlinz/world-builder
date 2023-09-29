@@ -1,12 +1,11 @@
-import React, { useEffect ,useContext} from "react";
+import React, { useEffect ,memo} from "react";
 import "./Grid.css";
 
 import { allImages } from "./Constants";
 import { WorldDataContext } from "../context/worldDataContext";
 
 
-const BuildingsGrid = ({ scaleFactor}) => {
-  const {buildingCords} = useContext(WorldDataContext);
+const BuildingsGrid = memo(function BuildingsGrid ({ scaleFactor, buildingCords}){
 
   const imageMapping = {
     5: allImages.buildingImages.building_2x2,
@@ -114,6 +113,6 @@ const BuildingsGrid = ({ scaleFactor}) => {
     </div>
     
   );
-};
+});
 
 export default BuildingsGrid;

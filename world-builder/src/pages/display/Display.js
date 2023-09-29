@@ -133,7 +133,7 @@ const Display = ({ currentScrollX, currentScrollY }) => {
             <PathGrid worldData={worldData} />
 
             <CaveCoverGrid worldData={worldData} />
-            <BuildingsGrid scaleFactor={scaleFactor} worldData={worldData} />
+            <BuildingsGrid scaleFactor={scaleFactor} worldData={worldData} buildingCords={buildingCords} />
             <NaturalFeaturesGrid
               scaleFactor={scaleFactor}
               worldData={worldData}
