@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react';
+import React, {memo} from 'react';
 import './Grid.css';
 
 import { allImages } from './Constants';
 import { getCampCords } from './CalculatePositions';
 
-const CampGrid = ({scaleFactor, worldData}) => {
+const CampGrid = memo(function CampGrid({scaleFactor, worldData}){
     const campCords = getCampCords(worldData);
 
     const imageMapping = {
@@ -34,6 +34,6 @@ const CampGrid = ({scaleFactor, worldData}) => {
             ))}
         </div>
     );    
-};
+});
 
 export default CampGrid;

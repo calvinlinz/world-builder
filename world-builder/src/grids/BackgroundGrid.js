@@ -1,10 +1,10 @@
-import { React, useContext } from 'react';
+import { React, useContext,memo} from 'react';
 import './Grid.css';
 import { allImages } from './Constants';
 import { grid2, grid6 } from './TestGrids';
 import { WorldDataContext } from '../context/worldDataContext';
 
-const BackgroundGrid = ({ worldData }) => {
+const BackgroundGrid  = memo(function BackgroundGrid({worldData}){
     const grid = worldData;
     const { frameValue } = useContext(WorldDataContext);
     const imageMapping = {
@@ -26,6 +26,6 @@ const BackgroundGrid = ({ worldData }) => {
             ))}
         </div>
     );
-};
+});
 
 export default BackgroundGrid;

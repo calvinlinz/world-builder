@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {memo} from 'react';
 import './Grid.css';
 import { allImages } from './Constants';
 import { getAbovePathEdge, getBelowPathEdge, getLeftPathEdge, getRightPathEdge} from './CalculatePositions';
 
-const PathGrid = ({worldData}) => {
+const PathGrid = memo(function PathGrid({worldData}){
     const grid = worldData;
 
     const abovePathEdges = getAbovePathEdge(worldData);
@@ -127,6 +127,6 @@ const PathGrid = ({worldData}) => {
     );
 
 
-};
+});
 
 export default PathGrid;
