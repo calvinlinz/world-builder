@@ -21,7 +21,7 @@ import { getBuildingCords, getCaveCords } from "../../grids/CalculatePositions";
 import { ToastContainer, toast } from "react-toastify";
 emailjs.init("VDupAfE4CYPyVT2Ry");
 
-const SideBar = () => {
+const SideBar = ({setFrameState}) => {
   const [open, setOpen] = useState(false);
   const {
     worldData,
@@ -39,7 +39,6 @@ const SideBar = () => {
     currentScrollY,
     host,
     frameValue,
-    setFrameState,
   } = useContext(WorldDataContext);
   const [gridSize, setGridSize] = useState(27);
   const [isOpen, setIsOpen] = useState(false);
@@ -77,7 +76,6 @@ const SideBar = () => {
   const handleFrame = (e) => {
     const newValue = !frameValue;
     setFrameState(newValue);
-    console.log(newValue + "from sideBar.js");
   }
 
   const handleHtml2Canvas = async () => {

@@ -27,6 +27,7 @@ body {
     box-sizing: border-box;
     /* Make sure the border width is included in the element's dimensions */
     z-index: 1000;
+    pointer-events: none;
     position: fixed;
 }
 

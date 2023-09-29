@@ -1,12 +1,10 @@
 import { React, useContext,memo} from 'react';
 import './Grid.css';
 import { allImages } from './Constants';
-import { grid2, grid6 } from './TestGrids';
 import { WorldDataContext } from '../context/worldDataContext';
 
-const BackgroundGrid  = memo(function BackgroundGrid({worldData}){
+const BackgroundGrid  = memo(function BackgroundGrid({worldData, frameValue}){
     const grid = worldData;
-    const { frameValue } = useContext(WorldDataContext);
     const imageMapping = {
         0: allImages.forestGrass.grass1,
         1: allImages.forestGrass.grass3,
