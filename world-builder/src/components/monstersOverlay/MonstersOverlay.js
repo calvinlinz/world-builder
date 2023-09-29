@@ -35,7 +35,7 @@ const MonstersOverlay = ({monsterName, monsterRank, monsterSTR, monsterDEX, mons
 
     return (
         <div className="body">
-            <div className="monster-container">
+            <div className="monster-container" id="monsterBox">
                 <img
                     src={allImages.monsterImages.shadow}
                     alt={`Monster Image`}

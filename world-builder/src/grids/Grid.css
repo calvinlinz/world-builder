@@ -83,7 +83,7 @@
     position: absolute;
     top: 2vw;
     left: 7vw;
-    z-index: 6;
+    z-index: 1001;
 }
 
 .grid-container-caves {
