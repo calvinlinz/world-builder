@@ -20,9 +20,9 @@ const MonstersOverlay = ({monsterName, monsterRank, monsterSTR, monsterDEX, mons
 
     const caveMonsters = {
         1: allImages.monsterImages.skeleton,
-        2: allImages.monsterImages.skeleton,
-        3: allImages.monsterImages.skeleton,
-        4: allImages.monsterImages.skeleton,
+        2: allImages.monsterImages.bat,
+        3: allImages.monsterImages.rat,
+        4: allImages.monsterImages.insect,
     };
 
     const monsterImageMaps = [houseMonsters, caveMonsters, forestMonsters];

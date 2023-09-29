@@ -135,6 +135,10 @@ import house4 from '../assets/monsters/house4.png';
 import monkey from '../assets/monsters/monkey.png';
 import skeleton from '../assets/monsters/skeleton.png';
 import snake from '../assets/monsters/snake.png';
+import rat from '../assets/monsters/rat.png';
+import bat from '../assets/monsters/bat.png';
+import insect from '../assets/monsters/insect.png';
+
 
 const monsterImages = {
     fairy,
@@ -147,6 +151,9 @@ const monsterImages = {
     monkey,
     skeleton,
     snake,
+    rat,
+    bat,
+    insect,
 }
 
 const houseMonsterImages = {
