@@ -12,8 +12,8 @@ public class CampSiteManager {
     int maxFeatures;
 
     public CampSiteManager() {
-        minFeatures = 6;
-        maxFeatures = 12;
+        minFeatures = 2;
+        maxFeatures = 4;
         camp = new ArrayList<>();
         initializeCampSites();
     }
