@@ -9,6 +9,7 @@ before_script:
 deploy:
   image: google/cloud-sdk:latest
   script:
+    - echo "$GOOGLE_APPLICATION_CREDENTIALS" > google-creds.json
     - gcloud auth activate-service-account --key-file=google-creds.json
     - gcloud config set project $PROJECT_ID
     - cd API
