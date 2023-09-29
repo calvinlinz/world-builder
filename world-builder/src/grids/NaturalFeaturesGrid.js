@@ -1,9 +1,9 @@
-import React from 'react';
+import React ,{memo} from 'react';
 import './Grid.css';
 import { allImages } from './Constants';
 import { getTreeCords, getClstrRockCords } from './CalculatePositions';
 
-const NaturalFeaturesGrid = ({scaleFactor, worldData}) => {
+const NaturalFeaturesGrid = memo(function NaturalFeaturesGrid({scaleFactor, worldData}){
     const grid = worldData;
     const treeCords = getTreeCords(worldData);
     const clstrRockCords = getClstrRockCords(worldData);
@@ -87,6 +87,6 @@ const NaturalFeaturesGrid = ({scaleFactor, worldData}) => {
             {rockClstrImages}
         </div>
     );
-};
+});
 
 export default NaturalFeaturesGrid;

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {memo} from 'react';
 import './Grid.css';
 import { allImages } from './Constants';
 import { getMonsterCords } from './CalculatePositions';
 
-const MonsterGrid = ({worldData, scaleFactor}) => {
+const MonsterGrid = memo(function MonstersGrid({worldData, scaleFactor}){
     const grid = worldData;
     const monsterCords = getMonsterCords(worldData);
 
@@ -53,6 +53,6 @@ const MonsterGrid = ({worldData, scaleFactor}) => {
             {allMonsterImages}
         </div>
     );
-};
+});
 
 export default MonsterGrid;

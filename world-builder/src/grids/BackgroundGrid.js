@@ -1,9 +1,10 @@
-import React from 'react';
+import React,{memo} from 'react';
 import './Grid.css';
 import { allImages } from './Constants';
 import { grid2, grid6 } from './TestGrids';
 
-const BackgroundGrid = ({worldData}) => {
+
+const BackgroundGrid  = memo(function BackgroundGrid({worldData}){
     const grid = worldData;
 
     const imageMapping = {
@@ -25,6 +26,6 @@ const BackgroundGrid = ({worldData}) => {
             ))}
         </div>
     );
-};
+});
 
 export default BackgroundGrid;
