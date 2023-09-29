@@ -21,15 +21,13 @@ import { getBuildingCords, getCaveCords } from "../../grids/CalculatePositions";
 import { ToastContainer, toast } from "react-toastify";
 emailjs.init("VDupAfE4CYPyVT2Ry");
 
-const SideBar = ({setFrameState}) => {
+const SideBar = ({frameValue, setFrameState}) => {
   const [open, setOpen] = useState(false);
   const {
     worldData,
     setWorldData,
     setHistory,
     loading,
-    buildingCords,
-    caveCords,
     setBuildingCords,
     setCaveCords,
     sendMessage,
@@ -38,7 +36,6 @@ const SideBar = ({setFrameState}) => {
     currentScrollX,
     currentScrollY,
     host,
-    frameValue,
   } = useContext(WorldDataContext);
   const [gridSize, setGridSize] = useState(27);
   const [isOpen, setIsOpen] = useState(false);
@@ -74,7 +71,7 @@ const SideBar = ({setFrameState}) => {
   }, []);
 
   const handleFrame = (e) => {
-    const newValue = !frameValue;
+    let newValue = !frameValue;
     setFrameState(newValue);
   }
 

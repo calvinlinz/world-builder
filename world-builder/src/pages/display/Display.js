@@ -116,7 +116,7 @@ const Display = ({ currentScrollX, currentScrollY }) => {
 
   return (
     <>
-      <SideBar setFrameState={setFrameState}/>
+      <SideBar frameValue={frameValue} setFrameState={setFrameState}/>
       {loading ? (
         <Loading />
       ) : renderTimeout ? (

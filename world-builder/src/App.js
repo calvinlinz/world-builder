@@ -57,7 +57,7 @@ function App() {
   };
 
   const notifySuccess = (message) => toast.success(message);
-  const notifyInfo = (message) => toast.success(message);
+  const notifyInfo = (message) => toast.info(message);
 
 
   useEffect(()=>{
