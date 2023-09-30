@@ -66,8 +66,11 @@
 }
 
 .header {
-    display: flex;
+    margin-left: -10px;
+    width: 100%;
     align-items: center;
+    display: flex;
+    justify-content: center;
 }
 
 .slider {

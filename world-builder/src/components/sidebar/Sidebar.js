@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import "./Sidebar.css";
 import TuneIcon from "@mui/icons-material/Tune";
 import FullScreen from "@mui/icons-material/Fullscreen";
-import FullscreenExitIcon from '@mui/icons-material/FullscreenExit'; 
+import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import Configuration from "../configuration/Configuration";
 import { useContext } from "react";
@@ -78,12 +78,13 @@ const SideBar = () => {
     const newValue = !frameValue;
     setFrameState(newValue);
     console.log(newValue + "from sideBar.js");
-  }
+  };
 
   const handleHtml2Canvas = async () => {
     const world = document.querySelector("#render");
-    const worldBackground = frameValue ?
-      document.querySelector(".grid-container-background-stretched") : document.querySelector(".grid-container-background");
+    const worldBackground = frameValue
+      ? document.querySelector(".grid-container-background-stretched")
+      : document.querySelector(".grid-container-background");
     const cell = document.querySelector(".grid-cell");
     const cellWidth = cell.clientWidth;
     const cellHeight = cell.clientHeight;
@@ -245,61 +246,64 @@ const SideBar = () => {
         )}
       </div>
       <div className={sidebarClass}>
-        {host && (
-          <TuneIcon
-            className="large-icon"
-            fontSize=""
-            color=""
-            onClick={() => handleSlideContent("settings")}
-          />
-        )}
-        {frameValue ? (
-          <FullscreenExitIcon
-          className="large-icon"
-          style={{ fontSize: "50px" }}
-          fontSize=""
-          color=""
-          onClick={handleFrame} />
-        ) : (
-          <FullScreen
-          className="large-icon"
-          style={{ fontSize: "50px" }}
-          fontSize=""
-          color=""
-          onClick={handleFrame} />
-        )}
-        <CloudUploadOutlinedIcon
-          className="large-icon"
-          fontSize=""
-          color=""
-          onClick={() => handleSlideContent("import")}
-        />
-        <HistoryIcon
-          className="large-icon"
-          fontSize=""
-          color=""
-          onClick={() => handleSlideContent("history")}
-        />
-        <LocalPrintshopOutlinedIcon
-          className="large-icon"
-          fontSize=""
-          color=""
-          onClick={handlePrint}
-        />
-        <ShareOutlinedIcon
-          className="large-icon"
-          fontSize=""
-          color=""
-          onClick={() => setOpen(true)}
-        />
-        {host && (
-          <RefreshIcon
-            className="large-icon"
-            fontSize=""
-            color=""
-            onClick={handleGenerate}
-          />
-        )}
+        <nav>
+          <ul>
+            {host && (
+              <li onClick={() => handleSlideContent("settings")}>
+                <TuneIcon
+                  className="large-icon"
+                  fontSize=""
+                  color=""
+                  onClick={() => handleSlideContent("settings")}
+                />
+              </li>
+            )}
+            <li onClick={handleFrame}>
+              {frameValue ? (
+                <FullscreenExitIcon
+                  className="large-icon"
+                  style={{ fontSize: "50px" , marginTop:"10px"}}
+                  fontSize=""
+                  color=""
+                />
+              ) : (
+                <FullScreen
+                  className="large-icon"
+                  style={{ fontSize: "50px" , marginTop:"10px"}}
+                  fontSize=""
+                  color=""
+                />
+              )}
+            </li>
+            <li onClick={() => handleSlideContent("import")}>
+                <CloudUploadOutlinedIcon
+                  className="large-icon"
+                  fontSize=""
+                  color=""
+                />
+            </li>
+
+            <li onClick={() => handleSlideContent("history")}>
+              <HistoryIcon className="large-icon" fontSize="" color="" />
+            </li>
+            <li onClick={handlePrint}>
+              <LocalPrintshopOutlinedIcon
+                className="large-icon"
+                fontSize=""
+                color=""
+              />
+            </li>
+            <li onClick={() => setOpen(true)}>
+              <ShareOutlinedIcon className="large-icon" fontSize="" color="" />
+            </li>
+            <li onClick={handleGenerate}>
+              {host && (
+                <RefreshIcon className="large-icon" fontSize="" color="" />
+              )}
+            </li>
+          </ul>
+        </nav>
+
         {!slideButtonOpen && (
           <div className={buttonClass}>
             <div className="hamburger" onClick={buttonHandler}>
@@ -351,7 +355,12 @@ const SideBar = () => {
             </Button>
           </Box>
         </Modal>
-        <ToastContainer autoClose={2000}  position="top-center" theme="dark" toastStyle={{backgroundColor:"#1f1f1f"}}/>
+        <ToastContainer
+          autoClose={2000}
+          position="top-center"
+          theme="dark"
+          toastStyle={{ backgroundColor: "#1f1f1f" }}
+        />
       </div>
     </div>
   );
