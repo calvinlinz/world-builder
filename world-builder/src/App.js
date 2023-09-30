@@ -18,7 +18,6 @@ function App() {
   const [currentPlayersInGame, setCurrentPlayersInGame] = useState(0);
   const [roofOpacity, setRoofOpacity] = useState(1);
   const [caveOpacity, setCaveOpacity] = useState(1);
-  const [frameValue, setFrameState] = useState(false);
   const currentScrollX = useRef(0);
   const currentScrollY = useRef(0);
   const [caveCords, setCaveCords] = useState([]);
@@ -58,7 +57,7 @@ function App() {
   };
 
   const notifySuccess = (message) => toast.success(message);
-  const notifyInfo = (message) => toast.success(message);
+  const notifyInfo = (message) => toast.info(message);
 
 
   useEffect(()=>{
@@ -88,7 +87,6 @@ function App() {
         buildingCords,
         roofOpacity: roofOpacity,
         caveOpacity: caveOpacity,
-        frameValue,
         setWorldData: (worldData, loading) => {
           setWorld(worldData);
           setLoading(loading);
@@ -107,9 +105,6 @@ function App() {
         }
         ,setCaveOpacity: (opacity) => {
           setCaveOpacity(opacity);
-        },
-        setFrameState: (frameValue) => {
-          setFrameState(frameValue);
         },
         sendMessage: (
           worldData,

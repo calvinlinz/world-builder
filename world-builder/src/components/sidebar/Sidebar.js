@@ -22,7 +22,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Loading from "../loading/loading";
 emailjs.init("VDupAfE4CYPyVT2Ry");
 
-const SideBar = () => {
+const SideBar = ({frameValue, setFrameState}) => {
   const [open, setOpen] = useState(false);
   const [load, setLoad] = useState(false);
   const {
@@ -30,8 +30,6 @@ const SideBar = () => {
     setWorldData,
     setHistory,
     loading,
-    buildingCords,
-    caveCords,
     setBuildingCords,
     setCaveCords,
     sendMessage,
@@ -40,8 +38,6 @@ const SideBar = () => {
     currentScrollX,
     currentScrollY,
     host,
-    frameValue,
-    setFrameState,
   } = useContext(WorldDataContext);
   const [gridSize, setGridSize] = useState(27);
   const [isOpen, setIsOpen] = useState(false);
@@ -77,10 +73,9 @@ const SideBar = () => {
   }, []);
 
   const handleFrame = (e) => {
-    const newValue = !frameValue;
+    let newValue = !frameValue;
     setFrameState(newValue);
-    console.log(newValue + "from sideBar.js");
-  };
+  }
 
   const handleHtml2Canvas = async () => {
     const world = document.querySelector("#render");
