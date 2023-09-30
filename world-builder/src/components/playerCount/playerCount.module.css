@@ -22,14 +22,13 @@
     top: 0;
     right: 0;
     display: flex;
-    padding: 5px;
+    padding: 10px;
     justify-content: center;
     flex-direction: row;
     align-items: center;
-    width: 40px;
+    width: 100px;
     height: 40px;
-    background-color: white;
-    border: 1px solid black;
+    color: rgb(239, 239, 239);
 }
 
 .box2 {
@@ -38,13 +37,12 @@
     flex-direction: row;
     align-items: center;
     position: fixed;
-    top: 45px;
+    top: 55px;
+    color: rgb(239, 239, 239);
     right: 0;
-    background-color: white;
     height: 40px;
     width: 100px;
-    padding: 5px;
-    border: 1px solid black;
+    padding: 10px;
 }
 
 p {
@@ -53,4 +51,12 @@ p {
     font-size: 1rem;
     padding-left: 2px;
     padding-right: 2px;
+}
+
+.count:hover {
+    cursor: copy;
+}
+
+.count:active {
+    cursor: grab;
 }
