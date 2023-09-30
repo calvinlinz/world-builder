@@ -7,7 +7,6 @@ import { WorldDataContext } from "../context/worldDataContext";
 const CaveCoverGrid = () => {
   const { worldData,caveCords,setCaveCords,buildingCords,currentPlayersInGame,sendMessage,host, caveOpacity} = useContext(WorldDataContext);
 
-
   const imageMapping = {
     15: allImages.caveCoverImages.sml_cave_cover,
     16: allImages.caveCoverImages.lrg_cave_2_cover,
@@ -20,16 +19,12 @@ const CaveCoverGrid = () => {
 
   const handleFog = (index) => {
     if(host){
-      console.log(caveCords.opacity);
       const newCaves = [...caveCords];
           newCaves[index] = {
         ...newCaves[index],
         opacity: newCaves[index].opacity === 1 ? 0 : 1,
         
       };
-      console.log(newCaves.opacity);
-  
-  
       setCaveCords(newCaves);
       sendMessage(
         worldData,

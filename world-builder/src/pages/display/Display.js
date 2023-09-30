@@ -31,7 +31,6 @@ const Display = ({ currentScrollX, currentScrollY }) => {
     currentPlayersInGame,
     setBuildingCords,
     setCaveCords,
-    frameValue,
   } = useContext(WorldDataContext);
   const API_URL = process.env.REACT_APP_API_URL ?? "http://localhost:8080";
   let scaleFactor = 0.25;
@@ -42,9 +41,9 @@ const Display = ({ currentScrollX, currentScrollY }) => {
   const startY = useRef(0);
   const currentX = useRef(0);
   const currentY = useRef(0);
+  const [frameValue, setFrameState] = useState(false);
 
   const handleMouseDown = (e) => {
-    console.log(frameValue + " from disply.js");
     e.preventDefault();
     isDragging = true;
     startX.current = e.clientX;
@@ -117,7 +116,7 @@ const Display = ({ currentScrollX, currentScrollY }) => {
 
   return (
     <>
-      <SideBar />
+      <SideBar frameValue={frameValue} setFrameState={setFrameState}/>
       {loading ? (
         <Loading />
       ) : renderTimeout ? (
@@ -130,11 +129,11 @@ const Display = ({ currentScrollX, currentScrollY }) => {
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}>
-            <BackgroundGrid worldData={worldData} />
+            <BackgroundGrid worldData={worldData} frameValue={frameValue}/>
             <PathGrid worldData={worldData} />
 
             <CaveCoverGrid worldData={worldData} />
-            <BuildingsGrid scaleFactor={scaleFactor} worldData={worldData} />
+            <BuildingsGrid scaleFactor={scaleFactor} worldData={worldData} buildingCords={buildingCords} />
             <NaturalFeaturesGrid
               scaleFactor={scaleFactor}
               worldData={worldData}
