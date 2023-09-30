@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+document.title = "World Builder"
+document.querySelector('link[rel="icon"]').href = "/house2.png";
 root.render(
     <App />
 );
