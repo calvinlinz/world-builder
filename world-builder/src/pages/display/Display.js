@@ -72,6 +72,15 @@ const Display = ({ currentScrollX, currentScrollY }) => {
 
   };
 
+  async function sendMessageWithRetry(data, buildingCords, caveCords, currentPlayersInGame, currentScrollX, currentScrollY) {
+    try {
+      await sendMessage(data, buildingCords, caveCords, currentPlayersInGame, currentScrollX, currentScrollY);
+    } catch (error) {
+      console.error('Error sending message:', error);
+      await sendMessageWithRetry(data, buildingCords, caveCords, currentPlayersInGame, currentScrollX, currentScrollY);
+    }
+  }
+
   useEffect(() => {
     setRenderTimeout(false);
     async function fetchWorld() {
@@ -92,10 +101,15 @@ const Display = ({ currentScrollX, currentScrollY }) => {
         currentScrollX.current = data.x;
         currentScrollY.current = data.y;
         console.log(data)
-        const roofs = await JSON.parse(data.roofs);
-        const caves = await JSON.parse(data.caves);
-        setBuildingCords(roofs); // the current building cords will need to be stored in API.
-        setCaveCords(caves); // same as this
+        if(data.roofs != "" && data.caves != ""){
+          const roofs = await JSON.parse(data.roofs);
+          const caves = await JSON.parse(data.caves);
+          setBuildingCords(roofs);
+          setCaveCords(caves);
+        }else{
+          setBuildingCords(getBuildingCords(data.world));
+          setCaveCords(getCaveCords(data.world));
+        }
         return;
       }
       const newBody = JSON.parse(options.body);
@@ -109,7 +123,7 @@ const Display = ({ currentScrollX, currentScrollY }) => {
       const caveCords = getCaveCords(data);
       setBuildingCords(buildingCords);
       setCaveCords(caveCords);
-      sendMessage(data, buildingCords, caveCords, currentPlayersInGame, currentScrollX.current, currentScrollY.current)
+      sendMessageWithRetry(data, buildingCords, caveCords, currentPlayersInGame, currentScrollX.current, currentScrollY.current)
     }
     fetchWorld();
   }, []);
