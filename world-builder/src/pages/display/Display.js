@@ -72,14 +72,6 @@ const Display = ({ currentScrollX, currentScrollY }) => {
 
   };
 
-  async function sendMessageWithRetry(data, buildingCords, caveCords, currentPlayersInGame, currentScrollX, currentScrollY) {
-    try {
-      await sendMessage(data, buildingCords, caveCords, currentPlayersInGame, currentScrollX, currentScrollY);
-    } catch (error) {
-      console.error('Error sending message:', error);
-      await sendMessageWithRetry(data, buildingCords, caveCords, currentPlayersInGame, currentScrollX, currentScrollY);
-    }
-  }
 
   useEffect(() => {
     setRenderTimeout(false);
@@ -123,7 +115,7 @@ const Display = ({ currentScrollX, currentScrollY }) => {
       const caveCords = getCaveCords(data);
       setBuildingCords(buildingCords);
       setCaveCords(caveCords);
-      sendMessageWithRetry(data, buildingCords, caveCords, currentPlayersInGame, currentScrollX.current, currentScrollY.current)
+      sendMessage(data, buildingCords, caveCords, currentPlayersInGame, currentScrollX.current, currentScrollY.current)
     }
     fetchWorld();
   }, []);
