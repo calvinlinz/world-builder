@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import "./Sidebar.css";
 import TuneIcon from "@mui/icons-material/Tune";
 import FullScreen from "@mui/icons-material/Fullscreen";
-import FullscreenExitIcon from '@mui/icons-material/FullscreenExit'; 
+import FullscreenExitIcon from "@mui/icons-material/FullscreenExit";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import Configuration from "../configuration/Configuration";
 import { useContext } from "react";
@@ -19,10 +19,12 @@ import HistoryIcon from "@mui/icons-material/History";
 import jsPDF from "jspdf";
 import { getBuildingCords, getCaveCords } from "../../grids/CalculatePositions";
 import { ToastContainer, toast } from "react-toastify";
+import Loading from "../loading/loading";
 emailjs.init("VDupAfE4CYPyVT2Ry");
 
 const SideBar = ({frameValue, setFrameState}) => {
   const [open, setOpen] = useState(false);
+  const [load, setLoad] = useState(false);
   const {
     worldData,
     setWorldData,
@@ -77,8 +79,9 @@ const SideBar = ({frameValue, setFrameState}) => {
 
   const handleHtml2Canvas = async () => {
     const world = document.querySelector("#render");
-    const worldBackground = frameValue ?
-      document.querySelector(".grid-container-background-stretched") : document.querySelector(".grid-container-background");
+    const worldBackground = frameValue
+      ? document.querySelector(".grid-container-background-stretched")
+      : document.querySelector(".grid-container-background");
     const cell = document.querySelector(".grid-cell");
     const cellWidth = cell.clientWidth;
     const cellHeight = cell.clientHeight;
@@ -96,6 +99,7 @@ const SideBar = ({frameValue, setFrameState}) => {
   };
 
   const handlePrint = async () => {
+    setLoad(true);
     const canvas = await handleHtml2Canvas();
     const dataURL = canvas.toDataURL("image/jpeg", 0.4);
     const pdf = new jsPDF({
@@ -107,16 +111,17 @@ const SideBar = ({frameValue, setFrameState}) => {
     pdf.addImage(dataURL, "PNG", 0, 0, pdfWidth, pdfHeight);
     pdf.autoPrint();
     window.open(pdf.output("bloburl"), "_blank");
+    setLoad(false);
   };
 
   const sendEmail = async () => {
     setButtonText("Sending...");
+    setLoad(true);
     const canvas = await handleHtml2Canvas();
     var dataURL = canvas.toDataURL("image/jpeg", 0.4);
     if (dataURL.length / 1024 > 500) {
       dataURL = canvas.toDataURL("image/jpeg", 0.1);
     }
-    console.log(dataURL.length / 1024);
     const emailParams = {
       to_email: email,
       message: "Attached file are your world data as PNG format and raw data!",
@@ -130,6 +135,7 @@ const SideBar = ({frameValue, setFrameState}) => {
         setEmail("");
         setButtonText("Insert your Email");
         notification("Email sent successfully!");
+        setLoad(false);
       })
       .catch((error) => {
         notification("Email failed to send!");
@@ -137,6 +143,7 @@ const SideBar = ({frameValue, setFrameState}) => {
         console.log("Email failed to send:", error);
         setOpen(true);
         setEmail("");
+        setLoad(false);
       });
   };
 
@@ -224,131 +231,148 @@ const SideBar = ({frameValue, setFrameState}) => {
   };
 
   return (
-    <div className="sidebar-container" ref={sideBarRef}>
-      <div className={configuration}>
-        {slideContent}
-        {slideButtonOpen && (
-          <div className={buttonClass}>
-            <div className="hamburger" onClick={buttonHandler}>
-              <div className={`container ${isOpen ? "change" : ""}`}>
-                <div className="bar1"></div>
-                <div className="bar2"></div>
-                <div className="bar3"></div>
+    <>
+      {
+        !load ? 
+        <div className="sidebar-container" ref={sideBarRef}>
+          <div className={configuration}>
+            {slideContent}
+            {slideButtonOpen && (
+              <div className={buttonClass}>
+                <div className="hamburger" onClick={buttonHandler}>
+                  <div className={`container ${isOpen ? "change" : ""}`}>
+                    <div className="bar1"></div>
+                    <div className="bar2"></div>
+                    <div className="bar3"></div>
+                  </div>
+                </div>
               </div>
-            </div>
+            )}
           </div>
-        )}
-      </div>
-      <div className={sidebarClass}>
-        {host && (
-          <TuneIcon
-            className="large-icon"
-            fontSize=""
-            color=""
-            onClick={() => handleSlideContent("settings")}
-          />
-        )}
-        {frameValue ? (
-          <FullscreenExitIcon
-          className="large-icon"
-          style={{ fontSize: "50px" }}
-          fontSize=""
-          color=""
-          onClick={handleFrame} />
-        ) : (
-          <FullScreen
-          className="large-icon"
-          style={{ fontSize: "50px" }}
-          fontSize=""
-          color=""
-          onClick={handleFrame} />
-        )}
-        <CloudUploadOutlinedIcon
-          className="large-icon"
-          fontSize=""
-          color=""
-          onClick={() => handleSlideContent("import")}
-        />
-        <HistoryIcon
-          className="large-icon"
-          fontSize=""
-          color=""
-          onClick={() => handleSlideContent("history")}
-        />
-        <LocalPrintshopOutlinedIcon
-          className="large-icon"
-          fontSize=""
-          color=""
-          onClick={handlePrint}
-        />
-        <ShareOutlinedIcon
-          className="large-icon"
-          fontSize=""
-          color=""
-          onClick={() => setOpen(true)}
-        />
-        {host && (
-          <RefreshIcon
-            className="large-icon"
-            fontSize=""
-            color=""
-            onClick={handleGenerate}
-          />
-        )}
-        {!slideButtonOpen && (
-          <div className={buttonClass}>
-            <div className="hamburger" onClick={buttonHandler}>
-              <div className={`container ${isOpen ? "change" : ""}`}>
-                <div className="bar1"></div>
-                <div className="bar2"></div>
-                <div className="bar3"></div>
+          <div className={sidebarClass}>
+            <nav>
+              <ul>
+                {host && (
+                  <li onClick={() => handleSlideContent("settings")}>
+                    <TuneIcon
+                      className="large-icon"
+                      fontSize=""
+                      color=""
+                      onClick={() => handleSlideContent("settings")}
+                    />
+                  </li>
+                )}
+                <li onClick={handleFrame}>
+                  {frameValue ? (
+                    <FullscreenExitIcon
+                      className="large-icon"
+                      style={{ fontSize: "50px", marginTop: "10px" }}
+                      fontSize=""
+                      color=""
+                    />
+                  ) : (
+                    <FullScreen
+                      className="large-icon"
+                      style={{ fontSize: "50px", marginTop: "10px" }}
+                      fontSize=""
+                      color=""
+                    />
+                  )}
+                </li>
+                <li onClick={() => handleSlideContent("import")}>
+                  <CloudUploadOutlinedIcon
+                    className="large-icon"
+                    fontSize=""
+                    color=""
+                  />
+                </li>
+
+                <li onClick={() => handleSlideContent("history")}>
+                  <HistoryIcon className="large-icon" fontSize="" color="" />
+                </li>
+                <li onClick={handlePrint}>
+                  <LocalPrintshopOutlinedIcon
+                    className="large-icon"
+                    fontSize=""
+                    color=""
+                  />
+                </li>
+                <li onClick={() => setOpen(true)}>
+                  <ShareOutlinedIcon
+                    className="large-icon"
+                    fontSize=""
+                    color=""
+                  />
+                </li>
+                <li onClick={handleGenerate}>
+                  {host && (
+                    <RefreshIcon className="large-icon" fontSize="" color="" />
+                  )}
+                </li>
+              </ul>
+            </nav>
+
+            {!slideButtonOpen && (
+              <div className={buttonClass}>
+                <div className="hamburger" onClick={buttonHandler}>
+                  <div className={`container ${isOpen ? "change" : ""}`}>
+                    <div className="bar1"></div>
+                    <div className="bar2"></div>
+                    <div className="bar3"></div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        )}
-        <Modal open={open} onClose={() => setOpen(false)}>
-          <Box sx={style}>
-            <Typography
-              id="modal-modal-title"
-              variant="h6"
-              component="h2"
-              sx={{
-                fontSize: "20px",
-                fontWeight: "bold",
-              }}
-            >
-              {text}
-            </Typography>
-            <Input
-              id="modal-modal-description"
-              sx={{
-                mt: 2,
-                border: "1px solid #ccc",
-                borderRadius: "4px",
-                padding: "8px",
-                width: "100%",
-              }}
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
+            )}
+            <Modal open={open} onClose={() => setOpen(false)}>
+              <Box sx={style}>
+                <Typography
+                  id="modal-modal-title"
+                  variant="h6"
+                  component="h2"
+                  sx={{
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {text}
+                </Typography>
+                <Input
+                  id="modal-modal-description"
+                  sx={{
+                    mt: 2,
+                    border: "1px solid #ccc",
+                    borderRadius: "4px",
+                    padding: "8px",
+                    width: "100%",
+                  }}
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
+                />
+                <Button
+                  variant="outlined"
+                  onClick={sendEmail}
+                  style={{
+                    color: "#000000",
+                    borderColor: "#000000",
+                    borderWidth: "1px",
+                    marginTop: "-185px",
+                    marginLeft: "300px",
+                  }}
+                >
+                  Submit
+                </Button>
+              </Box>
+            </Modal>
+            <ToastContainer
+              autoClose={2000}
+              position="top-center"
+              theme="dark"
+              toastStyle={{ backgroundColor: "#1f1f1f" }}
             />
-            <Button
-              variant="outlined"
-              onClick={sendEmail}
-              style={{
-                color: "#000000",
-                borderColor: "#000000",
-                borderWidth: "1px",
-                marginTop: "-185px",
-                marginLeft: "300px",
-              }}
-            >
-              Submit
-            </Button>
-          </Box>
-        </Modal>
-        <ToastContainer autoClose={2000}  position="top-center" theme="dark" toastStyle={{backgroundColor:"#1f1f1f"}}/>
-      </div>
-    </div>
+          </div>
+        </div> : <Loading/>
+      }
+    </>
   );
 };
 export default SideBar;

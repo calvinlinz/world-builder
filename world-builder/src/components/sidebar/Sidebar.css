@@ -2,6 +2,101 @@
     z-index: 1005;
 }
 
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav {
+    float: left;
+    position: relative;
+    top: 0;
+    left: 0;
+    background: transparent;
+}
+
+nav ul {
+    text-align: center;
+}
+
+nav ul li {
+    position: relative;
+    width: 80px;
+    cursor: pointer;
+    background-color: #1f1f1f;
+    text-transform: uppercase;
+    transition: all .4s ease-out;
+}
+
+nav ul li:after {
+    position: absolute;
+    background: #f7f7f1;
+    color: #1f1f1f;
+    top: 0;
+    left: 70px;
+    width: 80px;
+    height: 100%;
+    opacity: .5;
+    transform: perspective(400px) rotateY(90deg);
+    transform-origin: 0 100%;
+    transition: all .4s ease-out;
+}
+
+nav ul li:nth-child(1):after {
+    content: "Config";
+    line-height: 88px;
+}
+
+nav ul li:nth-child(2):after {
+    content: "Resize";
+    line-height: 88px;
+}
+
+nav ul li:nth-child(3):after {
+    content: "Save";
+    line-height: 88px;
+}
+
+nav ul li:nth-child(4):after {
+    content: "History";
+    line-height: 88px;
+}
+
+nav ul li:nth-child(5):after {
+    content: "Print";
+    line-height: 88px;
+}
+
+nav ul li:nth-child(6):after {
+    content: "Share";
+    line-height: 88px;
+}
+
+nav ul li:nth-child(7):after {
+    content: "RUN";
+    line-height: 88px;
+}
+
+nav ul li:hover {
+    transform: translateX(-70px);
+}
+
+nav ul li:hover:after {
+    opacity: 1;
+    transform: perspective(400px) rotateY(0deg) scale(1);
+}
+
+nav ul li>div {
+    display: inline-block;
+    padding: 25px 0;
+    background: transparent;
+}
+
+nav ul li div {
+    position: relative;
+}
+
 .sidebar {
     position: fixed;
     left: -80px;
