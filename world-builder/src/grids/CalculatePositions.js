@@ -487,6 +487,45 @@ function getCampAccessoryCords(i, j, grid) {
     }
 }
 
+// For unsymetric camps, find their orrientation
+function findCampOrientation(startY, startX, value, grid) {
+    const width = campSiteDims[campSiteKeys.indexOf(value)][0];
+    const widthCheck = grid[startY][startX + width];
+    if (widthCheck === value) {
+        if (value === grid[startY][startX + width + 1]) {
+            const newValue = {
+                src: value,
+                x: startX,
+                y: startY,
+                width: campSiteDims[campSiteKeys.indexOf(value)][0],
+                height: campSiteDims[campSiteKeys.indexOf(value)][1],
+                angle: 90,
+            };
+            return newValue;
+        } else {
+            const newValue = {
+                src: value,
+                x: startX,
+                y: startY,
+                width: campSiteDims[campSiteKeys.indexOf(value)][1],
+                height: campSiteDims[campSiteKeys.indexOf(value)][0],
+                angle: 0,
+            };
+            return newValue;
+        }
+
+    }
+    const newValue = {
+        src: value,
+        x: startX,
+        y: startY,
+        width: campSiteDims[campSiteKeys.indexOf(value)][0],
+        height: campSiteDims[campSiteKeys.indexOf(value)][1],
+        angle: 90,
+    };
+    return newValue;
+};
+
 // Get the cords, types and angles of all of the camp items on the map
 function getCampCords(grid) {
     const cordList = [];
@@ -545,8 +584,8 @@ function getCampCords(grid) {
                                     src: grid[i][j],
                                     x: j,
                                     y: i,
-                                    width: 10, // FINISH HEREEE!!!!
-                                    height: imageDims[grid[i][j]][0],
+                                    width: campSiteDims[campSiteKeys.indexOf(grid[i][j])][0],
+                                    height: campSiteDims[campSiteKeys.indexOf(grid[i][j])][0],
                                     angle: 0,
                                 };
                                 cordList.push(newValue);
@@ -556,12 +595,9 @@ function getCampCords(grid) {
                                         src: grid[i][j],
                                         x: j,
                                         y: i,
-                                        width: imageDims[grid[i][j]][0],
-                                        height: imageDims[grid[i][j]][0],
+                                        width: campSiteDims[campSiteKeys.indexOf(grid[i][j])][0],
+                                        height: campSiteDims[campSiteKeys.indexOf(grid[i][j])][0],
                                         angle: 0,
-                                        xShift: imageShift[grid[i][j]][0],
-                                        yShift: imageShift[grid[i][j]][1],
-                                        opacity:1,
                                     };
                                     cordList.push(newValue);
                                 }
@@ -571,12 +607,9 @@ function getCampCords(grid) {
                                         src: grid[i][j],
                                         x: j,
                                         y: i,
-                                        width: imageDims[grid[i][j]][0],
-                                        height: imageDims[grid[i][j]][0],
+                                        width: campSiteDims[campSiteKeys.indexOf(grid[i][j])][0],
+                                        height: campSiteDims[campSiteKeys.indexOf(grid[i][j])][0],
                                         angle: 0,
-                                        xShift: imageShift[grid[i][j]][0],
-                                        yShift: imageShift[grid[i][j]][1],
-                                        opacity:1,
                                     };
                                     cordList.push(newValue);
                                 }
@@ -586,12 +619,9 @@ function getCampCords(grid) {
                                         src: grid[i][j],
                                         x: j,
                                         y: i,
-                                        width: imageDims[grid[i][j]][0],
-                                        height: imageDims[grid[i][j]][0],
+                                        width: campSiteDims[campSiteKeys.indexOf(grid[i][j])][0],
+                                        height: campSiteDims[campSiteKeys.indexOf(grid[i][j])][0],
                                         angle: 0,
-                                        xShift: imageShift[grid[i][j]][0],
-                                        yShift: imageShift[grid[i][j]][1],
-                                        opacity:1,
                                     };
                                     cordList.push(newValue);
                                 }
@@ -599,18 +629,18 @@ function getCampCords(grid) {
                         } else {
                             // Ensure that the buildings location is only recorded once
                             if (i === 0 && j === 0) {
-                                cordList.push(findOrientation(i, j, grid[i][j], grid));
+                                cordList.push(findCampOrientation(i, j, grid[i][j], grid));
                             } else if (i === 0) { // If y = 0
                                 if (grid[i][j] != grid[i][j - 1]) {
-                                    cordList.push(findOrientation(i, j, grid[i][j], grid));
+                                    cordList.push(findCampOrientation(i, j, grid[i][j], grid));
                                 }
                             } else if (j === 0) { // If x = 0 
                                 if (grid[i][j] != grid[i - 1][j]) {
-                                    cordList.push(findOrientation(i, j, grid[i][j], grid));
+                                    cordList.push(findCampOrientation(i, j, grid[i][j], grid));
                                 }
                             } else {
                                 if (grid[i][j] != grid[i - 1][j] && grid[i][j] != grid[i][j - 1]) {
-                                    cordList.push(findOrientation(i, j, grid[i][j], grid));
+                                    cordList.push(findCampOrientation(i, j, grid[i][j], grid));
                                 }
                             }
                         }
