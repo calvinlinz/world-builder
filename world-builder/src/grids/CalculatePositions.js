@@ -419,12 +419,24 @@ function getCaveCords(grid) {
 // ------------------------------------------------------------------------------------------------
 
 const campKeys = [19, 20, 21, 22, 23];
+const campSiteKeys = [24, 25, 26, 27, 28, 29, 30];
+const campSymetricalKeys = [24, 25, 29];
 const campDims = [
     [1, 2],
     [2, 2],
     [1, 1],
     [1, 2],
     [3, 3]
+];
+
+const campSiteDims = [
+    [6, 6],
+    [7, 7],
+    [4, 6],
+    [9, 8],
+    [4, 3],
+    [3, 3],
+    [7, 4],
 ];
 
 function getSmallCampCords(i, j, grid) {
@@ -524,6 +536,90 @@ function getCampCords(grid) {
 
                 }
             }
+            if (campSiteKeys.includes(grid[i][j])) {
+                if (!campSiteKeys.includes(grid[i - 1][j])) {
+                    if (!campSiteKeys.includes(grid[i][j - 1])) {
+                        if (campSymetricalKeys.includes(grid[i][j])) {
+                            if (i === 0 && j === 0) { // If y = 0 and x = 0
+                                const newValue = {
+                                    src: grid[i][j],
+                                    x: j,
+                                    y: i,
+                                    width: 10, // FINISH HEREEE!!!!
+                                    height: imageDims[grid[i][j]][0],
+                                    angle: 0,
+                                };
+                                cordList.push(newValue);
+                            } else if (i === 0) { // If y = 0
+                                if (grid[i][j] != grid[i][j - 1]) {
+                                    const newValue = {
+                                        src: grid[i][j],
+                                        x: j,
+                                        y: i,
+                                        width: imageDims[grid[i][j]][0],
+                                        height: imageDims[grid[i][j]][0],
+                                        angle: 0,
+                                        xShift: imageShift[grid[i][j]][0],
+                                        yShift: imageShift[grid[i][j]][1],
+                                        opacity:1,
+                                    };
+                                    cordList.push(newValue);
+                                }
+                            } else if (j === 0) { // If x = 0 
+                                if (grid[i][j] != grid[i - 1][j]) {
+                                    const newValue = {
+                                        src: grid[i][j],
+                                        x: j,
+                                        y: i,
+                                        width: imageDims[grid[i][j]][0],
+                                        height: imageDims[grid[i][j]][0],
+                                        angle: 0,
+                                        xShift: imageShift[grid[i][j]][0],
+                                        yShift: imageShift[grid[i][j]][1],
+                                        opacity:1,
+                                    };
+                                    cordList.push(newValue);
+                                }
+                            } else {
+                                if (grid[i][j] != grid[i - 1][j] && grid[i][j] != grid[i][j - 1]) {
+                                    const newValue = {
+                                        src: grid[i][j],
+                                        x: j,
+                                        y: i,
+                                        width: imageDims[grid[i][j]][0],
+                                        height: imageDims[grid[i][j]][0],
+                                        angle: 0,
+                                        xShift: imageShift[grid[i][j]][0],
+                                        yShift: imageShift[grid[i][j]][1],
+                                        opacity:1,
+                                    };
+                                    cordList.push(newValue);
+                                }
+                            }
+                        } else {
+                            // Ensure that the buildings location is only recorded once
+                            if (i === 0 && j === 0) {
+                                cordList.push(findOrientation(i, j, grid[i][j], grid));
+                            } else if (i === 0) { // If y = 0
+                                if (grid[i][j] != grid[i][j - 1]) {
+                                    cordList.push(findOrientation(i, j, grid[i][j], grid));
+                                }
+                            } else if (j === 0) { // If x = 0 
+                                if (grid[i][j] != grid[i - 1][j]) {
+                                    cordList.push(findOrientation(i, j, grid[i][j], grid));
+                                }
+                            } else {
+                                if (grid[i][j] != grid[i - 1][j] && grid[i][j] != grid[i][j - 1]) {
+                                    cordList.push(findOrientation(i, j, grid[i][j], grid));
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+            }
+
         }
     }
     const filteredArray = cordList.filter(item => item !== undefined);
