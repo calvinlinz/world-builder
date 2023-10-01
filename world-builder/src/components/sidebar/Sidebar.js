@@ -22,7 +22,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Loading from "../loading/loading";
 emailjs.init("VDupAfE4CYPyVT2Ry");
 
-const SideBar = ({frameValue, setFrameState}) => {
+const SideBar = ({ frameValue, setFrameState }) => {
   const [open, setOpen] = useState(false);
   const [load, setLoad] = useState(false);
   const {
@@ -66,16 +66,39 @@ const SideBar = ({frameValue, setFrameState}) => {
   };
 
   useEffect(() => {
+    if (!host) {
+      document.documentElement.style.setProperty(
+        "--item-one-content",
+        "'Resize'"
+      );
+      document.documentElement.style.setProperty(
+        "--item-two-content",
+        "'Save'"
+      );
+      document.documentElement.style.setProperty(
+        "--item-three-content",
+        "'History'"
+      );
+      document.documentElement.style.setProperty(
+        "--item-four-content",
+        "'Print'"
+      );
+      document.documentElement.style.setProperty(
+        "--item-five-content",
+        "'Share'"
+      );
+
+    }
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [host]);
 
   const handleFrame = (e) => {
     let newValue = !frameValue;
     setFrameState(newValue);
-  }
+  };
 
   const handleHtml2Canvas = async () => {
     const world = document.querySelector("#render");
@@ -232,8 +255,7 @@ const SideBar = ({frameValue, setFrameState}) => {
 
   return (
     <>
-      {
-        !load ? 
+      {!load ? (
         <div className="sidebar-container" ref={sideBarRef}>
           <div className={configuration}>
             {slideContent}
@@ -370,8 +392,10 @@ const SideBar = ({frameValue, setFrameState}) => {
               toastStyle={{ backgroundColor: "#1f1f1f" }}
             />
           </div>
-        </div> : <Loading/>
-      }
+        </div>
+      ) : (
+        <Loading />
+      )}
     </>
   );
 };

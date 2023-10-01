@@ -25,7 +25,7 @@ function App() {
   const [buildingCords, setBuildingCords] = useState([]);
 
   const clientRef = useRef();
-  const [history, setHistory] = useState( 
+  const [history, setHistory] = useState(
     JSON.parse(localStorage.getItem("history")) || []
   );
 
@@ -40,7 +40,14 @@ function App() {
   };
 
   const handleHistory = (world) => {
+    for (var i = 0; i < history.length; i++) {
+      //iterate through each object in an array
+      if (JSON.stringify(history[i]) === JSON.stringify(world)) {
+        return;
+      }
+    }
     const newHistory = history;
+
     if (newHistory.length === 20) {
       newHistory.pop();
     }
@@ -60,13 +67,11 @@ function App() {
   const notifySuccess = (message) => toast.success(message);
   const notifyInfo = (message) => toast.success(message);
 
-
-  useEffect(()=>{
-    if(gameStarted){
+  useEffect(() => {
+    if (gameStarted) {
       notifySuccess((host ? "Created " : "Joined ") + "Game " + gameId);
     }
-
-  },[gameStarted]);
+  }, [gameStarted]);
   useEffect(() => {
     setLoading(true);
     window.addEventListener("beforeunload", handleTabClose);
@@ -104,8 +109,8 @@ function App() {
         },
         setRoofOpacity: (opacity) => {
           setRoofOpacity(opacity);
-        }
-        ,setCaveOpacity: (opacity) => {
+        },
+        setCaveOpacity: (opacity) => {
           setCaveOpacity(opacity);
         },
         setFrameState: (frameValue) => {
@@ -140,11 +145,16 @@ function App() {
         },
         setBuildingCords: (cords) => {
           setBuildingCords(cords);
-        }
+        },
       }}
     >
       <div className="App">
-      <ToastContainer autoClose={2000}  position="top-center" theme="dark" toastStyle={{backgroundColor:"#1f1f1f"}}/>
+        <ToastContainer
+          autoClose={2000}
+          position="top-center"
+          theme="dark"
+          toastStyle={{ backgroundColor: "#1f1f1f" }}
+        />
         {gameStarted ? (
           <>
             <SockJsClient
@@ -164,7 +174,6 @@ function App() {
                     setId(data.id);
                     setCurrentPlayersInGame(data.players);
                   });
-
               }}
               onDisconnect={() => {
                 const options = {
@@ -178,7 +187,7 @@ function App() {
                     x: currentScrollX.current,
                     y: currentScrollY.current,
                     roofs: JSON.stringify(buildingCords),
-                    caves: JSON.stringify(caveCords)
+                    caves: JSON.stringify(caveCords),
                   }),
                 };
                 fetch(API_URL + "/game/leave", options);
@@ -186,25 +195,34 @@ function App() {
               onMessage={(msg) => {
                 const previousPlayers = currentPlayersInGame;
                 if (!host) {
-                  if(msg.id !=-1){
-                    if(msg.caves == null || msg.roofs == null || msg.world == null ){
+                  if (msg.id != -1) {
+                    if (
+                      msg.caves == null ||
+                      msg.roofs == null ||
+                      msg.world == null
+                    ) {
                       return;
                     }
-                    if(msg.world != JSON.stringify(worldData)){
+                    if (msg.world != JSON.stringify(worldData)) {
                       setWorld(JSON.parse(msg.world));
                     }
-                    if(msg.roofs != JSON.stringify(buildingCords)) {
+                    if (msg.roofs != JSON.stringify(buildingCords)) {
                       const roofs = JSON.parse(msg.roofs);
                       setBuildingCords(roofs);
                     }
-                    if(msg.caves != JSON.stringify(caveCords)) {
+                    if (msg.caves != JSON.stringify(caveCords)) {
                       const caves = JSON.parse(msg.caves);
                       setCaveCords(caves);
                     }
                     window.scroll(msg.x, msg.y);
                   }
                 }
-                if(msg.id == -1 && (previousPlayers != msg.players && previousPlayers!=0) && msg.join){
+                if (
+                  msg.id == -1 &&
+                  previousPlayers != msg.players &&
+                  previousPlayers != 0 &&
+                  msg.join
+                ) {
                   notifyInfo("A player has joined the game");
                 }
 
@@ -215,8 +233,8 @@ function App() {
               }}
             />
             <Display
-              currentScrollX = {currentScrollX}
-              currentScrollY = {currentScrollY}
+              currentScrollX={currentScrollX}
+              currentScrollY={currentScrollY}
             />
           </>
         ) : (

@@ -1,3 +1,13 @@
+:root {
+    --item-one-content: "config";
+    --item-two-content: "resize";
+    --item-three-content: "save";
+    --item-four-content: "history";
+    --item-five-content: "share";
+    --item-five-content: "print";
+    --map_size_factor: 1;
+}
+
 .sidebar-container {
     z-index: 1005;
 }
@@ -44,27 +54,27 @@ nav ul li:after {
 }
 
 nav ul li:nth-child(1):after {
-    content: "Config";
+    content: var( --item-one-content);
     line-height: 88px;
 }
 
 nav ul li:nth-child(2):after {
-    content: "Resize";
+    content: var( --item-two-content);
     line-height: 88px;
 }
 
 nav ul li:nth-child(3):after {
-    content: "Save";
+    content: var( --item-three-content);
     line-height: 88px;
 }
 
 nav ul li:nth-child(4):after {
-    content: "History";
+    content: var( --item-four-content);
     line-height: 88px;
 }
 
 nav ul li:nth-child(5):after {
-    content: "Print";
+    content: var( --item-five-content);
     line-height: 88px;
 }
 
