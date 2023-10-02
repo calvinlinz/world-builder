@@ -377,6 +377,7 @@ const cha2Map = {
         wis2Text={wis2Map[selectedMonsterOption.wis]} 
         cha1Text={cha1Map[selectedMonsterOption.cha]} 
         cha2Text={cha2Map[selectedMonsterOption.cha]} 
+        setSelectedMonsterOption={setSelectedMonsterOption}
       />
     );
   }
