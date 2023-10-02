@@ -41,7 +41,7 @@ const Display = ({ currentScrollX, currentScrollY }) => {
   const startY = useRef(0);
   const currentX = useRef(0);
   const currentY = useRef(0);
-  const [frameValue, setFrameState] = useState(false);
+  const [frameValue, setFrameState] = useState(true);
 
   const handleMouseDown = (e) => {
     e.preventDefault();

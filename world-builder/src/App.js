@@ -18,7 +18,7 @@ function App() {
   const [currentPlayersInGame, setCurrentPlayersInGame] = useState(0);
   const [roofOpacity, setRoofOpacity] = useState(1);
   const [caveOpacity, setCaveOpacity] = useState(1);
-  const [frameValue, setFrameState] = useState(false);
+  const [frameValue, setFrameState] = useState(true);
   const currentScrollX = useRef(0);
   const currentScrollY = useRef(0);
   const [caveCords, setCaveCords] = useState([]);
