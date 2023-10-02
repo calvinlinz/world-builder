@@ -115,7 +115,7 @@ function findOrientation(startY, startX, value, grid) {
             const newValue = {
                 src: value,
                 x: startX,
-                y: startY,
+                y: startY + 1,
                 width: imageDims[value][0],
                 height: imageDims[value][1],
                 angle: 90,
