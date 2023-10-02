@@ -87,11 +87,10 @@ public class MonsterGenerator {
                 if(zone.get(count) == TREE_CODE || zone.get(count) == BUSH_CODE) numberNatural += 1;
             }
             // If there are at least 3 natural features within the fairies range, spawn a fairy!
-            if(numberNatural >= 3){
-                int chances = rand.nextInt(18);
+            if(numberNatural >= 5){
+                int chances = rand.nextInt(28);
                 if(chances == 2){
                     return makeFairy();
-                    //return 1234567; // Draw monkeys
                 }
                 else return cellValue;
             }
