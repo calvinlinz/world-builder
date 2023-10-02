@@ -468,6 +468,13 @@ The link for this relevant issue can be seen [here](https://gitlab.ecs.vuw.ac.nz
 | 21       | Camp Fire      | 1x1            | 
 | 22       | Camp Accessories  | 1x2         |
 | 23       | Large Tent     | 3x3            |
+| 24       | Campsite 1     | 6x6            | 
+| 25       | Campsite 2     | 7x7            |
+| 26       | Campsite 3     | 4x6            | 
+| 27       | Campsite 4     | 9x8            |
+| 28       | Campsite 5     | 4x3            |
+| 29       | Campsite 6     | 3x3            |
+| 30       | Campsite 7     | 7x4            |
 
 **Cave Dims Table**
 

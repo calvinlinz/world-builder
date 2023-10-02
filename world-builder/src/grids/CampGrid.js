@@ -13,6 +13,13 @@ const CampGrid = memo(function CampGrid({scaleFactor, worldData}){
         21: allImages.campImages.campfire,
         22: allImages.campAccessory.bedroll,
         23: allImages.campImages2x2.tent_2x2_1,
+        24: allImages.campImages.campsite1,
+        25: allImages.campImages.campsite2,
+        26: allImages.campImages.campsite3,
+        27: allImages.campImages.campsite4,
+        28: allImages.campImages.campsite5,
+        29: allImages.campImages.campsite6,
+        30: allImages.campImages.campsite7,
     };
     
     return (

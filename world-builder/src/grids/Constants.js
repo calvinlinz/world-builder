@@ -9,6 +9,13 @@ import bedroll from '../assets/camp/bedroll.png';
 import campfire from '../assets/camp/campfire.png';
 import fire from '../assets/camp/fire.png';
 import firewood from '../assets/camp/firewood.png';
+import campsite1 from '../assets/camp/camp1.png';
+import campsite2 from '../assets/camp/camp2.png';
+import campsite3 from '../assets/camp/camp3.png';
+import campsite4 from '../assets/camp/camp4.png';
+import campsite5 from '../assets/camp/camp5.png';
+import campsite6 from '../assets/camp/camp6.png';
+import campsite7 from '../assets/camp/camp7.png';
 
 // Cave images:
 import corner_long from '../assets/caves/corner_long.png';
@@ -172,6 +179,13 @@ const campImages = {
     campfire,
     fire,
     firewood,
+    campsite1,
+    campsite2,
+    campsite3,
+    campsite4,
+    campsite5,
+    campsite6,
+    campsite7,
 }
 
 const campImages2x2 = {
