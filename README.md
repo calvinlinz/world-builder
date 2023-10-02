@@ -356,6 +356,24 @@ Additionally, we will need to write an algorithm that will ensure the corners, l
 
 Each graphical element could be different dimensions or take up different areas. Including a JSON file with each of the images metadata could make the algorithm easier. 
 
+Different layers of the algorithm will be built up using different z-index's. These values can be found in the table below: 
+
+| **Layer**                            | **Z-index** |
+|--------------------------------------|-------------|
+| .grid-container-background           | 1           |
+| .grid-container-background-stretched | 1           |
+| .grid-container-path                 | 2           |
+| .grid-container-path-edge            | 3           |
+| .grid-container-buildings            | 3           |
+| .grid-container-camp                 | 3           |
+| .grid-container-furniture            | 4           |
+| .grid-container-natural              | 4           |
+| .grid-container-caves                | 5           |
+| .grid-container-monsters             | 6           |
+| .grid-container-caves-cover          | 7           |
+| .grid-container-roof                 | 7           |
+
+
 **How will we display the relevant backgrounds?**
 
 The transparent elements need to have relevant backgrounds displayed behind them. These transparent elements include Trees & Bushes, Stones, Campfires, Flowers, Leaves and Building Edges.
@@ -399,6 +417,8 @@ Here is an example of a possible algorithm:
 
 The link for this relevant issue can be seen [here](https://gitlab.ecs.vuw.ac.nz/richeshayd/world-builder/-/issues/6).
 
+Please Note: This method was not used in the final product. As we decided on soley having a grass biome, we decided to cover the entire background with grass. 
+
 **How will we display the corners of buildings and paths?**
 
 Elements such as caves and buildings should have their edges and corners displayed properly. The perimeter of buildings should have walls and appropriate corners at the edges.
@@ -422,6 +442,8 @@ should be ‘Wall on Top’, the ~~X~~ should be ‘Wall on Left’ and the regu
 
 The link for this relevant issue can be seen [here](https://gitlab.ecs.vuw.ac.nz/richeshayd/world-builder/-/issues/8).
 
+Please Note: This algorithm was soley used for path edges, as we opted for premade buildings. 
+
 **How will we display the features at their relevant size?**
 
 Some elements, such as tents, should be displayed over multiple squares. In other words, larger elements that can't be broken into individual repeatable squares should be displayed over many squares. To solve this, a JSON file should be created to record the dimensions that should be used for each of the images.
@@ -436,6 +458,8 @@ To make the graphical interface more interesting, there should be a range of tre
 To do this, there should be a range of different tree images that can be selected at random to be displayed. It could also be wise to rotate the images to create diversity.
 
 The link for this relevant issue can be seen [here](https://gitlab.ecs.vuw.ac.nz/richeshayd/world-builder/-/issues/9).
+
+**How will we display our buildings?**
 
 ##### 3.4.3.1 Image Codes and Ids
 
