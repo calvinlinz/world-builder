@@ -5,7 +5,7 @@ import { allImages } from "./Constants";
 import { WorldDataContext } from "../context/worldDataContext";
 
 
-const BuildingsGrid = memo(function BuildingsGrid ({ scaleFactor, buildingCords}){
+const BuildingsGrid = memo(function BuildingsGrid ({ scaleFactor, buildingCords, worldData}){
 
   const imageMapping = {
     5: allImages.buildingImages.building_2x2,
@@ -19,53 +19,28 @@ const BuildingsGrid = memo(function BuildingsGrid ({ scaleFactor, buildingCords}
     13: allImages.buildingImages.building_7x8,
   };
 
-  const furniture3x3Map = {
-    0: allImages.furnitureImages.furniture_3x3_1,
-    1: allImages.furnitureImages.furniture_3x3_2,
-  };
-
-  const furniture4x4Map = {
-    0: allImages.furnitureImages.furniture_4x4_1,
-    1: allImages.furnitureImages.furniture_4x4_2,
-  };
-
-  const furniture4x6Map = {
-    0: allImages.furnitureImages.furniture_4x6_1,
-    1: allImages.furnitureImages.furniture_4x6_2,
-  };
-
-  const furniture5x5Map = {
-    0: allImages.furnitureImages.furniture_5x5_1,
-    1: allImages.furnitureImages.furniture_5x5_2,
-  };
-
-  const furniture6x3Map = {
-    0: allImages.furnitureImages.furniture_6x3_1,
-    1: allImages.furnitureImages.furniture_6x3_2,
-  };
-
-  const furniture6x8Map = {
-    0: allImages.furnitureImages.furniture_6x8_1,
-    1: allImages.furnitureImages.furniture_6x8_2,
-  };
-
-  const furniture7x8Map = {
-    0: allImages.furnitureImages.furniture_7x8_1,
-    1: allImages.furnitureImages.furniture_7x8_2,
-  }
-
-
-
-  const furnitureMapping = {
+  const topFurnitureMapping = {
     5: allImages.transparent,
     6: allImages.transparent,
-    7: furniture3x3Map[Math.floor(Math.random() * 2)],
-    8: furniture4x4Map[Math.floor(Math.random() * 2)],
-    9: furniture4x6Map[Math.floor(Math.random() * 2)],
-    10: furniture5x5Map[Math.floor(Math.random() * 2)],
-    11: furniture6x3Map[Math.floor(Math.random() * 2)],
-    12: furniture6x8Map[Math.floor(Math.random() * 2)],
-    13: furniture7x8Map[Math.floor(Math.random() * 2)],
+    7: allImages.furnitureImages.furniture_3x3_1,
+    8: allImages.furnitureImages.furniture_4x4_1,
+    9: allImages.furnitureImages.furniture_4x6_1,
+    10: allImages.furnitureImages.furniture_5x5_1,
+    11: allImages.furnitureImages.furniture_6x3_1,
+    12: allImages.furnitureImages.furniture_6x8_1,
+    13: allImages.furnitureImages.furniture_7x8_1,
+  };
+
+  const bottomFurnitureMapping = {
+    5: allImages.transparent,
+    6: allImages.transparent,
+    7: allImages.furnitureImages.furniture_3x3_2,
+    8: allImages.furnitureImages.furniture_4x4_2,
+    9: allImages.furnitureImages.furniture_4x6_2,
+    10: allImages.furnitureImages.furniture_5x5_2,
+    11: allImages.furnitureImages.furniture_6x3_2,
+    12: allImages.furnitureImages.furniture_6x8_2,
+    13: allImages.furnitureImages.furniture_7x8_2,
   };
 
   return (
@@ -94,7 +69,7 @@ const BuildingsGrid = memo(function BuildingsGrid ({ scaleFactor, buildingCords}
         {buildingCords.map((image, index) => (
           <img
             key={index}
-            src={furnitureMapping[image.src]}
+            src={image.y > worldData.length/2 ? topFurnitureMapping[image.src] : bottomFurnitureMapping[image.src]}
             alt={`Image ${index + 1}`}
             style={{
               transform: `rotate(${image.angle}deg)`,
