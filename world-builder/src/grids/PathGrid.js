@@ -24,7 +24,7 @@ const PathGrid = memo(function PathGrid({worldData}){
               transform: `${image.transform}`,
               position: "absolute",
               left: `${image.x + 7.9 + (image.x * 0.030)}vw`,
-              top: `${image.y + 2 - (image.y * 0.02)}vw`,
+              top: `${image.y + 2 - (image.y * 0.02) - ((worldData.length - 54) * 0.0001 * image.y)}vw`,
               width: `${image.width}vw`,
               
           };
@@ -44,7 +44,7 @@ const PathGrid = memo(function PathGrid({worldData}){
               transform: `${image.transform}`,
               position: "absolute",
               left: `${image.x + 7.9 + (image.x * 0.030)}vw`,
-              top: `${image.y + 2 - (image.y * 0.02)}vw`,
+              top: `${image.y + 2 - (image.y * 0.02) - ((worldData.length - 54) * 0.0001 * image.y)}vw`,
               width: `${image.width}vw`,
               
           };
@@ -63,7 +63,7 @@ const PathGrid = memo(function PathGrid({worldData}){
         const imageStyle = {
               transform: `${image.transform}`,
               position: "absolute",
-              left: `${image.x + 7.3 + (image.x * 0.030)}vw`,
+              left: `${image.x + 7.3 + (image.x * 0.030) + (((100 - image.x) * 0.00005) * ((worldData.length - 54) * 0.1 * image.x )) + ((worldData.length - 54) * Math.abs((worldData.length/2) - image.x) * 0.00025)}vw`,
               top: `${image.y + 1.5}vw`,
               width: `${image.width}vw`,
               
@@ -83,7 +83,7 @@ const PathGrid = memo(function PathGrid({worldData}){
         const imageStyle = {
               transform: `${image.transform}`,
               position: "absolute",
-              left: `${image.x + 7.3 + (image.x * 0.030)}vw`,
+              left: `${image.x + 7.3 + (image.x * 0.030) + (((100 - image.x) * 0.00005) * ((worldData.length - 54) * 0.1 * image.x )) + ((worldData.length - 54) * Math.abs((worldData.length/2)  - image.x) * 0.00025)}vw`,
               top: `${image.y + 1.3 + (1 - (image.y/50))}vw`,
               width: `${image.width}vw`,
               
