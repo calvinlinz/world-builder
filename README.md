@@ -241,11 +241,7 @@ This graphics section is split into the following topics:
 
 
 #### 3.4.1 Texture Elements Licencing 
-As mentioned above, free texutre packs will be sourced from 2MinuteTableTop.com. The below table shows the used textures and the relevant links to their source. 
-
-
-The relevant licence.....
-
+As mentioned above, free texutre packs will be sourced from 2MinuteTableTop.com. Under their licencing page, they claim that as long as these assets are used for private games with friends, we are allowed to use them. However, if we plan on monitising this project, we must add the relevant watermarks and attributions. More info can be found under the 'Attribution Guidelines' on their website. 
 
 
 #### 3.4.2 Texture Element Coding System
@@ -430,13 +426,14 @@ The link for this relevant issue can be seen [here](https://gitlab.ecs.vuw.ac.nz
 
 Some elements, such as tents, should be displayed over multiple squares. In other words, larger elements that can't be broken into individual repeatable squares should be displayed over many squares. To solve this, a JSON file should be created to record the dimensions that should be used for each of the images.
 
+Relevant z-indexes are then used to overlay these images over the grid. 
+
 The link for this relevant issue can be seen [here](https://gitlab.ecs.vuw.ac.nz/richeshayd/world-builder/-/issues/7).
 
 **How will we display a range of e.g. Trees and Bushes?**
 
 To make the graphical interface more interesting, there should be a range of trees, bushes, rocks etc. instead of the same image repeated over and over.
 To do this, there should be a range of different tree images that can be selected at random to be displayed. It could also be wise to rotate the images to create diversity.
-
 
 The link for this relevant issue can be seen [here](https://gitlab.ecs.vuw.ac.nz/richeshayd/world-builder/-/issues/9).
 
@@ -490,8 +487,12 @@ In the below table, a zero represents not a cave, and a one represents cave.
 #### 3.4.4 Hero Animation
 For the Home/Welcome page of the website, a simple animation will play as the background. We will need to design a simple animation of a map for this section that helps capture the users attention. This will simply be done by iterating through an array of images in the background. Title text and relevant buttons should be incorporated into this design. 
 
+This animation has been created, however as a team we prefered the original standard background image. Therefore, we will use this animation for sources such as our presentation.
 
-#### 3.4.5 Relevant Graphics Risk
+#### 3.4.5 Monster Displays 
+
+
+#### 3.4.6 Relevant Graphics Risk
 
 **Time Risks**
 
@@ -523,9 +524,7 @@ The following 2D array is an example of one of the 'test maps':
 A colour coded visualisation of the above map can been seen [here](https://docs.google.com/spreadsheets/d/1M1OSNw0pPQahYeOznh_cZh4F-n-PmZVOwYIwn-PXrhk/edit?usp=share_link).
 
 **Licencing Risks**
-
-BLAH BLAH BLAH
-
+If we transition from using this project for private use to monitizing the website, we need to refer back to the licencing agreement discussed above in 3.4.1. 
 
 
 <a name="front-end-deploy"></a>
