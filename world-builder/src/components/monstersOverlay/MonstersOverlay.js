@@ -1,8 +1,10 @@
 import "./MonsterOverlay.css";
 import { allImages } from "../../grids/Constants";
+import React, { useState, useContext,useEffect } from "react";
+import CloseIcon from '@mui/icons-material/Close';
 
 const MonstersOverlay = ({monsterName, monsterRank, monsterSTR, monsterDEX, monsterCON, monsterINT, monsterWIS, monsterCHA, enviro, rankInt, optionOne, optionTwo, strText, dex1Text, dex2Text, 
-                        con1Text, con2Text, fillerText, int1Text, int2Text, wis1Text, wis2Text, cha1Text, cha2Text}) => {
+                        con1Text, con2Text, fillerText, int1Text, int2Text, wis1Text, wis2Text, cha1Text, cha2Text, setSelectedMonsterOption}) => {
 
     const houseMonsters = {
         1: allImages.houseMonsterImages.house4,
@@ -33,9 +35,21 @@ const MonstersOverlay = ({monsterName, monsterRank, monsterSTR, monsterDEX, mons
         margin: '18px',
       };
 
+    const iconStyle = {
+        color: "black",
+        top: '15px',
+        right: '15px',
+        position: 'absolute',
+        fontSize: '30px',
+    };
+
     return (
         <div className="body">
             <div className="monster-container">
+                <CloseIcon
+                      style={iconStyle}
+                      onClick={() => setSelectedMonsterOption("none")}
+                />
                 <img
                     src={allImages.monsterImages.shadow}
                     alt={`Monster Image`}
@@ -88,6 +102,7 @@ const MonstersOverlay = ({monsterName, monsterRank, monsterSTR, monsterDEX, mons
                     allowing it to devise {int2Text} strategies in an attempt to mislead you. Its {wis1Text} wisdom also makes this {wis2Text} opponent. 
                     Lastly, its {cha1Text} nature is a defining trait of this monster. It’s presence {cha2Text}.
                 </p>
+
             </div>
 
             
