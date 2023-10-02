@@ -1,5 +1,6 @@
 package com.API.service;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -32,6 +33,8 @@ public class ForestGenerator {
      * List of invalid codes which a forest cannot overlap.
      */
     private ArrayList<Integer> invalidCodes = new ArrayList<>(List.of(5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23));
+
+    private ArrayList<Integer> tentCodes = new ArrayList<>(List.of(19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30));
 
     /**
      * Code for path tile in map.
@@ -179,7 +182,7 @@ public class ForestGenerator {
         // If so, we cannot place it there.
         for (int i = row; i < row + forestSquare.length; i++) {
             for (int j = col; j < col + forestSquare[0].length; j++) {
-                if (invalidCodes.contains(map[i][j]) || map[i][j] == pathCode) { return false; }
+                if (invalidCodes.contains(map[i][j]) || tentCodes.contains(map[i][j]) || map[i][j] == pathCode) { return false; }
             }
         }
         return true;
@@ -199,7 +202,7 @@ public class ForestGenerator {
         int mapHeight = this.map[0].length;
 
         int attempt = 0;
-        while (attempt < 100) {
+        while (attempt < 200) {
             int randomRow = random.nextInt(mapWidth - forestWidth + 1);
             int randomCol = random.nextInt(mapHeight - forestHeight + 1);
 
