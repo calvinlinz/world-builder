@@ -20,8 +20,8 @@ const PlayerCount = () => {
           </div>
         </div>
         <div className={styles.box2}>
-          <div className={styles.count} onClick={()=>{navigator.clipboard.writeText(gameId); notifySuccess("Copied Game ID: " + gameId)}}>
-            <p>Game ID: {gameId}</p>
+          <div className={styles.tooltip} data-title="Click to Copy ID" onClick={()=>{navigator.clipboard.writeText(gameId); notifySuccess("Copied Game ID: " + gameId)}}>
+            <p> Game ID: {gameId}</p>
           </div>
         </div>
       </div>
