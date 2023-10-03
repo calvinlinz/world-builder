@@ -245,6 +245,40 @@ public class ForestGenerator {
             // Place the forest square into the final map.
             placeForestSquare(finalForestSquare);
         }
+        this.map = addExtraTrees(this.map);
         return this.map;
+    }
+
+
+    /**
+     * Extra method at the request of the graphics team.
+     * Adds extra trees everywhere on the final map!
+     * @return
+     */
+    private int[][] addExtraTrees(int[][] originalMap){
+        for(int i = 0; i < originalMap.length; i++){
+            for(int j = 0; j < originalMap[0].length; j++){
+                if(i == 0 || j == 0 || i == originalMap.length - 1 || j == originalMap[0].length - 1) continue; // Do not place trees on the edge
+                if(originalMap[i][j] == backgroundCode){
+                    int randNum = rand.nextInt(42);
+                    if(randNum == 2){
+                        // Check if we can place the tree. If so then do it!
+                        if(originalMap[i][j+1] == backgroundCode && originalMap[i+1][j] == backgroundCode && originalMap[i+1][j+1] == backgroundCode){
+                            originalMap[i][j] = treeCode;
+                            originalMap[i][j+1] = treeCode;
+                            originalMap[i+1][j] = treeCode;
+                            originalMap[i+1][j+1] = treeCode;
+                        }
+                    } else{
+                        // Do another lottery for the bushes.
+                        randNum = rand.nextInt(45);
+                        if(randNum == 4){
+                            originalMap[i][j] = bushCode;
+                        }
+                    }
+                }
+            }
+        }
+        return originalMap;
     }
 }
