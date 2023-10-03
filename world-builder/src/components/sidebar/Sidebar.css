@@ -37,6 +37,7 @@ nav ul li {
     background-color: #1f1f1f;
     text-transform: uppercase;
     transition: all .4s ease-out;
+    font-weight: bold; /* Add this line */
 }
 
 nav ul li:after {
@@ -51,6 +52,7 @@ nav ul li:after {
     transform: perspective(400px) rotateY(90deg);
     transform-origin: 0 100%;
     transition: all .4s ease-out;
+    font-weight: bold; /* Add this line */
 }
 
 nav ul li:nth-child(1):after {
