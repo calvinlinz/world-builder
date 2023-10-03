@@ -69,7 +69,7 @@ const SideBar = ({ frameValue, setFrameState }) => {
     if (!host) {
       document.documentElement.style.setProperty(
         "--item-one-content",
-        <b>"'Resize'"</b>
+        "'Resize'"
       );
       document.documentElement.style.setProperty(
         "--item-two-content",

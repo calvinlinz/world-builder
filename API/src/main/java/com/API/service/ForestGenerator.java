@@ -164,7 +164,15 @@ public class ForestGenerator {
             placedPositions.add(position);
             placedPositions = findSurroundingSquares(placedPositions, randomRow, randomCol);
             // Store the placed position and surrounding so there cannot be overlaps.
-        }              
+        }        
+        System.out.println("\n\nSTART OF FOREST SQUARE");
+        for (int i = 0; i < forestSquare.length; i++) {
+            for (int j = 0; j < forestSquare[i].length; j++) {
+                System.out.print(forestSquare[i][j] + " ");
+            }
+            System.out.println(); // Add a newline after each row
+        }
+        System.out.println("\nEND OF FOREST SQUARE");
         return forestSquare;
     }
 
@@ -241,6 +249,15 @@ public class ForestGenerator {
 
             // Add bushes and more into the forest square, with a given chance.
             int[][] finalForestSquare = addBushes(forestSquare, 15);
+
+            System.out.println("\n\nSTART OF FINAL FOREST SQUARE");
+            for (int n = 0; n < forestSquare.length; n++) {
+                for (int j = 0; j < forestSquare[i].length; j++) {
+                    System.out.print(forestSquare[n][j] + " ");
+                }
+                System.out.println(); // Add a newline after each row
+            }
+            System.out.println("\nEND OF FINAL FOREST SQUARE");
 
             // Place the forest square into the final map.
             placeForestSquare(finalForestSquare);

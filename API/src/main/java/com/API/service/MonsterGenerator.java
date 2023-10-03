@@ -52,10 +52,10 @@ public class MonsterGenerator {
      * Determine the probabilities of monsters spawning in each room.
      */
     private void initialiseProbs(){
-        probabilities.add(52.0); // boss rank prob
-        probabilities.add(40.0); // hard rank prob
-        probabilities.add(35.0); // medium rank prob
-        probabilities.add(27.0); // easy rank prob
+        probabilities.add(47.0); // boss rank prob
+        probabilities.add(38.0); // hard rank prob
+        probabilities.add(33.0); // medium rank prob
+        probabilities.add(29.0); // easy rank prob
     }
 
     /**
