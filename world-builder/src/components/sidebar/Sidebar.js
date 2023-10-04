@@ -147,7 +147,7 @@ const SideBar = ({ frameValue, setFrameState }) => {
     }
     const emailParams = {
       to_email: email,
-      message: "Attached file are your world data as PNG format and raw data!",
+      message: "Attached files are your D&D map as PNG image and raw data within a JSON file!",
       file: btoa(JSON.stringify(worldData)),
       image: dataURL,
     };
