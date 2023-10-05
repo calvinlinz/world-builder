@@ -31,7 +31,7 @@ public class SectionBuilder {
     int woodsBuilt;
 
     boolean featureAdded = false;
-    int multi = 1;
+    double multi = 1.0;
 
     private static ArrayList<Node> AllRoomsList = new ArrayList<Node>(); 
     private static ArrayList<Node> roomList1 = new ArrayList<Node>(); 
@@ -57,7 +57,8 @@ public class SectionBuilder {
 
     public int[][] getSection(int arrayS, int secNumber) {
 
-        multi =  arrayS / 27;
+        multi =  (double) arrayS / (27.0);
+        System.out.println(multi + "the multi");
         int [][] completeSection = null;
 
 
@@ -86,6 +87,11 @@ public class SectionBuilder {
         	if (villagesBuilt <= maxVillages) {
                 int newMax = (int) Math.ceil(multi * rm.getMaxFeatures());
                 int newMin = (int) Math.ceil(multi * rm.getMinFeatures());
+
+                System.out.println(multi * rm.getMaxFeatures() + " Calc res");
+                System.out.println(newMax + " The Max");
+                System.out.println(newMin + " The Min");
+
 
 	            totalFeatures = calcFeatures.nextInt(newMax-newMin) + newMin;
 	            completeSection = generateVillage(totalFeatures, secNumber,arrayS);
