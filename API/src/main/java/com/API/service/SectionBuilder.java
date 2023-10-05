@@ -31,6 +31,7 @@ public class SectionBuilder {
     int woodsBuilt;
 
     boolean featureAdded = false;
+    int multi = 1;
 
     private static ArrayList<Node> AllRoomsList = new ArrayList<Node>(); 
     private static ArrayList<Node> roomList1 = new ArrayList<Node>(); 
@@ -55,6 +56,8 @@ public class SectionBuilder {
     }
 
     public int[][] getSection(int arrayS, int secNumber) {
+
+        multi =  arrayS / 27;
         int [][] completeSection = null;
 
 
@@ -69,7 +72,10 @@ public class SectionBuilder {
         	woodsBuilt++;
         	
         	if (woodsBuilt <= maxWoods) {
-	            totalFeatures = calcFeatures.nextInt(wm.getMaxFeatures()-wm.getMinFeatures()) + wm.getMinFeatures();
+	            int newMax = (int) Math.floor(multi * wm.getMaxFeatures());
+                int newMin = (int) Math.floor(multi * wm.getMinFeatures());
+
+	            totalFeatures = calcFeatures.nextInt(newMax-newMin) + newMin;
 	            completeSection = generateWoodland(totalFeatures, secNumber,arrayS);
         	} 
         }
@@ -78,7 +84,10 @@ public class SectionBuilder {
         	villagesBuilt++;
         	
         	if (villagesBuilt <= maxVillages) {
-	            totalFeatures = calcFeatures.nextInt(rm.getMaxFeatures()-rm.getMinFeatures()) + rm.getMinFeatures();
+                int newMax = (int) Math.floor(multi * rm.getMaxFeatures());
+                int newMin = (int) Math.floor(multi * rm.getMinFeatures());
+
+	            totalFeatures = calcFeatures.nextInt(newMax-newMin) + newMin;
 	            completeSection = generateVillage(totalFeatures, secNumber,arrayS);
         	} 
         }
@@ -87,7 +96,10 @@ public class SectionBuilder {
         	natureBuilt++;
         	
         	if (natureBuilt <= maxNature) {
-        		totalFeatures = calcFeatures.nextInt(nfm.getMaxFeatures()-nfm.getMinFeatures()) + nfm.getMinFeatures();
+                int newMax = (int) Math.floor(multi * nfm.getMaxFeatures());
+                int newMin = (int) Math.floor(multi * nfm.getMinFeatures());
+
+        		totalFeatures = calcFeatures.nextInt(newMax-newMin) + newMin;
         		completeSection = generateNaturalFeature(totalFeatures, secNumber,arrayS);
         	} 
         }
@@ -96,7 +108,10 @@ public class SectionBuilder {
         	campsBuilt++;
         	
         	if (campsBuilt <= maxCamps) {
-        		totalFeatures = calcFeatures.nextInt(csm.getMaxFeatures()-csm.getMinFeatures()) + csm.getMinFeatures();
+        		int newMax = (int) Math.floor(multi * csm.getMaxFeatures());
+                int newMin = (int) Math.floor(multi * csm.getMinFeatures());
+
+        		totalFeatures = calcFeatures.nextInt(newMax-newMin) + newMin;
         		completeSection = generateCamp(totalFeatures, secNumber,arrayS);
         	} 
         } 
