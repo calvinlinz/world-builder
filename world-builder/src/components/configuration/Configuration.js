@@ -394,7 +394,7 @@ const cha2Map = {
               aria-label="Small"
               valueLabelDisplay="auto"
               min={27}
-              max={45}
+              max={40}
               onChange={(e) => setGridSize(e.target.value)}
             />
           </div>
