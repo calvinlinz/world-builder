@@ -5,9 +5,10 @@ import { WorldDataContext } from "../../context/worldDataContext";
 import { useFilePicker } from "use-file-picker";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getBuildingCords, getCaveCords } from "../../grids/CalculatePositions";
 
 const ImportExport = () => {
-  const { worldData, loading, setWorldData } = useContext(WorldDataContext);
+  const { worldData, loading, setWorldData, setBuildingCords, setCaveCords } = useContext(WorldDataContext);
   const { openFilePicker, filesContent, load } = useFilePicker({
     accept: ".json",
   });
@@ -33,6 +34,10 @@ const ImportExport = () => {
     if (filesContent.length > 0) {
       let content = JSON.parse(filesContent[0].content);
       setWorldData(content, false);
+      const buildingCords = getBuildingCords(content);
+      const caveCords = getCaveCords(content);
+      setBuildingCords(buildingCords);
+      setCaveCords(caveCords);
       notifySuccess("Successfully imported JSON file");
     }
   }, [filesContent]);
@@ -43,10 +48,10 @@ const ImportExport = () => {
 
   return (
     <div className={styles.body}>
-
       <div className={styles.configContent}>
-
-        <h2><b>IMPORT / EXPORT</b></h2>
+        <h2>
+          <b>IMPORT / EXPORT</b>
+        </h2>
         <div className={styles["button-container"]}>
           <div className={styles.button}>
             <Button variant="outlined" onClick={downloadJSON}>
